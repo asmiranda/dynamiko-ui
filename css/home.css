@@ -1,0 +1,50 @@
+.admin-message-text {
+    font-style: normal;
+    font-size: 22px;
+    color: #004080;
+}
+
+td.highlight {
+    background-color: whitesmoke !important;
+}
+
+.form-control {
+    margin: 2px;
+}
+
+.no-border {
+    border: 0;
+    box-shadow: none;
+    background-color:white;
+}
+
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    z-index:2147483647;
+    /* prevent horizontal scrollbar */
+    /*overflow-x: hidden;*/
+}
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+* html .ui-autocomplete {
+    height: 300px;
+}
+
+.childRecord th {text-align: center;}
+.mainSearch th {text-align: center;}
+.childRecord td:first-child {
+    text-align: center;
+}​
+
+div.upload {
+    background-color:#fff;
+    border: 1px solid #ddd;
+    border-radius:5px;
+    display:inline-block;
+    height: 30px;
+    padding:3px 40px 3px 3px;
+    position:relative;
+    width: auto;
+}
