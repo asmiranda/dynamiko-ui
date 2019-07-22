@@ -104,9 +104,9 @@ class LoadAutoCompleteLabel {
         var value = $(this.field).val();
 
         if (value!=null && value!="") {
-            var url = '/api/generic/autocompletelabel/' + moduleName + '/' + this.name + '/' + value;
+            var url = MAIN_URL+'/api/generic/autocompletelabel/' + moduleName + '/' + this.name + '/' + value;
             if (subModuleName) {
-                url = '/api/generic/autocompletelabel/' + subModuleName + '/' + this.name + '/' + value;
+                url = MAIN_URL+'/api/generic/autocompletelabel/' + subModuleName + '/' + this.name + '/' + value;
             }
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var innerForm = this.form;
