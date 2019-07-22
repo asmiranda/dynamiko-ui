@@ -142,7 +142,7 @@ class LoadPopSearchLabel {
         var moduleName = $(this.field).attr("module");
         var value = $(this.field).val();
 
-        var url = '/api/generic/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
+        var url = MAIN_URL+'/api/generic/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var innerForm = this.form;
         var successCallback = function(data) {
