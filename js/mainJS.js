@@ -75,14 +75,45 @@ class LeftMenu {
             console.log("Left Menu Extracted");
 //            console.log(data);
             context.addDashboard(data);
-            context.addSchool(data);
-            context.addReference(data);
-            context.addAdmin(data);
+            
+            var menus = ["School", "Admin", "HR", "Accounting", "Production", "Supply Chain", "Marketing", "CRM", "Reference"];
+            $.each(menus, function(i, obj) {
+                context.addMenu(obj, data);
+            });
+//            
+//            context.addSchool(data);
+//            context.addReference(data);
+//            context.addAdmin(data);
             context.initialize();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     };
+
+    addMenu(menu, data) {
+        var counter = 0;
+        $.each(data, function(i, obj) {
+            if (obj.getProp("group")==menu) {
+                if (counter == 0) {
+                    $(".sidebar-menu").append('' +
+                    '                <li class="treeview">\n' +
+                    '                   <a href="#">\n' +
+                    '                       <i class="fa fa-pie-chart"></i>\n' +
+                    '                       <span>'+menu+'</span>\n' +
+                    '                       <span class="pull-right-container">\n' +
+                    '                           <i class="fa fa-angle-left pull-right"></i>\n' +
+                    '                       </span>\n' +
+                    '                   </a>\n' +
+                    '                   <ul class="treeview-menu" id="'+menu+'Menu">\n' +
+                    '                   </ul>\n' +
+                    '                 </li>\n' +
+                    '');
+                }
+                counter++;
+                $("#"+menu+"Menu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+            }
+        });
+    }
 
     addAdmin(data) {
         var counter = 0;
