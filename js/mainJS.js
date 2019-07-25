@@ -76,7 +76,7 @@ class LeftMenu {
 //            console.log(data);
             context.addDashboard(data);
             
-            var menus = ["School", "Admin", "HR", "Accounting", "Production", "Supply Chain", "Marketing", "CRM", "Reference"];
+            var menus = ["School", "Admin", "HR", "Accounting", "Procurement", "Production", "Supply Chain", "Marketing", "CRM", "Reference"];
             $.each(menus, function(i, obj) {
                 context.addMenu(obj, data);
             });
