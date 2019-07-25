@@ -92,22 +92,24 @@ class ChildTab {
                 var keys = context.childTableColFields.split(",");
                 console.log(keys);
                 $.each(data, function(i, obj) {
-                    var key = obj[context.childFieldId];
+                    var keyId = obj[context.childFieldId];
                     console.log(key);
                     var record = [];
                     var modalId = "#myModal"+context.subModuleName;
-                    var buttonEdit = '<button recordId="'+key+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
-                    var buttonDelete = '<button recordId="'+key+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" type="button" class="btn btn-danger btnChildTabDelete" style="margin-left: 5px;" title="Delete Selected Record"><i class="fa fa-trash"></i></button>';
+                    var buttonEdit = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
+                    var buttonDelete = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" type="button" class="btn btn-danger btnChildTabDelete" style="margin-left: 5px;" title="Delete Selected Record"><i class="fa fa-trash"></i></button>';
                     var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
                     record.push(buttons);
-                    for (i=0;i<keys.length;i++) {
-                        let mykey = keys[i];
-                        let value = obj.getProp(mykey)
-                        console.log(mykey);
-                        console.log(value);
-                        record.push(value);
+                    for (var key of keys) {
+                        var value = obj.getProp(key);
+                        if (value) {
+                            record.push(value);
+                        }
+                        else {
+                            record.push("");
+                        }
                     }
-                    context.childTable.row.add(record).node().id = key;
+                    context.childTable.row.add(record).node().id = keyId;
                     context.childTable.draw(false);
                 });
             }

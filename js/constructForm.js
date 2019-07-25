@@ -351,15 +351,23 @@ class SearchTable {
         this.successCallback = function(data) {
             console.log("Reload Search");
             context.mainDataTable.clear();
-            var keys = Object.keys(data[0]);
-            $.each(data, function(i, obj) {
-                <!--console.log(i);-->
-                var key = obj[keys[0]];
+            var columns = $(context.searchTable).attr("columns");
+            console.log(columns);
+            var firstRec = Object.keys(data[0]);
+            var keys = columns.split(',');
+            $.each(data, function(index, obj) {
+                var keyId = obj.getProp(firstRec[0]);
                 var record = [];
-                for (i=1;i<keys.length;i++) {
-                    record.push(obj[keys[i]]);
+                for (var key of keys) {
+                    var value = obj.getProp(key);
+                    if (value) {
+                        record.push(value);
+                    }
+                    else {
+                        record.push("");
+                    }
                 }
-                context.mainDataTable.row.add(record).node().id = key;
+                context.mainDataTable.row.add(record).node().id = keyId;
                 context.mainDataTable.draw(false);
             });
             console.log(data);
