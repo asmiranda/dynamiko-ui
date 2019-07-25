@@ -54,7 +54,7 @@ class FieldMultiSelect {
             $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"']").each(function() {
                 var fieldLabelName = $(this).attr("name");
                 console.log("MULTI SELECT FIELD "+fieldLabelName);
-                var url = "/api/generic/multiselect/"+context.moduleName+"/"+fieldLabelName+"/"+recordId;
+                var url = MAIN_URL+"/api/generic/multiselect/"+context.moduleName+"/"+fieldLabelName+"/"+recordId;
                 console.log("url = "+url);
                 var ajaxRequestDTO = new AjaxRequestDTO(url, "");
                 var successCallback = function(data) {
@@ -78,7 +78,7 @@ class FieldMultiSelect {
         $(".multiSelectDisplayAdd[module='"+this.moduleName+"']").click(function() {
             var fieldName = $(this).attr("name");
             console.log("multiSelectDisplayAdd fieldName = "+fieldName);
-            var url = "/api/generic/multiselect/options/"+context.moduleName+"/"+fieldName;
+            var url = MAIN_URL+"/api/generic/multiselect/options/"+context.moduleName+"/"+fieldName;
             console.log("multiSelectDisplayAdd url = "+url);
             var myInput = $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
             var varr = [];
@@ -128,7 +128,7 @@ class FieldMultiSelect {
             var fieldName = $(this).attr("name");
             var fieldValue = $(this).val();
             console.log("multiSelectTextFilter fieldName = "+fieldName);
-            var url = "/api/generic/multiselect/options/filter/"+context.moduleName+"/"+fieldName+"/"+fieldValue;
+            var url = MAIN_URL+"/api/generic/multiselect/options/filter/"+context.moduleName+"/"+fieldName+"/"+fieldValue;
             console.log("multiSelectTextFilter url = "+url);
             var myInput = $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
             var varr = [];
@@ -168,7 +168,7 @@ class FieldAutoComplete {
         $(".autocomplete[module='"+this.moduleName+"'][mainmodule='"+this.moduleName+"']").each(function() {
             var fieldLabelName = $(this).attr("autoName");
             console.log("AUTO COMPLETE FIELD "+fieldLabelName);
-            var url = "/api/generic/autocomplete/"+context.moduleName+"/"+fieldLabelName;
+            var url = MAIN_URL+"/api/generic/autocomplete/"+context.moduleName+"/"+fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $("[autoNameField='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
@@ -276,7 +276,7 @@ class InitPopSearch {
         var context = this;
 
         var input = $('input[class~="filter"][module="'+this.moduleName+'"][popSearchName="'+this.name+'"]');
-        var url = '/api/generic/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
+        var url = MAIN_URL+'/api/generic/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             context.popSearchDataTable.clear();

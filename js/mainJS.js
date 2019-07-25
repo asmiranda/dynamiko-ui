@@ -80,10 +80,6 @@ class LeftMenu {
             $.each(menus, function(i, obj) {
                 context.addMenu(obj, data);
             });
-//            
-//            context.addSchool(data);
-//            context.addReference(data);
-//            context.addAdmin(data);
             context.initialize();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
@@ -111,81 +107,6 @@ class LeftMenu {
                 }
                 counter++;
                 $("#"+menu+"Menu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
-            }
-        });
-    }
-
-    addAdmin(data) {
-        var counter = 0;
-        $.each(data, function(i, obj) {
-            if (obj.getProp("group")=='Admin') {
-                if (counter == 0) {
-                    $(".sidebar-menu").append('' +
-                    '                <li class="treeview">\n' +
-                    '                   <a href="#">\n' +
-                    '                       <i class="fa fa-pie-chart"></i>\n' +
-                    '                       <span>Admin</span>\n' +
-                    '                       <span class="pull-right-container">\n' +
-                    '                           <i class="fa fa-angle-left pull-right"></i>\n' +
-                    '                       </span>\n' +
-                    '                   </a>\n' +
-                    '                   <ul class="treeview-menu" id="adminMenu">\n' +
-                    '                   </ul>\n' +
-                    '                 </li>\n' +
-                    '');
-                }
-                counter++;
-                $("#adminMenu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
-            }
-        });
-    }
-
-    addReference(data) {
-        var counter = 0;
-        $.each(data, function(i, obj) {
-            if (obj.getProp("group")=='Reference') {
-                if (counter == 0) {
-                    $(".sidebar-menu").append('' +
-                    '                <li class="treeview">\n' +
-                    '                   <a href="#">\n' +
-                    '                       <i class="fa fa-pie-chart"></i>\n' +
-                    '                       <span>Reference</span>\n' +
-                    '                       <span class="pull-right-container">\n' +
-                    '                           <i class="fa fa-angle-left pull-right"></i>\n' +
-                    '                       </span>\n' +
-                    '                   </a>\n' +
-                    '                   <ul class="treeview-menu" id="referenceMenu">\n' +
-                    '                   </ul>\n' +
-                    '                 </li>\n' +
-                    '');
-                }
-                counter++;
-                $("#referenceMenu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
-            }
-        });
-    }
-
-    addSchool(data) {
-        var counter = 0;
-        $.each(data, function(i, obj) {
-            if (obj.getProp("group")=='School') {
-                if (counter == 0) {
-                    $(".sidebar-menu").append('' +
-                    '                <li class="treeview">\n' +
-                    '                   <a href="#">\n' +
-                    '                       <i class="fa fa-pie-chart"></i>\n' +
-                    '                       <span>School</span>\n' +
-                    '                       <span class="pull-right-container">\n' +
-                    '                           <i class="fa fa-angle-left pull-right"></i>\n' +
-                    '                       </span>\n' +
-                    '                   </a>\n' +
-                    '                   <ul class="treeview-menu" id="schoolMenu">\n' +
-                    '                   </ul>\n' +
-                    '                 </li>\n' +
-                    '');
-                }
-                counter++;
-                $("#schoolMenu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
             }
         });
     }

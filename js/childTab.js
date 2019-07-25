@@ -92,8 +92,8 @@ class ChildTab {
                 var keys = context.childTableColFields.split(",");
                 console.log(keys);
                 $.each(data, function(i, obj) {
-                    <!--console.log(i);-->
                     var key = obj[context.childFieldId];
+                    console.log(key);
                     var record = [];
                     var modalId = "#myModal"+context.subModuleName;
                     var buttonEdit = '<button recordId="'+key+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
@@ -101,9 +101,12 @@ class ChildTab {
                     var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
                     record.push(buttons);
                     for (i=0;i<keys.length;i++) {
-                        record.push(obj.getProp(keys[i]));
+                        let mykey = keys[i];
+                        let value = obj.getProp(mykey)
+                        console.log(mykey);
+                        console.log(value);
+                        record.push(value);
                     }
-//                    console.log(record);
                     context.childTable.row.add(record).node().id = key;
                     context.childTable.draw(false);
                 });
