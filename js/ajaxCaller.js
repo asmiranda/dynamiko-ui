@@ -24,9 +24,9 @@ class AjaxCaller {
                 console.log(jqXHR);
                 console.log('textStatus:');
                 console.log(textStatus);
-                console.log('errorThrown:');
-                console.log(errorThrown);
-                var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseText);
+                console.log('responseJSON:');
+                console.log(jqXHR.responseJSON.message);
+                var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseJSON.message);
                 showModuleHelp.show();
             },
             success: callback
@@ -51,9 +51,9 @@ class AjaxCaller {
                 console.log(jqXHR);
                 console.log('textStatus:');
                 console.log(textStatus);
-                console.log('errorThrown:');
-                console.log(errorThrown);
-                var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseText);
+                console.log('responseJSON:');
+                console.log(jqXHR.responseJSON.message);
+                var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseJSON.message);
                 showModuleHelp.show();
             },
             success: callback
