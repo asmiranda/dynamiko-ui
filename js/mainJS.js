@@ -142,6 +142,7 @@ class LeftMenu {
 
             var fileUpload = new FileUpload();
             fileUpload.initUpload();
+
         });
     }
 }

@@ -18,6 +18,7 @@ class MainForm {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             $("#content-main").html(data);
+            $('[data-mask]').inputmask();
             context.controlButtonClass.initButtons();
             context.searchTableClass.initTable();
             context.fieldConstructor.initFields();

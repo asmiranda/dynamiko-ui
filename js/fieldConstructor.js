@@ -16,7 +16,7 @@ class FieldConstructor {
         var fieldMultiSelect = new FieldMultiSelect(this.moduleName);
         fieldMultiSelect.init();
 
-        <!--this is for calendar-->
+        // <!--this is for calendar-->
         $('.calendar').datepicker({
             autoclose: true,
             format: config.getDateFormat()
@@ -28,7 +28,7 @@ class FieldConstructor {
             $(inputs).each(function(index, obj) {
                 var name = $(obj).attr("name");
                 if (name) {
-                    <!--this is for popsearch only-->
+                    // <!--this is for popsearch only-->
                     var popSearchName = $(obj).attr("popSearchName");
                     if (popSearchName) {
                         var initPopSearch = new InitPopSearch(context.moduleName, context.mainForm, name);
@@ -244,7 +244,7 @@ class InitPopSearch {
 
     init() {
         console.log("this.init called == "+this.moduleName+":"+this.mainForm+":"+this.name);
-        <!--get all the 3 fields for popsearch-->
+        // <!--get all the 3 fields for popsearch-->
         var context = this;
         this.mainPopInput = $(this.mainForm + ' input[module="'+this.moduleName+'"][name="'+this.name+'"][popSearchName="'+this.name+'"]');
         this.labelPopInput = $(this.mainForm + ' input[module="'+this.moduleName+'"][tmpName="'+this.name+'"][popSearchName="'+this.name+'"]');
