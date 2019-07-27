@@ -196,30 +196,18 @@ class FieldAutoComplete {
                 },
                 minLength: 1,
                 select: function( event, ui ) {
-                    var id = ui.item.getProp("id");
-                    var code = ui.item.getProp("code");
-                    var name = ui.item.getProp("name");
-                    var description = ui.item.getProp("description");
-                    console.log( "Selected: " + name + ":" + id + ":" + description );
-                    if (code) {
-                        autoCompleteDisplayField.val(code+" - "+name);
-                    }
-                    else {
-                        autoCompleteDisplayField.val(name);
-                    }
-                    autoCompleteValueField.val(id);
-                    autoCompleteDescDiv.html(description);
+                    var code = ui.item.getProp("key");
+                    var name = ui.item.getProp("value");
+                    console.log( "Selected: " + name + ":" + code);
+                    autoCompleteValueField.val(code);
+                    autoCompleteDisplayField.val(name);
+                    autoCompleteDescDiv.html(name);
                     return false;
                 },
             });
             autoCompleteField.autocomplete("instance")._renderItem = function(ul, item) {
 //                console.log(item);
-                if (item.getProp("code")) {
-                    return $( "<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("code") + " - " + item.getProp("name") + "</div></li>" ).appendTo(ul);
-                }
-                else {
-                    return $( "<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("name") + "</div></li>" ).appendTo(ul);
-                }
+                return $( "<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("key") + " - " + item.getProp("value") + "</div></li>" ).appendTo(ul);
             };
         });
 
