@@ -121,6 +121,70 @@ class FormControlButton {
         context.initReport();
     };
 
+    rejectWFRecord() {
+        var context = this;
+        console.log("rejectWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/rejectWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    cancelWFRecord() {
+        var context = this;
+        console.log("cancelWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/cancelWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    forwardWFRecord() {
+        var context = this;
+        console.log("forwardWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/forwardWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    returnWFRecord() {
+        var context = this;
+        console.log("returnWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/returnWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
     approveWFRecord() {
         var context = this;
         console.log("approveWFRecord called");
