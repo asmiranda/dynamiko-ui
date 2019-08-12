@@ -99,10 +99,29 @@ class FormControlButton {
         $('button[class~="btnSaveUpload"]').click(function() {
             context.saveUpload(this);
         });
-        $('select.dynamicReport').change(function() {
-            context.displayReport(this);
-        });
+        context.extractReport();
     };
+
+    extractReport() {
+        var context = this;
+        var url = MAIN_URL+"/api/generic/report/dynamic/"+this.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(data).each(function(index, obj) {
+                console.log(obj);
+                var code = obj.getProp("key");
+                var name = obj.getProp("value");
+                $(".dynamicReport").append('<option value="'+code+'">'+name+'</option>');
+            });
+            $('select.dynamicReport').css("display", "");
+            $('select.dynamicReport').change(function() {
+                context.displayReport(this);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
 
     displayReport(mySelectReport) {
         var context = this;

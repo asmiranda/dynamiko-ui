@@ -4,9 +4,20 @@ class Dashboard {
 
     load(moduleName) {
         console.log("load "+moduleName);
-        $.get( "/module/"+moduleName, function( result ) {
-            console.log(result);
-            $("#content-main").html(result);
-        });
+
+        var url = MAIN_URL+"/api/ui/module/"+moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            $("#content-main").html(data);
+            $('[data-mask]').inputmask();
+            context.controlButtonClass.initButtons();
+            context.searchTableClass.initTable();
+            context.fieldConstructor.initFields();
+            context.childTabs.initTabs();
+            context.moduleHelper.initHelp();
+            context.profilePicLoader.init();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
     }
 }
