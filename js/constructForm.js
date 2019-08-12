@@ -99,10 +99,61 @@ class FormControlButton {
         $('button[class~="btnSaveUpload"]').click(function() {
             context.saveUpload(this);
         });
-        context.extractReport();
+
+        $('li.btnSubmit').click(function() {
+            context.submitWFRecord();
+        });
+        $('li.btnApprove').click(function() {
+            context.approveWFRecord();
+        });
+        $('button[class~="btnReturn"]').click(function() {
+            context.returnWFRecord();
+        });
+        $('button[class~="btnForward"]').click(function() {
+            context.forwardWFRecord();
+        });
+        $('button[class~="btnCancel"]').click(function() {
+            context.cancelWFRecord();
+        });
+        $('button[class~="btnReject"]').click(function() {
+            context.rejectWFRecord();
+        });
+        context.initReport();
     };
 
-    extractReport() {
+    approveWFRecord() {
+        var context = this;
+        console.log("approveWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/approveWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    submitWFRecord() {
+        var context = this;
+        console.log("submitWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/submitWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    initReport() {
         var context = this;
         var url = MAIN_URL+"/api/generic/report/dynamic/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
