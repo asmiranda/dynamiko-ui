@@ -103,6 +103,9 @@ class FormControlButton {
         $('li.btnSubmit').click(function() {
             context.submitWFRecord();
         });
+        $('li.btnEndorse').click(function() {
+            context.endorseWFRecord();
+        });
         $('li.btnApprove').click(function() {
             context.approveWFRecord();
         });
@@ -118,8 +121,53 @@ class FormControlButton {
         $('button[class~="btnReject"]').click(function() {
             context.rejectWFRecord();
         });
+        $('li.btnWfHistory').click(function() {
+            context.historyWFRecord();
+        });
         context.initReport();
     };
+
+    historyWFRecord() {
+        var context = this;
+        console.log("historyWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/historyWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log("historyWFRecord data");
+            console.log(data);
+
+
+            var str = '<div class="box">';
+            str += '<div class="box-header with-border">';
+            str += '<h3 class="box-title">Workflow Status</h3>';
+            str += '</div>';
+            str += '<!-- /.box-header -->';
+            str += '<div class="box-body">'
+            str += '<table class="table table-bordered"><tbody>';
+            str += '<tr><th>Approver</th><th>Role</th><th>Status</th></tr>';
+            $(data).each(function(index, obj) {
+                console.log(obj);
+                var employeeName = obj.getProp("employeeName");
+                var role = obj.getProp("role");
+                var status = obj.getProp("wfStatus");
+                if (status) {
+                    str += '<tr><td>'+employeeName+'</td><td>'+role+'</td><td>'+status+'</td></tr>';
+                }
+                else {
+                    str += '<tr><td>'+employeeName+'</td><td>'+role+'</td><td>--</td></tr>';
+                }
+            });
+            str += '</tbody></table>';
+            str += '</div></div>';
+          
+            var showModal = new ShowModalAny('', str);
+            showModal.show();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
 
     rejectWFRecord() {
         var context = this;
@@ -191,6 +239,22 @@ class FormControlButton {
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/approveWFRecord/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+            context.searchTableClass.reloadSearch();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    endorseWFRecord() {
+        var context = this;
+        console.log("endorseWFRecord called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var url = MAIN_URL+'/api/workflow/endorseWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);

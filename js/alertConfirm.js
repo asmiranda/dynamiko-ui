@@ -1,3 +1,18 @@
+class ShowModalAny {
+    constructor(title, helpHtml) {
+        this.title = title;
+        this.helpHtml = helpHtml;
+    }
+
+    show() {
+        var context = this;
+        $.alert({
+            title: context.title,
+            content: context.helpHtml,
+        });
+    }
+}
+
 class ShowModuleHelp {
     constructor(title, helpHtml) {
         this.title = title;
