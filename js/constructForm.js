@@ -10,6 +10,7 @@ class MainForm {
         this.fieldConstructor = new FieldConstructor(this.moduleName, this.mainForm);
         this.moduleHelper = new ModuleHelper(this.moduleName, this.mainForm);
         this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
+        this.formRule = new FormRule(this.moduleName, this.mainForm);
     }
 
     construct() {
@@ -25,10 +26,51 @@ class MainForm {
             context.childTabs.initTabs();
             context.moduleHelper.initHelp();
             context.profilePicLoader.init();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     };
+}
+
+class FormRule {
+    constructor(moduleName, mainForm) {
+        console.log("FormRule");
+        this.moduleName = moduleName;
+        this.mainForm = mainForm;
+    }
+
+    doRule() {
+        var context = this;
+        console.log("doRule called");
+        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
+        var vdata = JSON.stringify(convertFormToJSON.convert());
+        console.log(vdata);
+        var url = MAIN_URL+'/api/generic/formrule/' + context.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            context.setupButtons(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    setupButtons(formrule) {
+        this.disableEnableSelector(".btnNew", "withNew", formrule);
+        this.disableEnableSelector(".btnSave", "withSave", formrule);
+        this.disableEnableSelector(".btnDelete", "withDelete", formrule);
+        this.disableEnableSelector(".btnWf", "withWf", formrule);
+    }
+
+    disableEnableSelector(selector, enableField, formrule) {
+        if (formrule.getProp(enableField)) {
+            $(selector).attr("disabled", false);
+        }
+        else {
+            $(selector).attr("disabled", true);
+        }
+    }
 }
 
 class ProfilePicLoader {
@@ -485,6 +527,7 @@ class SearchTable {
         this.mainDataTable;
         this.selectedId;
         this.successCallback;
+        this.formRule = new FormRule(this.moduleName, this.mainForm);
     }
 
     initTable() {
@@ -525,6 +568,7 @@ class SearchTable {
             loadJsonToForm.load();
 
             context.childTabs.reloadAllChildRecords();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
