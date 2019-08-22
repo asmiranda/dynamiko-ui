@@ -21,10 +21,15 @@ class ShowModuleHelp {
 
     show() {
         var context = this;
-        $.alert({
-            title: context.title,
-            content: context.helpHtml,
-        });
+        if(context.helpHtml.indexOf('Expired') != -1) {
+            window.location.href = "login.html";
+        }
+        else {
+            $.alert({
+                title: context.title,
+                content: context.helpHtml,
+            });
+        }
     }
 }
 
