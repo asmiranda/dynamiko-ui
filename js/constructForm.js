@@ -57,14 +57,22 @@ class FormRule {
     }
 
     setupButtons(formrule) {
-        this.disableEnableSelector(".btnNew", "withNew", formrule);
-        this.disableEnableSelector(".btnSave", "withSave", formrule);
-        this.disableEnableSelector(".btnDelete", "withDelete", formrule);
-        this.disableEnableSelector(".btnWf", "withWf", formrule);
+        this.disableHideSelector(".btnNew", "btnNew", formrule);
+        this.disableHideSelector(".btnSave", "btnSave", formrule);
+        this.disableHideSelector(".btnDelete", "btnDelete", formrule);
+        this.disableHideSelector(".btnWf", "btnWf", formrule);
     }
 
-    disableEnableSelector(selector, enableField, formrule) {
-        if (formrule.getProp(enableField)) {
+    disableHideSelector(selector, field, formrule) {
+        var dispComp = formrule.getProp("componentDisplays").filter(display => field==display.name)[0];
+        if (dispComp.getProp("display")) {
+            $(selector).show();
+        }
+        else {
+            $(selector).hide();
+        }
+
+        if (dispComp.getProp("enabled")) {
             $(selector).attr("disabled", false);
         }
         else {
@@ -116,8 +124,7 @@ class FormControlButton {
         this.mainForm = mainForm;
         this.searchTableClass = searchTableClass;
         this.formUploadData = new FormData();
-
-        var context = this;
+        this.formRule = new FormRule(this.moduleName, this.mainForm);
     }
 
     initButtons() {
@@ -222,6 +229,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -238,6 +246,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -254,6 +263,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -270,6 +280,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -286,6 +297,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -302,6 +314,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -318,6 +331,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -478,6 +492,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -494,6 +509,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -512,6 +528,7 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
             context.searchTableClass.reloadSearch();
+            context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
