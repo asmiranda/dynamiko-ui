@@ -73,10 +73,10 @@ class FormRule {
         }
 
         if (dispComp.getProp("enabled")) {
-            $(selector).attr("disabled", false);
+            $(selector).prop("disabled", false);
         }
         else {
-            $(selector).attr("disabled", true);
+            $(selector).prop("disabled", true);
         }
     }
 }
