@@ -41,11 +41,11 @@
 
             <form class="form-signin" method="POST">
                 <div class="form-group has-feedback">
-                    <input class="form-control" id="email" name="email" th:placeholder="Email" type="email" />
+                    <input class="form-control logInput" id="email" name="email" th:placeholder="Email" type="email" />
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input class="form-control" id="password" name="password" th:placeholder="Password"
+                    <input class="form-control logInput" id="password" name="password" th:placeholder="Password"
                         type="password" />
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
@@ -88,15 +88,20 @@
                 increaseArea: '20%' /* optional */
             });
         });
-
-        $("#btnSubmit").click(
-            function () {
-                var vusername = $('#email').val();
-                var vpassword = $('#password').val();
-                var loginjs = new LoginJS(vusername, vpassword);
-                loginjs.login("home.html");
+        $('.logInput').keypress(function (e) {
+            if (e.which == 13) {
+                login();
             }
-        );
+        });
+        $("#btnSubmit").click(function() {
+            login();
+        });
+        function login() {
+            var vusername = $('#email').val();
+            var vpassword = $('#password').val();
+            var loginjs = new LoginJS(vusername, vpassword);
+            loginjs.login("home.html");
+        }
     </script>
 </body>
 
