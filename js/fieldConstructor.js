@@ -48,7 +48,7 @@ class FieldMultiSelect {
     init() {
         console.log("MULTI SELECT MODULE "+this.moduleName);
         var context = this;
-        $(".mainId[module='"+this.moduleName+"']").change(function() {
+        $(".mainId").change(function() {
             var recordId = $(this).val();
             console.log("RECORD ID = "+recordId);
             $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"']").each(function() {
