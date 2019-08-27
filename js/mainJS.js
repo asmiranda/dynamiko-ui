@@ -90,6 +90,7 @@ class LeftMenu {
         var counter = 0;
         $.each(data, function(i, obj) {
             if (obj.getProp("group")==menu) {
+                var menuId = menu.replace(/ /g,'')
                 if (counter == 0) {
                     $(".sidebar-menu").append('' +
                     '                <li class="treeview">\n' +
@@ -100,13 +101,13 @@ class LeftMenu {
                     '                           <i class="fa fa-angle-left pull-right"></i>\n' +
                     '                       </span>\n' +
                     '                   </a>\n' +
-                    '                   <ul class="treeview-menu" id="'+menu+'Menu">\n' +
+                    '                   <ul class="treeview-menu" id="'+menuId+'Menu">\n' +
                     '                   </ul>\n' +
                     '                 </li>\n' +
                     '');
                 }
                 counter++;
-                $("#"+menu+"Menu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+                $("#"+menuId+"Menu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
             }
         });
     }
