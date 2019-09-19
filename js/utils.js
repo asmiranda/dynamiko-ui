@@ -63,6 +63,8 @@ class LoadJsonToForm {
         var innerForm = this.form;
         var innerData = this.data;
         console.log("LoadJsonToForm == " + innerForm);
+        var clearForm = new ClearForm(innerForm);
+        clearForm.clear();
         $.each(innerData, function(k, v) {
             var field = $(innerForm + " [name='"+k+"']");
             if (field) {

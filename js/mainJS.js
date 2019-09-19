@@ -94,7 +94,7 @@ class LeftMenu {
                 if (counter == 0) {
                     $(".sidebar-menu").append('' +
                     '                <li class="treeview">\n' +
-                    '                   <a href="#">\n' +
+                    '                   <a href="#" id="'+obj.getProp("groupName")+'">\n' +
                     '                       <i class="fa fa-pie-chart"></i>\n' +
                     '                       <span>'+menu+'</span>\n' +
                     '                       <span class="pull-right-container">\n' +
@@ -107,7 +107,7 @@ class LeftMenu {
                     '');
                 }
                 counter++;
-                $("#"+menuId+"Menu").append('<li><a href="#" class="leftMenuItem" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+                $("#"+menuId+"Menu").append('<li><a href="#" class="leftMenuItem '+obj.getProp("name")+'" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
             }
         });
     }
@@ -143,9 +143,20 @@ class LeftMenu {
 
             var fileUpload = new FileUpload();
             fileUpload.initUpload();
-
         });
     }
+}
+
+function loadUI(myui) {
+    var registerDatatable = new RegisterDatatable();
+    registerDatatable.clearRegister();
+
+    var moduleName = myui;
+    var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
+    constructForm.construct();
+
+    var fileUpload = new FileUpload();
+    fileUpload.initUpload();
 }
 
 class FileUpload {

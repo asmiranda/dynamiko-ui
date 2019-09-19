@@ -6,7 +6,7 @@ class MainForm {
 
         this.childTabs = new ChildTabs(this.moduleName, this.mainForm);
         this.searchTableClass = new SearchTable(this.moduleName, this.mainForm, this.searchTable, this.childTabs);
-        this.controlButtonClass = new FormControlButton(this.moduleName, this.mainForm, this.searchTableClass);
+        this.controlButtonClass = new FormControlButton(this.moduleName, this.mainForm, this.searchTableClass, this.childTabs);
         this.fieldConstructor = new FieldConstructor(this.moduleName, this.mainForm);
         this.moduleHelper = new ModuleHelper(this.moduleName, this.mainForm);
         this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
@@ -119,10 +119,11 @@ class ModuleHelper {
 }
 
 class FormControlButton {
-    constructor(moduleName, mainForm, searchTableClass) {
+    constructor(moduleName, mainForm, searchTableClass, childTabs) {
         this.moduleName = moduleName;
         this.mainForm = mainForm;
         this.searchTableClass = searchTableClass;
+        this.childTabs = childTabs;
         this.formUploadData = new FormData();
         this.formRule = new FormRule(this.moduleName, this.mainForm);
     }
@@ -491,6 +492,9 @@ class FormControlButton {
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
+
+            context.childTabs.reloadAllChildRecords();
+
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -508,6 +512,9 @@ class FormControlButton {
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
+
+            context.childTabs.reloadAllChildRecords();
+
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -527,6 +534,9 @@ class FormControlButton {
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
+
+            context.childTabs.reloadAllChildRecords();
+
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -550,7 +560,7 @@ class SearchTable {
     initTable() {
         var context = this;
         this.mainDataTable = $(this.searchTable).DataTable( {
-            "searching": false
+            "searching": false,
         } );
 
         $(this.searchTable + ' tbody').on( 'click', 'tr', function () {
@@ -627,10 +637,13 @@ class SearchTable {
                         record.push("");
                     }
                 }
-                context.mainDataTable.row.add(record).node().id = keyId;
+                var node = context.mainDataTable.row.add(record).node();
+                node.id = keyId;
+                $(node).addClass("rec"+keyId);
+                // console.log(node);
                 context.mainDataTable.draw(false);
-            });
-            console.log(data);
+            });""
+            // console.log(data);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
         ajaxCaller.ajaxGet();
