@@ -11,6 +11,7 @@ class MainForm {
         this.moduleHelper = new ModuleHelper(this.moduleName, this.mainForm);
         this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
         this.formRule = new FormRule(this.moduleName, this.mainForm);
+        this.chartRule = new ChartRule(this.moduleName, this.mainForm);
     }
 
     construct() {
@@ -27,6 +28,7 @@ class MainForm {
             context.moduleHelper.initHelp();
             context.profilePicLoader.init();
             context.formRule.doRule();
+            context.chartRule.doChartRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
@@ -596,6 +598,7 @@ class SearchTable {
 
             context.childTabs.reloadAllChildRecords();
             context.formRule.doRule();
+            context.chartRule.doChartRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
