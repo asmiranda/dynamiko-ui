@@ -7,7 +7,7 @@ class MainReport {
     construct() {
         var context = this;
         $.get( "/module/"+this.moduleName, function( result ) {
-            <!--console.log(result);-->
+            // console.log(result);
             $("#content-main").html(result);
             context.invoiceReport.loadReport();
         });
