@@ -24,11 +24,11 @@ class ChartRule {
                 else if (chartType == "PIE") {
                     context.doPieChart(index, obj);
                 }
-                else if (chartType == "AREA") {
-                    context.doAreaChart(index, obj);
-                }
                 else if (chartType == "LINE") {
                     context.doLineChart(index, obj);
+                }
+                else if (chartType == "AREA") {
+                    context.doAreaChart(index, obj);
                 }
             });
         };
@@ -36,18 +36,18 @@ class ChartRule {
         ajaxCaller.ajaxPost();
     }
 
-    doLineChart(index, data) {
+    doAreaChart(index, data) {
         var chartTitle = $('.chartTitle' + (index + 1));
         $(chartTitle).html(data.getProp("chartTitle"));
         var lineChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
 
         var chartData = data.chartData;
-        console.log(chartData.labels);
-        var areaChartData = {
-            labels: chartData.labels,
+        console.log(chartData.horizontalLabels);
+        var lineChartData = {
+            labels: chartData.horizontalLabels,
             datasets: [
                 {
-                    label: 'Electronics',
+                    label: chartData.label1,
                     fillColor: 'rgba(210, 214, 222, 1)',
                     strokeColor: 'rgba(210, 214, 222, 1)',
                     pointColor: 'rgba(210, 214, 222, 1)',
@@ -57,7 +57,7 @@ class ChartRule {
                     data: chartData.data1
                 },
                 {
-                    label: 'Digital Goods',
+                    label: chartData.label2,
                     fillColor: 'rgba(60,141,188,0.9)',
                     strokeColor: 'rgba(60,141,188,0.8)',
                     pointColor: '#3b8bba',
@@ -65,11 +65,21 @@ class ChartRule {
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
                     data: chartData.data2
-                }
+                },
+                {
+                    label: chartData.label3,
+                    fillColor: 'rgba(210, 214, 222, 1)',
+                    strokeColor: 'rgba(210, 214, 222, 1)',
+                    pointColor: 'rgba(210, 214, 222, 1)',
+                    pointStrokeColor: '#c1c7d1',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data: chartData.data3
+                },
             ]
         }
 
-        var areaChartOptions = {
+        var lineChartOptions = {
             //Boolean - If we should show the scale at all
             showScale: true,
             //Boolean - Whether grid lines are shown across the chart
@@ -108,46 +118,54 @@ class ChartRule {
             responsive: true
         }
         var lineChart = new Chart(lineChartCanvas)
-        var lineChartOptions = areaChartOptions
         lineChartOptions.datasetFill = false
-        lineChart.Line(areaChartData, lineChartOptions)
+        lineChart.Line(lineChartData, lineChartOptions)
     }
 
-    doAreaChart(index, data) {
+    doLineChart(index, data) {
         var chartTitle = $('.chartTitle' + (index + 1));
-        $(chartTitle).html("My Chart");
+        $(chartTitle).html(data.getProp("chartTitle"));
+        var lineChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
 
-        var areaChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
-        // This will get the first returned node in the jQuery collection.
-        var areaChart = new Chart(areaChartCanvas)
-
-        var areaChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        var chartData = data.chartData;
+        console.log(chartData.horizontalLabels);
+        var lineChartData = {
+            labels: chartData.horizontalLabels,
             datasets: [
                 {
-                    label: 'Electronics',
+                    label: chartData.label1,
                     fillColor: 'rgba(210, 214, 222, 1)',
                     strokeColor: 'rgba(210, 214, 222, 1)',
                     pointColor: 'rgba(210, 214, 222, 1)',
                     pointStrokeColor: '#c1c7d1',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: chartData.data1
                 },
                 {
-                    label: 'Digital Goods',
+                    label: chartData.label2,
                     fillColor: 'rgba(60,141,188,0.9)',
                     strokeColor: 'rgba(60,141,188,0.8)',
                     pointColor: '#3b8bba',
                     pointStrokeColor: 'rgba(60,141,188,1)',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
+                    data: chartData.data2
+                },
+                {
+                    label: chartData.label3,
+                    fillColor: 'rgba(210, 214, 222, 1)',
+                    strokeColor: 'rgba(210, 214, 222, 1)',
+                    pointColor: 'rgba(210, 214, 222, 1)',
+                    pointStrokeColor: '#c1c7d1',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data: chartData.data3
+                },
             ]
         }
 
-        var areaChartOptions = {
+        var lineChartOptions = {
             //Boolean - If we should show the scale at all
             showScale: true,
             //Boolean - Whether grid lines are shown across the chart
@@ -185,9 +203,9 @@ class ChartRule {
             //Boolean - whether to make the chart responsive to window resizing
             responsive: true
         }
-
-        //Create the line chart
-        areaChart.Line(areaChartData, areaChartOptions)
+        var lineChart = new Chart(lineChartCanvas)
+        lineChartOptions.datasetFill = false
+        lineChart.Line(lineChartData, lineChartOptions)
     }
 
     doPieChart(index, data) {
@@ -265,25 +283,29 @@ class ChartRule {
 
     doBarChart(index, data) {
         var chartTitle = $('.chartTitle' + (index + 1));
-        $(chartTitle).html("My Chart");
+        $(chartTitle).html(data.getProp("chartTitle"));
 
-        var areaChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        var chartData = data.chartData;
+        var barChartData = {
+            labels: chartData.horizontalLabels,
             datasets: [
                 {
-                    label: 'Electronics',
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    label: chartData.label1,
+                    data: chartData.data1
                 },
                 {
-                    label: 'Digital Goods',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
+                    label: chartData.label2,
+                    data: chartData.data2
+                },
+                {
+                    label: chartData.label3,
+                    data: chartData.data3
+                },
             ]
         }
 
         var barChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
         var barChart = new Chart(barChartCanvas)
-        var barChartData = areaChartData
         barChartData.datasets[1].fillColor = '#00a65a'
         barChartData.datasets[1].strokeColor = '#00a65a'
         barChartData.datasets[1].pointColor = '#00a65a'
