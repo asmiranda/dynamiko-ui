@@ -52,19 +52,23 @@ class ChartRule {
                     borderColor: window.chartColors.red,
                     data: chartData.data1
                 },
-                {
-                    label: chartData.label2,
-                    backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-                    borderColor: window.chartColors.blue,
-                    data: chartData.data2
-                },
-                {
-                    label: chartData.label3,
-                    backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-                    borderColor: window.chartColors.green,
-                    data: chartData.data3
-                },
             ]
+        }
+        if (chartData.label2) {
+            lineChartData.datasets.push({
+                label: chartData.label2,
+                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.blue,
+                data: chartData.data2
+            });
+        }
+        if (chartData.label3) {
+            lineChartData.datasets.push({
+                label: chartData.label3,
+                backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.green,
+                data: chartData.data3
+            });
         }
 
         // var lineChart = new Chart(lineChartCanvas)
