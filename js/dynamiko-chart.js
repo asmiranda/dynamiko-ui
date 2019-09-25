@@ -15,6 +15,19 @@ class ChartRule {
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
+            $("div.chartDivs").children().hide();
+            $("div.chartDivs").empty();
+            var forAppend = `
+                <div class="chartTitle1 text-center"></div>
+                <div class="chartDiv chartDiv1">
+                    <canvas class="chart1" style="height: 150px; width: 200px;" height="150px" width="200px"></canvas>
+                </div>
+                <div class="chartTitle2 text-center"></div>
+                <div class="chartDiv chartDiv2">
+                    <canvas class="chart2" style="height: 150px; width: 200px;" height="150px" width="200px"></canvas>
+                </div>
+            `;
+            $("div.chartDivs").append(forAppend);
             $(data).each(function (index, obj) {
                 console.log(obj);
                 var chartType = obj.getProp("chartType");
@@ -37,9 +50,10 @@ class ChartRule {
     }
 
     doAreaChart(index, data) {
-        var chartTitle = $('.chartTitle' + (index + 1));
+        var offset = index + 1;
+        var chartTitle = $('.chartTitle'+offset+":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
-        var lineChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
+        var lineChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var color = Chart.helpers.color;
@@ -70,52 +84,52 @@ class ChartRule {
                 data: chartData.data3
             });
         }
-
-        // var lineChart = new Chart(lineChartCanvas)
-        var lineChart = new Chart(lineChartCanvas, {
+        var chartOptions = {
+            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: true,
+            //Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor: 'rgba(0,0,0,.05)',
+            //Number - Width of the grid lines
+            scaleGridLineWidth: 1,
+            //Boolean - Whether to show horizontal lines (except X axis)
+            scaleShowHorizontalLines: true,
+            //Boolean - Whether to show vertical lines (except Y axis)
+            scaleShowVerticalLines: true,
+            //Boolean - If there is a stroke on each bar
+            barShowStroke: true,
+            //Number - Pixel width of the bar stroke
+            barStrokeWidth: 2,
+            //Number - Spacing between each of the X value sets
+            barValueSpacing: 5,
+            //Number - Spacing between data sets within X values
+            barDatasetSpacing: 1,
+            //String - A legend template
+            // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            //Boolean - whether to make the chart responsive
+            legend: {
+                position: 'top',
+                labels: {
+                    boxWidth: 20,
+                    fontSize: 8,
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: true
+        }
+        var areaChart = new Chart(lineChartCanvas, {
             type: 'line',
             data: lineChartData,
-            options: {
-                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-                scaleBeginAtZero: true,
-                //Boolean - Whether grid lines are shown across the chart
-                scaleShowGridLines: true,
-                //String - Colour of the grid lines
-                scaleGridLineColor: 'rgba(0,0,0,.05)',
-                //Number - Width of the grid lines
-                scaleGridLineWidth: 1,
-                //Boolean - Whether to show horizontal lines (except X axis)
-                scaleShowHorizontalLines: true,
-                //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
-                //Boolean - If there is a stroke on each bar
-                barShowStroke: true,
-                //Number - Pixel width of the bar stroke
-                barStrokeWidth: 2,
-                //Number - Spacing between each of the X value sets
-                barValueSpacing: 5,
-                //Number - Spacing between data sets within X values
-                barDatasetSpacing: 1,
-                //String - A legend template
-                // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-                //Boolean - whether to make the chart responsive
-                legend: {
-                    position: 'top',
-                    labels: {
-                        boxWidth: 20,
-                        fontSize: 8,
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: true
-            }
+            options: chartOptions
         });
     }
 
     doLineChart(index, data) {
-        var chartTitle = $('.chartTitle' + (index + 1));
+        var offset = index + 1;
+        var chartTitle = $('.chartTitle'+offset+":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
-        var lineChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
+        var lineChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var color = Chart.helpers.color;
@@ -145,7 +159,6 @@ class ChartRule {
                 },
             ]
         }
-
         var lineChart = new Chart(lineChartCanvas, {
             type: 'line',
             data: lineChartData,
@@ -184,15 +197,13 @@ class ChartRule {
                 maintainAspectRatio: true
             }
         });
-
-        // var lineChart = new Chart(lineChartCanvas)
-        // lineChartOptions.datasetFill = false
-        // lineChart.Line(lineChartData, lineChartOptions)
     }
 
     doBarChart(index, data) {
-        var chartTitle = $('.chartTitle' + (index + 1));
+        var offset = index + 1;
+        var chartTitle = $('.chartTitle'+offset+":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
+        var barChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var color = Chart.helpers.color;
@@ -219,8 +230,6 @@ class ChartRule {
                 },
             ]
         }
-
-        var barChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d');
         var barChart = new Chart(barChartCanvas, {
             type: 'bar',
             data: barChartData,
@@ -262,8 +271,10 @@ class ChartRule {
     }
 
     doPieChart(index, data) {
-        var chartTitle = $('.chartTitle' + (index + 1));
+        var offset = index + 1;
+        var chartTitle = $('.chartTitle'+offset+":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
+        var pieChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var color = Chart.helpers.color;
@@ -305,8 +316,6 @@ class ChartRule {
                 },
             ]
         }
-        var pieChartCanvas = $('.chart' + (index + 1)).get(0).getContext('2d')
-
         var pieChart = new Chart(pieChartCanvas, {
             type: 'doughnut',
             data: pieChartData,

@@ -557,6 +557,7 @@ class SearchTable {
         this.selectedId;
         this.successCallback;
         this.formRule = new FormRule(this.moduleName, this.mainForm);
+        this.chartRule = new ChartRule(this.moduleName, this.mainForm);
     }
 
     initTable() {
