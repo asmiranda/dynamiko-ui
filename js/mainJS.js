@@ -43,6 +43,7 @@ class UIService {
         });
 
         this.initLogo();
+        this.initProfile();
 
         var leftMenu = new LeftMenu();
         leftMenu.init();
@@ -55,6 +56,18 @@ class UIService {
             console.log("logo ==");
             console.log(data);
             $(".logo").html(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    initProfile() {
+        var url = MAIN_URL + '/api/ui/profile';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log("profile ==");
+            console.log(data);
+            $(".profileName").html(data.getProp("profileName"));
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
