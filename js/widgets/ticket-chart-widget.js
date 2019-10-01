@@ -1,0 +1,24 @@
+class TicketChartWidget {
+    constructor() {
+    }
+
+    init() {
+        console.log("LOAD TICKET CHART");
+        if ($("#ticketChart")) {
+            var cashChart = document.getElementById("ticketChart").getContext("2d");
+
+            var ajaxRequestDTO = new AjaxRequestDTO();
+            ajaxRequestDTO.url = MAIN_URL+"/api/generic/widget/TicketChartWidget";
+            ajaxRequestDTO.data = "";
+
+            var successFunction = function(data) {
+                console.log(data);
+                var rule = new WidgetChartRule();
+                rule.doAreaChart("#ticketChart", data);
+            };
+
+            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
+            ajaxCaller.ajaxGet();
+        }
+    }
+}
