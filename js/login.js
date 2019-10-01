@@ -1,5 +1,3 @@
-var MAIN_URL = "http://localhost:8888";
-
 function LoginJS(uname, pword) {
     this.uname = uname;
     this.pword = pword;
@@ -10,6 +8,7 @@ function LoginJS(uname, pword) {
     };
 
     this.login = function(redUrl) {
+        var context = this;
         var vdata = JSON.stringify({ "username": this.uname, "password": this.pword });
         console.log(vdata);
         $.ajax({
@@ -19,6 +18,7 @@ function LoginJS(uname, pword) {
             contentType: 'application/json',
             success: function (data) {
                 console.log(data.token);
+                localStorage.uname = context.uname;
                 localStorage.token = data.token;
                 //redirect
                 setTimeout(function() {

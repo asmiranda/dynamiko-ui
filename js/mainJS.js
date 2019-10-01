@@ -67,6 +67,7 @@ class UIService {
         var successCallback = function(data) {
             console.log("profile ==");
             console.log(data);
+            USERNAME = data.getProp("userName");
             $(".profileName").html(data.getProp("profileName"));
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
