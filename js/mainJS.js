@@ -3,6 +3,7 @@ class UIService {
     }
     
     initHome() {
+        var context = this;
         Object.defineProperty(Object.prototype, "getProp", {
             value: function (prop) {
                 var key,self = this;
@@ -44,11 +45,31 @@ class UIService {
 
         this.initLogo();
         this.initProfile();
+        $(".pivotTable").click(function() {
+            context.showPivot();
+        });
 
         var leftMenu = new LeftMenu();
         leftMenu.init();
     }
     
+    showPivot() {
+        $("#content-main").empty();
+        $("#content-main").append('<div id="wdr-component" style="width: 95%; padding: 10px;"></div>');
+        var pivot = new WebDataRocks({
+            container: "#wdr-component",
+            toolbar: true,
+            report: {
+                dataSource: {
+                    filename: "https://cdn.webdatarocks.com/data/data.csv"
+                }
+            },
+            reportcomplete: function() {
+                $(".wdr-toolbar-group-right").css("padding-right", "10px");
+            }
+        });
+    }
+
     initLogo() {
         var url = MAIN_URL + '/api/ui/logo';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
