@@ -23,7 +23,7 @@ class WidgetChartRule {
 
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getChartOption();
+        var chartOptions = this.getChartOption(chartData);
         var areaChart = new Chart(lineChartCanvas, {
             type: 'line',
             data: lineChartData,
@@ -36,7 +36,7 @@ class WidgetChartRule {
 
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getChartOption();
+        var chartOptions = this.getChartOption(chartData);
         var lineChart = new Chart(lineChartCanvas, {
             type: 'line',
             data: lineChartData,
@@ -49,7 +49,7 @@ class WidgetChartRule {
 
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getChartOption();
+        var chartOptions = this.getChartOption(chartData);
         var barChart = new Chart(lineChartCanvas, {
             type: 'bar',
             data: lineChartData,
@@ -144,7 +144,7 @@ class WidgetChartRule {
         return lineChartData;
     }
 
-    getChartOption() {
+    getChartOption(chartData) {
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -178,6 +178,9 @@ class WidgetChartRule {
             },
             responsive: true,
             maintainAspectRatio: true
+        }
+        if (chartData && !chartData.label2) {
+            chartOptions.legend.display = false;
         }
         return chartOptions;
     }

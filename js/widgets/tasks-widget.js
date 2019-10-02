@@ -1,4 +1,4 @@
-class TaskWidget {
+class TasksWidget {
     constructor() {
     }
 

@@ -1,3 +1,15 @@
+ul.taskWidgetButton {    
+    display: inline-block;
+}
+
+ul li.taskWidgetButton {
+    display: block;
+    position: relative;
+    float: left;
+    margin-right: 2px;
+}
+
+
 .admin-message-text {
     font-style: normal;
     font-size: 22px;
