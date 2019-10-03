@@ -2,6 +2,7 @@ class DataVisualizer {
     constructor() {
         this.pivot;
         this.chart;
+        this.serverData;
     }
 
     init() {
@@ -39,7 +40,7 @@ class DataVisualizer {
                             <h3 class="box-title">Data Visualization</h3>
                         </div>
                         <div class="box-body">
-                            <div class="chart">
+                            <div class="chartContainer">
                                 <canvas id="wdr-chart"></canvas>
                             </div>
                         </div>
@@ -48,21 +49,16 @@ class DataVisualizer {
             </div>
         `;
         $("#content-main").append(str);
-        $("#dataVisualizer").change(function() {
+        $("#dataVisualizer").change(function () {
             context.updateData();
         });
         this.loadAllDataVisualizers();
         this.pivot = new WebDataRocks({
             container: "#wdr-component",
             toolbar: true,
-            report: {
-                dataSource: {
-                    data: context.getData()
-                },
-            },
             reportcomplete: function () {
                 $(".wdr-toolbar-group-right").css("padding-right", "10px");
-                // context.createPolarChart();
+                context.createChart();
             }
         });
     }
@@ -71,10 +67,11 @@ class DataVisualizer {
         var context = this;
         var val = $("#dataVisualizer").val();
 
-        var url = MAIN_URL+'/api/generic/visualizer/'+val;
+        var url = MAIN_URL + '/api/generic/visualizer/' + val;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(vdata) {
+        var successCallback = function (vdata) {
             console.log(vdata);
+            context.serverData = vdata;
             context.pivot.updateData({
                 data: vdata.data
             });
@@ -87,14 +84,14 @@ class DataVisualizer {
         var context = this;
         console.log("LOAD ALL VISUALIZERS...");
 
-        var url = MAIN_URL+'/api/generic/visualizer/all';
+        var url = MAIN_URL + '/api/generic/visualizer/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $("#dataVisualizer").empty();
-            $("#dataVisualizer").append('<option></option>');
-            $(data).each(function(index, obj) {
-                $("#dataVisualizer").append('<option value="'+obj.name+'">'+obj.title+'</option>');
+            $("#dataVisualizer").append('<option value="">-- Select Data --</option>');
+            $(data).each(function (index, obj) {
+                $("#dataVisualizer").append('<option value="' + obj.name + '">' + obj.title + '</option>');
             });
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
@@ -121,34 +118,99 @@ class DataVisualizer {
         return result;
     }
 
-    createPolarChart() {
+    createChart() {
         var context = this;
-        var drawChart = function(rawData) {
-            context.drawChart(rawData);
+        var drawPolar = function (rawData) {
+            context.drawPolar(rawData);
         };
-        var rewriteChart = function(rawData) {
+        var rewritePolar = function (rawData) {
             context.chart.destroy();
-            context.drawChart(rawData);
+            context.drawPolar(rawData);
         };
-        this.pivot.getData({
-            slice: {
-                "rows": [{
-                    "uniqueName": "Country",
-                    "sort": "asc"
-                }],
-                "columns": [{
-                    "uniqueName": "Measures"
-                }],
-                "measures": [{
-                    "uniqueName": "Profit",
-                    "aggregation": "sum"
-                }]
-            },
-        }, drawChart, rewriteChart);
+
+        var drawBar = function (rawData) {
+            context.drawBar(rawData);
+        };
+        var rewriteBar = function (rawData) {
+            context.chart.destroy();
+            context.drawBar(rawData);
+        };
+
+        var drawPie = function (rawData) {
+            context.drawPie(rawData);
+        };
+        var rewritePie = function (rawData) {
+            context.chart.destroy();
+            context.drawPie(rawData);
+        };
+
+        $("div.chartContainer").children().hide();
+        $("div.chartContainer").empty();
+        $("div.chartContainer").append('<canvas id="wdr-chart"></canvas>');        
+
+        if ($("#dataVisualizer").val() != "") {
+            if (context.serverData.chartType == 'polarArea') {
+                this.pivot.getData({
+                    slice: context.getSlice(),
+                }, drawPolar, rewritePolar);
+            }
+            else if (context.serverData.chartType == 'pie' || 
+                context.serverData.chartType == 'doughnut') {
+                this.pivot.getData({
+                    slice: context.getSlice(),
+                }, drawPie, rewritePie);
+            }
+            else if (context.serverData.chartType == 'bar' || 
+                context.serverData.chartType == 'area' || 
+                context.serverData.chartType == 'line') {
+                this.pivot.getData({
+                    slice: context.getSlice(),
+                }, drawBar, rewriteBar);
+            }
+        }
     }
 
-    drawChart(rawData) {
+    getSlice() {
+        var slice = {
+            "rows": [{
+                "uniqueName": "PRODUCTCODE",
+                "sort": "asc"
+            }],
+            "columns": [{
+                "uniqueName": "WFSTATUS"
+            }],
+            "measures": [{
+                "uniqueName": "QUANTITY",
+                "aggregation": "sum"
+            }]
+        };
+        return slice;
+    }
+
+    drawPie(rawData) {
         var context = this;
+        var ctx = document.getElementById("wdr-chart").getContext("2d");
+        context.chart = new Chart(ctx, {
+            data: context.getPieData(rawData),
+            type: context.serverData.chartType,
+            options: context.getLineChartOption()
+        });
+    }
+
+    drawBar(rawData) {
+        var context = this;
+        console.log(this.serverData);
+        var ctx = document.getElementById("wdr-chart").getContext("2d");
+        context.chart = new Chart(ctx, {
+            data: context.getLineData(rawData),
+            type: context.serverData.chartType,
+            options: context.getLineChartOption()
+        });
+    }
+
+    drawPolar(rawData) {
+        var context = this;
+        console.log(this.serverData);
         var data = context.prepareDataFunction(rawData);
         var data_for_charts = {
             datasets: [{
@@ -168,7 +230,7 @@ class DataVisualizer {
         var options = {
             responsive: true,
             legend: {
-                position: 'top',
+                position: context.serverData.legendPosition
             },
             scale: {
                 ticks: {
@@ -184,282 +246,123 @@ class DataVisualizer {
         var ctx = document.getElementById("wdr-chart").getContext("2d");
         context.chart = new Chart(ctx, {
             data: data_for_charts,
-            type: 'polarArea',
+            type: context.serverData.chartType,
             options: options
         });
     }
 
-    getData() {
-        return [{
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 455,
-            "Actual Expenses": 250,
-            "Budgeted Expenses": 55,
-            "Date": "2015-02-14T07:34:08",
-            "Price Per Unit": 45
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 156,
-            "Actual Expenses": 501,
-            "Budgeted Expenses": 55,
-            "Date": "2015-02-14T07:34:08",
-            "Price Per Unit": 48
-        },
-        {
-            "Country": "Spain",
-            "Product Category": "Entertainment equipment",
-            "Profit": 455,
-            "Actual Expenses": 302,
-            "Budgeted Expenses": 75,
-            "Date": "2016-01-11T07:28:30",
-            "Price Per Unit": 95
-        },
-        {
-            "Country": "Spain",
-            "Product Category": "Entertainment equipment",
-            "Profit": 455,
-            "Actual Expenses": 205,
-            "Budgeted Expenses": 75,
-            "Date": "2016-01-11T07:28:30",
-            "Price Per Unit": 14
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 236,
-            "Actual Expenses": 63,
-            "Budgeted Expenses": 55,
-            "Date": "2017-11-27T06:52:07",
-            "Price Per Unit": 45
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 355,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 55,
-            "Date": "2017-11-27T06:52:07",
-            "Price Per Unit": 43
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 354,
-            "Actual Expenses": 88,
-            "Budgeted Expenses": 65,
-            "Date": "2017-10-13T05:34:44",
-            "Price Per Unit": 45
-        }, {
-            "Country": "USA",
-            "Product Category": "Sports equipment",
-            "Profit": 354,
-            "Actual Expenses": 170,
-            "Budgeted Expenses": 65,
-            "Date": "2017-10-13T05:34:44",
-            "Price Per Unit": 45
-        },
-        {
-            "Country": "France",
-            "Product Category": "Sports equipment",
-            "Profit": 354,
-            "Actual Expenses": 230,
-            "Budgeted Expenses": 55,
-            "Date": "2014-11-20T07:16:26",
-            "Price Per Unit": 45
-        },
-        {
-            "Country": "France",
-            "Product Category": "Sports equipment",
-            "Profit": 354,
-            "Actual Expenses": 160,
-            "Budgeted Expenses": 25,
-            "Date": "2018-12-18T01:26:57",
-            "Price Per Unit": 22
-        },
-        {
-            "Country": "France",
-            "Product Category": "Sports equipment",
-            "Profit": 352,
-
-            "Actual Expenses": 180,
-
-            "Date": "2015-09-12T05:29:36",
-            "Price Per Unit": 89
-        },
-        {
-            "Country": "France",
-
-            "Product Category": "Entertainment equipment",
-            "Profit": 654,
-
-            "Actual Expenses": 190,
-            "Budgeted Expenses": 23,
-
-            "Date": "2016-06-13T11:43:37",
-            "Price Per Unit": 78
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 355,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 55,
-            "Date": "2015-10-03T05:41:44",
-            "Price Per Unit": 23
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 770,
-            "Actual Expenses": 177,
-            "Budgeted Expenses": 23,
-            "Date": "2014-04-28T06:05:53",
-            "Price Per Unit": 15
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 770,
-            "Actual Expenses": 200,
-            "Budgeted Expenses": 45,
-            "Date": "2014-06-13T03:03:22",
-            "Price Per Unit": 44
-        },
-        {
-
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 770,
-
-            "Actual Expenses": 300,
-            "Budgeted Expenses": 55,
-
-            "Date": "2015-07-28T12:04:26",
-            "Price Per Unit": 22
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 770,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 55,
-            "Date": "2014-12-31T10:21:58",
-            "Price Per Unit": 45
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 550,
-
-            "Actual Expenses": 120,
-            "Budgeted Expenses": 55,
-
-            "Date": "2017-09-09T07:11:20",
-            "Price Per Unit": 88
-        },
-        {
-
-            "Country": "France",
-            "Product Category": "Entertainment equipment",
-            "Profit": 655,
-            "Actual Expenses": 88,
-            "Budgeted Expenses": 45,
-            "Date": "2014-06-15T12:41:23",
-            "Price Per Unit": 35
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 354,
-            "Actual Expenses": 90,
-            "Budgeted Expenses": 55,
-            "Date": "2017-12-08T11:25:50",
-            "Price Per Unit": 74
-        },
-        {
-            "Country": "France",
-            "Product Category": "Cameras",
-            "Profit": 322,
-            "Actual Expenses": 30,
-            "Budgeted Expenses": 55,
-            "Date": "2018-03-18T04:39:25",
-            "Price Per Unit": 41
-        },
-        {
-            "Country": "France",
-            "Product Category": "Cameras",
-            "Profit": 322,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 55,
-            "Date": "2014-11-18T11:59:17",
-            "Price Per Unit": 44
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 774,
-            "Actual Expenses": 220,
-            "Budgeted Expenses": 123,
-            "Date": "2016-08-06T03:38:09",
-            "Price Per Unit": 99
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 436,
-            "Actual Expenses": 130,
-            "Budgeted Expenses": 123,
-            "Date": "2014-07-16T08:27:06",
-            "Price Per Unit": 36
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 655,
-            "Actual Expenses": 70,
-            "Budgeted Expenses": 123,
-            "Date": "2019-02-01T01:16:28",
-            "Price Per Unit": 98
-        },
-        {
-            "Country": "USA",
-            "Product Category": "Entertainment equipment",
-            "Profit": 455,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 123,
-            "Date": "2019-02-01T01:16:28",
-            "Price Per Unit": 105
-        },
-        {
-            "Country": "Australia",
-            "Product Category": "Entertainment equipment",
-            "Profit": 1500,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 123,
-            "Date": "2019-02-01T01:16:28",
-            "Price Per Unit": 105
-        },
-        {
-            "Country": "Italy",
-            "Product Category": "Entertainment equipment",
-            "Profit": 5000,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 123,
-            "Date": "2019-02-01T01:16:28",
-            "Price Per Unit": 105
-        },
-        {
-            "Country": "Sweden",
-            "Product Category": "Entertainment equipment",
-            "Profit": 3405,
-            "Actual Expenses": 140,
-            "Budgeted Expenses": 123,
-            "Date": "2019-02-01T01:16:28",
-            "Price Per Unit": 105
+    getLineData(rawData) {
+        var color = Chart.helpers.color;
+        var data = this.prepareDataFunction(rawData);
+        var lineChartData = {
+            labels: data.labels,
+            datasets: [
+                {
+                    backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                    borderColor: window.chartColors.red,
+                    data: data.data
+                },
+            ]
         }
-        ]
+        return lineChartData;
+    }
+
+    getPieData(rawData) {
+        var color = Chart.helpers.color;
+        var data = this.prepareDataFunction(rawData);
+        var lineChartData = {
+            labels: data.labels,
+            datasets: [
+                {
+                    backgroundColor: [
+                        color(window.chartColors.red).alpha(0.5).rgbString(),
+                        color(window.chartColors.orange).alpha(0.5).rgbString(),
+                        color(window.chartColors.yellow).alpha(0.5).rgbString(),
+                        color(window.chartColors.green).alpha(0.5).rgbString(),
+                        color(window.chartColors.blue).alpha(0.5).rgbString(),
+                    ],
+                    data: data.data
+                },
+            ]
+        }
+        return lineChartData;
+    }
+
+    getLineChartOption() {
+        var context = this;
+        var chartOptions = {
+            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: true,
+            //Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor: 'rgba(0,0,0,.05)',
+            //Number - Width of the grid lines
+            scaleGridLineWidth: 1,
+            //Boolean - Whether to show horizontal lines (except X axis)
+            scaleShowHorizontalLines: true,
+            //Boolean - Whether to show vertical lines (except Y axis)
+            scaleShowVerticalLines: true,
+            //Boolean - If there is a stroke on each bar
+            barShowStroke: true,
+            //Number - Pixel width of the bar stroke
+            barStrokeWidth: 2,
+            //Number - Spacing between each of the X value sets
+            barValueSpacing: 5,
+            //Number - Spacing between data sets within X values
+            barDatasetSpacing: 1,
+            //String - A legend template
+            // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            //Boolean - whether to make the chart responsive
+            legend: {
+                position: context.serverData.legendPosition,
+                labels: {
+                    boxWidth: 20,
+                    fontSize: 8,
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: true
+        }
+        return chartOptions;
+    }
+
+    getPieChartOption() {
+        var context = this;
+        var chartOptions = {
+            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: true,
+            //Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor: 'rgba(0,0,0,.05)',
+            //Number - Width of the grid lines
+            scaleGridLineWidth: 1,
+            //Boolean - Whether to show horizontal lines (except X axis)
+            scaleShowHorizontalLines: true,
+            //Boolean - Whether to show vertical lines (except Y axis)
+            scaleShowVerticalLines: true,
+            //Boolean - If there is a stroke on each bar
+            barShowStroke: true,
+            //Number - Pixel width of the bar stroke
+            barStrokeWidth: 10,
+            //Number - Spacing between each of the X value sets
+            barValueSpacing: 5,
+            //Number - Spacing between data sets within X values
+            barDatasetSpacing: 1,
+            //String - A legend template
+            // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            //Boolean - whether to make the chart responsive
+            legend: {
+                position: context.serverData.legendPosition,
+                labels: {
+                    boxWidth: 20,
+                    fontSize: 8,
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: true
+        }
+        return chartOptions;
     }
 }
