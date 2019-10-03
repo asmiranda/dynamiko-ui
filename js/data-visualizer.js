@@ -17,7 +17,21 @@ class DataVisualizer {
         var str = `
             <div style="padding: 10px;">
                 <div class="col-md-8">
-                    <div id="wdr-component"></div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div class="form-group">
+                                <label for="dataVisualizer" class="col-sm-2 control-label wdr-ui-element">
+                                    <h3 class="box-title" style="margin: 7px;">Select Data</h3>
+                                </label>
+                                <div class="input-group col-sm-10" style="margin-left:2px;">
+                                    <select id="dataVisualizer" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div id="wdr-component"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="box box-primary">
@@ -34,6 +48,10 @@ class DataVisualizer {
             </div>
         `;
         $("#content-main").append(str);
+        $("#dataVisualizer").change(function() {
+            context.updateData();
+        });
+        this.loadAllDataVisualizers();
         this.pivot = new WebDataRocks({
             container: "#wdr-component",
             toolbar: true,
@@ -47,6 +65,36 @@ class DataVisualizer {
                 context.createPolarChart();
             }
         });
+    }
+
+    updateData() {
+        var val = $("#dataVisualizer").val();
+
+        var url = MAIN_URL+'/api/generic/visualizer/'+val;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    loadAllDataVisualizers() {
+        var context = this;
+        console.log("LOAD ALL VISUALIZERS...");
+
+        var url = MAIN_URL+'/api/generic/visualizer/all';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $("#dataVisualizer").empty();
+            $("#dataVisualizer").append('<option></option>');
+            $(data).each(function(index, obj) {
+                $("#dataVisualizer").append('<option value="'+obj.name+'">'+obj.title+'</option>');
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
     }
 
     prepareDataFunction(rawData) {
