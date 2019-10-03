@@ -62,18 +62,22 @@ class DataVisualizer {
             },
             reportcomplete: function () {
                 $(".wdr-toolbar-group-right").css("padding-right", "10px");
-                context.createPolarChart();
+                // context.createPolarChart();
             }
         });
     }
 
     updateData() {
+        var context = this;
         var val = $("#dataVisualizer").val();
 
         var url = MAIN_URL+'/api/generic/visualizer/'+val;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
+        var successCallback = function(vdata) {
+            console.log(vdata);
+            context.pivot.updateData({
+                data: vdata.data
+            });
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
@@ -165,11 +169,6 @@ class DataVisualizer {
             responsive: true,
             legend: {
                 position: 'top',
-            },
-            title: {
-                display: true,
-                fontSize: 18,
-                text: 'Profit by Countries'
             },
             scale: {
                 ticks: {
