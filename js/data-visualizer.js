@@ -3,6 +3,7 @@ class DataVisualizer {
         this.pivot;
         this.chart;
         this.serverData;
+        this.slice;
     }
 
     init() {
@@ -55,12 +56,23 @@ class DataVisualizer {
         this.loadAllDataVisualizers();
         this.pivot = new WebDataRocks({
             container: "#wdr-component",
+            beforetoolbarcreated: context.customizeToolbar,
             toolbar: true,
             reportcomplete: function () {
                 $(".wdr-toolbar-group-right").css("padding-right", "10px");
                 context.createChart();
             }
         });
+    }
+
+    customizeToolbar(toolbar) {
+        var tabs = toolbar.getTabs(); // get all tabs from the toolbar
+        toolbar.getTabs = function () {
+            delete tabs[0];
+            delete tabs[1];
+            delete tabs[2];
+            return tabs;
+        }
     }
 
     updateData() {
@@ -72,6 +84,7 @@ class DataVisualizer {
         var successCallback = function (vdata) {
             console.log(vdata);
             context.serverData = vdata;
+            context.slice = vdata.chartSlice;
             context.pivot.updateData({
                 data: vdata.data
             });
@@ -104,13 +117,9 @@ class DataVisualizer {
         var data = [];
         for (var i = 0; i < rawData.data.length; i++) {
             var record = rawData.data[i];
-            if (record.c0 == undefined && record.r0 !== undefined) {
-                var _record = record.r0;
-                labels.push(_record);
-            }
-            if (record.c0 == undefined & record.r0 == undefined) continue;
-            if (record.v0 != undefined) {
-                data.push(!isNaN(record.v0) ? record.v0 : null);
+            if (record.r0 && record.c0 == undefined && !isNaN(record.v0)) {
+                labels.push(record.r0);
+                data.push(record.v0);
             }
         }
         result.labels = labels;
@@ -151,40 +160,23 @@ class DataVisualizer {
         if ($("#dataVisualizer").val() != "") {
             if (context.serverData.chartType == 'polarArea') {
                 this.pivot.getData({
-                    slice: context.getSlice(),
+                    slice: context.slice,
                 }, drawPolar, rewritePolar);
             }
             else if (context.serverData.chartType == 'pie' || 
                 context.serverData.chartType == 'doughnut') {
                 this.pivot.getData({
-                    slice: context.getSlice(),
+                    slice: context.slice,
                 }, drawPie, rewritePie);
             }
             else if (context.serverData.chartType == 'bar' || 
                 context.serverData.chartType == 'area' || 
                 context.serverData.chartType == 'line') {
                 this.pivot.getData({
-                    slice: context.getSlice(),
+                    slice: context.slice,
                 }, drawBar, rewriteBar);
             }
         }
-    }
-
-    getSlice() {
-        var slice = {
-            "rows": [{
-                "uniqueName": "PRODUCTCODE",
-                "sort": "asc"
-            }],
-            "columns": [{
-                "uniqueName": "WFSTATUS"
-            }],
-            "measures": [{
-                "uniqueName": "QUANTITY",
-                "aggregation": "sum"
-            }]
-        };
-        return slice;
     }
 
     drawPie(rawData) {
