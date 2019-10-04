@@ -316,6 +316,7 @@ class DataVisualizer {
             responsive: true,
             maintainAspectRatio: true
         }
+        chartOptions.legend = false;
         return chartOptions;
     }
 
