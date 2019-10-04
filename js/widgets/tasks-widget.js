@@ -6,7 +6,16 @@ class TasksWidget {
         var context = this;
         console.log("Testing Task Widget");
 
+        $(".btnStartTask").click(function() {
+            context.startTask();
+        });
         this.loadTask();
+    }
+
+    startTask() {
+        var moduleName = $("#selectStartTaskWidget").val();
+        var formLinker = new FormLinker();
+        formLinker.linkToForm(moduleName);
     }
 
     loadTask() {
@@ -74,6 +83,6 @@ class TasksWidget {
 
     clearInbox() {
         $(".forEndorsementMessage").empty();
-        $(".forEndorsementMessage").empty();
+        $(".forApprovalMessage").empty();
     }
 }

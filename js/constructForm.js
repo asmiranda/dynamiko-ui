@@ -15,7 +15,7 @@ class MainForm {
         this.printForm = new PrintForm(this.moduleName, this.mainForm);
     }
 
-    construct() {
+    construct(recordId) {
         var context = this;
         var url = MAIN_URL+"/api/ui/module/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -30,11 +30,32 @@ class MainForm {
             context.profilePicLoader.init();
             context.formRule.doRule();
             context.chartRule.doChartRule();
-            context.printForm.init();
+            // context.printForm.init();
+            if (recordId) {
+                context.loadRecord(recordId);
+            }
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     };
+
+    loadRecord(recordId) {
+        var context = this;
+        var url = MAIN_URL+'/api/generic/findRecord/' + this.moduleName + '/' + recordId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log("Record Found");
+            console.log(data);
+            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            loadJsonToForm.load();
+
+            context.childTabs.reloadAllChildRecords();
+            context.formRule.doRule();
+            context.chartRule.doChartRule();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
 }
 
 class PrintForm {
