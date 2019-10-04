@@ -12,6 +12,7 @@ class MainForm {
         this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
         this.formRule = new FormRule(this.moduleName, this.mainForm);
         this.chartRule = new ChartRule(this.moduleName, this.mainForm);
+        this.printForm = new PrintForm(this.moduleName, this.mainForm);
     }
 
     construct() {
@@ -29,10 +30,26 @@ class MainForm {
             context.profilePicLoader.init();
             context.formRule.doRule();
             context.chartRule.doChartRule();
+            context.printForm.init();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     };
+}
+
+class PrintForm {
+    constructor(moduleName, mainForm) {
+        console.log("PrintForm");
+        this.moduleName = moduleName;
+        this.mainForm = mainForm;
+    }
+
+    init() {
+        $("#printForm").click(function() {
+            console.log("Print Form.");
+            printJS('mainForm', 'html');
+        });
+    }
 }
 
 class FormRule {
