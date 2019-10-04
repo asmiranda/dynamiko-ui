@@ -1,3 +1,7 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
 ul.taskWidgetButton {    
     display: inline-block;
 }
