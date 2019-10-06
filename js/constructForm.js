@@ -99,6 +99,7 @@ class FormRule {
     setupButtons(formrule) {
         this.disableHideSelector(".btnNew", "btnNew", formrule);
         this.disableHideSelector(".btnSave", "btnSave", formrule);
+        this.disableHideSelector(".btnUpload", "btnUpload", formrule);
         this.disableHideSelector(".btnDelete", "btnDelete", formrule);
         this.disableHideSelector(".btnWf", "btnWf", formrule);
     }
@@ -468,7 +469,7 @@ class FormControlButton {
             context.listFileToTable(data);
         };
         var moduleName = $(myButton).attr("module");
-        var inputName = 'input[name="'+moduleName+'Id"]';
+        var inputName = 'input.mainId[module="'+moduleName+'"]';
         console.log("inputName = " + inputName);
         var recordId = $(inputName).val();
         console.log("recordId = " + recordId);

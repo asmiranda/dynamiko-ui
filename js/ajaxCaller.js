@@ -70,7 +70,7 @@ class AjaxFileViewer {
         var callback = this.ajaxCallback;
         $.ajax({
             type: 'GET',
-            url: "/api/generic/attachment/"+moduleName+"/"+recordId,
+            url: MAIN_URL+"/api/generic/attachment/"+moduleName+"/"+recordId,
             data: "",
             contentType: 'application/json',
             beforeSend: function(xhr) {
@@ -87,7 +87,7 @@ class AjaxFileViewer {
         var callback = this.ajaxCallback;
         $.ajax({
             type: 'GET',
-            url: "/api/generic/attachment/download/"+recordId,
+            url: MAIN_URL+"/api/generic/attachment/download/"+recordId,
             data: "",
             contentType: 'application/octet-stream',
             beforeSend: function(xhr) {
@@ -107,7 +107,7 @@ class AjaxReportViewer {
 
     display(reportName, vdata) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/api/generic/report/'+reportName, true);
+        xhr.open('GET', MAIN_URL+'/api/generic/report/'+reportName, true);
         xhr.responseType = 'arraybuffer';
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
 
@@ -123,7 +123,7 @@ class AjaxReportViewer {
 
     displayDynamic(entity, selectedValue) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/api/generic/report/dynamic/'+entity+"/"+selectedValue, true);
+        xhr.open('GET', MAIN_URL+'/api/generic/report/dynamic/'+entity+"/"+selectedValue, true);
         xhr.responseType = 'arraybuffer';
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
 
@@ -145,8 +145,10 @@ class AjaxUploader {
 
     uploadFile(moduleName, recordId, uploadType, formUploadData) {
         var callback = this.ajaxCallback;
+        var vurl = MAIN_URL+"/api/generic/attachment/upload/"+uploadType+"/"+moduleName+"/"+recordId;
+        console.log(vurl);
         $.ajax({
-            url: "/api/generic/attachment/upload/"+uploadType+"/"+moduleName+"/"+recordId,
+            url: vurl,
             type: "POST",
             data: formUploadData,
             processData: false,
@@ -171,7 +173,7 @@ class AjaxDeleteFile {
     deleteFile(fileUploadId) {
         var callback = this.ajaxCallback;
         $.ajax({
-            url: "/api/generic/attachment/delete/"+fileUploadId,
+            url: MAIN_URL+"/api/generic/attachment/delete/"+fileUploadId,
             type: "GET",
             data: "",
             contentType: 'application/json',

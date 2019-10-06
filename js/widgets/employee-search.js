@@ -37,7 +37,6 @@ class EmployeeSearchWidget {
             console.log(data);
             context.mainDataTable.clear();
             $.each(data, function(i, obj) {
-                <!--console.log(i);-->
                 var record = [];
                 record.push(obj["lastName"]+", "+obj["firstName"]);
                 record.push(obj["age"]);
