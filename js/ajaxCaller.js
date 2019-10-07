@@ -187,3 +187,30 @@ class AjaxDeleteFile {
         });
     }
 }
+
+class AjaxBytesLoader {
+    constructor() {
+
+    }
+
+    load(url, frame, callback) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url);
+        xhr.onload = function() {
+            if (this.readyState === this.DONE) {
+                if (this.status === 200) {
+                    // this.response is a Blob, because we set responseType above
+                    var data_url = URL.createObjectURL(this.response);
+                    callback(data_url);
+                } else {
+                    console.error('no pdf :(');
+                }
+            }
+        };
+        xhr.responseType = 'blob';
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+        xhr.send();
+
+    }
+}
