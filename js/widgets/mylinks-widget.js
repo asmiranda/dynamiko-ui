@@ -79,44 +79,13 @@ class MyLinksWidget {
         $("#MyLinksBody").empty();
         var str = `<iframe id="${myframe}" src="${url}" style="width: 100%; height: 100%"></iframe>`;
         $("#MyLinksBody").append(str);
-        
+
         var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/payslip';
         var ajax = new AjaxBytesLoader();
         ajax.load(url, myframe, function(data_url) {
             document.querySelector('#myPayslipFrame').src = data_url;
             $('#myLinksModal').modal();
         });
-    }
-
-    showPayslip2() {
-        var context = this;
-
-        $("#MyLinksBody").empty();
-        var str = `
-        <iframe id="myPayslipFrame" src="${url}" style="width: 100%; height: 100%"></iframe>
-
-        `;
-        $("#MyLinksBody").append(str);
-
-        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/payslip';
-        var xhr = new XMLHttpRequest();
-
-        xhr.open('GET', url);
-        xhr.onload = function() {
-            if (this.readyState === this.DONE) {
-                if (this.status === 200) {
-                    // this.response is a Blob, because we set responseType above
-                    var data_url = URL.createObjectURL(this.response);
-                    document.querySelector('#myPayslipFrame').src = data_url;
-                    $('#myLinksModal').modal();
-                } else {
-                    console.error('no pdf :(');
-                }
-            }
-        };
-        xhr.responseType = 'blob';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
-        xhr.send();
     }
 
     showHoliday() {
