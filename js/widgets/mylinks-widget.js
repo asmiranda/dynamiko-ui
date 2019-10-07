@@ -15,21 +15,21 @@ class MyLinksWidget {
         $(".myLink.holiday").click(function () {
             context.showHoliday();
         });
-        // $(".myLink.travel").click(function() {
-        //     context.showTravel();
-        // });
-        // $(".myLink.projects").click(function() {
-        //     context.showProjects();
-        // });
-        // $(".myLink.training").click(function() {
-        //     context.showTraining();
-        // });
-        // $(".myLink.accounting").click(function() {
-        //     context.showAccounting();
-        // });
-        // $(".myLink.helpdesk").click(function() {
-        //     context.showHelpdesk();
-        // });
+        $(".myLink.travel").click(function() {
+            context.showTravel();
+        });
+        $(".myLink.projects").click(function() {
+            context.showProjects();
+        });
+        $(".myLink.training").click(function() {
+            context.showTraining();
+        });
+        $(".myLink.accounting").click(function() {
+            context.showAccounting();
+        });
+        $(".myLink.helpdesk").click(function() {
+            context.showHelpdesk();
+        });
     }
 
     showAttendance() {
@@ -90,30 +90,104 @@ class MyLinksWidget {
 
     showHoliday() {
         var context = this;
+        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/holiday';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function (data) {
+            console.log(data);
+            $("#MyLinksBody").empty();
+            var str = `
+            <table class="table table-hover">
+                <tbody id="myHolidays">
+                    <tr>
+                    <th>Date</th>
+                    <th>Holiday</th>
+                    <th>Type</th>
+                    </tr>
+                </tbody>
+            </table>
+            `;
+            $("#MyLinksBody").append(str);
+            $(data).each(function (index, obj) {
+                console.log(obj);
+                var workDate = obj.getProp("holidayDate");
+                var name = obj.getProp("name");
+                var type = obj.getProp("type");
+
+                var trStr = `
+                <tr>
+                    <td>${workDate}</td>
+                    <td>${name}</td>
+                    <td>${type}</td>
+                </tr>
+                `;
+                $("#myHolidays").append(trStr);
+            });
+            $("#myLinksModalLabel").html("Holidays");
+            $('#myLinksModal').modal();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
     }
 
-    // showAttendance() {
-    //     var context = this;
-    // }
+    showTravel() {
+        var context = this;
+        var showModalAny = new ShowModalAny("For Implementation", "This site is for implementation.");
+    }
 
-    // showTravel() {
-    //     var context = this;
-    // }
+    showProjects() {
+        var context = this;
+    }
 
-    // showProjects() {
-    //     var context = this;
-    // }
+    showTraining() {
+        var context = this;
+        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/training';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function (data) {
+            console.log(data);
+            $("#MyLinksBody").empty();
+            var str = `
+            <table class="table table-hover">
+                <tbody id="myTrainings">
+                    <tr>
+                        <th>Training</th>
+                        <th>Location</th>
+                        <th>Facilitator</th>
+                        <th>Date</th>
+                    </tr>
+                </tbody>
+            </table>
+            `;
+            $("#MyLinksBody").append(str);
+            $(data).each(function (index, obj) {
+                console.log(obj);
+                var title = obj.getProp("title");
+                var location = obj.getProp("location");
+                var facilitator = obj.getProp("facilitator");
+                var startDate = obj.getProp("startDate")?obj.getProp("startDate"):"";
 
-    // showTraining() {
-    //     var context = this;
-    // }
+                var trStr = `
+                <tr>
+                    <td>${title}</td>
+                    <td>${location}</td>
+                    <td>${facilitator}</td>
+                    <td>${startDate}</td>
+                </tr>
+                `;
+                $("#myTrainings").append(trStr);
+            });
+            $("#myLinksModalLabel").html("Trainings");
+            $('#myLinksModal').modal();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
 
-    // showAccounting() {
-    //     var context = this;
-    // }
+    showAccounting() {
+        var context = this;
+    }
 
-    // showHelpdesk() {
-    //     var context = this;
-    // }
+    showHelpdesk() {
+        var context = this;
+    }
 }
 
