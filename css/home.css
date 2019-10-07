@@ -1,3 +1,7 @@
+.nav > li > a {
+    padding: 10px 15px;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
