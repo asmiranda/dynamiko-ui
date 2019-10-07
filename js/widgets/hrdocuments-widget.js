@@ -27,7 +27,7 @@ class HrDocumentsWidget {
                 var str = `
                 <strong><i class="${icon} margin-r-5"></i> ${title}
                 <a class="cursor-pointer showHrDocument" recId="${docId}">
-                    <i class="fa fa-download"></i>
+                    <i class="fa fa-location-arrow"></i>
                 </a>
                 <p class="text-muted ml-5">
                     ${shortDescription}

@@ -41,6 +41,8 @@ class TasksWidget {
                 var receiverId = obj.getProp("receiverId");
                 var senderName = obj.getProp("senderName");
                 var receiverName = obj.getProp("receiverName");
+                var entity = obj.getProp("entity");
+                var entityId = obj.getProp("entityId");
 
                 var str = `
                     <div class="direct-chat-msg __class__">
@@ -49,7 +51,7 @@ class TasksWidget {
                             <span class="direct-chat-timestamp pull-right">${dateStr}</span>
                         </div>
                         <img class="direct-chat-img" src="${MAIN_URL}/api/generic/profilePic/PersonUI/__personId__" alt="User">
-                        <div class="direct-chat-text">${description}</div>
+                        <div class="direct-chat-text cursor-pointer taskLinker" module="${entity}" recId="${entityId}">${description}</div>
                     </div>
                 `;
                 // console.log(str);
@@ -75,10 +77,20 @@ class TasksWidget {
                         $(".forApprovalMessage").append(str);
                     }
                 }
+                $(".taskLinker").click(function() {
+                    context.taskLinker(this);
+                });
             });
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
+    }
+
+    taskLinker(obj) {
+        var moduleName = $(obj).attr("module");
+        var recId = $(obj).attr("recID");
+        var formLinker = new FormLinker();
+        formLinker.linkToForm(moduleName+"UI", recId);
     }
 
     clearInbox() {
