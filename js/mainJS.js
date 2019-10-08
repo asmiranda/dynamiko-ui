@@ -3,6 +3,13 @@ class UIService {
     }
     
     initHome() {
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+        });
+        
         Object.defineProperty(Object.prototype, "getProp", {
             value: function (prop) {
                 var key,self = this;
