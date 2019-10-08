@@ -92,7 +92,7 @@ class ChildTab {
                 var keys = context.childTableColFields.split(",");
                 console.log(keys);
                 $.each(data, function(i, obj) {
-                    var keyId = obj[context.childFieldId];
+                    var keyId = obj.getProp(context.childFieldId);
                     console.log(key);
                     var record = [];
                     var modalId = "#myModal"+context.subModuleName;
