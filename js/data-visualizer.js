@@ -117,9 +117,14 @@ class DataVisualizer {
         var data = [];
         for (var i = 0; i < rawData.data.length; i++) {
             var record = rawData.data[i];
-            if (record.r0 && record.c0 == undefined && !isNaN(record.v0)) {
+            if (record.r0 && record.c0 == undefined) {
                 labels.push(record.r0);
-                data.push(record.v0);
+                if (!isNaN(record.v0) && record.v0 > 0) {
+                    data.push(record.v0.toFixed(2));
+                }
+                if (!isNaN(record.v1) && record.v1 > 0) {
+                    data.push(record.v1.toFixed(2));
+                }
             }
         }
         result.labels = labels;
