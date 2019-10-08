@@ -2,7 +2,7 @@ class ChatWidget {
     constructor() {
     }
 
-    init() {
+    init() { 
         var context = this;
         console.log("ChatWidget");
 
