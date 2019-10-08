@@ -10,7 +10,7 @@ class ChatWidget {
             type: "input",
             tag: "text",
             name: "name",
-            "chat-msg": "Hi, I'm Chatty. What's your name?"
+            "chat-msg": "Hi, I'm Dynamiko. What's your name?"
         },
         {
             type: "input",
@@ -88,7 +88,7 @@ class ChatWidget {
         }
         ];
 
-        Chat.start($('#chat-context'), tags);
+        Chat.start($('#mychat-context'), tags);
     }
 
     customTagRender() {
