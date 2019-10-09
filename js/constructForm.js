@@ -216,6 +216,7 @@ class FormControlButton {
             context.historyWFRecord();
         });
         context.initReport();
+        context.initActions();
     };
 
     historyWFRecord() {
@@ -379,6 +380,43 @@ class FormControlButton {
         ajaxCaller.ajaxPost();
     }
 
+    initActions() {
+        var context = this;
+        var url = MAIN_URL+"/api/generic/actions/"+this.moduleName;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(data).each(function(index, obj) {
+                console.log(obj);
+                var code = obj.getProp("key");
+                var name = obj.getProp("value");
+                var module = context.moduleName;
+
+                var str = `<li class="myAction ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
+                $(".specialActions").after(str);
+            });
+            $('.myAction').click(function() {
+                context.doAction(this);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    doAction(obj) {
+        var context = this;
+        var url = MAIN_URL+"/api/generic/action/"+this.moduleName+"/"+$(obj).attr("value");
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            var display = new ShowModalAny("Action", data);
+            display.show();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
     initReport() {
         var context = this;
         var url = MAIN_URL+"/api/generic/report/dynamic/"+this.moduleName;
@@ -391,8 +429,8 @@ class FormControlButton {
                 var name = obj.getProp("value");
                 var module = context.moduleName;
 
-                var str = `<li class="myReport ${code}" module="${module}" value="${code}"><a href="#">${name}</a></li>`;
-                $(".dynamicReport").append(str);
+                var str = `<li class="myReport ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-line-chart"> ${name}</i></a></li>`;
+                $(".dynamicReport").after(str);
             });
             $('.myReport').click(function() {
                 context.displayReport(this);
