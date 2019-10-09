@@ -389,10 +389,12 @@ class FormControlButton {
                 console.log(obj);
                 var code = obj.getProp("key");
                 var name = obj.getProp("value");
-                $(".dynamicReport").append('<option value="'+code+'">'+name+'</option>');
+                var module = context.moduleName;
+
+                var str = `<li class="myReport ${code}" module="${module}" value="${code}"><a href="#">${name}</a></li>`;
+                $(".dynamicReport").append(str);
             });
-            $('select.dynamicReport').css("display", "");
-            $('select.dynamicReport').change(function() {
+            $('.myReport').click(function() {
                 context.displayReport(this);
             });
         };
@@ -402,7 +404,8 @@ class FormControlButton {
 
     displayReport(mySelectReport) {
         var context = this;
-        var value = $(mySelectReport).val();
+        var value = $(mySelectReport).attr("value");
+        // var value = $(mySelectReport).val();
         if (value == null || value == '' || value == '--Reports--') {
             console.log("EMPTY REPRT");
             return;
