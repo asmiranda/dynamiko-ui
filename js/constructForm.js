@@ -135,10 +135,16 @@ class ProfilePicLoader {
         $("input.mainId[module='"+this.moduleName+"']").on('change', function() {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
-            console.log("ProfilePicLoader src="+MAIN_URL+"/api/generic/profilePic/"+context.moduleName+"/"+recordId);
-
-            $("#profilePic").attr("src", MAIN_URL+"/api/generic/profilePic/"+context.moduleName+"/"+recordId);
+            if (recordId && recordId > 0) {
+                console.log("ProfilePicLoader src="+MAIN_URL+"/api/generic/profilePic/"+context.moduleName+"/"+recordId);
+                $("#profilePic").attr("src", MAIN_URL+"/api/generic/profilePic/"+context.moduleName+"/"+recordId);
+                $("#profilePic").show();
+            }
+            else {
+                $("#profilePic").hide();
+            }
         });
+        $("#profilePic").hide();
     }
 }
 
@@ -175,19 +181,19 @@ class FormControlButton {
             autoOpen: false,
         });
         this.initFileUpload();
-        $('button[class~="btnNew"][module="'+this.moduleName+'"]').click(function() {
+        $('button.btnNew[module="'+this.moduleName+'"]').click(function() {
             context.newRecord();
         });
-        $('button[class~="btnSave"][module="'+this.moduleName+'"]').click(function() {
+        $('button.btnSave[module="'+this.moduleName+'"]').click(function() {
             context.saveRecord();
         });
-        $('button[class~="btnDelete"][module="'+this.moduleName+'"]').click(function() {
+        $('button.btnDelete[module="'+this.moduleName+'"]').click(function() {
             context.deleteRecord();
         });
-        $('button[class~="btnUpload"]').click(function() {
+        $('li.btnUpload').click(function() {
             context.listFileAttachments(this);
         });
-        $('button[class~="btnSaveUpload"]').click(function() {
+        $('button.btnSaveUpload').click(function() {
             context.saveUpload(this);
         });
 
@@ -200,16 +206,16 @@ class FormControlButton {
         $('li.btnApprove').click(function() {
             context.approveWFRecord();
         });
-        $('button[class~="btnReturn"]').click(function() {
+        $('li.btnReturn').click(function() {
             context.returnWFRecord();
         });
-        $('button[class~="btnForward"]').click(function() {
+        $('li.btnForward').click(function() {
             context.forwardWFRecord();
         });
-        $('button[class~="btnCancel"]').click(function() {
+        $('li.btnCancel').click(function() {
             context.cancelWFRecord();
         });
-        $('button[class~="btnReject"]').click(function() {
+        $('li.btnReject').click(function() {
             context.rejectWFRecord();
         });
         $('li.btnWfHistory').click(function() {
@@ -222,6 +228,9 @@ class FormControlButton {
     historyWFRecord() {
         var context = this;
         console.log("historyWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/historyWFRecord/' + context.moduleName;
@@ -264,6 +273,9 @@ class FormControlButton {
     rejectWFRecord() {
         var context = this;
         console.log("rejectWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/rejectWFRecord/' + context.moduleName;
@@ -281,6 +293,9 @@ class FormControlButton {
     cancelWFRecord() {
         var context = this;
         console.log("cancelWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/cancelWFRecord/' + context.moduleName;
@@ -298,6 +313,9 @@ class FormControlButton {
     forwardWFRecord() {
         var context = this;
         console.log("forwardWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/forwardWFRecord/' + context.moduleName;
@@ -315,6 +333,9 @@ class FormControlButton {
     returnWFRecord() {
         var context = this;
         console.log("returnWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/returnWFRecord/' + context.moduleName;
@@ -332,6 +353,9 @@ class FormControlButton {
     approveWFRecord() {
         var context = this;
         console.log("approveWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/approveWFRecord/' + context.moduleName;
@@ -349,6 +373,9 @@ class FormControlButton {
     endorseWFRecord() {
         var context = this;
         console.log("endorseWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/endorseWFRecord/' + context.moduleName;
@@ -366,6 +393,9 @@ class FormControlButton {
     submitWFRecord() {
         var context = this;
         console.log("submitWFRecord called");
+        if (!this.mandatorySelectRecord()) {
+            return;
+        }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         var url = MAIN_URL+'/api/workflow/submitWFRecord/' + context.moduleName;
@@ -502,20 +532,37 @@ class FormControlButton {
         });
     }
 
+    mandatorySelectRecord() {
+        var recordId = $('input.mainId').val();
+
+        if (recordId > 0) {
+            return true;
+        }
+        else {
+            var showModalAny = new ShowModalAny("No Record Selected", "Please select a record.");
+            showModalAny.show();
+            return false;
+        }
+    }
+
     listFileAttachments(myButton) {
-        var context = this;
         console.log("listFileAttachments");
-        var successCallback = function(data) {
-            console.log(data);
-            context.listFileToTable(data);
-        };
         var moduleName = $(myButton).attr("module");
         var inputName = 'input.mainId[module="'+moduleName+'"]';
         console.log("inputName = " + inputName);
         var recordId = $(inputName).val();
         console.log("recordId = " + recordId);
-        var ajaxFileViewer = new AjaxFileViewer(successCallback);
-        ajaxFileViewer.getAllFiles(moduleName, recordId);
+
+        if (this.mandatorySelectRecord()) {
+            $('#fileUploadDialog').modal('show');
+            var context = this;
+            var successCallback = function(data) {
+                console.log(data);
+                context.listFileToTable(data);
+            };
+            var ajaxFileViewer = new AjaxFileViewer(successCallback);
+            ajaxFileViewer.getAllFiles(moduleName, recordId);
+        }
     }
 
     static downloadFile(fileId) {
