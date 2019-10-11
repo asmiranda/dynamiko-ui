@@ -57,6 +57,9 @@ class UIService {
 
         var dataVisualizer = new DataVisualizer();
         dataVisualizer.init();
+
+        var reportViewer = new MyReportViewer();
+        reportViewer.init();
     }
 
     initLogo() {

@@ -1,0 +1,120 @@
+class MyReportViewer {
+    constructor(moduleName) {
+        this.moduleName = moduleName;
+        this.invoiceReport = new InvoiceReport();
+    }
+
+    init() {
+        var context = this;
+        $(".myReportViewer").click(function() {
+            context.displayReportViewer();
+        });
+    };
+
+    displayReportViewer() {
+        var context = this;
+        $("#content-main").empty();
+        var str = `
+        <div style="padding: 10px;">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-2">
+                        Report Viewer
+                    </div>
+                    <div class="pull-right box-tools">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btnWf">Choose Report</button>
+                        <button type="button" class="btn btn-info dropdown-toggle btnWf" data-toggle="dropdown" aria-expanded="true">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu reportViewerList" role="menu" aria-labelledby="dropdownMenu">
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title reportViewerTitle">Choose Report</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <iframe id="reportViewerFrame" src="" style="width: 100%; height: 550px;"></iframe>
+                            </div>
+                            <div class="col-md-3">
+                                <form id="reportViewerFormCriteria">
+                                    <input type="hidden"></input>
+                                    <div class="box-body formCriteriaBody">
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="button" class="btn btn-info pull-right btnSubmitReportCriteria" reportName="">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        $("#content-main").append(str);
+        this.loadAllReports();
+    }
+
+    displayReportPdf(obj) {
+        var reportName = $(obj).attr("reportName");
+
+        var vdata = $("#reportViewerFormCriteria").serialize();
+        console.log(vdata);
+
+        var url = MAIN_URL + '/api/generic/pcustomreports/' + reportName + "/run?"+vdata;
+        $("#reportViewerFrame").attr("src", url);
+    }
+
+    displayReportPage(obj) {
+        var context = this;
+        var val = $(obj).attr("value");
+        var label = $(obj).attr("label");
+        $(".reportViewerTitle").html(label);
+        $(".btnSubmitReportCriteria").attr("reportName", val);
+
+        var url = MAIN_URL + '/api/generic/customreports/' + val;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function (data) {
+            console.log(data);
+            $(".formCriteriaBody").empty();
+            $(".formCriteriaBody").append(data);
+
+            $('.btnSubmitReportCriteria').click(function() {
+                context.displayReportPdf(this);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    loadAllReports() {
+        var context = this;
+        console.log("LOAD ALL REPORTS...");
+
+        var url = MAIN_URL + '/api/generic/customreports/all';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function (data) {
+            console.log(data);
+            $("#reportViewerList").empty();
+            $(data).each(function (index, obj) {
+                var code = obj.getProp("name");
+                var name = obj.getProp("title");
+
+                var str = `<li class="myReportViewer ${code}" value="${code}" label="${name}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
+                $(".reportViewerList").append(str);
+            });
+            $('.myReportViewer').click(function() {
+                context.displayReportPage(this);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+}
