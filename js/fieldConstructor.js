@@ -5,7 +5,7 @@ class FieldConstructor {
     }
 
     initFields() {
-        console.log("this.initFields called == "+this.moduleName+":"+this.mainForm);
+        console.log("this.initFields called == " + this.moduleName + ":" + this.mainForm);
         var context = this;
 
         var config = new Config();
@@ -22,10 +22,10 @@ class FieldConstructor {
             format: config.getDateFormat()
         });
 
-        $(mainForm).each(function(index, obj) {
+        $(mainForm).each(function (index, obj) {
             console.log("all inputs");
             var inputs = $(this).find(':input');
-            $(inputs).each(function(index, obj) {
+            $(inputs).each(function (index, obj) {
                 var name = $(obj).attr("name");
                 if (name) {
                     // <!--this is for popsearch only-->
@@ -46,24 +46,24 @@ class FieldMultiSelect {
     }
 
     init() {
-        console.log("MULTI SELECT MODULE "+this.moduleName);
+        console.log("MULTI SELECT MODULE " + this.moduleName);
         var context = this;
-        $(".mainId").change(function() {
+        $(".mainId").change(function () {
             var recordId = $(this).val();
-            console.log("RECORD ID = "+recordId);
-            $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"']").each(function() {
+            console.log("RECORD ID = " + recordId);
+            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "']").each(function () {
                 var fieldLabelName = $(this).attr("name");
-                console.log("MULTI SELECT FIELD "+fieldLabelName);
-                var url = MAIN_URL+"/api/generic/multiselect/"+context.moduleName+"/"+fieldLabelName+"/"+recordId;
-                console.log("url = "+url);
+                console.log("MULTI SELECT FIELD " + fieldLabelName);
+                var url = MAIN_URL + "/api/generic/multiselect/" + context.moduleName + "/" + fieldLabelName + "/" + recordId;
+                console.log("url = " + url);
                 var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-                var successCallback = function(data) {
+                var successCallback = function (data) {
                     console.log(data);
                     var fieldName = $(data)[0].field;
-                    console.log("fieldName = "+fieldName);
-                    var myInput = $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
+                    console.log("fieldName = " + fieldName);
+                    var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
                     $(myInput).empty();
-                    $.each(data, function(i, obj) {
+                    $.each(data, function (i, obj) {
                         if (i > 0) {
                             var opt = new Option(obj["label"], obj["id"]);
                             $(opt).html(obj["label"]);
@@ -75,25 +75,25 @@ class FieldMultiSelect {
                 ajaxCaller.ajaxGet();
             });
         });
-        $(".multiSelectDisplayAdd[module='"+this.moduleName+"']").click(function() {
+        $(".multiSelectDisplayAdd[module='" + this.moduleName + "']").click(function () {
             var fieldName = $(this).attr("name");
-            console.log("multiSelectDisplayAdd fieldName = "+fieldName);
-            var url = MAIN_URL+"/api/generic/multiselect/options/"+context.moduleName+"/"+fieldName;
-            console.log("multiSelectDisplayAdd url = "+url);
-            var myInput = $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
+            console.log("multiSelectDisplayAdd fieldName = " + fieldName);
+            var url = MAIN_URL + "/api/generic/multiselect/options/" + context.moduleName + "/" + fieldName;
+            console.log("multiSelectDisplayAdd url = " + url);
+            var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
             var varr = [];
-            $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"'] > option").each(function(){
+            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
                 varr.push(this.value);
             });
-            console.log("multiSelectDisplayAdd varr = "+varr);
+            console.log("multiSelectDisplayAdd varr = " + varr);
             var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(varr));
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 console.log(data);
                 var fieldName = $(data)[0].field;
-                console.log("fieldName = "+fieldName);
-                var myInput = $(".multiSelectOptionList[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
+                console.log("fieldName = " + fieldName);
+                var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
                 $(myInput).empty();
-                $.each(data, function(i, obj) {
+                $.each(data, function (i, obj) {
                     if (i > 0) {
                         var opt = new Option(obj["label"], obj["id"]);
                         $(opt).html(obj["label"]);
@@ -104,46 +104,46 @@ class FieldMultiSelect {
             var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
             ajaxCaller.ajaxPost();
         });
-        $(".multiSelectAdd[module='"+this.moduleName+"']").click(function() {
+        $(".multiSelectAdd[module='" + this.moduleName + "']").click(function () {
             var fieldName = $(this).attr("name");
-            console.log("fieldName = "+fieldName);
-            var myInput = $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
-            $(".multiSelectOptionList[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']"+" option:selected").each(function() {
+            console.log("fieldName = " + fieldName);
+            var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+            $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
                 var opt = new Option($(this).text(), $(this).val());
                 $(opt).html($(this).text());
                 $(myInput).append(opt);
 
                 $(this).remove();
             });
-            console.log("myInput = "+$(myInput).val());
+            console.log("myInput = " + $(myInput).val());
         });
-        $(".multiSelectDelete[module='"+this.moduleName+"']").click(function() {
+        $(".multiSelectDelete[module='" + this.moduleName + "']").click(function () {
             var fieldName = $(this).attr("name");
-            console.log("fieldName = "+fieldName);
-            $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']"+" option:selected").each(function() {
+            console.log("fieldName = " + fieldName);
+            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
                 $(this).remove();
             });
         });
-        $(".multiSelectTextFilter[module='"+this.moduleName+"']").keyup(function() {
+        $(".multiSelectTextFilter[module='" + this.moduleName + "']").keyup(function () {
             var fieldName = $(this).attr("name");
             var fieldValue = $(this).val();
-            console.log("multiSelectTextFilter fieldName = "+fieldName);
-            var url = MAIN_URL+"/api/generic/multiselect/options/filter/"+context.moduleName+"/"+fieldName+"/"+fieldValue;
-            console.log("multiSelectTextFilter url = "+url);
-            var myInput = $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
+            console.log("multiSelectTextFilter fieldName = " + fieldName);
+            var url = MAIN_URL + "/api/generic/multiselect/options/filter/" + context.moduleName + "/" + fieldName + "/" + fieldValue;
+            console.log("multiSelectTextFilter url = " + url);
+            var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
             var varr = [];
-            $(".multiSelect[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"'] > option").each(function(){
+            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
                 varr.push(this.value);
             });
-            console.log("multiSelectTextFilter varr = "+varr);
+            console.log("multiSelectTextFilter varr = " + varr);
             var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(varr));
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 console.log(data);
                 var fieldName = $(data)[0].field;
-                console.log("fieldName = "+fieldName);
-                var myInput = $(".multiSelectOptionList[module='"+context.moduleName+"'][mainmodule='"+context.moduleName+"'][name='"+fieldName+"']");
+                console.log("fieldName = " + fieldName);
+                var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
                 $(myInput).empty();
-                $.each(data, function(i, obj) {
+                $.each(data, function (i, obj) {
                     if (i > 0) {
                         var opt = new Option(obj["label"], obj["id"]);
                         $(opt).html(obj["label"]);
@@ -163,51 +163,51 @@ class FieldAutoComplete {
     }
 
     init() {
-        console.log("AUTO COMPLETE MODULE "+this.moduleName);
+        console.log("AUTO COMPLETE MODULE " + this.moduleName);
         var context = this;
-        $(".autocomplete[module='"+this.moduleName+"'][mainmodule='"+this.moduleName+"']").each(function() {
+        $(".autocomplete[module='" + this.moduleName + "'][mainmodule='" + this.moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
-            console.log("AUTO COMPLETE FIELD "+fieldLabelName);
-            var url = MAIN_URL+"/api/generic/autocomplete/"+context.moduleName+"/"+fieldLabelName;
+            console.log("AUTO COMPLETE FIELD " + fieldLabelName);
+            var url = MAIN_URL + "/api/generic/autocomplete/" + context.moduleName + "/" + fieldLabelName;
             var autoCompleteDisplayField = $(this);
-            var autoCompleteValueField = $("[autoNameField='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
-            var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
-            var autoCompleteDescDiv = $(".DivAutoComplete[autoName='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
-            var autoCompleteHelpTip = $("label[autoName='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
-            $(autoCompleteHelpTip).click(function(e) {
+            var autoCompleteValueField = $("[autoNameField='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
+            var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
+            var autoCompleteDescDiv = $(".DivAutoComplete[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
+            var autoCompleteHelpTip = $("label[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
+            $(autoCompleteHelpTip).click(function (e) {
                 console.log("Clicked Help!!!");
                 var showFieldHelp = new ShowAutoCompleteFieldHelp($(autoCompleteDisplayField).attr("helpTitle"), autoCompleteDisplayField, autoCompleteDescDivDefault, autoCompleteDescDiv);
                 showFieldHelp.show();
             });
             var autoCompleteField = $(this).autocomplete({
-                source: function(request, response) {
-                    $.ajax( {
-                        url: url+"/"+request.term,
-                        beforeSend: function(xhr) {
+                source: function (request, response) {
+                    $.ajax({
+                        url: url + "/" + request.term,
+                        beforeSend: function (xhr) {
                             if (localStorage.token) {
                                 xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
                             }
                         },
-                        success: function( data ) {
-//                            console.log(data);
+                        success: function (data) {
+                            //                            console.log(data);
                             response(data);
                         }
-                    } );
+                    });
                 },
                 minLength: 1,
-                select: function( event, ui ) {
+                select: function (event, ui) {
                     var code = ui.item.getProp("key");
                     var name = ui.item.getProp("value");
-                    console.log( "Selected: " + name + ":" + code);
+                    console.log("Selected: " + name + ":" + code);
                     autoCompleteValueField.val(code);
                     autoCompleteDisplayField.val(name);
                     autoCompleteDescDiv.html(name);
                     return false;
                 },
             });
-            autoCompleteField.autocomplete("instance")._renderItem = function(ul, item) {
-//                console.log(item);
-                return $( "<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("key") + " - " + item.getProp("value") + "</div></li>" ).appendTo(ul);
+            autoCompleteField.autocomplete("instance")._renderItem = function (ul, item) {
+                //                console.log(item);
+                return $("<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("key") + " - " + item.getProp("value") + "</div></li>").appendTo(ul);
             };
         });
 
@@ -231,19 +231,19 @@ class InitPopSearch {
     }
 
     init() {
-        console.log("this.init called == "+this.moduleName+":"+this.mainForm+":"+this.name);
+        console.log("this.init called == " + this.moduleName + ":" + this.mainForm + ":" + this.name);
         // <!--get all the 3 fields for popsearch-->
         var context = this;
-        this.mainPopInput = $(this.mainForm + ' input[module="'+this.moduleName+'"][name="'+this.name+'"][popSearchName="'+this.name+'"]');
-        this.labelPopInput = $(this.mainForm + ' input[module="'+this.moduleName+'"][tmpName="'+this.name+'"][popSearchName="'+this.name+'"]');
-        this.popButton = $(this.mainForm + ' button[module="'+this.moduleName+'"][popSearchName="'+this.name+'"]');
-        this.popFilterButton = $(this.mainForm + ' button[class~="filter"][module="'+this.moduleName+'"][popSearchName="'+this.name+'"]');
-        this.tableSelectorName = 'table[module="'+this.moduleName+'"][popSearchName="'+this.name+'"]';
-        this.popSearchDataTable = $(this.tableSelectorName).DataTable( {
+        this.mainPopInput = $(this.mainForm + ' input[module="' + this.moduleName + '"][name="' + this.name + '"][popSearchName="' + this.name + '"]');
+        this.labelPopInput = $(this.mainForm + ' input[module="' + this.moduleName + '"][tmpName="' + this.name + '"][popSearchName="' + this.name + '"]');
+        this.popButton = $(this.mainForm + ' button[module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
+        this.popFilterButton = $(this.mainForm + ' button[class~="filter"][module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
+        this.tableSelectorName = 'table[module="' + this.moduleName + '"][popSearchName="' + this.name + '"]';
+        this.popSearchDataTable = $(this.tableSelectorName).DataTable({
             "searching": false
-        } );
-        $(this.tableSelectorName + ' tbody').on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
+        });
+        $(this.tableSelectorName + ' tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
             }
             else {
@@ -253,8 +253,8 @@ class InitPopSearch {
                 context.loadToForm();
                 $('.modal').modal('hide');
             }
-        } );
-        $(this.popButton).click(function() {
+        });
+        $(this.popButton).click(function () {
             context.reloadSearchRecords();
         });
     };
@@ -263,16 +263,16 @@ class InitPopSearch {
         console.log("innerContext.popButton called");
         var context = this;
 
-        var input = $('input[class~="filter"][module="'+this.moduleName+'"][popSearchName="'+this.name+'"]');
-        var url = MAIN_URL+'/api/generic/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
+        var input = $('input[class~="filter"][module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
+        var url = MAIN_URL + '/api/generic/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             context.popSearchDataTable.clear();
             var keys = Object.keys(data[0]);
-            $.each(data, function(i, obj) {
+            $.each(data, function (i, obj) {
                 var key = obj[keys[0]];
                 var record = [];
-                for (i=1;i<keys.length;i++) {
+                for (i = 1; i < keys.length; i++) {
                     record.push(obj[keys[i]]);
                 }
                 context.popSearchDataTable.row.add(record).node().id = key;

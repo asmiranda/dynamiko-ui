@@ -15,10 +15,10 @@ class MyReportViewer {
         var context = this;
         $("#content-main").empty();
         var str = `
-        <div style="padding: 10px;">
-            <div class="box box-primary">
+        <div style="padding: 10px; height: 100%; min-height: 100%;">
+            <div class="box box-primary" style="height: 100%; min-height: 100%;">
                 <div class="box-header with-border">
-                    <div class="col-md-2">
+                    <div class="col-md-2 reportViewerTitle">
                         Report Viewer
                     </div>
                     <div class="pull-right box-tools">
@@ -33,25 +33,20 @@ class MyReportViewer {
                     </div>
                     </div>
                 </div>
-                <div class="box-body">
-                    <div class="box box-warning">
-                        <div class="box-header with-border">
-                            <h3 class="box-title reportViewerTitle">Choose Report</h3>
+                <div class="box-body" style="height: 100%; min-height: 100%;">
+                    <div class="row" style="height: 100%; min-height: 100%;">
+                        <div class="col-md-9" style="height: 100%; min-height: 100%;">
+                            <iframe id="reportViewerFrame" src="" style="width: 100%; height:650px;"></iframe>
                         </div>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <iframe id="reportViewerFrame" src="" style="width: 100%; height: 550px;"></iframe>
-                            </div>
-                            <div class="col-md-3">
-                                <form id="reportViewerFormCriteria">
-                                    <input type="hidden"></input>
-                                    <div class="box-body formCriteriaBody">
-                                    </div>
-                                    <div class="box-footer">
-                                        <button type="button" class="btn btn-info pull-right btnSubmitReportCriteria" reportName="">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="col-md-3">
+                            <form id="reportViewerFormCriteria">
+                                <input type="hidden"></input>
+                                <div class="box-body formCriteriaBody">
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-info pull-right btnSubmitReportCriteria" reportName="">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -89,6 +84,9 @@ class MyReportViewer {
             $('.btnSubmitReportCriteria').click(function() {
                 context.displayReportPdf(this);
             });
+
+            var reportLoader = new ReportLoader();
+            reportLoader.init();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
