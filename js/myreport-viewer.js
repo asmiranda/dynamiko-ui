@@ -44,7 +44,7 @@ class MyReportViewer {
                                 <div class="box-body formCriteriaBody">
                                 </div>
                                 <div class="box-footer">
-                                    <button type="button" class="btn btn-info pull-right btnSubmitReportCriteria" reportName="">Submit</button>
+                                    <button type="button" class="btn btn-info center-block btnSubmitReportCriteria" reportName="">Submit</button>
                                 </div>
                             </form>
                         </div>
