@@ -219,6 +219,9 @@ class ChildTab {
             loadJsonToForm.load();
             context.reloadChildRecords();
             $(context.modalId).modal('hide');
+
+            var moduleScript = new ModuleScript(context.moduleName);
+            moduleScript.saveChild(context.subModuleName);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();

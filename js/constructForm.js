@@ -34,6 +34,9 @@ class MainForm {
             if (recordId) {
                 context.loadRecord(recordId);
             }
+            
+            var moduleScript = new ModuleScript(context.moduleName);
+            moduleScript.init();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
