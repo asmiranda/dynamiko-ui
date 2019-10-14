@@ -32,7 +32,8 @@ class PayrollScheduleUI {
     chooseEmployees() {
         console.log("PayrollScheduleUI chooseEmployees");
         var context = this;
-        var url = MAIN_URL+"/api/generic/specialaction/PayrollScheduleUI/getEmployees";
+        var recordId = $("input.mainId").val();
+        var url = MAIN_URL+"/api/generic/specialaction/PayrollScheduleUI/getEmployees_"+recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -52,7 +53,7 @@ class PayrollScheduleUI {
                 var firstName = obj.getProp("firstName");
                 var lastName = obj.getProp("lastName");
                 str += `
-                    <tr>
+                    <tr class="addToPayroll_${id}">
                         <td style="width: 150px;">${firstName}</td>
                         <td style="width: 150px;">${lastName}</td>
                         <td style="width: 150px;"><button class="btn btn-primary specialAction PayrollScheduleUI addToPayroll" value="${id}">Add to Payroll</button></td>
@@ -61,8 +62,29 @@ class PayrollScheduleUI {
             });
             str += "    </tbody>";
             str += "</table>";
-            var showModalAny = new ShowModalAny500("Choose Employees", str);
+            var showModalAny = new ShowModalAny500("Choose Employees", str, function() {
+                console.log("Callback Called for Choose Employee");
+                $(".addToPayroll").click(function() {
+                    console.log("addToPayroll Click Called");
+                    context.addToPayroll(this);
+                });
+            });
             showModalAny.show();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    addToPayroll(obj) {
+        var context = this;
+        var recordId = $("input.mainId").val();
+        var code = $(obj).attr("value");
+        var url = MAIN_URL+"/api/generic/specialaction/PayrollScheduleUI/addEmployee_"+recordId+"_"+code;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $("tr.addToPayroll_"+code).hide();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();

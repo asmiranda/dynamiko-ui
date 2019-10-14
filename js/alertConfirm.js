@@ -14,9 +14,10 @@ class ShowModalAny {
 }
 
 class ShowModalAny500 {
-    constructor(title, helpHtml) {
+    constructor(title, helpHtml, callback) {
         this.title = title;
         this.helpHtml = helpHtml;
+        this.callback = callback;
     }
 
     show() {
@@ -26,6 +27,7 @@ class ShowModalAny500 {
             content: context.helpHtml,
             boxWidth: '500px',
             useBootstrap: false,
+            onContentReady: context.callback,
         });
     }
 }
