@@ -13,6 +13,23 @@ class ShowModalAny {
     }
 }
 
+class ShowModalAny500 {
+    constructor(title, helpHtml) {
+        this.title = title;
+        this.helpHtml = helpHtml;
+    }
+
+    show() {
+        var context = this;
+        $.alert({
+            title: context.title,
+            content: context.helpHtml,
+            boxWidth: '500px',
+            useBootstrap: false,
+        });
+    }
+}
+
 class ShowModuleHelp {
     constructor(title, helpHtml) {
         this.title = title;

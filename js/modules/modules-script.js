@@ -12,10 +12,21 @@ class ModuleScript {
         else if (this.module == 'PurchaseOrderUI') {
             this.moduleObj = new PurchaseOrderUI();
         }
+        else if (this.module == 'PayrollScheduleUI') {
+            this.moduleObj = new PayrollScheduleUI();
+        }
+    }
+
+    doSpecialAction(data) {
+        this.moduleObj.doSpecialAction(data);
     }
 
     saveChild(subModuleName) {
         this.moduleObj.onsaveChild(subModuleName);
+    }
+
+    getModuleScript() {
+        return this.moduleObj;
     }
 }
 

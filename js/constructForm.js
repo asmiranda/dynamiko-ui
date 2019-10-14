@@ -425,10 +425,10 @@ class FormControlButton {
                 var name = obj.getProp("value");
                 var module = context.moduleName;
 
-                var str = `<li class="myAction ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
+                var str = `<li class="mySpecialAction ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
                 $(".specialActions").after(str);
             });
-            $('.myAction').click(function() {
+            $('.mySpecialAction').click(function() {
                 context.doAction(this);
             });
         };
@@ -438,13 +438,16 @@ class FormControlButton {
 
     doAction(obj) {
         var context = this;
-        var url = MAIN_URL+"/api/generic/action/"+this.moduleName+"/"+$(obj).attr("value");
+        var moduleName = $(obj).attr("module");
+        var code = $(obj).attr("value");
+        var url = MAIN_URL+"/api/generic/action/"+moduleName+"/"+code;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            var display = new ShowModalAny("Action", data);
-            display.show();
+            var moduleScript = new ModuleScript(moduleName);
+            var moduleObj = moduleScript.getModuleScript();
+            moduleObj.doSpecialAction(data);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
