@@ -30,10 +30,9 @@ class PayrollScheduleUI {
             var totalOtAmount = zeroNaN(data[0].getProp("totalOtAmount"));
             var totalBenefitAmount = zeroNaN(data[0].getProp("totalBenefitAmount"));
             var totalAdjustmentAmount = zeroNaN(data[0].getProp("totalAdjustmentAmount"));
-    
-            var totalGrossAmount = zeroNaN(totalBasicPay+totalOtAmount+totalBenefitAmount+totalAdjustmentAmount);
             var totalTaxAmount = zeroNaN(data[0].getProp("totalTaxAmount"));
-            var totalNetAmount = zeroNaN(totalGrossAmount+totalTaxAmount);
+    
+            var totalGrossAmount = zeroNaN(totalBasicPay+totalOtAmount+totalBenefitAmount+totalAdjustmentAmount+totalTaxAmount);
     
             $("input[mainmodule='PayrollSchedule'][name='totalBasicPay']").val(totalBasicPay);
             $("input[mainmodule='PayrollSchedule'][name='totalOtAmount']").val(totalOtAmount);
@@ -41,7 +40,6 @@ class PayrollScheduleUI {
             $("input[mainmodule='PayrollSchedule'][name='totalAdjustmentAmount']").val(totalAdjustmentAmount);
             $("input[mainmodule='PayrollSchedule'][name='totalGrossAmount']").val(totalGrossAmount);
             $("input[mainmodule='PayrollSchedule'][name='totalTaxAmount']").val(totalTaxAmount);
-            $("input[mainmodule='PayrollSchedule'][name='totalNetAmount']").val(totalNetAmount);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
