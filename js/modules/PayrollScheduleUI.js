@@ -12,10 +12,44 @@ class PayrollScheduleUI {
 
     onfocusout(obj) {
         console.log("PayrollScheduleUI change "+obj);
+        if ("|basicPay|totalBasicPay|".includes("|"+obj.name)+"|") {
+            this.calculateAmounts();
+        }
+    }
+
+    calculateAmounts(index) {
+        console.log("PayrollScheduleUI chooseEmployees");
+        var context = this;
+        var recordId = $("input.mainId").val();
+        var url = MAIN_URL+"/api/generic/specialaction/PayrollScheduleUI/getPayroll_"+recordId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+
+            var totalBasicPay = zeroNaN(data[0].getProp("basicPay"));
+            var totalOtAmount = zeroNaN(data[0].getProp("totalOtAmount"));
+            var totalBenefitAmount = zeroNaN(data[0].getProp("totalBenefitAmount"));
+            var totalAdjustmentAmount = zeroNaN(data[0].getProp("totalAdjustmentAmount"));
+    
+            var totalGrossAmount = zeroNaN(totalBasicPay+totalOtAmount+totalBenefitAmount+totalAdjustmentAmount);
+            var totalTaxAmount = zeroNaN(data[0].getProp("totalTaxAmount"));
+            var totalNetAmount = zeroNaN(totalGrossAmount+totalTaxAmount);
+    
+            $("input[mainmodule='PayrollSchedule'][name='totalBasicPay']").val(totalBasicPay);
+            $("input[mainmodule='PayrollSchedule'][name='totalOtAmount']").val(totalOtAmount);
+            $("input[mainmodule='PayrollSchedule'][name='totalBenefitAmount']").val(totalBenefitAmount);
+            $("input[mainmodule='PayrollSchedule'][name='totalAdjustmentAmount']").val(totalAdjustmentAmount);
+            $("input[mainmodule='PayrollSchedule'][name='totalGrossAmount']").val(totalGrossAmount);
+            $("input[mainmodule='PayrollSchedule'][name='totalTaxAmount']").val(totalTaxAmount);
+            $("input[mainmodule='PayrollSchedule'][name='totalNetAmount']").val(totalNetAmount);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
     }
 
     onsaveChild(subModuleName) {
-        console.log("PayrollScheduleUI onsaveChild "+subModuleName);
+        console.log("PayrollScheduleUI saveChild "+subModuleName);
+        this.calculateAmounts();
     }
 
     doSpecialAction(data) {

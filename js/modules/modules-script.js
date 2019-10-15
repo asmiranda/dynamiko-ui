@@ -41,3 +41,12 @@ function extractFloat(obj) {
     val = parseFloat(val);
     return val;
 }
+
+function zeroNaN(val) {
+    if (isNaN(val)) {
+        return 0;
+    }
+    else {
+        return val;
+    }
+}
