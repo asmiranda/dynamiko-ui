@@ -41,9 +41,9 @@ class ChatWidget {
             </div>
         </div>
         `;
-        $(".direct-chat-messages").append(str);
+        $(".chatWidgetMessages").append(str);
         $("#userChatMessage").val("");
-        $(".direct-chat-messages").stop().animate({ scrollTop: $(".direct-chat-messages")[0].scrollHeight}, 1000);
+        $(".chatWidgetMessages").stop().animate({ scrollTop: $(".chatWidgetMessages")[0].scrollHeight}, 1000);
     }
 
     writeFromBot(value) {
@@ -54,6 +54,6 @@ class ChatWidget {
             </div>
         </div>
         `;
-        $(".direct-chat-messages").append(str);
+        $(".chatWidgetMessages").append(str);
     }
 }
