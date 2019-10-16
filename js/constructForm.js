@@ -516,8 +516,9 @@ class FormControlButton {
                 showModuleHelp.show();
             }
         };
+        var myurl = MAIN_URL+'/api/generic/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
         xhr.responseType = 'arraybuffer';
-        xhr.open('GET', MAIN_URL+'/api/generic/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId, true);
+        xhr.open('GET', myurl, true);
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
         xhr.send("");
     }
