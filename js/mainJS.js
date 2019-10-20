@@ -60,6 +60,21 @@ class UIService {
 
         var reportViewer = new MyReportViewer();
         reportViewer.init();
+
+        $(".btnSignOut").click(function() {
+            window.location.href = "login.html";
+        });
+        this.initCompany();
+    }
+
+    initCompany() {
+        var url = MAIN_URL + '/api/ui/company';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
     }
 
     initLogo() {
