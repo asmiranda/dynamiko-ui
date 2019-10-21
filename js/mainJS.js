@@ -50,17 +50,7 @@ class UIService {
         });
 
         this.initCompany();
-        this.initLogo();
         this.initProfile();
-
-        var leftMenu = new LeftMenu();
-        leftMenu.init();
-
-        var dataVisualizer = new DataVisualizer();
-        dataVisualizer.init();
-
-        var reportViewer = new MyReportViewer();
-        reportViewer.init();
 
         $(".btnSignOut").click(function() {
             window.location.href = "login.html";
@@ -87,6 +77,17 @@ class UIService {
                     context.changeCompany(companyCode, companyName);
                 }
             });
+            context.initLogo();
+
+            var leftMenu = new LeftMenu();
+            leftMenu.init();
+    
+            var dataVisualizer = new DataVisualizer();
+            dataVisualizer.init();
+    
+            var reportViewer = new MyReportViewer();
+            reportViewer.init();
+    
             $(".choiceCompany").click(function() {
                 context.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
             });
@@ -106,7 +107,7 @@ class UIService {
     }
 
     initLogo() {
-        var url = MAIN_URL + '/api/ui/logo';
+        var url = MAIN_URL + '/api/ui/'+localStorage.companyCode+'/logo';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("logo ==");
@@ -118,7 +119,7 @@ class UIService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/ui/profile';
+        var url = MAIN_URL + '/api/ui/any/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("profile ==");
@@ -139,7 +140,7 @@ class LeftMenu {
         var context = this;
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
 
-        var url = MAIN_URL+'/api/generic/getLeftMenu';
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Left Menu Extracted");

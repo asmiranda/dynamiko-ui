@@ -79,7 +79,7 @@ class DataVisualizer {
         var context = this;
         var val = $("#dataVisualizer").val();
 
-        var url = MAIN_URL + '/api/generic/visualizer/' + val;
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/visualizer/' + val;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (vdata) {
             console.log(vdata);
@@ -97,7 +97,7 @@ class DataVisualizer {
         var context = this;
         console.log("LOAD ALL VISUALIZERS...");
 
-        var url = MAIN_URL + '/api/generic/visualizer/all';
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/visualizer/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
