@@ -104,6 +104,9 @@ class UIService {
         `;
         $("#useCompany").empty();
         $("#useCompany").append(useCompanyStr);
+        
+        var leftMenu = new LeftMenu();
+        leftMenu.loadUI(localStorage.latestModule);
     }
 
     initLogo() {
@@ -192,6 +195,7 @@ class LeftMenu {
     }
 
     initialize() {
+        var context = this;
         $(".leftDashboardItem").click(function() {
             console.log("leftDashboardItem CALLED...");
             var moduleName = $(this).attr("data");
@@ -205,30 +209,39 @@ class LeftMenu {
             constructReport.construct();
         });
         $(".leftMenuItem[report='false']").click(function() {
-            var registerDatatable = new RegisterDatatable();
-            registerDatatable.clearRegister();
-
             var moduleName = $(this).attr("data");
-            var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-            constructForm.construct();
-
-            var fileUpload = new FileUpload();
-            fileUpload.initUpload();
+            context.loadUI(moduleName);
         });
     }
+
+    loadUI(myui) {
+        var moduleName = myui;
+        localStorage.latestModule = moduleName;
+    
+        var registerDatatable = new RegisterDatatable();
+        registerDatatable.clearRegister();
+    
+        var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
+        constructForm.construct();
+    
+        var fileUpload = new FileUpload();
+        fileUpload.initUpload();
+    }    
 }
 
-function loadUI(myui) {
-    var registerDatatable = new RegisterDatatable();
-    registerDatatable.clearRegister();
+// function loadUI(myui) {
+//     var moduleName = myui;
+//     localStorage.latestModule = moduleName;
 
-    var moduleName = myui;
-    var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-    constructForm.construct();
+//     var registerDatatable = new RegisterDatatable();
+//     registerDatatable.clearRegister();
 
-    var fileUpload = new FileUpload();
-    fileUpload.initUpload();
-}
+//     var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
+//     constructForm.construct();
+
+//     var fileUpload = new FileUpload();
+//     fileUpload.initUpload();
+// }
 
 class FileUpload {
     initUpload() {
