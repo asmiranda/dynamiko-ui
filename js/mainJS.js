@@ -49,6 +49,7 @@ class UIService {
             enumerable: false
         });
 
+        this.initCompany();
         this.initLogo();
         this.initProfile();
 
@@ -64,17 +65,44 @@ class UIService {
         $(".btnSignOut").click(function() {
             window.location.href = "login.html";
         });
-        this.initCompany();
     }
 
     initCompany() {
-        var url = MAIN_URL + '/api/ui/company';
+        var context = this;
+        var url = MAIN_URL + '/api/ui/any/company';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        $(".chooseCompanyList").empty();
         var successCallback = function(data) {
             console.log(data);
+            $(data).each(function(index, obj) {
+                var companyCode = obj.getProp("code");
+                var companyName = obj.getProp("name");
+                var str = `
+                    <li>
+                        <a href="#" class="choiceCompany" companyCode="${companyCode}" companyName="${companyName}">${companyName}</a>
+                    </li>
+                `;
+                $(".chooseCompanyList").append(str);
+                if (index == 0) {
+                    context.changeCompany(companyCode, companyName);
+                }
+            });
+            $(".choiceCompany").click(function() {
+                context.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
+            });
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
+    }
+
+    changeCompany(companyCode, companyName) {
+        localStorage.companyCode = companyCode;
+        localStorage.companyName = companyName;
+        var useCompanyStr = `
+            <span style="padding-right: 15px;">${companyName}</span><i class="fa fa-bank"></i>
+        `;
+        $("#useCompany").empty();
+        $("#useCompany").append(useCompanyStr);
     }
 
     initLogo() {
