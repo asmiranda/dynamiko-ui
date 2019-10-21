@@ -34,7 +34,7 @@ class MyLinksWidget {
 
     showAttendance() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/attendance';
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/widget/MyLinksWidget/attendance';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -80,7 +80,7 @@ class MyLinksWidget {
         var str = `<iframe id="${myframe}" src="${url}" style="width: 100%; height: 100%"></iframe>`;
         $("#MyLinksBody").append(str);
 
-        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/payslip';
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/widget/MyLinksWidget/payslip';
         var ajax = new AjaxBytesLoader();
         ajax.load(url, myframe, function(data_url) {
             document.querySelector('#myPayslipFrame').src = data_url;
@@ -90,7 +90,7 @@ class MyLinksWidget {
 
     showHoliday() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/holiday';
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/widget/MyLinksWidget/holiday';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -140,7 +140,7 @@ class MyLinksWidget {
 
     showTraining() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/widget/MyLinksWidget/training';
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/widget/MyLinksWidget/training';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);

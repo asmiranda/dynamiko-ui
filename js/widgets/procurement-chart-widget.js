@@ -8,7 +8,7 @@ class ProcurementChartWidget {
             var cashChart = document.getElementById("procurementChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL+"/api/generic/widget/ProcurementChartWidget";
+            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/widget/ProcurementChartWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function(data) {

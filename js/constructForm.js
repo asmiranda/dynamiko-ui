@@ -17,7 +17,7 @@ class MainForm {
 
     construct(recordId) {
         var context = this;
-        var url = MAIN_URL+"/api/ui/module/"+this.moduleName;
+        var url = MAIN_URL+"/api/ui/"+localStorage.companyCode+"/module/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             $("#content-main").html(data);
@@ -44,7 +44,7 @@ class MainForm {
 
     loadRecord(recordId) {
         var context = this;
-        var url = MAIN_URL+'/api/generic/findRecord/' + this.moduleName + '/' + recordId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.moduleName + '/' + recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -89,7 +89,7 @@ class FormRule {
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/formrule/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/formrule/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
@@ -139,8 +139,8 @@ class ProfilePicLoader {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
             if (recordId && recordId > 0) {
-                console.log("ProfilePicLoader src="+MAIN_URL+"/api/generic/profilePic/"+context.moduleName+"/"+recordId);
-                $("#profilePic").attr("src", MAIN_URL+"/api/generic/profilePic/"+context.moduleName+"/"+recordId);
+                console.log("ProfilePicLoader src="+MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+context.moduleName+"/"+recordId);
+                $("#profilePic").attr("src", MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+context.moduleName+"/"+recordId);
                 $("#profilePic").show();
             }
             else {
@@ -236,7 +236,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/historyWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/historyWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log("historyWFRecord data");
@@ -281,7 +281,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/rejectWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/rejectWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -301,7 +301,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/cancelWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/cancelWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -321,7 +321,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/forwardWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/forwardWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -341,7 +341,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/returnWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/returnWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -361,7 +361,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/approveWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/approveWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -381,7 +381,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/endorseWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/endorseWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -401,7 +401,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/submitWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/submitWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -415,7 +415,7 @@ class FormControlButton {
 
     initActions() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/actions/"+this.moduleName;
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/actions/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -440,7 +440,7 @@ class FormControlButton {
         var context = this;
         var moduleName = $(obj).attr("module");
         var code = $(obj).attr("value");
-        var url = MAIN_URL+"/api/generic/action/"+moduleName+"/"+code;
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/action/"+moduleName+"/"+code;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -455,7 +455,7 @@ class FormControlButton {
 
     initReport() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/report/dynamic/"+this.moduleName;
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/report/dynamic/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -516,7 +516,7 @@ class FormControlButton {
                 showModuleHelp.show();
             }
         };
-        var myurl = MAIN_URL+'/api/generic/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
+        var myurl = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
         xhr.responseType = 'arraybuffer';
         xhr.open('GET', myurl, true);
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
@@ -574,7 +574,7 @@ class FormControlButton {
 
     static downloadFile(fileId) {
         console.log("downloadFile = " + fileId);
-        window.open(MAIN_URL+'/api/generic/attachment/download/'+fileId, '_blank');
+        window.open(MAIN_URL+'/api/generic/'+localStorage.companyCode+'/attachment/download/'+fileId, '_blank');
     }
 
     static deleteFile(fileId) {
@@ -623,7 +623,7 @@ class FormControlButton {
         console.log("newRecord called");
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/generic/new/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/new/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -643,7 +643,7 @@ class FormControlButton {
         console.log("deleteRecord called");
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/generic/delete/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -665,7 +665,7 @@ class FormControlButton {
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/save/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/save/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
@@ -723,7 +723,7 @@ class SearchTable {
 
     loadToForm() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/findRecord/' + this.moduleName + '/' + this.selectedId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.moduleName + '/' + this.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -743,7 +743,7 @@ class SearchTable {
         console.log("reloadSpecialSearch");
         var context = this;
         var input = $('select.specialSearch');
-        var url = MAIN_URL+'/api/generic/search/special/' + this.moduleName + '/' + input.val();
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/special/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
@@ -754,7 +754,7 @@ class SearchTable {
         console.log("reloadSearch");
         var context = this;
         var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/search/' + this.moduleName + '/' + input.val();
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         this.successCallback = function(data) {
             console.log("Reload Search");

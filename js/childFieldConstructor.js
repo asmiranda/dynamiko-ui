@@ -24,7 +24,7 @@ class ChildFieldAutoComplete {
         var context = this;
         $(".autocomplete[submodule='"+this.subModuleName+"']").each(function() {
             var fieldLabelName = $(this).attr("autoName");
-            var url = MAIN_URL+"/api/generic/subautocomplete/"+context.moduleName+"/"+context.subModuleName+"/"+fieldLabelName;
+            var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/subautocomplete/"+context.moduleName+"/"+context.subModuleName+"/"+fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $("[autoNameField='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
             var autoCompleteField = $(this).autocomplete({

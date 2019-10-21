@@ -11,7 +11,7 @@ class HrEventsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/pwidget/HrEventsWidget/all';
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrEventsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -64,7 +64,7 @@ class HrEventsWidget {
 
     showHrEvent(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/pwidget/HrEventsWidget/showHrEvent/'+recId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrEventsWidget/showHrEvent/'+recId;
         console.log(url);
     }
 }

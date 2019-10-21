@@ -8,7 +8,7 @@ class SalesChartWidget {
             var cashChart = document.getElementById("salesChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL+"/api/generic/widget/SalesChartWidget";
+            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/widget/SalesChartWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function(data) {

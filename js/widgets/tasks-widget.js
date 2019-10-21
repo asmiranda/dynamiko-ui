@@ -20,7 +20,8 @@ class TasksWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/widget/TasksWidget/all';
+        var companyCode = localStorage.companyCode;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/TasksWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -50,7 +51,7 @@ class TasksWidget {
                             <span class="direct-chat-name pull-left">__personname__</span>
                             <span class="direct-chat-timestamp pull-right">${dateStr}</span>
                         </div>
-                        <img class="direct-chat-img" src="${MAIN_URL}/api/generic/profilePic/PersonUI/__personId__" alt="User">
+                        <img class="direct-chat-img" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/PersonUI/__personId__" alt="User">
                         <div class="direct-chat-text cursor-pointer taskLinker" module="${entity}" recId="${entityId}">${description}</div>
                     </div>
                 `;

@@ -80,7 +80,7 @@ class ChildTab {
     reloadChildRecords() {
         var context = this;
         var convertFormToJSON = new ConvertFormToJSON($(this.mainForm));
-        var url = MAIN_URL+'/api/generic/subrecord/' + this.moduleName + '/' + this.subModuleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/subrecord/' + this.moduleName + '/' + this.subModuleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(convertFormToJSON.convert()));
         var successCallback = function(data) {
             console.log(context.subModuleName + " Sub Record Reloaded");
@@ -188,7 +188,7 @@ class ChildTab {
 
         var subRecordId = $(myButton).attr("recordId");
 
-        var url = MAIN_URL+'/api/generic/deletesubrecord/' + this.moduleName + '/' + this.subModuleName + '/' + subRecordId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/deletesubrecord/' + this.moduleName + '/' + this.subModuleName + '/' + subRecordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));
         var successCallback = function(data) {
             console.log("Delete success called : "+data);
@@ -212,7 +212,7 @@ class ChildTab {
         tmp.push(parentRecord);
         tmp.push(subRecord);
 
-        var url = MAIN_URL+'/api/generic/savesubrecord/' + this.moduleName + '/' + this.subModuleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/savesubrecord/' + this.moduleName + '/' + this.subModuleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data) {
             var loadJsonToForm = new LoadJsonToForm(context.formSelector, data);
@@ -237,7 +237,7 @@ class ChildTab {
         console.log("selectedId == " + this.selectedId);
         console.log("context.formSelector == " + this.formSelector);
 
-        var url = MAIN_URL+'/api/generic/findRecord/' + this.subModuleName + '/' + this.selectedId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.subModuleName + '/' + this.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");

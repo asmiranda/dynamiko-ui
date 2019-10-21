@@ -11,7 +11,7 @@ class ChartRule {
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         console.log(vdata);
-        var url = MAIN_URL + '/api/generic/chartrule/' + context.moduleName;
+        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/chartrule/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);

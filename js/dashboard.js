@@ -6,7 +6,7 @@ class Dashboard {
         console.log("load "+moduleName);
         var context = this;
 
-        var url = MAIN_URL+"/api/ui/module/"+moduleName;
+        var url = MAIN_URL+"/api/ui/"+localStorage.companyCode+"/module/"+moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             $("#content-main").html(data);

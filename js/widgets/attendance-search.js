@@ -26,10 +26,10 @@ class AttendanceSearchWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/widget/AttendanceSearchWidget";
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/AttendanceSearchWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/widget/AttendanceSearchWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/AttendanceSearchWidget/"+val;
         }
         ajaxRequestDTO.data = "";
 
@@ -37,7 +37,6 @@ class AttendanceSearchWidget {
             console.log(data);
             context.mainDataTable.clear();
             $.each(data, function(i, obj) {
-                <!--console.log(i);-->
                 var record = [];
                 record.push(obj["lastName"]+", "+obj["firstName"]);
                 record.push(obj["age"]);

@@ -8,7 +8,7 @@ class BirthdaysWidget {
 
         if ($(".birthdays")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/widget/BirthdaysWidget";
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/BirthdaysWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function(data) {
@@ -16,7 +16,7 @@ class BirthdaysWidget {
                 console.log("Complete Called.");
                 $.each(data, function(i, obj) {
                     //use obj.id and obj.name here, for example:
-                    $(".birthdays").append( '<li><img src="/api/generic/profilePic/Person/'+obj.personId+'" alt="User Image" class="profile-img" data-name="'+obj.firstName+' '+obj.lastName+'"><a class="users-list-name" href="#">'+obj.firstName+' '+obj.lastName+'</a><span class="users-list-date">'+obj.birthDay+'</span></li>' );
+                    $(".birthdays").append( '<li><img src="/api/generic/'+localStorage.companyCode+'/profilePic/Person/'+obj.personId+'" alt="User Image" class="profile-img" data-name="'+obj.firstName+' '+obj.lastName+'"><a class="users-list-name" href="#">'+obj.firstName+' '+obj.lastName+'</a><span class="users-list-date">'+obj.birthDay+'</span></li>' );
                 });
                 $('.profile-img').on('error',function(){
                     /* Fire your image resize code here */

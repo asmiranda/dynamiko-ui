@@ -26,10 +26,10 @@ class MyGoalWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/widget/MyGoalWidget";
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/MyGoalWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/widget/MyGoalWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/MyGoalWidget/"+val;
         }
         ajaxRequestDTO.data = "";
 
@@ -37,7 +37,6 @@ class MyGoalWidget {
             console.log(data);
             context.mainDataTable.clear();
             $.each(data, function(i, obj) {
-                <!--console.log(i);-->
                 var record = [];
                 record.push(obj["lastName"]+", "+obj["firstName"]);
                 record.push(obj["age"]);

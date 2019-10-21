@@ -26,10 +26,10 @@ class PerformanceReviewWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/widget/PerformanceReviewWidget";
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/PerformanceReviewWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/widget/PerformanceReviewWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/PerformanceReviewWidget/"+val;
         }
         ajaxRequestDTO.data = "";
 
@@ -37,7 +37,6 @@ class PerformanceReviewWidget {
             console.log(data);
             context.mainDataTable.clear();
             $.each(data, function(i, obj) {
-                <!--console.log(i);-->
                 var record = [];
                 record.push(obj["lastName"]+", "+obj["firstName"]);
                 record.push(obj["age"]);

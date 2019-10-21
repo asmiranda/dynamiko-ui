@@ -11,7 +11,7 @@ class HrDocumentsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/pwidget/HrDocumentsWidget/all';
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrDocumentsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -45,7 +45,7 @@ class HrDocumentsWidget {
 
     showHrDocument(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/pwidget/HrDocumentsWidget/showHrDocument/'+recId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrDocumentsWidget/showHrDocument/'+recId;
         console.log(url);
     }
 }
