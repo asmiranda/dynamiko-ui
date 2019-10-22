@@ -74,7 +74,12 @@ class UIService {
                 `;
                 $(".chooseCompanyList").append(str);
                 if (index == 0) {
-                    context.changeCompany(companyCode, companyName);
+                    if (localStorage.companyCode && localStorage.companyName) {
+                        context.changeCompany(localStorage.companyCode, localStorage.companyName);
+                    }
+                    else {
+                        context.changeCompany(companyCode, companyName);
+                    }
                 }
             });
             context.initLogo();
@@ -104,7 +109,7 @@ class UIService {
         `;
         $("#useCompany").empty();
         $("#useCompany").append(useCompanyStr);
-        
+
         var leftMenu = new LeftMenu();
         leftMenu.loadUI(localStorage.latestModule);
     }
