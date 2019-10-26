@@ -93,6 +93,9 @@ class UIService {
             var reportViewer = new MyReportViewer();
             reportViewer.init();
     
+            var uploadDataFile = new UploadDataFile();
+            uploadDataFile.init();
+
             $(".choiceCompany").click(function() {
                 context.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
             });

@@ -214,3 +214,31 @@ class AjaxBytesLoader {
 
     }
 }
+
+class AjaxCSVUploader {
+    constructor(ajaxCallback) {
+        this.ajaxCallback = ajaxCallback;
+    }
+
+    uploadFile(formUploadData) {
+        var callback = this.ajaxCallback;
+        var vurl = MAIN_URL+'/api/utils/uploadData/'+localStorage.companyCode+'/'+localStorage.chosenReport;
+
+        console.log(vurl);
+        $.ajax({
+            url: vurl,
+            type: "POST",
+            data: formUploadData,
+            processData: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            beforeSend: function(xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
+                }
+            },
+            success: callback,
+        });
+    }
+}
