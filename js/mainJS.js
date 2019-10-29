@@ -73,14 +73,7 @@ class UIService {
                     </li>
                 `;
                 $(".chooseCompanyList").append(str);
-                if (index == 0) {
-                    if (localStorage.companyCode && localStorage.companyName) {
-                        context.changeCompany(localStorage.companyCode, localStorage.companyName);
-                    }
-                    else {
-                        context.changeCompany(companyCode, companyName);
-                    }
-                }
+                context.changeCompany(companyCode, companyName);
             });
             context.initLogo();
 
