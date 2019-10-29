@@ -76,6 +76,97 @@ class FieldMultiSelect {
         });
     }
 
+    clickDisplayAdd(btn) {
+        var context = this;
+        var fieldName = $(btn).attr("name");
+        console.log("multiSelectDisplayAdd fieldName = " + fieldName);
+        var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/options/" + context.moduleName + "/" + fieldName;
+        console.log("multiSelectDisplayAdd url = " + url);
+        var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+        var varr = [];
+        $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
+            varr.push(this.value);
+        });
+        console.log("multiSelectDisplayAdd varr = " + varr);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(varr));
+        var successCallback = function (data) {
+            console.log(data);
+            var fieldName = $(data)[0].field;
+            console.log("fieldName = " + fieldName);
+            var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+            $(myInput).empty();
+            $.each(data, function (i, obj) {
+                if (i > 0) {
+                    var label = obj.getProp("label");
+                    var id = obj.getProp("id");
+                    var opt = new Option(label, id);
+                    $(opt).html(label);
+                    $(myInput).append(opt);
+                }
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
+    addSelected(btn) {
+        var context = this;
+        var fieldName = $(btn).attr("name");
+        console.log("fieldName = " + fieldName);
+        var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+        $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
+            var opt = new Option($(this).text(), $(this).val());
+            $(opt).html($(this).text());
+            $(myInput).append(opt);
+
+            $(this).remove();
+        });
+        console.log("myInput = " + $(myInput).val());
+    }
+
+    deleteSelected(btn) {
+        var context = this;
+        var fieldName = $(btn).attr("name");
+        console.log("fieldName = " + fieldName);
+        $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
+            $(this).remove();
+        });
+    }
+
+    filterChoices(btn) {
+        var context = this;
+        var fieldName = $(btn).attr("name");
+        var fieldValue = $(btn).val();
+        console.log("multiSelectTextFilter fieldName = " + fieldName);
+        var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/options/filter/" + context.moduleName + "/" + fieldName + "/" + fieldValue;
+        console.log("multiSelectTextFilter url = " + url);
+        var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+        var varr = [];
+        $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
+            varr.push(this.value);
+        });
+        console.log("multiSelectTextFilter varr = " + varr);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(varr));
+        var successCallback = function (data) {
+            console.log(data);
+            var fieldName = $(data)[0].field;
+            console.log("fieldName = " + fieldName);
+            var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+            $(myInput).empty();
+            $.each(data, function (i, obj) {
+                if (i > 0) {
+                    var label = obj.getProp("label");
+                    var id = obj.getProp("id");
+                    var opt = new Option(label, id);
+                    $(opt).html(label);
+                    $(myInput).append(opt);
+                }
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    }
+
     init() {
         console.log("MULTI SELECT MODULE " + this.moduleName);
         var context = this;
@@ -83,83 +174,16 @@ class FieldMultiSelect {
             context.changeMultiSelectData(this);
         });
         $(".multiSelectDisplayAdd[module='" + this.moduleName + "']").click(function () {
-            var fieldName = $(this).attr("name");
-            console.log("multiSelectDisplayAdd fieldName = " + fieldName);
-            var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/options/" + context.moduleName + "/" + fieldName;
-            console.log("multiSelectDisplayAdd url = " + url);
-            var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
-            var varr = [];
-            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
-                varr.push(this.value);
-            });
-            console.log("multiSelectDisplayAdd varr = " + varr);
-            var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(varr));
-            var successCallback = function (data) {
-                console.log(data);
-                var fieldName = $(data)[0].field;
-                console.log("fieldName = " + fieldName);
-                var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
-                $(myInput).empty();
-                $.each(data, function (i, obj) {
-                    if (i > 0) {
-                        var opt = new Option(obj["label"], obj["id"]);
-                        $(opt).html(obj["label"]);
-                        $(myInput).append(opt);
-                    }
-                });
-            };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxPost();
+            context.clickDisplayAdd(this);
         });
         $(".multiSelectAdd[module='" + this.moduleName + "']").click(function () {
-            var fieldName = $(this).attr("name");
-            console.log("fieldName = " + fieldName);
-            var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
-            $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
-                var opt = new Option($(this).text(), $(this).val());
-                $(opt).html($(this).text());
-                $(myInput).append(opt);
-
-                $(this).remove();
-            });
-            console.log("myInput = " + $(myInput).val());
+            context.addSelected(this);
         });
         $(".multiSelectDelete[module='" + this.moduleName + "']").click(function () {
-            var fieldName = $(this).attr("name");
-            console.log("fieldName = " + fieldName);
-            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
-                $(this).remove();
-            });
+            context.deleteSelected(this);
         });
         $(".multiSelectTextFilter[module='" + this.moduleName + "']").keyup(function () {
-            var fieldName = $(this).attr("name");
-            var fieldValue = $(this).val();
-            console.log("multiSelectTextFilter fieldName = " + fieldName);
-            var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/options/filter/" + context.moduleName + "/" + fieldName + "/" + fieldValue;
-            console.log("multiSelectTextFilter url = " + url);
-            var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
-            var varr = [];
-            $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
-                varr.push(this.value);
-            });
-            console.log("multiSelectTextFilter varr = " + varr);
-            var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(varr));
-            var successCallback = function (data) {
-                console.log(data);
-                var fieldName = $(data)[0].field;
-                console.log("fieldName = " + fieldName);
-                var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
-                $(myInput).empty();
-                $.each(data, function (i, obj) {
-                    if (i > 0) {
-                        var opt = new Option(obj["label"], obj["id"]);
-                        $(opt).html(obj["label"]);
-                        $(myInput).append(opt);
-                    }
-                });
-            };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxPost();
+            context.filterChoices(this);
         });
     }
 }
