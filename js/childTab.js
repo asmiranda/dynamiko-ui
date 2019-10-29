@@ -157,22 +157,35 @@ class ChildTab {
                 noSelectedRecordEdit.alert();
             }
         });
-        $('button[class~="btnChildTabSave"]').click(function() {
-            context.saveChildRecord(this);
-        });
+        // $('button.btnChildTabSave').click(function() {
+        //     context.saveChildRecord(this);
+        // });
         $('button[class~="btnChildTabCancel"]').click(function() {
             context.cancelChildRecord();
         });
     };
 
     editChildRecord(myButton) {
+        var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
+
+        $('button.btnChildTabSave').unbind().on('click');
+        $('button.btnChildTabSave').click(function() {
+            context.saveChildRecord(this);
+        });
     };
 
     newChildRecord(myButton) {
+        var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
+
+        $('button.btnChildTabSave').unbind().on('click');
+        $('button.btnChildTabSave').click(function() {
+            context.saveChildRecord(this);
+        });
+
         this.selectedId = null;
         this.removeTableSelectedRecord();
         var clearForm = new ClearForm(this.formSelector);
@@ -214,11 +227,9 @@ class ChildTab {
 
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/savesubrecord/' + this.moduleName + '/' + this.subModuleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
-        var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.formSelector, data);
-            loadJsonToForm.load();
-            context.reloadChildRecords();
+        var successCallback = function(data, status, hqr) {
             $(context.modalId).modal('hide');
+            context.reloadChildRecords();
 
             var moduleScript = new ModuleScript(context.moduleName);
             moduleScript.saveChild(context.subModuleName);

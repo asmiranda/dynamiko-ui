@@ -18,11 +18,15 @@ class ModuleScript {
     }
 
     doSpecialAction(data) {
-        this.moduleObj.doSpecialAction(data);
+        if (this.moduleObj) {
+            this.moduleObj.doSpecialAction(data);
+        }
     }
 
     saveChild(subModuleName) {
-        this.moduleObj.onsaveChild(subModuleName);
+        if (this.moduleObj) {
+            this.moduleObj.onsaveChild(subModuleName);
+        }
     }
 
     getModuleScript() {
