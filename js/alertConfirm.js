@@ -139,3 +139,27 @@ class DeleteRecordConfirm {
        });
     }
 }
+
+class ShowConfirmAny {
+    constructor(title, content, confirmFunc) {
+        this.title = title;
+        this.content = content;
+        this.confirmFunc = confirmFunc;
+    }
+
+    confirm() {
+        var context = this;
+        $.confirm({
+           title: context.title,
+           content: context.content,
+           boxWidth: '500px',
+           useBootstrap: false,
+           buttons: {
+               confirm: context.confirmFunc,
+               cancel: function () {
+//                   $.alert('Canceled!');
+               }
+           }
+       });
+    }
+}

@@ -415,7 +415,7 @@ class FormControlButton {
 
     initActions() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/actions/"+this.moduleName;
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/actions/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -440,7 +440,7 @@ class FormControlButton {
         var context = this;
         var moduleName = $(obj).attr("module");
         var code = $(obj).attr("value");
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/action/"+moduleName+"/"+code;
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/"+moduleName+"/"+code;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {

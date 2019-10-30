@@ -15,6 +15,9 @@ class ModuleScript {
         else if (this.module == 'PayrollScheduleUI') {
             this.moduleObj = new PayrollScheduleUI();
         }
+        else if (this.module == 'UserUI') {
+            this.moduleObj = new UserUI();
+        }
     }
 
     doSpecialAction(data) {
