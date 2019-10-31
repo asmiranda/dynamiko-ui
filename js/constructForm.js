@@ -654,8 +654,13 @@ class FormControlButton {
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        var confirmDelete = function() {
+            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+            ajaxCaller.ajaxPost();
+        }
+
+        var deleteRecordConfirm = new DeleteRecordConfirm(confirmDelete);
+        deleteRecordConfirm.confirm();
     };
 
     saveRecord() {
