@@ -26,7 +26,9 @@ class ChildFieldAutoComplete {
             var fieldLabelName = $(this).attr("autoName");
             var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/subautocomplete/"+context.moduleName+"/"+context.subModuleName+"/"+fieldLabelName;
             var autoCompleteDisplayField = $(this);
-            var autoCompleteValueField = $("[autoNameField='"+fieldLabelName+"'][name='"+fieldLabelName+"']");
+            var autoCompleteValueField = $(".HiddenAutoComplete[submodule='" + context.subModuleName + "'][name='" + fieldLabelName + "']");
+            var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
+            var autoCompleteDescDiv = $(".DivAutoComplete[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
             var autoCompleteField = $(this).autocomplete({
                 appendTo : dialogWindow,
                 source: function(request, response) {
@@ -45,9 +47,12 @@ class ChildFieldAutoComplete {
                 },
                 minLength: 1,
                 select: function( event, ui ) {
-                    console.log( "Selected: " + ui.item.getProp("value") + ":" + ui.item.getProp("key") );
-                    autoCompleteDisplayField.val(ui.item.getProp("value"));
-                    autoCompleteValueField.val(ui.item.getProp("key"));
+                    var code = ui.item.getProp("key");
+                    var name = ui.item.getProp("value");
+                    console.log("Selected: " + name + ":" + code);
+                    autoCompleteValueField.val(code);
+                    autoCompleteDisplayField.val(name);
+                    autoCompleteDescDiv.html(name);
                     return false;
                 },
             });

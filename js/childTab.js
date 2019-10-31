@@ -45,8 +45,6 @@ class ChildTab {
         this.formSelector = 'form[module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]';
         this.modalId = $('button[class~="btnChildTabEdit"][module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]').attr("data-target");
         console.log("Modal ID === "+this.modalId);
-
-        this.fieldConstructor = new ChildFieldConstructor(this.moduleName, this.subModuleName, this.formSelector);
     }
 
     constructTab() {
@@ -74,7 +72,6 @@ class ChildTab {
             ],
         } );
         this.reloadChildRecords();
-        this.fieldConstructor.initFields();
     };
 
     reloadChildRecords() {
@@ -190,6 +187,12 @@ class ChildTab {
         this.removeTableSelectedRecord();
         var clearForm = new ClearForm(this.formSelector);
         clearForm.clear();
+
+        var module = $(myButton).attr("module")
+        var submodule = $(myButton).attr("submodule")
+        var formSelector = 'form[module="'+module+'"][submodule="'+submodule+'"]';
+        var fieldConstructor = new ChildFieldConstructor(module, submodule, formSelector);
+        fieldConstructor.initFields();
     };
 
     deleteChildRecord(myButton) {
@@ -213,19 +216,20 @@ class ChildTab {
 
     saveChildRecord(myButton) {
         var context = this;
+        var submodule = $(myButton).attr("submodule");
         console.log("Child Tab Save Button Called");
 
         var convertParent = new ConvertFormToJSON($(this.mainForm));
         var parentRecord = convertParent.convert();
 
-        var convertRecord = new ConvertFormToJSON($(this.formSelector));
+        var convertRecord = new ConvertFormToJSON($("form[submodule='"+submodule+"']"));
         var subRecord = convertRecord.convert();
 
         var tmp = [];
         tmp.push(parentRecord);
         tmp.push(subRecord);
 
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/savesubrecord/' + this.moduleName + '/' + this.subModuleName;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/savesubrecord/' + this.moduleName + '/' + submodule;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data, status, hqr) {
             $(context.modalId).modal('hide');
