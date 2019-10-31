@@ -118,7 +118,7 @@ class ChildTab {
 
     initButtons() {
         var context = this;
-        $('button[class~="btnChildTabEdit"]').click(function(e) {
+        $('button.btnChildTabEdit[submodule="'+this.subModuleName+'"]').click(function(e) {
             var recId = $(this).attr("recordId");
             context.selectedId = recId;
             console.log("SELECTED ID == "+context.selectedId);
@@ -132,32 +132,13 @@ class ChildTab {
                 noSelectedRecordEdit.alert();
             }
         });
-        $('button[class~="btnChildTabNew"]').click(function() {
+        $('button.btnChildTabNew[submodule="'+this.subModuleName+'"]').click(function() {
             context.newChildRecord(this);
         });
-        $('button[class~="btnChildTabDelete"]').click(function() {
-            var recId = $(this).attr("recordId");
-            var myButton = this;
-            context.selectedId = recId;
-            console.log("SELECTED ID == "+context.selectedId);
-            if (context.selectedId) {
-                var confirmFunc = function() {
-                    console.log("Confirm selected");
-                    context.loadToForm();
-                    context.deleteChildRecord(myButton);
-                };
-                var deleteRecordConfirm = new DeleteRecordConfirm(confirmFunc);
-                deleteRecordConfirm.confirm();
-            }
-            else {
-                var noSelectedRecordEdit = new NoSelectedRecordEdit();
-                noSelectedRecordEdit.alert();
-            }
+        $('button.btnChildTabDelete[submodule="'+this.subModuleName+'"]').click(function() {
+            context.deleteChildRecord(this);
         });
-        // $('button.btnChildTabSave').click(function() {
-        //     context.saveChildRecord(this);
-        // });
-        $('button[class~="btnChildTabCancel"]').click(function() {
+        $('button.btnChildTabCancel[submodule="'+this.subModuleName+'"]').click(function() {
             context.cancelChildRecord();
         });
     };
@@ -197,14 +178,16 @@ class ChildTab {
 
     deleteChildRecord(myButton) {
         var context = this;
+        var subRecordId = $(myButton).attr("recordId");
+        var module = $(myButton).attr("module");
+        var submodule = $(myButton).attr("submodule");
+
         console.log("Child Tab Delete Button Called");
 
         var convertParent = new ConvertFormToJSON($(this.mainForm));
         var parentRecord = convertParent.convert();
 
-        var subRecordId = $(myButton).attr("recordId");
-
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/deletesubrecord/' + this.moduleName + '/' + this.subModuleName + '/' + subRecordId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/deletesubrecord/' + module + '/' + submodule + '/' + subRecordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));
         var successCallback = function(data) {
             console.log("Delete success called : "+data);
@@ -233,10 +216,9 @@ class ChildTab {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data, status, hqr) {
             $(context.modalId).modal('hide');
-            context.reloadChildRecords();
-
             var moduleScript = new ModuleScript(context.moduleName);
             moduleScript.saveChild(context.subModuleName);
+            context.reloadChildRecords();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
