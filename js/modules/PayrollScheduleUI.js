@@ -28,7 +28,19 @@ class PayrollScheduleUI {
 
             var totalBasicPay = zeroNaN(data[0].getProp("basicPay"));
             var totalOtAmount = zeroNaN(data[0].getProp("totalOtAmount"));
-            var totalBenefitAmount = zeroNaN(data[0].getProp("totalBenefitAmount"));
+
+            var benefit01 = zeroNaN(data[0].getProp("benefitAmount01"));
+            var benefit02 = zeroNaN(data[0].getProp("benefitAmount02"));
+            var benefit03 = zeroNaN(data[0].getProp("benefitAmount03"));
+            var benefit04 = zeroNaN(data[0].getProp("benefitAmount04"));
+            var benefit05 = zeroNaN(data[0].getProp("benefitAmount05"));
+            var benefit06 = zeroNaN(data[0].getProp("benefitAmount06"));
+            var benefit07 = zeroNaN(data[0].getProp("benefitAmount07"));
+            var benefit08 = zeroNaN(data[0].getProp("benefitAmount08"));
+            var benefit09 = zeroNaN(data[0].getProp("benefitAmount09"));
+            var benefit10 = zeroNaN(data[0].getProp("benefitAmount10"));
+
+            var totalBenefitAmount = zeroNaN(benefit01+benefit02+benefit03+benefit04+benefit05+benefit06+benefit07+benefit08+benefit09+benefit10);
             var totalAdjustmentAmount = zeroNaN(data[0].getProp("totalAdjustmentAmount"));
             var totalTaxAmount = zeroNaN(data[0].getProp("totalTaxAmount"));
     
