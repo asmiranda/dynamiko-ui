@@ -166,23 +166,8 @@ class LeftMenu {
         $.each(data, function(i, obj) {
             if (obj.getProp("group")==menu) {
                 var menuId = menu.replace(/ /g,'')
-                if (counter == 0) {
-                    $(".sidebar-menu").append('' +
-                    '                <li class="treeview">\n' +
-                    '                   <a href="#" id="'+obj.getProp("groupName")+'">\n' +
-                    '                       <i class="fa fa-pie-chart"></i>\n' +
-                    '                       <span>'+menu+'</span>\n' +
-                    '                       <span class="pull-right-container">\n' +
-                    '                           <i class="fa fa-angle-left pull-right"></i>\n' +
-                    '                       </span>\n' +
-                    '                   </a>\n' +
-                    '                   <ul class="treeview-menu" id="'+menuId+'Menu">\n' +
-                    '                   </ul>\n' +
-                    '                 </li>\n' +
-                    '');
-                }
                 counter++;
-                $("#"+menuId+"Menu").append('<li><a href="#" class="leftMenuItem '+obj.getProp("name")+'" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+                $(".mysidemenu").append('<li><a href="#" class="leftMenuItem '+obj.getProp("name")+'" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
             }
         });
     }
@@ -190,7 +175,7 @@ class LeftMenu {
     addDashboard(data) {
         $.each(data, function(i, obj) {
             if (obj.getProp("dashboard")) {
-                $(".sidebar-menu").append('<li><a href="#" class="leftDashboardItem" data="'+obj.getProp("name")+'"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+                $(".mysidemenu").append('<li><a href="#" class="leftDashboardItem" data="'+obj.getProp("name")+'"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
             }
         });
     }
