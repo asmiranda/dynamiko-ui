@@ -25,8 +25,10 @@ function LoginJS(uname, pword) {
                     window.location.href = redUrl;
                 }, 500);
             },
-            error: function () {
-                console.log("error");
+            error: function (data) {
+                console.log(data.responseJSON.message);
+                var showModal = new ShowModalAny('', data.responseJSON.message);
+                showModal.show();
             }
         });
     }
@@ -46,8 +48,10 @@ function LoginJS(uname, pword) {
                 console.log(data);
                 
             },
-            error: function () {
-                console.log("error");
+            error: function (data) {
+                console.log(data.responseJSON.message);
+                var showModal = new ShowModalAny('', data.responseJSON.message);
+                showModal.show();
             }
         });
     }
