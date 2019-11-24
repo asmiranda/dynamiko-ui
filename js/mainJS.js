@@ -49,13 +49,84 @@ class UIService {
             enumerable: false
         });
 
+        var context = this;
         this.initCompany();
         this.initProfile();
 
         $(".btnSignOut").click(function() {
             window.location.href = "login.html";
         });
+        $(".manageUserRoles").click(function() {
+            context.manageUserRoles();
+        });
+        $(".manageDepartment").click(function() {
+            context.manageDepartment();
+        });
+        $(".manageTaxCategory").click(function() {
+            context.manageTaxCategory();
+        });
+        $(".manageAccountChart").click(function() {
+            context.manageAccountChart();
+        });
+        $(".manageBenefit").click(function() {
+            context.manageBenefit();
+        });
+        $(".manageEmployee").click(function() {
+            context.manageEmployee();
+        });
+        $(".manageSupplier").click(function() {
+            context.manageSupplier();
+        });
+        $(".manageProduct").click(function() {
+            context.manageProduct();
+        });
     }
+
+    manageEmployee() {
+        this.loadUI('EmployeeUI');
+    }
+
+    manageSupplier() {
+        this.loadUI('SupplierUI');
+    }
+
+    manageProduct() {
+        this.loadUI('ProductUI');
+    }
+
+    manageUserRoles() {
+        this.loadUI('UserUI');
+    }
+
+    manageDepartment() {
+        this.loadUI('DepartmentUI');
+    }
+
+    manageTaxCategory() {
+        this.loadUI('TaxCategoryUI');
+    }
+
+    manageAccountChart() {
+        this.loadUI('AccountGroupUI');
+    }
+
+    manageBenefit() {
+        this.loadUI('HrBenefitUI');
+    }
+
+    loadUI(myui) {
+        var moduleName = myui;
+        localStorage.latestModule = moduleName;
+    
+        var registerDatatable = new RegisterDatatable();
+        registerDatatable.clearRegister();
+    
+        var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
+        constructForm.construct();
+    
+        var fileUpload = new FileUpload();
+        fileUpload.initUpload();
+    }    
 
     initCompany() {
         var context = this;
