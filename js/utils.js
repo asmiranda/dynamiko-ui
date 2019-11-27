@@ -40,21 +40,35 @@ class LoadJsonToForm {
         this.form = form;
         this.data = data;
         this.config = new Config();
+        this.moduleName = $(form).attr("module");
+        this.entityName = $(form).attr("bean");
     }
 
     setFieldValue(field, value) {
-        if ($(field).hasClass("calendar")) {
-            var dateValue = moment(value);
-            var newDateValue = dateValue.format(this.config.getDateFormat().toUpperCase());
-            $(field).val(newDateValue);
+        if ($(field).hasClass("profilePic")) {
+            var recordId = $(this.form + " [name='"+this.entityName+"Id']").val();
+            console.log("RECORD ID = "+recordId);
+            var profilePicUrl = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+this.moduleName+"/"+recordId;
+            console.log("profilePicUrl = "+profilePicUrl);
+            $(field).attr("src", profilePicUrl);
         }
-        else if ($(field).hasClass("currency")) {
-            var newValue = parseFloat(value).toFixed(2);;
-            $(field).val(newValue);
+        else if ($(field).hasClass("textOnly")) {
+            $(field).html(value);
         }
         else {
-            $(field).val(value);
-            $(field).trigger("change");
+            if ($(field).hasClass("calendar")) {
+                var dateValue = moment(value);
+                var newDateValue = dateValue.format(this.config.getDateFormat().toUpperCase());
+                $(field).val(newDateValue);
+            }
+            else if ($(field).hasClass("currency")) {
+                var newValue = parseFloat(value).toFixed(2);;
+                $(field).val(newValue);
+            }
+            else {
+                $(field).val(value);
+                $(field).trigger("change");
+            }
         }
     }
 
@@ -65,6 +79,19 @@ class LoadJsonToForm {
         console.log("LoadJsonToForm == " + innerForm);
         var clearForm = new ClearForm(innerForm);
         clearForm.clear();
+
+        $.each(innerData, function(k, v) {
+            // set id value first
+            if (k == this.entityName+"Id") {
+                var field = $(innerForm + " [name='"+k+"']");
+                if (field) {
+                    console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                    console.log(field);
+                    context.setFieldValue(field, v);
+                }
+            }
+        });
+
         $.each(innerData, function(k, v) {
             var field = $(innerForm + " [name='"+k+"']");
             if (field) {
