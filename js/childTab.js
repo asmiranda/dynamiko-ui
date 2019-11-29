@@ -82,6 +82,34 @@ class ChildTab {
         var successCallback = function(data) {
             console.log(context.subModuleName + " Sub Record Reloaded");
             context.selectedId = null;
+            context.loadRecordsToChildTable(data);
+            context.loadRecordsToHtml(data);
+            context.initButtons();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    };
+
+    loadRecordsToHtml(data) {
+        console.log(data);
+        var context = this;
+        $(".childRecordHtml[submodule='"+context.subModuleName+"']").empty();
+        if (data[0]) {
+            $.each(data, function(i, obj) {
+                var recordHtml = $(".childRecordHtmlTemplate[submodule='"+context.subModuleName+"']").html();
+                $.each(obj, function(key, value) {
+                    console.log(key + " -- " + value);
+                    var replaceStr = new ReplaceStr();
+                    recordHtml = replaceStr.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
+                });
+                $(".childRecordHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
+            });
+        }
+    }
+
+    loadRecordsToChildTable(data) {
+        var context = this;
+        if (context.childTable) {
             context.childTable.clear().draw(false);
             console.log(data);
             if (data[0]) {
@@ -110,11 +138,8 @@ class ChildTab {
                     context.childTable.draw(false);
                 });
             }
-            context.initButtons();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    };
+        }
+    }
 
     initButtons() {
         var context = this;

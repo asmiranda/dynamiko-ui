@@ -1,8 +1,143 @@
-<div class="user-block">
-  <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-      <span class="username">
-        <a href="#">Jonathan Burke Jr.</a>
-        <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-      </span>
-  <span class="description">Shared publicly - 7:30 PM today</span>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<div class="box-body row">
+
+  <div id="subPersonAddressUI" class="tab-pane fade in active">
+    <div>
+      <html xmlns="http://www.w3.org/1999/xhtml">
+      <div>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Address</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body subRecord" submodule="PersonAddressUI">
+            <span>
+              <strong>Education</strong>
+              <a href="#" class="pull-right btn-box-tool"><i class="fa fa-trash-o"></i> Delete</a>
+              <a href="#" class="pull-right btn-box-tool"><i class="fa fa-plus"></i> New</a>
+            </span>
+            <p class="text-muted">
+              B.S. in Computer Science from the University of Tennessee at Knoxville
+            </p>
+            <hr>
+          </div>
+          <!-- /.box-body -->
+        </div>
+
+        <table class="display childRecord" style="width:100%" submodule="PersonAddressUI"
+          columns="addressType,wholeAddress,city,country" childFieldId="PersonAddressId">
+          <thead>
+            <tr>
+              <th><button data-toggle="modal" type="button" class="btn btn-info btnChildTabNew" module="CustomerUI"
+                  submodule="PersonAddressUI" data-target="#myModalPersonAddressUI">New Record</button></th>
+              <th>Type</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>Country</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+        <!-- Button trigger modal -->
+        <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attr="data-target=${'#myModal' + CODEMODEL.entity}">-->
+        <!--Launch demo modal-->
+        <!--</button>-->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalPersonAddressUI" tabindex="-1" role="dialog"
+          aria-labelledby="myModalPersonAddressUI">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <form role="form-horizontal" module="CustomerUI" submodule="PersonAddressUI">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+                  <h3 class="modal-title" id="myModalLabel">Address</h3>
+                </div>
+                <div class="modal-body">
+                  <div class="box-body" style="max-height: 500px; overflow-y: auto;">
+                    <!-- /.box-body -->
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="addressType" class="col-sm-3 control-label">Address Type</label>
+                      <div class="col-sm-9">
+                        <select type="text" class="form-control displayEdit" name="addressType"
+                          placeholder="Address Type" module="Person" submodule="PersonAddress">
+                          <option>Billing</option>
+                          <option>Shipping</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="streetNo" class="col-sm-3 control-label">Street No</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control displayEdit" name="streetNo" placeholder="Street No"
+                          module="CustomerUI" submodule="PersonAddressUI">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="street" class="col-sm-3 control-label">Street</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control displayEdit" name="street" placeholder="Street"
+                          module="CustomerUI" submodule="PersonAddressUI">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="district" class="col-sm-3 control-label">District</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control displayEdit" name="district" placeholder="District"
+                          module="CustomerUI" submodule="PersonAddressUI">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="country" class="col-sm-3 control-label">Country</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control displayEdit" name="country" placeholder="Country"
+                          module="CustomerUI" submodule="PersonAddressUI">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="city" class="col-sm-3 control-label">City</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control displayEdit" name="city" placeholder="City"
+                          module="CustomerUI" submodule="PersonAddressUI">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <label for="zipCode" class="col-sm-3 control-label">Zip Code</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control displayEdit" name="zipCode" placeholder="Zip Code"
+                          module="CustomerUI" submodule="PersonAddressUI">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <span>
+                    <input type="hidden" class="form-control" name="PersonAddressId" style="width:50px;"
+                      module="CustomerUI" submodule="PersonAddressUI"></input>
+                    <button type="button" class="btn btn-default btnChildTabCancel" data-dismiss="modal"
+                      module="CustomerUI" submodule="PersonAddressUI">Cancel</button>
+                    <button type="button" class="btn btn-primary btnChildTabSave" module="CustomerUI"
+                      submodule="PersonAddressUI">Save Changes</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

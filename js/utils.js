@@ -1,3 +1,22 @@
+class ReplaceStr {
+    constructor() {
+
+    }
+
+    escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+     
+    /* Define functin to find and replace specified term with replacement string */
+    replaceAll(str, term, replacement) {
+      return str.replace(new RegExp(this.escapeRegExp(term), 'g'), replacement);
+    }
+     
+    /* Testing our replaceAll() function  */
+    // var myStr = 'if the facts do not fit the theory, change the facts.';
+    // var newStr = replaceAll(myStr, 'facts', 'statistics')
+}
+
 class ClearForm {
     constructor(form) {
         this.form = form;
