@@ -7,7 +7,7 @@ class ChildTabs {
 
     initTabs() {
         var context = this;
-        $.each($('table[submodule]'), function(i, obj) {
+        $.each($('.myChildTab[submodule]'), function(i, obj) {
             console.log("initTabs");
             console.log(i);
             console.log($(obj).attr("submodule"));
@@ -51,26 +51,28 @@ class ChildTab {
         var context = this;
         this.tableSelector = 'table[class~="childRecord"][submodule="'+this.subModuleName+'"]';
         this.childFieldId = $(this.tableSelector).attr("childFieldId");
-        this.childTableColFields = $(this.tableSelector).attr("columns");
-        console.log("init child table :: "+this.tableSelector);
-
-        this.childTable = $(this.tableSelector).DataTable( {
-            "searching": false,
-            "bLengthChange": false,
-
-            "autoWidth": false,
-            "fixedHeader": {
-                "header": false,
-                "footer": false
-            },
-            "columnDefs": [
-                {
-                    "width": "70px",
-                    "targets": 0,
-                    'orderable': false,
+        if (this.childFieldId) {
+            this.childTableColFields = $(this.tableSelector).attr("columns");
+            console.log("init child table :: "+this.tableSelector);
+    
+            this.childTable = $(this.tableSelector).DataTable( {
+                "searching": false,
+                "bLengthChange": false,
+    
+                "autoWidth": false,
+                "fixedHeader": {
+                    "header": false,
+                    "footer": false
                 },
-            ],
-        } );
+                "columnDefs": [
+                    {
+                        "width": "70px",
+                        "targets": 0,
+                        'orderable': false,
+                    },
+                ],
+            } );
+        }
         this.reloadChildRecords();
     };
 
@@ -82,8 +84,8 @@ class ChildTab {
         var successCallback = function(data) {
             console.log(context.subModuleName + " Sub Record Reloaded");
             context.selectedId = null;
-            context.loadRecordsToChildTable(data);
             context.loadRecordsToHtml(data);
+            context.loadRecordsToChildTable(data);
             context.initButtons();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
@@ -96,13 +98,17 @@ class ChildTab {
         $(".childRecordHtml[submodule='"+context.subModuleName+"']").empty();
         if (data[0]) {
             $.each(data, function(i, obj) {
-                var recordHtml = $(".childRecordHtmlTemplate[submodule='"+context.subModuleName+"']").html();
-                $.each(obj, function(key, value) {
-                    console.log(key + " -- " + value);
-                    var replaceStr = new ReplaceStr();
-                    recordHtml = replaceStr.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
-                });
-                $(".childRecordHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
+                try {
+                    var recordHtml = $(".childRecordHtmlTemplate[submodule='"+context.subModuleName+"']").html();
+                    $.each(obj, function(key, value) {
+                        console.log(key + " -- " + value);
+                        var replaceStr = new ReplaceStr();
+                        recordHtml = replaceStr.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
+                    });
+                    $(".childRecordHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
+                    }
+                catch(e) {
+                }
             });
         }
     }
