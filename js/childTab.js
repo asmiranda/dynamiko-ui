@@ -59,7 +59,7 @@ class ChildTab {
                 "searching": false,
                 "bLengthChange": false,
     
-                "autoWidth": false,
+                "autoWidth": true,
                 "fixedHeader": {
                     "header": false,
                     "footer": false

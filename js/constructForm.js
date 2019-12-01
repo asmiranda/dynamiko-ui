@@ -184,6 +184,10 @@ class FormControlButton {
             autoOpen: false,
         });
         this.initFileUpload();
+        
+        $('button.btnToggleSearch[module="'+this.moduleName+'"]').click(function() {
+            context.toggleSearch();
+        });
         $('button.btnNew[module="'+this.moduleName+'"]').click(function() {
             context.newRecord();
         });
@@ -616,6 +620,15 @@ class FormControlButton {
                 context.formUploadData.append("file", file);
             }
         });
+    }
+
+    toggleSearch() {
+        if ($("#dynamikoMainSearch").is(":visible")) {
+            $("#dynamikoMainSearch").hide();
+        }
+        else {
+            $("#dynamikoMainSearch").show();
+        }
     }
 
     newRecord() {
