@@ -112,7 +112,16 @@ class LoadJsonToForm {
         });
 
         $.each(innerData, function(k, v) {
-            var field = $(innerForm + " [name='"+k+"']");
+            var fields = $(innerForm + " [name='"+k+"'].textOnly");
+            if (fields) {
+                $.each(fields, function(k, field) {
+                    console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                    console.log(field);
+                    context.setFieldValue(field, v);
+                });
+            }
+
+            var field = $(innerForm + " [name='"+k+"']:not(.textOnly)");
             if (field) {
                 console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
                 console.log(field);
