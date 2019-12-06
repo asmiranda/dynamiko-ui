@@ -170,10 +170,10 @@ class LoadAutoCompleteLabel {
             var successCallback = function(data) {
                 console.log(data);
                 console.log("Callback called "+innerForm);
-                var fieldAutoComplete = $(innerForm + " [class~='autocomplete'][autoname='"+data.getProp("fieldName")+"']");
-                fieldAutoComplete.val(data.getProp("value"));
                 var divDescAutoComplete = $(innerForm + " [class~='DivAutoComplete'][autoname='"+data.getProp("fieldName")+"']");
                 divDescAutoComplete.html(data.getProp("value"));
+                var fieldAutoComplete = $(innerForm + " [class~='autocomplete'][autoname='"+data.getProp("fieldName")+"']");
+                fieldAutoComplete.val(data.getProp("value"));
             };
             var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
             ajaxCaller.ajaxGet();
