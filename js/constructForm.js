@@ -35,6 +35,9 @@ class MainForm {
                 context.loadRecord(recordId);
             }
             
+            var formLink = new FormLinker();
+            formLink.init();
+            
             var moduleScript = new ModuleScript(context.moduleName);
             moduleScript.init();
         };
