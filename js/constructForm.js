@@ -40,6 +40,8 @@ class MainForm {
 
             var moduleScript = new ModuleScript(context.moduleName);
             moduleScript.init();
+
+            $("#mainUploadInput").fileinput();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
