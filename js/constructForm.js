@@ -756,7 +756,7 @@ class SearchTable {
             context.formRule.doRule();
             context.chartRule.doChartRule();
 
-            var myDropzone = new Dropzone("div#mainDropZone", { 
+            new Dropzone("div#mainDropZone", { 
                 url: MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/upload/any/"+context.moduleName+"/"+context.selectedId,
                 maxFiles: 1, 
                 clickable: true, 
@@ -781,7 +781,7 @@ class SearchTable {
                 console.log(obj);
                 var fileUploadId = obj.getProp("fileUploadId");
                 var fileName = obj.getProp("fileName");
-                $(".recordFiles").append("<div class='thumbnail' style='display:inline-block' data-toggle='modal' data-target='#imgModal_"+fileUploadId+"'><img src='"+MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId+"/'></img><div class='text-center'><b>"+fileUploadId+"</b></div></div>");
+                $(".recordFiles").append("<div class='thumbnail' style='display:inline-block'><img title='"+fileName+"' src='"+MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId+"/' data-toggle='modal' data-target='#imgModal_"+fileUploadId+"'></img><div class='text-center attachFileRemove' style='margin-top: 20px;' data='"+fileUploadId+"'><i class='fa fa-fw fa-remove'></i> Remove</div></div>");
                 
                 var html = `
                     <div id="myModal" class="modal fade" role="dialog">
@@ -812,7 +812,23 @@ class SearchTable {
                 $(".btnImage_"+fileUploadId).click(function() {
                     context.displayLargeImageFullScreen(this);
                 });
-            });      
+            });
+            $('.attachFileRemove').click(function() {
+                context.removeAttachedFile(this);
+            });               
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    removeAttachedFile(obj) {
+        var context = this;
+        var fileId = $(obj).attr("data");
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/delete/"+fileId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            context.displayAllFiles();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();

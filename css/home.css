@@ -1,3 +1,6 @@
+.dz-details, .dz-progress, .dz-error-message, .dz-success-mark, .dz-error-mark {
+    display: none;
+}
 .thumb {
     height: 300px;
     border: 1px solid #000;
