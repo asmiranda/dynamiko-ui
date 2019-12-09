@@ -1,3 +1,19 @@
+.thumb {
+    height: 300px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+}
+  
+.thumbnail { 
+    margin: 10px 5px 0 0;
+}
+  
+.thumbnail>img { 
+    display: inline-block; 
+    height: 50px;
+    width: 50px;
+}
+  
 .nav > li > a {
     padding: 10px 15px;
 }

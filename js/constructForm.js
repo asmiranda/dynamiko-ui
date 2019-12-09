@@ -772,17 +772,16 @@ class SearchTable {
 
     displayAllFiles() {
         var context = this;
-        var faxFile = $(".selectFaxFiles").val();
-        console.log(faxFile);
         var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.moduleName+"/"+context.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
             $(".recordFiles").empty();
-            $(data.ocrPageObjs).each(function(index, obj) {
+            $(data).each(function(index, obj) {
                 console.log(obj);
-                var pageFile = obj.pageFile;
-                $(".recordFiles").append("<div class='thumbnail' style='display:inline-block' data-toggle='modal' data-target='#imgModal_"+index+"'><img src='"+MAIN_URL+"/api/utility/ocr/"+COMPANY_CODE+"/file/"+data.fileName+"/"+pageFile+"/'></img><div class='text-center'><b>"+(index+1)+"</b></div></div>");
+                var fileUploadId = obj.getProp("fileUploadId");
+                var fileName = obj.getProp("fileName");
+                $(".recordFiles").append("<div class='thumbnail' style='display:inline-block' data-toggle='modal' data-target='#imgModal_"+fileUploadId+"'><img src='"+MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId+"/'></img><div class='text-center'><b>"+fileUploadId+"</b></div></div>");
                 
                 var html = `
                     <div id="myModal" class="modal fade" role="dialog">
@@ -790,13 +789,13 @@ class SearchTable {
                         <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close btn btnImage_${index}" title="Full Screen" value="image_${index}">
+                                    <button type="button" class="close btn btnImage_${fileUploadId}" title="Full Screen" value="image_${fileUploadId}">
                                         <i class="glyphicon glyphicon-fullscreen"></i>
                                     </button>       
                                     <h4 class="modal-title">Larger Image</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <div style="overflow-x: auto; white-space: nowrap; height: 500px; width: 100%;" id="image_${index}">
+                                    <div style="overflow-x: auto; white-space: nowrap; height: 500px; width: 100%;" id="image_${fileUploadId}">
                                         <img src='myImage'></img>
                                     </div>
                                 </div>
@@ -807,17 +806,22 @@ class SearchTable {
                         </div>
                     </div>
                 `;
-                html = html.replace("myModal", "imgModal_"+index);
-                html = html.replace("myImage", MAIN_URL+"/api/utility/ocr/"+COMPANY_CODE+"/file/"+data.fileName+"/"+pageFile);
+                html = html.replace("myModal", "imgModal_"+fileUploadId);
+                html = html.replace("myImage", MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId);
                 $(".recordFiles").append(html);
-                $(".btnImage_"+index).click(function() {
+                $(".btnImage_"+fileUploadId).click(function() {
                     context.displayLargeImageFullScreen(this);
                 });
             });      
-            context.displaySearchablePdf(faxFile);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
+    }
+
+    displayLargeImageFullScreen(btn) {
+        var val = $(btn).attr("value");
+        console.log(val);
+        $("#"+val).fullScreen(true);
     }
 
     reloadSpecialSearch() {
