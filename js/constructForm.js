@@ -37,7 +37,7 @@ class MainForm {
             
             var formLink = new FormLinker();
             formLink.init();
-            
+
             var moduleScript = new ModuleScript(context.moduleName);
             moduleScript.init();
         };
@@ -188,16 +188,16 @@ class FormControlButton {
         });
         this.initFileUpload();
         
-        $('button.btnToggleSearch[module="'+this.moduleName+'"]').click(function() {
+        $('.btnToggleSearch[module="'+this.moduleName+'"]').click(function() {
             context.toggleSearch();
         });
-        $('button.btnNew[module="'+this.moduleName+'"]').click(function() {
+        $('.btnNew[module="'+this.moduleName+'"]').click(function() {
             context.newRecord();
         });
-        $('button.btnSave[module="'+this.moduleName+'"]').click(function() {
+        $('.btnSave[module="'+this.moduleName+'"]').click(function() {
             context.saveRecord();
         });
-        $('button.btnDelete[module="'+this.moduleName+'"]').click(function() {
+        $('.btnDelete[module="'+this.moduleName+'"]').click(function() {
             context.deleteRecord();
         });
         $('li.btnUpload').click(function() {
