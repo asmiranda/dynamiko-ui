@@ -756,12 +756,22 @@ class SearchTable {
             context.formRule.doRule();
             context.chartRule.doChartRule();
 
+            Dropzone.autoDiscover = false;
             new Dropzone("div#mainDropZone", { 
                 url: MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/upload/any/"+context.moduleName+"/"+context.selectedId,
                 maxFiles: 1, 
                 clickable: true, 
                 maxFilesize: 1, //MB
-                headers:{"Authorization":'Bearer ' + localStorage.token},          
+                headers:{"Authorization":'Bearer ' + localStorage.token},   
+                init: function() {
+                        this.on("addedfile", function(file) {
+                            // alert("Added file.");
+                        }),
+                        this.on("success", function(file, response) {
+                            this.removeAllFiles();
+                            context.displayAllFiles();
+                        })
+                }                   
             });
 
             context.displayAllFiles();
@@ -781,7 +791,29 @@ class SearchTable {
                 console.log(obj);
                 var fileUploadId = obj.getProp("fileUploadId");
                 var fileName = obj.getProp("fileName");
-                $(".recordFiles").append("<div class='thumbnail' style='display:inline-block'><img title='"+fileName+"' src='"+MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId+"/' data-toggle='modal' data-target='#imgModal_"+fileUploadId+"'></img><div class='text-center attachFileRemove' style='margin-top: 20px;' data='"+fileUploadId+"'><i class='fa fa-fw fa-remove'></i> Remove</div></div>");
+                var uploadType = obj.getProp("uploadType");
+                var str = "";
+                if (uploadType == 'Profile') {
+                    str = `
+                    <div class='thumbnail' style='display:inline-block; border-width: 5px;'>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <div class='text-center' style='margin-top: 20px;'>
+                            <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
+                            <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
+                        </div>
+                    </div>`;
+                }
+                else {
+                    str = `
+                    <div class='thumbnail' style='display:inline-block'>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <div class='text-center' style='margin-top: 20px;'>
+                            <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
+                            <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
+                        </div>
+                    </div>`;
+                }
+                $(".recordFiles").append(str);
                 
                 var html = `
                     <div id="myModal" class="modal fade" role="dialog">
@@ -813,9 +845,25 @@ class SearchTable {
                     context.displayLargeImageFullScreen(this);
                 });
             });
+            $('.setFileProfile').click(function() {
+                context.setFileProfile(this);
+            });               
             $('.attachFileRemove').click(function() {
                 context.removeAttachedFile(this);
             });               
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    setFileProfile(obj) {
+        var context = this;
+        var fileId = $(obj).attr("data");
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/setprofile/"+fileId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            context.displayAllFiles();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
