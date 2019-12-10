@@ -109,6 +109,11 @@ class ChildTab {
                         var replaceStr = new ReplaceStr();
                         recordHtml = replaceStr.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
                     });
+
+                    var replaceStr = new ReplaceStr();
+                    recordHtml = replaceStr.replaceAll(recordHtml, "##MAIN_URL##", MAIN_URL);
+                    recordHtml = replaceStr.replaceAll(recordHtml, "##COMPANY_CODE##", localStorage.companyCode);
+
                     $(".childRecordHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
                     }
                 catch(e) {
