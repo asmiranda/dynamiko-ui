@@ -194,6 +194,9 @@ class FormControlButton {
         $('.btnNew[module="'+this.moduleName+'"]').click(function() {
             context.newRecord();
         });
+        $('.btnUpdate[module="'+this.moduleName+'"]').click(function() {
+            context.showModalUpdateRecord();
+        });
         $('.btnSave[module="'+this.moduleName+'"]').click(function() {
             context.saveRecord();
         });
@@ -654,6 +657,10 @@ class FormControlButton {
         ajaxCaller.ajaxPost();
     };
 
+    showModalUpdateRecord() {
+        this.searchTableClass.displayAllFiles();
+    }
+
     deleteRecord() {
         var context = this;
         console.log("deleteRecord called");
@@ -713,6 +720,7 @@ class SearchTable {
         this.successCallback;
         this.formRule = new FormRule(this.moduleName, this.mainForm);
         this.chartRule = new ChartRule(this.moduleName, this.mainForm);
+        this.dropZone;
     }
 
     initTable() {
@@ -757,7 +765,10 @@ class SearchTable {
             context.chartRule.doChartRule();
 
             Dropzone.autoDiscover = false;
-            new Dropzone("div#mainDropZone", { 
+            if (this.dropZone) {
+                this.dropZone.destroy();
+            }
+            this.dropZone = new Dropzone("div#mainDropZone", { 
                 url: MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/upload/any/"+context.moduleName+"/"+context.selectedId,
                 maxFiles: 1, 
                 clickable: true, 
@@ -773,8 +784,6 @@ class SearchTable {
                         })
                 }                   
             });
-
-            context.displayAllFiles();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();

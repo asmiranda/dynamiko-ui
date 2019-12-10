@@ -41,6 +41,7 @@ class ChildTab {
         this.tableSelector;
 
         this.selectedId;
+        this.dropZone;
 
         this.formSelector = 'form[module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]';
         this.modalId = $('button[class~="btnChildTabEdit"][module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]').attr("data-target");
@@ -159,6 +160,7 @@ class ChildTab {
             if (context.selectedId) {
                 context.loadToForm();
                 context.editChildRecord(this);
+                context.displayAllFiles();
             }
             else {
                 e.stopPropagation();
@@ -275,10 +277,126 @@ class ChildTab {
             console.log(data);
             var loadJsonToForm = new LoadJsonToForm(context.formSelector, data);
             loadJsonToForm.load();
+
+            context.initChildTabRecords();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     };
+
+    initChildTabRecords() {
+        var context = this;
+        Dropzone.autoDiscover = false;
+        if (this.dropZone) {
+            this.dropZone.destroy();
+        }
+        this.dropZone = new Dropzone("div.childTabDropZone[submodule='"+this.subModuleName+"']", { 
+            url: MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/upload/any/"+context.subModuleName+"/"+context.selectedId,
+            maxFiles: 1, 
+            clickable: true, 
+            maxFilesize: 1, //MB
+            headers:{"Authorization":'Bearer ' + localStorage.token},   
+            init: function() {
+                    this.on("addedfile", function(file) {
+                        // alert("Added file.");
+                    }),
+                    this.on("success", function(file, response) {
+                        this.removeAllFiles();
+                        context.displayAllFiles();
+                    })
+            }                   
+        });
+    }
+
+    setFileProfile(obj) {
+        var context = this;
+        var fileId = $(obj).attr("data");
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/setprofile/"+fileId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            context.displayAllFiles();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    displayAllFiles() {
+        var context = this;
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.subModuleName+"/"+context.selectedId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".childTabRecordFiles[submodule='"+context.subModuleName+"']").empty();
+            $(data).each(function(index, obj) {
+                console.log(obj);
+                var fileUploadId = obj.getProp("fileUploadId");
+                var fileName = obj.getProp("fileName");
+                var uploadType = obj.getProp("uploadType");
+                var str = "";
+                if (uploadType == 'Profile') {
+                    str = `
+                    <div class='thumbnail' style='display:inline-block; border-width: 5px;'>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <div class='text-center' style='margin-top: 20px;'>
+                            <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
+                            <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
+                        </div>
+                    </div>`;
+                }
+                else {
+                    str = `
+                    <div class='thumbnail' style='display:inline-block'>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <div class='text-center' style='margin-top: 20px;'>
+                            <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
+                            <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
+                        </div>
+                    </div>`;
+                }
+                $(".childTabRecordFiles[submodule='"+context.subModuleName+"']").append(str);
+                
+                var html = `
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">                    
+                        <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close btn btnImage_${fileUploadId}" title="Full Screen" value="image_${fileUploadId}">
+                                        <i class="glyphicon glyphicon-fullscreen"></i>
+                                    </button>       
+                                    <h4 class="modal-title">Larger Image</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="overflow-x: auto; white-space: nowrap; height: 500px; width: 100%;" id="image_${fileUploadId}">
+                                        <img src='myImage'></img>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>
+                `;
+                html = html.replace("myModal", "imgModal_"+fileUploadId);
+                html = html.replace("myImage", MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId);
+                $(".childTabRecordFiles[submodule='"+context.subModuleName+"']").append(html);
+                $(".recordFiles").append(html);
+                $(".btnImage_"+fileUploadId).click(function() {
+                    context.displayLargeImageFullScreen(this);
+                });
+            });
+            $('.setFileProfile').click(function() {
+                context.setFileProfile(this);
+            });               
+            $('.attachFileRemove').click(function() {
+                context.removeAttachedFile(this);
+            });               
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
 
     removeTableSelectedRecord() {
         this.selectedId = null;
