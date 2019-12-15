@@ -42,6 +42,7 @@ class ChildTab {
 
         this.selectedId;
         this.dropZone;
+        this.readOnly;
 
         this.formSelector = 'form[module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]';
         this.modalId = $('button[class~="btnChildTabEdit"][module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]').attr("data-target");
@@ -52,6 +53,7 @@ class ChildTab {
         var context = this;
         this.tableSelector = 'table[class~="childRecord"][submodule="'+this.subModuleName+'"]';
         this.childFieldId = $(this.tableSelector).attr("childFieldId");
+        this.readWrite = $(this.tableSelector).attr("readWrite");
         if (this.childFieldId) {
             this.childTableColFields = $(this.tableSelector).attr("columns");
             console.log("init child table :: "+this.tableSelector);
@@ -136,10 +138,12 @@ class ChildTab {
                     console.log(key);
                     var record = [];
                     var modalId = "#myModal"+context.subModuleName;
-                    var buttonEdit = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
-                    var buttonDelete = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" type="button" class="btn btn-danger btnChildTabDelete" style="margin-left: 5px;" title="Delete Selected Record"><i class="fa fa-trash"></i></button>';
-                    var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
-                    record.push(buttons);
+                    if (context.readWrite=='true') {
+                        var buttonEdit = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
+                        var buttonDelete = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" type="button" class="btn btn-danger btnChildTabDelete" style="margin-left: 5px;" title="Delete Selected Record"><i class="fa fa-trash"></i></button>';
+                        var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
+                        record.push(buttons);
+                    }
                     for (var key of keys) {
                         var value = obj.getProp(key);
                         if (value) {
