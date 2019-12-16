@@ -1,3 +1,6 @@
+a.childFormLinker {
+    text-decoration: underline;
+}
 .dz-details, .dz-progress, .dz-error-message, .dz-success-mark, .dz-error-mark {
     display: none;
 }

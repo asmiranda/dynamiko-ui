@@ -169,7 +169,7 @@ class ChildTab {
         var isLinkable = ~this.linkableColumns.indexOf(key.toUpperCase());
         if (isLinkable) {
             var recordId = $('input.mainId').val();
-            return `<a href="#" class="linkable" fieldName="${key}" childId="${recordId}" childId="${childId}" module="${this.moduleName}" submodule="${this.subModuleName}">${value}</a>`;
+            return `<a href="#" class="childFormLinker" fieldName="${key}" mainId="${recordId}" childId="${childId}" module="${this.moduleName}" submodule="${this.subModuleName}">${value}</a>`;
         }
         else {
             return value;
