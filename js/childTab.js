@@ -54,6 +54,10 @@ class ChildTab {
         this.tableSelector = 'table[class~="childRecord"][submodule="'+this.subModuleName+'"]';
         this.childFieldId = $(this.tableSelector).attr("childFieldId");
         this.readWrite = $(this.tableSelector).attr("readWrite");
+        this.linkableColumns = $(this.tableSelector).attr("linkableColumns");
+        if (this.linkableColumns) {
+            this.linkableColumns = this.linkableColumns.toUpperCase();
+        }
         if (this.childFieldId) {
             this.childTableColFields = $(this.tableSelector).attr("columns");
             console.log("init child table :: "+this.tableSelector);
@@ -147,6 +151,7 @@ class ChildTab {
                     for (var key of keys) {
                         var value = obj.getProp(key);
                         if (value) {
+                            value = context.getFieldValue(key, value, keyId);
                             record.push(value);
                         }
                         else {
@@ -160,6 +165,17 @@ class ChildTab {
         }
     }
 
+    getFieldValue(key, value, childId) {
+        var isLinkable = ~this.linkableColumns.indexOf(key.toUpperCase());
+        if (isLinkable) {
+            var recordId = $('input.mainId').val();
+            return `<a href="#" class="linkable" fieldName="${key}" childId="${recordId}" childId="${childId}" module="${this.moduleName}" submodule="${this.subModuleName}">${value}</a>`;
+        }
+        else {
+            return value;
+        }
+    }
+    
     initButtons() {
         var context = this;
         $('button.btnChildTabEdit[submodule="'+this.subModuleName+'"]').click(function(e) {
