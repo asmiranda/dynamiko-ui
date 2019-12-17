@@ -80,7 +80,7 @@ td.highlight {
 
 .childRecord th {text-align: center;}
 .mainSearch th {text-align: center;}
-.childRecord td:first-child {
+.childRecord td:first-child[readwrite='true'] {
     text-align: center;
 }​
 

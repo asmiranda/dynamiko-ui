@@ -62,23 +62,42 @@ class ChildTab {
             this.childTableColFields = $(this.tableSelector).attr("columns");
             console.log("init child table :: "+this.tableSelector);
     
-            this.childTable = $(this.tableSelector).DataTable( {
-                "searching": false,
-                "bLengthChange": false,
-    
-                "autoWidth": true,
-                "fixedHeader": {
-                    "header": false,
-                    "footer": false
-                },
-                "columnDefs": [
-                    {
-                        "width": "70px",
-                        "targets": 0,
-                        'orderable': false,
+            if (this.readWrite=='true') {
+                this.childTable = $(this.tableSelector).DataTable( {
+                    "searching": false,
+                    "bLengthChange": false,
+        
+                    "autoWidth": true,
+                    "fixedHeader": {
+                        "header": false,
+                        "footer": false
                     },
-                ],
-            } );
+                    "columnDefs": [
+                        {
+                            "width": "70px",
+                            "targets": 0,
+                            'orderable': false,
+                        },
+                    ],
+                } );
+            }
+            else {
+                this.childTable = $(this.tableSelector).DataTable( {
+                    "searching": false,
+                    "bLengthChange": false,
+        
+                    "autoWidth": true,
+                    "fixedHeader": {
+                        "header": false,
+                        "footer": false
+                    },
+                    "columnDefs": [
+                        {
+                            'orderable': false,
+                        },
+                    ],
+                } );
+            }
         }
         this.reloadChildRecords();
     };
