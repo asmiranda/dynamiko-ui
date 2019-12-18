@@ -672,9 +672,9 @@ class FormControlButton {
             var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
             loadJsonToForm.load();
 
-            context.childTabs.reloadAllChildRecords();
+            context.childTabs.clearAllChildRecords();
 
-            context.searchTableClass.reloadSearch();
+            context.searchTableClass.clearSearch();
             context.formRule.doRule();
         };
         var confirmDelete = function() {
@@ -911,6 +911,44 @@ class SearchTable {
     reloadSearch() {
         console.log("reloadSearch");
         var context = this;
+        var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        this.successCallback = function(data) {
+            console.log("Reload Search");
+            context.mainDataTable.clear();
+            var columns = $(context.searchTable).attr("columns");
+            console.log(columns);
+            var firstRec = Object.keys(data[0]);
+            var keys = columns.split(',');
+            $.each(data, function(index, obj) {
+                var keyId = obj.getProp(firstRec[0]);
+                var record = [];
+                for (var key of keys) {
+                    var value = obj.getProp(key);
+                    if (value) {
+                        record.push(value);
+                    }
+                    else {
+                        record.push("");
+                    }
+                }
+                var node = context.mainDataTable.row.add(record).node();
+                node.id = keyId;
+                $(node).addClass("rec"+keyId);
+                // console.log(node);
+                context.mainDataTable.draw(false);
+            });""
+            // console.log(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
+        ajaxCaller.ajaxGet();
+    };
+
+    clearSearch() {
+        console.log("reloadSearch");
+        var context = this;
+        $('input[class~="filter"][module="'+this.moduleName+'"]').val("");
         var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");

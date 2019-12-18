@@ -29,6 +29,8 @@ class ClearForm {
                 $(b).val("");
             });
         });
+        $(".inputHtml").html("");
+        $(".inputHtmlImage").attr("src", "");
     };
 }
 

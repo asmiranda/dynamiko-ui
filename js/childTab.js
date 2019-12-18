@@ -18,6 +18,17 @@ class ChildTabs {
         });
     };
 
+    clearAllChildRecords() {
+        var context = this;
+        console.log("clearAllChildRecords");
+        console.log(this.childTabs);
+        $.each(context.childTabs, function(i, childTab) {
+            console.log(i);
+            console.log(childTab);
+            childTab.clearChildRecords();
+        });
+    };
+
     reloadAllChildRecords() {
         var context = this;
         console.log("reloadAllChildRecords");
@@ -100,6 +111,10 @@ class ChildTab {
             }
         }
         this.reloadChildRecords();
+    };
+
+    clearChildRecords() {
+        this.childTable.clear().draw(false);
     };
 
     reloadChildRecords() {
