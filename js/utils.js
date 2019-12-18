@@ -143,7 +143,7 @@ class LoadJsonToForm {
     };
 }
 
-class LoadAutoCompleteLabel {
+class LoadAutoCompleteLabel { 
     constructor(form, field, name, value) {
         this.context = this;
         this.form = form;

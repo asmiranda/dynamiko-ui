@@ -1,7 +1,7 @@
 class FieldConstructor {
     constructor(moduleName, mainForm) {
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
+        this.mainForm = mainForm; 
     }
 
     initFields() {
@@ -210,36 +210,36 @@ class FieldAutoComplete {
                 var showFieldHelp = new ShowAutoCompleteFieldHelp($(autoCompleteDisplayField).attr("helpTitle"), autoCompleteDisplayField, autoCompleteDescDivDefault, autoCompleteDescDiv);
                 showFieldHelp.show();
             });
-            var autoCompleteField = $(this).autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: url + "/" + request.term,
-                        beforeSend: function (xhr) {
-                            if (localStorage.token) {
-                                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
-                            }
-                        },
-                        success: function (data) {
-                            //                            console.log(data);
-                            response(data);
-                        }
-                    });
-                },
-                minLength: 1,
-                select: function (event, ui) {
-                    var code = ui.item.getProp("key");
-                    var name = ui.item.getProp("value");
-                    console.log("Selected: " + name + ":" + code);
-                    autoCompleteValueField.val(code);
-                    autoCompleteDisplayField.val(name);
-                    autoCompleteDescDiv.html(name);
-                    return false;
-                },
-            });
-            autoCompleteField.autocomplete("instance")._renderItem = function (ul, item) {
-                //                console.log(item);
-                return $("<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("key") + " - " + item.getProp("value") + "</div></li>").appendTo(ul);
-            };
+            // var autoCompleteField = $(this).autocomplete({
+            //     source: function (request, response) {
+            //         $.ajax({
+            //             url: url + "/" + request.term,
+            //             beforeSend: function (xhr) {
+            //                 if (localStorage.token) {
+            //                     xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+            //                 }
+            //             },
+            //             success: function (data) {
+            //                 //                            console.log(data);
+            //                 response(data);
+            //             }
+            //         });
+            //     },
+            //     minLength: 1,
+            //     select: function (event, ui) {
+            //         var code = ui.item.getProp("key");
+            //         var name = ui.item.getProp("value");
+            //         console.log("Selected: " + name + ":" + code);
+            //         autoCompleteValueField.val(code);
+            //         autoCompleteDisplayField.val(name);
+            //         autoCompleteDescDiv.html(name);
+            //         return false;
+            //     },
+            // });
+            // autoCompleteField.autocomplete("instance")._renderItem = function (ul, item) {
+            //     //                console.log(item);
+            //     return $("<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("key") + " - " + item.getProp("value") + "</div></li>").appendTo(ul);
+            // };
         });
 
     }

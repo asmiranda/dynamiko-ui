@@ -7,7 +7,7 @@ class ChildTabs {
 
     initTabs() {
         var context = this;
-        $.each($('.myChildTab[submodule]'), function(i, obj) {
+        $.each($('.myChildTab[submodule]'), function(i, obj) {  
             console.log("initTabs");
             console.log(i);
             console.log($(obj).attr("submodule"));
@@ -242,22 +242,12 @@ class ChildTab {
         var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
-
-        $('button.btnChildTabSave').unbind().on('click');
-        $('button.btnChildTabSave').click(function() {
-            context.saveChildRecord(this);
-        });
     };
 
     newChildRecord(myButton) {
         var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
-
-        $('button.btnChildTabSave').unbind().on('click');
-        $('button.btnChildTabSave').click(function() {
-            context.saveChildRecord(this);
-        });
 
         this.selectedId = null;
         this.removeTableSelectedRecord();
@@ -286,33 +276,6 @@ class ChildTab {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));
         var successCallback = function(data) {
             console.log("Delete success called : "+data);
-            context.reloadChildRecords();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    };
-
-    saveChildRecord(myButton) {
-        var context = this;
-        var submodule = $(myButton).attr("submodule");
-        console.log("Child Tab Save Button Called");
-
-        var convertParent = new ConvertFormToJSON($(this.mainForm));
-        var parentRecord = convertParent.convert();
-
-        var convertRecord = new ConvertFormToJSON($("form[submodule='"+submodule+"']"));
-        var subRecord = convertRecord.convert();
-
-        var tmp = [];
-        tmp.push(parentRecord);
-        tmp.push(subRecord);
-
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/savesubrecord/' + this.moduleName + '/' + submodule;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
-        var successCallback = function(data, status, hqr) {
-            $(context.modalId).modal('hide');
-            var moduleScript = new ModuleScript(context.moduleName);
-            moduleScript.saveChild(context.subModuleName);
             context.reloadChildRecords();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
