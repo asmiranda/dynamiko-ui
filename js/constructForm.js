@@ -715,32 +715,16 @@ class SearchTable {
         this.mainForm = mainForm;
         this.searchTable = searchTable;
         this.childTabs = childTabs;
-        this.mainDataTable;
-        this.selectedId;
         this.successCallback;
         this.formRule = new FormRule(this.moduleName, this.mainForm);
         this.chartRule = new ChartRule(this.moduleName, this.mainForm);
-        this.dropZone;
     }
 
     initTable() {
         var context = this;
-        this.mainDataTable = $(this.searchTable).DataTable( {
-            "searching": false,
-        } );
+        var mainDataTable = dynaRegister.createMainTable(this.moduleName, this.searchTable, this);
+        dynaRegister.createDropZone(context.moduleName, "div#mainDropZone", context, mainDataTable);
 
-        $(this.searchTable + ' tbody').on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                context.mainDataTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-                console.log($(this).attr("id"));
-                context.selectedId = $(this).attr("id");
-                context.loadToForm();
-            }
-        } );
         this.reloadSearch();
         $('input[class~="filter"][module="'+this.moduleName+'"]').keyup(function() {
             context.reloadSearch();
@@ -752,7 +736,10 @@ class SearchTable {
 
     loadToForm() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.moduleName + '/' + this.selectedId;
+        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
+        var dropZone = dynaRegister.getDropZone(context.moduleName);
+        dropZone.options.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/upload/any/${context.moduleName}/${mainDataTable.selectedId}`
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.moduleName + '/' + mainDataTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -763,27 +750,6 @@ class SearchTable {
             context.childTabs.reloadAllChildRecords();
             context.formRule.doRule();
             context.chartRule.doChartRule();
-
-            Dropzone.autoDiscover = false;
-            if (this.dropZone) {
-                this.dropZone.destroy();
-            }
-            this.dropZone = new Dropzone("div#mainDropZone", { 
-                url: MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/upload/any/"+context.moduleName+"/"+context.selectedId,
-                maxFiles: 1, 
-                clickable: true, 
-                maxFilesize: 1, //MB
-                headers:{"Authorization":'Bearer ' + localStorage.token},   
-                init: function() {
-                        this.on("addedfile", function(file) {
-                            // alert("Added file.");
-                        }),
-                        this.on("success", function(file, response) {
-                            this.removeAllFiles();
-                            context.displayAllFiles();
-                        })
-                }                   
-            });
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
@@ -791,7 +757,8 @@ class SearchTable {
 
     displayAllFiles() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.moduleName+"/"+context.selectedId;
+        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.moduleName+"/"+mainDataTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -916,7 +883,8 @@ class SearchTable {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         this.successCallback = function(data) {
             console.log("Reload Search");
-            context.mainDataTable.clear();
+            var mainDataTable = dynaRegister.getDataTable(context.moduleName);
+            mainDataTable.clear();
             var columns = $(context.searchTable).attr("columns");
             console.log(columns);
             var firstRec = Object.keys(data[0]);
@@ -933,11 +901,11 @@ class SearchTable {
                         record.push("");
                     }
                 }
-                var node = context.mainDataTable.row.add(record).node();
+                var node = mainDataTable.row.add(record).node();
                 node.id = keyId;
                 $(node).addClass("rec"+keyId);
                 // console.log(node);
-                context.mainDataTable.draw(false);
+                mainDataTable.draw(false);
             });""
             // console.log(data);
         };
@@ -948,13 +916,14 @@ class SearchTable {
     clearSearch() {
         console.log("reloadSearch");
         var context = this;
+        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
         $('input[class~="filter"][module="'+this.moduleName+'"]').val("");
         var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         this.successCallback = function(data) {
             console.log("Reload Search");
-            context.mainDataTable.clear();
+            mainDataTable.clear();
             var columns = $(context.searchTable).attr("columns");
             console.log(columns);
             var firstRec = Object.keys(data[0]);
@@ -971,11 +940,11 @@ class SearchTable {
                         record.push("");
                     }
                 }
-                var node = context.mainDataTable.row.add(record).node();
+                var node = mainDataTable.row.add(record).node();
                 node.id = keyId;
                 $(node).addClass("rec"+keyId);
                 // console.log(node);
-                context.mainDataTable.draw(false);
+                mainDataTable.draw(false);
             });""
             // console.log(data);
         };

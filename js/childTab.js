@@ -46,75 +46,20 @@ class ChildTab {
         this.moduleName = moduleName;
         this.mainForm = mainForm;
         this.subModuleName = subModuleName;
-        this.childTable;
-        this.childFieldId;
-        this.childTableColFields;
-        this.tableSelector;
 
-        this.selectedId;
-        this.dropZone;
-        this.readOnly;
-
+        this.tableSelector = 'table[class~="childRecord"][submodule="'+this.subModuleName+'"]';
         this.formSelector = 'form[module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]';
         this.modalId = $('button[class~="btnChildTabEdit"][module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]').attr("data-target");
         console.log("Modal ID === "+this.modalId);
     }
 
     constructTab() {
-        var context = this;
-        this.tableSelector = 'table[class~="childRecord"][submodule="'+this.subModuleName+'"]';
-        this.childFieldId = $(this.tableSelector).attr("childFieldId");
-        this.readWrite = $(this.tableSelector).attr("readWrite");
-        this.linkableColumns = $(this.tableSelector).attr("linkableColumns");
-        if (this.linkableColumns) {
-            this.linkableColumns = this.linkableColumns.toUpperCase();
-        }
-        if (this.childFieldId) {
-            this.childTableColFields = $(this.tableSelector).attr("columns");
-            console.log("init child table :: "+this.tableSelector);
-    
-            if (this.readWrite=='true') {
-                this.childTable = $(this.tableSelector).DataTable( {
-                    "searching": false,
-                    "bLengthChange": false,
-        
-                    "autoWidth": true,
-                    "fixedHeader": {
-                        "header": false,
-                        "footer": false
-                    },
-                    "columnDefs": [
-                        {
-                            "width": "70px",
-                            "targets": 0,
-                            'orderable': false,
-                        },
-                    ],
-                } );
-            }
-            else {
-                this.childTable = $(this.tableSelector).DataTable( {
-                    "searching": false,
-                    "bLengthChange": false,
-        
-                    "autoWidth": true,
-                    "fixedHeader": {
-                        "header": false,
-                        "footer": false
-                    },
-                    "columnDefs": [
-                        {
-                            'orderable': false,
-                        },
-                    ],
-                } );
-            }
-        }
+        dynaRegister.createChildTable(this.subModuleName, this.tableSelector);
         this.reloadChildRecords();
     };
 
     clearChildRecords() {
-        this.childTable.clear().draw(false);
+        dynaRegister.clearTable(this.subModuleName);
     };
 
     reloadChildRecords() {
@@ -124,7 +69,7 @@ class ChildTab {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(convertFormToJSON.convert()));
         var successCallback = function(data) {
             console.log(context.subModuleName + " Sub Record Reloaded");
-            context.selectedId = null;
+            dynaRegister.getDataTable(context.subModuleName).selectedId = null;
             context.loadRecordsToHtml(data);
             context.loadRecordsToChildTable(data);
             context.initButtons();
@@ -164,19 +109,19 @@ class ChildTab {
 
     loadRecordsToChildTable(data) {
         var context = this;
-        if (context.childTable) {
-            context.childTable.clear().draw(false);
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        if (childTable.childTableColFields) {
+            childTable.clear().draw(false);
             console.log(data);
             if (data[0]) {
-                console.log(context.childTableColFields);
-                var keys = context.childTableColFields.split(",");
+                var keys = childTable.childTableColFields.split(",");
                 console.log(keys);
                 $.each(data, function(i, obj) {
-                    var keyId = obj.getProp(context.childFieldId);
+                    var keyId = obj.getProp(childTable.childFieldId);
                     console.log(key);
                     var record = [];
                     var modalId = "#myModal"+context.subModuleName;
-                    if (context.readWrite=='true') {
+                    if (childTable.readWrite=='true') {
                         var buttonEdit = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
                         var buttonDelete = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" type="button" class="btn btn-danger btnChildTabDelete" style="margin-left: 5px;" title="Delete Selected Record"><i class="fa fa-trash"></i></button>';
                         var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
@@ -192,15 +137,16 @@ class ChildTab {
                             record.push("");
                         }
                     }
-                    context.childTable.row.add(record).node().id = keyId;
-                    context.childTable.draw(false);
+                    childTable.row.add(record).node().id = keyId;
+                    childTable.draw(false);
                 });
             }
         }
     }
 
     getFieldValue(key, value, childId) {
-        var isLinkable = ~this.linkableColumns.indexOf(key.toUpperCase());
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        var isLinkable = ~childTable.linkableColumns.indexOf(key.toUpperCase());
         if (isLinkable) {
             var recordId = $('input.mainId').val();
             return `<a href="#" class="childFormLinker" fieldName="${key}" mainId="${recordId}" childId="${childId}" module="${this.moduleName}" submodule="${this.subModuleName}">${value}</a>`;
@@ -212,11 +158,12 @@ class ChildTab {
     
     initButtons() {
         var context = this;
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
         $('button.btnChildTabEdit[submodule="'+this.subModuleName+'"]').click(function(e) {
             var recId = $(this).attr("recordId");
-            context.selectedId = recId;
-            console.log("SELECTED ID == "+context.selectedId);
-            if (context.selectedId) {
+            childTable.selectedId = recId;
+            console.log("SELECTED ID == "+childTable.selectedId);
+            if (childTable.selectedId) {
                 context.loadToForm();
                 context.editChildRecord(this);
                 context.displayAllFiles();
@@ -249,7 +196,8 @@ class ChildTab {
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
 
-        this.selectedId = null;
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        childTable.selectedId = null;
         this.removeTableSelectedRecord();
         var clearForm = new ClearForm(this.formSelector);
         clearForm.clear();
@@ -288,11 +236,14 @@ class ChildTab {
 
     loadToForm() {
         var context = this;
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        var dropZone = dynaRegister.getDropZone(context.subModuleName);
+        dropZone.options.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/upload/any/${context.subModuleName}/${childTable.selectedId}`
         console.log(this.subModuleName + " loadToForm");
-        console.log("selectedId == " + this.selectedId);
+        console.log("selectedId == " + childTable.selectedId);
         console.log("context.formSelector == " + this.formSelector);
 
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.subModuleName + '/' + this.selectedId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.subModuleName + '/' + childTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -308,26 +259,8 @@ class ChildTab {
 
     initChildTabRecords() {
         var context = this;
-        Dropzone.autoDiscover = false;
-        if (this.dropZone) {
-            this.dropZone.destroy();
-        }
-        this.dropZone = new Dropzone("div.childTabDropZone[submodule='"+this.subModuleName+"']", { 
-            url: MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/upload/any/"+context.subModuleName+"/"+context.selectedId,
-            maxFiles: 1, 
-            clickable: true, 
-            maxFilesize: 1, //MB
-            headers:{"Authorization":'Bearer ' + localStorage.token},   
-            init: function() {
-                    this.on("addedfile", function(file) {
-                        // alert("Added file.");
-                    }),
-                    this.on("success", function(file, response) {
-                        this.removeAllFiles();
-                        context.displayAllFiles();
-                    })
-            }                   
-        });
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        dynaRegister.createDropZone(context.moduleName, `div.childTabDropZone[submodule='${context.subModuleName}']`, this, childTable);
     }
 
     setFileProfile(obj) {
@@ -345,7 +278,8 @@ class ChildTab {
 
     displayAllFiles() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.subModuleName+"/"+context.selectedId;
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.subModuleName+"/"+childTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -421,7 +355,8 @@ class ChildTab {
     }
 
     removeTableSelectedRecord() {
-        this.selectedId = null;
+        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        childTable.selectedId = null;
         var allRecords =  $(this.tableSelector + ' tbody tr');
         $.each(allRecords, function(i, tblRow) {
             $(tblRow).removeClass("selected");

@@ -1,7 +1,7 @@
 class DynaButtonAction {
     constructor() {
         var context = this;
-        this.mainForm = $('#mainForm');
+        this.mainForm = '#mainForm';
         $(document).on('click', '.btnChildTabSave', function() {
             context.saveChildRecord(this);
         });
@@ -29,8 +29,8 @@ class DynaButtonAction {
             $(context.modalId).modal('hide');
             var moduleScript = new ModuleScript(moduleName);
             moduleScript.saveChild(submodule);
-            var childTab = new ChildTab();
-            childTab.reloadChildRecords(moduleName, context.mainForm, submodule);
+            var childTab = new ChildTab(moduleName, context.mainForm, submodule);
+            childTab.reloadChildRecords();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
