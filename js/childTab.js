@@ -54,7 +54,8 @@ class ChildTab {
     }
 
     constructTab() {
-        dynaRegister.createChildTable(this.subModuleName, this.tableSelector);
+        var childDataTable = dynaRegister.createChildTable(this.subModuleName, this.tableSelector);
+        dynaRegister.createDropZone(this.subModuleName, `div.childTabDropZone[submodule='${this.subModuleName}']`, this, childDataTable);
         this.reloadChildRecords();
     };
 
@@ -250,17 +251,22 @@ class ChildTab {
             console.log(data);
             var loadJsonToForm = new LoadJsonToForm(context.formSelector, data);
             loadJsonToForm.load();
-
-            context.initChildTabRecords();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     };
 
-    initChildTabRecords() {
+    removeAttachedFile(obj) {
         var context = this;
-        var childTable = dynaRegister.getDataTable(this.subModuleName);
-        dynaRegister.createDropZone(context.moduleName, `div.childTabDropZone[submodule='${context.subModuleName}']`, this, childTable);
+        var fileId = $(obj).attr("data");
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/delete/"+fileId;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            context.displayAllFiles();
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
     }
 
     setFileProfile(obj) {
