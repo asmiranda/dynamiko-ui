@@ -2,6 +2,7 @@ class DynaRegister {
     constructor() {
         this.dataTableMap = new Map();
         this.dropZoneMap = new Map();
+        this.saasMap = new Map();
     }
 
     clearDataTable() {
@@ -118,6 +119,9 @@ class DynaRegister {
     clearTable(moduleName) {
         var tbl = this.getDataTable(moduleName);
         tbl.clear().draw(false);
+    }
+    registerSaas(saas, obj) {
+        this.saasMap.set(saas, obj);
     }
 }
 

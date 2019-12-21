@@ -761,6 +761,11 @@ class SearchTable {
             context.childTabs.reloadAllChildRecords();
             context.formRule.doRule();
             context.chartRule.doChartRule();
+
+            for (const [key, value] of dynaRegister.saasMap) {
+                console.log(key, value);
+                value.loadToForm(context);
+            }
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
@@ -956,7 +961,12 @@ class SearchTable {
                 $(node).addClass("rec"+keyId);
                 // console.log(node);
                 mainDataTable.draw(false);
-            });""
+
+                for (const [key, value] of dynaRegister.saasMap) {
+                    console.log(key, value);
+                    value.clearSearch(context);
+                }
+            });
             // console.log(data);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);

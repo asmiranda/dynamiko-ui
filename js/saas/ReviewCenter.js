@@ -136,8 +136,23 @@ class ReviewCenter {
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
     }
+    loadToForm(obj) {
+        console.log(obj);
+        if (obj.moduleName=='ReviewProgramModuleUI') {
+            $(".examTitle").html(`<i style="color:red;">please select from left button</i>`);
+            $(".questionList").empty();
+        }
+    }
+    clearSearch(obj) {
+        console.log(obj);
+        if (obj.moduleName=='ReviewProgramModuleUI') {
+            $(".examTitle").html(`<i style="color:red;">please select from left button</i>`);
+            $(".questionList").empty();
+        }
+    }
 }
 
 $(function () {
     var reviewCenter = new ReviewCenter();
+    dynaRegister.registerSaas("ReviewCenter", reviewCenter);
 });
