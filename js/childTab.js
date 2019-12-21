@@ -74,9 +74,6 @@ class ChildTab {
             context.loadRecordsToHtml(data);
             context.loadRecordsToChildTable(data);
             context.initButtons();
-
-            var formLink = new FormLinker();
-            formLink.init();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();

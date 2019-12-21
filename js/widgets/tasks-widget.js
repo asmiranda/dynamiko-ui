@@ -14,8 +14,8 @@ class TasksWidget {
 
     startTask() {
         var moduleName = $("#selectStartTaskWidget").val();
-        var formLinker = new FormLinker();
-        formLinker.linkToForm(moduleName);
+        // var formLinker = new FormLinker();
+        // formLinker.linkToForm(moduleName);
     }
 
     loadTask() {
@@ -90,8 +90,8 @@ class TasksWidget {
     taskLinker(obj) {
         var moduleName = $(obj).attr("module");
         var recId = $(obj).attr("recID");
-        var formLinker = new FormLinker();
-        formLinker.linkToForm(moduleName+"UI", recId);
+        // var formLinker = new FormLinker();
+        // formLinker.linkToForm(moduleName+"UI", recId);
     }
 
     clearInbox() {

@@ -1,13 +1,10 @@
 class FormLinker {
     constructor() {
-    }
-
-    init() {
         var context = this;
-        $(".formLinker").click(function() {
+        $(document).on('click', '.formLinker', function() {
             context.startLink(this);
         });
-        $(".childFormLinker").click(function() {
+        $(document).on('click', '.childFormLinker', function() {
             context.startChildToFormLink(this);
         });
     }
@@ -53,3 +50,7 @@ class FormLinker {
         fileUpload.initUpload();
     }
 }
+
+$(function () {
+    var formLinker = new FormLinker();
+});

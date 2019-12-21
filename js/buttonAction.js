@@ -38,7 +38,6 @@ class DynaButtonAction {
 
 }
 
-
 $(function () {
     var dynaButtonAction = new DynaButtonAction();
 });
