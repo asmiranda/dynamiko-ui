@@ -670,13 +670,23 @@ class FormControlButton {
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            // var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
+            // loadJsonToForm.load();
 
-            context.childTabs.clearAllChildRecords();
+            // context.childTabs.clearAllChildRecords();
 
-            context.searchTableClass.clearSearch();
-            context.formRule.doRule();
+            // context.searchTableClass.clearSearch();
+            // context.formRule.doRule();
+            localStorage.latestModule = context.moduleName;
+    
+            var registerDatatable = new RegisterDatatable();
+            registerDatatable.clearRegister();
+        
+            var constructForm = new MainForm(context.moduleName, `#searchTable[module="${context.moduleName}"]`, `#mainForm[module="${context.moduleName}"]`);
+            constructForm.construct();
+        
+            var fileUpload = new FileUpload();
+            fileUpload.initUpload();
         };
         var confirmDelete = function() {
             var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
