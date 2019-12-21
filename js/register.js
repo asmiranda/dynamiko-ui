@@ -73,10 +73,12 @@ class DynaRegister {
     }
     createMainTable(moduleName, tableSelector, myForm) {
         var mainDataTable = $(tableSelector).DataTable( {
-            "searching": false,
+            searching:      false,
+            scrollX:        true,
+            scrollCollapse: true,
         } );
         mainDataTable.selectedId = null;
-
+  
         $(tableSelector + ' tbody').on('click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');

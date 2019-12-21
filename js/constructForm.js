@@ -138,12 +138,13 @@ class ProfilePicLoader {
     init() {
         console.log("ProfilePicLoader init called");
         var context = this;
-        $("input.mainId[module='"+this.moduleName+"']").on('change', function() {
+        $(`input.mainId[module='${this.moduleName}']`).on('change', function() {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
             if (recordId && recordId > 0) {
-                console.log("ProfilePicLoader src="+MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+context.moduleName+"/"+recordId);
-                $("#profilePic").attr("src", MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+context.moduleName+"/"+recordId);
+                var imageLink = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/${context.moduleName}/${recordId}/`;
+                console.log(`ProfilePicLoader src="${imageLink}"`);
+                $("#profilePic").attr("src", imageLink);
                 $("#profilePic").show();
             }
             else {

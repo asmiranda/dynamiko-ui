@@ -21,7 +21,7 @@ class ReviewCenter {
         var examId = $(obj).attr("examId");
         var value = $(obj).val();
         console.log(value);
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewModuleUI/searchQuestions/'+examId+"/"+value;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/searchQuestions/'+examId+"/"+value;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -55,7 +55,7 @@ class ReviewCenter {
 
         var title = $(obj).attr("title");
         $(".examTitle").html(title+" ["+examId+"]");
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewModuleUI/loadQuestions/'+examId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/loadQuestions/'+examId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -64,7 +64,7 @@ class ReviewCenter {
             $.each(data, function(index, obj) {
                 var question = obj.getProp("question");
                 var answer = obj.getProp("answer");
-                var examQuestionId = obj.getProp("ReviewModuleExamQuestionId");
+                var examQuestionId = obj.getProp("ReviewProgramModuleExamQuestionId");
                 var qHtml = `
                     <li class="list-group-item">
                         <b>${question}</b> <a class="pull-right btnDeleteQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId+" - "+examQuestionId}"><i class="fa fa-fw fa-trash-o"></i></a><a class="pull-right">${answer}</a>
@@ -84,7 +84,7 @@ class ReviewCenter {
         var examQuestionId = $(obj).attr("examQuestionId");
         var txtSearch = $(".txtSearchQuestion").val();
 
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewModuleUI/addQuestion/'+examId+"/"+examQuestionId+"/"+txtSearch;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/addQuestion/'+examId+"/"+examQuestionId+"/"+txtSearch;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -115,7 +115,7 @@ class ReviewCenter {
 
         var examId = $(obj).attr("examId");
         var examQuestionId = $(obj).attr("examQuestionId");
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewModuleUI/deleteQuestion/'+examId+"/"+examQuestionId;
+        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/deleteQuestion/'+examId+"/"+examQuestionId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -124,7 +124,7 @@ class ReviewCenter {
             $.each(data, function(index, obj) {
                 var question = obj.getProp("question");
                 var answer = obj.getProp("answer");
-                examQuestionId = obj.getProp("ReviewModuleExamQuestionId");
+                examQuestionId = obj.getProp("ReviewProgramModuleExamQuestionId");
                 var qHtml = `
                     <li class="list-group-item">
                         <b>${question}</b> <a class="pull-right btnDeleteQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId+" - "+examQuestionId}"><i class="fa fa-fw fa-trash-o"></i></a><a class="pull-right">${answer}</a>
