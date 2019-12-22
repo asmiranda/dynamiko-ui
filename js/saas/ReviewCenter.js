@@ -17,7 +17,7 @@ class ReviewCenter {
             context.submitEnrollment();
         });
         $(document).on('click', '.btnReviewCenterEnrollTo', function(){
-            context.populateEnrollmentChoices();
+            context.populateEnrollmentChoices(); 
         });
         
     }
