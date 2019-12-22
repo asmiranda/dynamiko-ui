@@ -1,16 +1,16 @@
 class ReviewCenter {
     constructor() {
         var context = this;
-        $(document).on('click', '.btnShowQuestions', function(){
+        $(document).on('click', '.btnReviewCenterShowQuestions', function(){
             context.showQuestions(this);
         });
-        $(document).on('click', '.btnAddQuestion', function(){
+        $(document).on('click', '.btnReviewCenterAddQuestion', function(){
             context.addQuestion(this);
         });
-        $(document).on('click', '.btnDeleteQuestion', function(){
+        $(document).on('click', '.btnReviewCenterDeleteQuestion', function(){
             context.deleteQuestion(this);
         });
-        $(document).on('keyup', '.txtSearchQuestion', function(){
+        $(document).on('keyup', '.txtReviewCenterSearchQuestion', function(){
             context.searchQuestion(this);
         });
     }
@@ -37,7 +37,7 @@ class ReviewCenter {
                 var examQuestionId = obj.getProp("ReviewQuestionAnswerId");
                 var qHtml = `
                     <li class="list-group-item">
-                        <b>${question}</b> <a class="pull-right btnAddQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId} - ${examQuestionId}"><i class="fa fa-fw fa-plus-square"></i> Add</a>
+                        <b>${question}</b> <a class="pull-right btnReviewCenterAddQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId} - ${examQuestionId}"><i class="fa fa-fw fa-plus-square"></i> Add</a>
                     </li>
                 `;
                 $(".addQuestionList").append(qHtml);
@@ -51,7 +51,7 @@ class ReviewCenter {
         var context = this;
 
         var examId = $(obj).attr("examId");
-        $("input.txtSearchQuestion").attr("examId", examId);
+        $("input.txtReviewCenterSearchQuestion").attr("examId", examId);
 
         var title = $(obj).attr("title");
         $(".examTitle").html(title+" ["+examId+"]");
@@ -67,7 +67,7 @@ class ReviewCenter {
                 var examQuestionId = obj.getProp("ReviewProgramModuleExamQuestionId");
                 var qHtml = `
                     <li class="list-group-item">
-                        <b>${question}</b> <a class="pull-right btnDeleteQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId+" - "+examQuestionId}"><i class="fa fa-fw fa-trash-o"></i></a><a class="pull-right">${answer}</a>
+                        <b>${question}</b> <a class="pull-right btnReviewCenterDeleteQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId+" - "+examQuestionId}"><i class="fa fa-fw fa-trash-o"></i></a><a class="pull-right">${answer}</a>
                     </li>
                 `;
                 $(".questionList").append(qHtml);
@@ -82,7 +82,7 @@ class ReviewCenter {
 
         var examId = $(obj).attr("examId");
         var examQuestionId = $(obj).attr("examQuestionId");
-        var txtSearch = $(".txtSearchQuestion").val();
+        var txtSearch = $(".txtReviewCenterSearchQuestion").val();
 
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/addQuestion/'+examId+"/"+examQuestionId+"/"+txtSearch;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -100,7 +100,7 @@ class ReviewCenter {
                 var examQuestionId = obj.getProp("ReviewQuestionAnswerId");
                 var qHtml = `
                     <li class="list-group-item">
-                        <b>${question}</b> <a class="pull-right btnAddQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId} - ${examQuestionId}"><i class="fa fa-fw fa-plus-square"></i> Add</a>
+                        <b>${question}</b> <a class="pull-right btnReviewCenterAddQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId} - ${examQuestionId}"><i class="fa fa-fw fa-plus-square"></i> Add</a>
                     </li>
                 `;
                 $(".addQuestionList").append(qHtml);
@@ -127,7 +127,7 @@ class ReviewCenter {
                 examQuestionId = obj.getProp("ReviewProgramModuleExamQuestionId");
                 var qHtml = `
                     <li class="list-group-item">
-                        <b>${question}</b> <a class="pull-right btnDeleteQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId+" - "+examQuestionId}"><i class="fa fa-fw fa-trash-o"></i></a><a class="pull-right">${answer}</a>
+                        <b>${question}</b> <a class="pull-right btnReviewCenterDeleteQuestion" examId="${examId}" examQuestionId="${examQuestionId}" title="${examId+" - "+examQuestionId}"><i class="fa fa-fw fa-trash-o"></i></a><a class="pull-right">${answer}</a>
                     </li>
                 `;
                 $(".questionList").append(qHtml);
