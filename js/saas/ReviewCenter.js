@@ -13,6 +13,83 @@ class ReviewCenter {
         $(document).on('keyup', '.txtReviewCenterSearchQuestion', function(){
             context.searchQuestion(this);
         });
+        $(document).on('click', '.btnReviewCenterSubmitEnrollment', function(){
+            context.submitEnrollment();
+        });
+        $(document).on('click', '.btnReviewCenterEnrollTo', function(){
+            context.populateEnrollmentChoices();
+        });
+        
+    }
+
+    submitEnrollment() {
+        var studentId = $("input[name='PersonId']").val();
+        var choiceProgram = $("select[name='choiceProgram']").val();
+        var paymentReceipt = $("input[name='paymentReceipt']").val();
+        var enrollmentRemarks = $("textarea[name='enrollmentRemarks']").val();
+        
+        if (this.validateEnrollment()) {
+            var context = this;
+
+            var tmpEnrollment = {};
+            tmpEnrollment["studentId"] = studentId;
+            tmpEnrollment["choiceProgram"] = choiceProgram;
+            tmpEnrollment["paymentReceipt"] = paymentReceipt;
+            tmpEnrollment["enrollmentRemarks"] = enrollmentRemarks;
+            
+            var vdata = JSON.stringify(tmpEnrollment);
+            console.log(vdata);
+            var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewStudentUI/post';
+            var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+            var successCallback = function(data) {
+                console.log(data);
+                new ShowModalAny(data.getProp("key"), data.getProp("value")).show();
+            };
+            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback); 
+            ajaxCaller.ajaxPost();                            
+        }
+    }
+
+    validateEnrollment() {
+        var isValid = true;
+        var studentId = $("input[name='PersonId']").val();
+        var choiceProgram = $("select[name='choiceProgram']").val();
+        var paymentReceipt = $("input[name='paymentReceipt']").val();
+        var enrollmentRemarks = $("textarea[name='enrollmentRemarks']").val();
+        console.log(studentId);
+        console.log(choiceProgram);
+        console.log(paymentReceipt);
+        console.log(enrollmentRemarks);
+        if (choiceProgram=="") {
+            $(".errorNote").html("Program must be selected.");
+            isValid = false;
+        }
+        else if (paymentReceipt=="") {
+            $(".errorNote").html("Please type payment receipt.");
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    populateEnrollmentChoices() {
+        var context = this;
+
+        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/widget/ReviewStudentUI/programs";
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $("select[name='choiceProgram']").empty();
+            $(data).each(function(index, obj) {
+                var code = obj.getProp("code");
+                var name = obj.getProp("name");
+                var option = '<option value="'+code+'">'+name+'</option>';
+                console.log(option);
+                
+                $("select[name='choiceProgram']").append(option);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet(); 
     }
 
     searchQuestion(obj) {
@@ -150,6 +227,7 @@ class ReviewCenter {
             $(".questionList").empty();
         }
     }
+
 }
 
 $(function () {
