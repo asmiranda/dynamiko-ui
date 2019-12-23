@@ -57,19 +57,16 @@ class ConvertFormToJSON {
 }
 
 class LoadJsonToForm {
-    constructor(form, data) {
-        this.form = form;
-        this.data = data;
-        this.config = new Config();
-        this.moduleName = $(form).attr("module");
-        this.entityName = $(form).attr("bean");
+    constructor() {
     }
 
-    setFieldValue(field, value) {
+    setFieldValue(form, field, value) {
+        var moduleName = $(form).attr("module");
+        var entityName = $(form).attr("bean");
         if ($(field).hasClass("profilePic")) {
-            var recordId = $(this.form + " [name='"+this.entityName+"Id']").val();
+            var recordId = $(form + " [name='"+entityName+"Id']").val();
             console.log("RECORD ID = "+recordId);
-            var profilePicUrl = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+this.moduleName+"/"+recordId;
+            var profilePicUrl = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+moduleName+"/"+recordId;
             console.log("profilePicUrl = "+profilePicUrl);
             $(field).attr("src", profilePicUrl);
         }
@@ -79,7 +76,7 @@ class LoadJsonToForm {
         else {
             if ($(field).hasClass("calendar")) {
                 var dateValue = moment(value);
-                var newDateValue = dateValue.format(this.config.getDateFormat().toUpperCase());
+                var newDateValue = dateValue.format(config.getDateFormat().toUpperCase());
                 $(field).val(newDateValue);
             }
             else if ($(field).hasClass("currency")) {
@@ -93,22 +90,27 @@ class LoadJsonToForm {
         }
     }
 
-    load () {
+    loadAddInfo (data) {
+        this.load("form.addInfo ", data);
+    }
+
+    load (form, data) {
         var context = this;
-        var innerForm = this.form;
-        var innerData = this.data;
+        var innerForm = form;
+        var innerData = data;
+        var entityName = $(form).attr("bean");
         console.log("LoadJsonToForm == " + innerForm);
         var clearForm = new ClearForm(innerForm);
         clearForm.clear();
 
         $.each(innerData, function(k, v) {
             // set id value first
-            if (k == this.entityName+"Id") {
+            if (k == entityName+"Id") {
                 var field = $(innerForm + " [name='"+k+"']");
                 if (field) {
                     console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
                     console.log(field);
-                    context.setFieldValue(field, v);
+                    context.setFieldValue(form, field, v);
                 }
             }
         });
@@ -119,7 +121,7 @@ class LoadJsonToForm {
                 $.each(fields, function(k, field) {
                     console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
                     console.log(field);
-                    context.setFieldValue(field, v);
+                    context.setFieldValue(form, field, v);
                 });
             }
 
@@ -127,7 +129,7 @@ class LoadJsonToForm {
             if (field) {
                 console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
                 console.log(field);
-                context.setFieldValue(field, v);
+                context.setFieldValue(form, field, v);
                 if ($(field).hasClass("PopSearch")) {
                     console.log("PopSearch ==== "+k+" == "+v);
                     var loadPopSearchLabel = new LoadPopSearchLabel(innerForm, field, k, v);
@@ -238,3 +240,8 @@ class ExtractColumnArray {
         return retArr;
     }
 }
+
+$(function () {
+    loadJsonToForm = new LoadJsonToForm();
+    config = new Config();
+});

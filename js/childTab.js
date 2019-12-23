@@ -246,8 +246,7 @@ class ChildTab {
         var successCallback = function(data) {
             console.log("Record Found");
             console.log(data);
-            var loadJsonToForm = new LoadJsonToForm(context.formSelector, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.formSelector, data);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();

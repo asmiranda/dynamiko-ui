@@ -48,8 +48,8 @@ class MainForm {
         var successCallback = function(data) {
             console.log("Record Found");
             console.log(data);
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
+            loadJsonToForm.loadAddInfo(data);
 
             context.childTabs.reloadAllChildRecords();
             context.formRule.doRule();
@@ -291,8 +291,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/rejectWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -311,8 +310,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/cancelWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -331,8 +329,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/forwardWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -351,8 +348,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/returnWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -371,8 +367,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/approveWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -391,8 +386,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/endorseWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -411,8 +405,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/submitWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
         };
@@ -642,8 +635,8 @@ class FormControlButton {
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/new/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
+            loadJsonToForm.loadAddInfo(data);
 
             context.childTabs.reloadAllChildRecords();
 
@@ -666,8 +659,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            // var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            // loadJsonToForm.load();
+            // loadJsonToForm.load(context.mainForm, data);
 
             // context.childTabs.clearAllChildRecords();
 
@@ -703,8 +695,8 @@ class FormControlButton {
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/save/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
+            loadJsonToForm.loadAddInfo(data);
 
             context.childTabs.reloadAllChildRecords();
 
@@ -751,8 +743,8 @@ class SearchTable {
         var successCallback = function(data) {
             console.log("Record Found");
             console.log(data);
-            var loadJsonToForm = new LoadJsonToForm(context.mainForm, data);
-            loadJsonToForm.load();
+            loadJsonToForm.load(context.mainForm, data);
+            loadJsonToForm.loadAddInfo(data);
 
             context.childTabs.reloadAllChildRecords();
             context.formRule.doRule();

@@ -1,3 +1,6 @@
+.modal-content {
+    width: 800px;
+}
 a.childFormLinker {
     text-decoration: underline;
 }
