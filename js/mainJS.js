@@ -177,8 +177,10 @@ class UIService {
         $("#useCompany").empty();
         $("#useCompany").append(useCompanyStr);
 
-        var leftMenu = new LeftMenu();
-        leftMenu.loadUI(localStorage.latestModule);
+        if (localStorage.latestModule) {
+            var leftMenu = new LeftMenu();
+            leftMenu.loadUI(localStorage.latestModule);
+        }
     }
 
     initLogo() {
@@ -285,20 +287,6 @@ class LeftMenu {
         fileUpload.initUpload();
     }    
 }
-
-// function loadUI(myui) {
-//     var moduleName = myui;
-//     localStorage.latestModule = moduleName;
-
-//     var registerDatatable = new RegisterDatatable();
-//     registerDatatable.clearRegister();
-
-//     var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-//     constructForm.construct();
-
-//     var fileUpload = new FileUpload();
-//     fileUpload.initUpload();
-// }
 
 class FileUpload {
     initUpload() {
