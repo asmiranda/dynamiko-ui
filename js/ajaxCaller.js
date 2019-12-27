@@ -193,7 +193,7 @@ class AjaxBytesLoader {
 
     }
 
-    load(url, frame, callback) {
+    loadGet(url, callback) {
         var xhr = new XMLHttpRequest();
 
         xhr.open('GET', url);
@@ -211,7 +211,27 @@ class AjaxBytesLoader {
         xhr.responseType = 'blob';
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
         xhr.send();
+    }
 
+    loadPost(url, callback, vdata) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', url);
+        xhr.onload = function() {
+            if (this.readyState === this.DONE) {
+                if (this.status === 200) {
+                    // this.response is a Blob, because we set responseType above
+                    var data_url = URL.createObjectURL(this.response);
+                    callback(data_url);
+                } else {
+                    console.error('no pdf :(');
+                }
+            }
+        };
+        xhr.responseType = 'blob';
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(vdata);
     }
 }
 

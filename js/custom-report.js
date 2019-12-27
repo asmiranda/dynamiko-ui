@@ -17,6 +17,23 @@ class CustomReport {
         
     }
 
+    displayCustomReport(tmpFile, reportName) {
+        var reader = new FileReader();
+        
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+            return function(e) {
+                console.log("displaying to pdf object");
+                var fileURL = URL.createObjectURL(theFile);
+                $(`iframe.customReportViewerFrame[report='${reportName}']`).attr("data", fileURL);
+            };
+        })(tmpFile);
+
+        // Read in the image file as a data URL.
+        console.log("readinng tmpFile");
+        reader.readAsDataURL(tmpFile);        
+    }
+
     customDisplayModalReport(obj) {
         var moduleName = $(obj).attr("module");
         var reportName = $(obj).attr("report");
@@ -70,7 +87,30 @@ class CustomReport {
     }
 
     customReportRun(obj) {
+        var context = this;
         console.log("customReportRun");
+        var moduleName = $(obj).attr("module");
+        var reportName = $(obj).attr("report");
+        var reportCriteria = {};
+        var reportCriteriaSelectors = `.reportCriteriaInput[module='${moduleName}'][report='${reportName}']`;
+        console.log(reportCriteriaSelectors);
+        $(reportCriteriaSelectors).each(function(index) {
+            var name = $(this).attr("name");
+            var value = $(this).val();
+            reportCriteria[name] = value;
+        });
+        console.log(reportCriteria);
+
+        var vdata = JSON.stringify(reportCriteria);
+        console.log(vdata);
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
+        var ajax = new AjaxBytesLoader();
+        ajax.loadPost(url, function(data_url) {
+            // document.querySelector('#ReviewProgramEnrollmentReportViewer').src = data_url;
+            var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
+            console.log(iframeViewer);
+            document.querySelector(iframeViewer).src=data_url;
+        }, vdata);
     }
 }
 

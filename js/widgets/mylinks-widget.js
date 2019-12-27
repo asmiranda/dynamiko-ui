@@ -78,11 +78,11 @@ class MyLinksWidget {
         var myframe = "myPayslipFrame";
         $("#MyLinksBody").empty();
         var str = `<iframe id="${myframe}" src="${url}" style="width: 100%; height: 100%"></iframe>`;
-        $("#MyLinksBody").append(str);
+        $("#MyLinksBody").append(str); 
 
         var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/widget/MyLinksWidget/payslip';
         var ajax = new AjaxBytesLoader();
-        ajax.load(url, myframe, function(data_url) {
+        ajax.loadGet(url, function(data_url) {
             document.querySelector('#myPayslipFrame').src = data_url;
             $('#myLinksModal').modal();
         });
