@@ -54,6 +54,7 @@ class MainForm {
             context.childTabs.reloadAllChildRecords();
             context.formRule.doRule();
             context.chartRule.doChartRule();
+            localStorage.latestModuleId = recordId;
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
@@ -754,6 +755,7 @@ class SearchTable {
                 console.log(key, value);
                 value.loadToForm(context);
             }
+            localStorage.latestModuleId = mainDataTable.selectedId;
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();
