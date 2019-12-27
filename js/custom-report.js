@@ -25,6 +25,11 @@ class CustomReport {
         console.log("reload ");
         console.log(this);
         console.log("Main ID == "+localStorage.latestModuleId);
+
+        var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
+        console.log(iframeViewer);
+        document.querySelector(iframeViewer).src="";
+
         $(allSelect).each(function(index) {
             var currentSelect = this;
             var inputName = $(this).attr("name");
