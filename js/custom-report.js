@@ -90,6 +90,7 @@ class CustomReport {
             var value = $(this).val();
             reportCriteria[name] = value;
         });
+        reportCriteria["recordId"] = localStorage.latestModuleId;
         console.log(reportCriteria);
 
         var vdata = JSON.stringify(reportCriteria);
