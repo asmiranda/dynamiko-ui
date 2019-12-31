@@ -5,7 +5,37 @@ class DynaButtonAction {
         $(document).on('click', '.btnChildTabSave', function() {
             context.saveChildRecord(this);
         });
+        $(document).on('click', '.btnAddInfoSave', function() {
+            context.saveAddInfoSave(this);
+        });
     }
+
+    saveAddInfoSave(myButton) {
+        var context = this;
+        var moduleName = $(myButton).attr("module");
+        var addInfo = $(myButton).attr("addInfo");
+        console.log("Child Tab Save Button Called");
+
+        var convertParent = new ConvertFormToJSON($(this.mainForm));
+        var parentRecord = convertParent.convert();
+
+        var convertRecord = new ConvertFormToJSON($(`form[addInfo='${addInfo}']`));
+        var subRecord = convertRecord.convert();
+
+        var tmp = [];
+        tmp.push(parentRecord);
+        tmp.push(subRecord);
+
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/saveaddinfo/${moduleName}/${addInfo}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
+        var successCallback = function(data, status, hqr) {
+            console.log(data);
+            loadJsonToForm.load(context.mainForm, data);
+            loadJsonToForm.loadAddInfo(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost();
+    };
 
     saveChildRecord(myButton) {
         var context = this;
@@ -35,7 +65,6 @@ class DynaButtonAction {
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
     };
-
 }
 
 $(function () {
