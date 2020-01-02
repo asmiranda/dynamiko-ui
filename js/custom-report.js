@@ -14,7 +14,32 @@ class CustomReport {
         $(document).on('click', '.btnCustomDisplayModalReport', function() {
             context.customDisplayModalReport(this);
         });     
-        
+        $(document).on('click', '.btnAutoCustomDisplayModalReport', function() {
+            context.customAutoDisplayModalReport(this);
+        });     
+       
+    }
+
+    customAutoDisplayModalReport(obj) {
+        var context = this;
+        console.log("customAutoDisplayModalReport");
+        var moduleName = $(obj).attr("module");
+        var reportName = $(obj).attr("report");
+        var reportRecordId = $(obj).attr("recordId");
+        var reportCriteria = {};
+        reportCriteria["recordId"] = localStorage.latestModuleId;
+        reportCriteria["reportRecordId"] = reportRecordId;
+        console.log(reportCriteria);
+
+        var vdata = JSON.stringify(reportCriteria);
+        console.log(vdata);
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
+        var ajax = new AjaxBytesLoader();
+        ajax.loadPost(url, function(data_url) {
+            var iframeViewer = `iframe.customReportViewerFrame[report='AutoReport']`;
+            console.log(iframeViewer);
+            document.querySelector(iframeViewer).src=data_url;
+        }, vdata);
     }
 
     customDisplayModalReport(obj) {
