@@ -18,25 +18,25 @@ class ChildTabs {
         });
     };
 
-    clearAllChildRecords() {
+    clearAllDisplayTabs() {
         var context = this;
-        console.log("clearAllChildRecords");
+        console.log("clearAllDisplayTabs");
         console.log(this.childTabs);
         $.each(context.childTabs, function(i, childTab) {
             console.log(i);
             console.log(childTab);
-            childTab.clearChildRecords();
+            childTab.clearDisplayTabs();
         });
     };
 
-    reloadAllChildRecords() {
+    reloadAllDisplayTabs() {
         var context = this;
-        console.log("reloadAllChildRecords");
+        console.log("reloadAllDisplayTabs");
         console.log(this.childTabs);
         $.each(context.childTabs, function(i, childTab) {
             console.log(i);
             console.log(childTab);
-            childTab.reloadChildRecords();
+            childTab.reloadDisplayTabs();
         });
     };
 };
@@ -47,7 +47,7 @@ class ChildTab {
         this.mainForm = mainForm;
         this.subModuleName = subModuleName;
 
-        this.tableSelector = 'table[class~="childRecord"][submodule="'+this.subModuleName+'"]';
+        this.tableSelector = 'table[class~="displayTab"][submodule="'+this.subModuleName+'"]';
         this.formSelector = 'form[module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]';
         this.modalId = $('button[class~="btnChildTabEdit"][module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]').attr("data-target");
         console.log("Modal ID === "+this.modalId);
@@ -56,14 +56,14 @@ class ChildTab {
     constructTab() {
         var childDataTable = dynaRegister.createChildTable(this.subModuleName, this.tableSelector);
         dynaRegister.createDropZone(this.subModuleName, `div.childTabDropZone[submodule='${this.subModuleName}']`, this, childDataTable);
-        this.reloadChildRecords();
+        this.reloadDisplayTabs();
     };
 
-    clearChildRecords() {
+    clearDisplayTabs() {
         dynaRegister.clearTable(this.subModuleName);
     };
 
-    reloadChildRecords() {
+    reloadDisplayTabs() {
         var context = this;
         var convertFormToJSON = new ConvertFormToJSON($(this.mainForm));
         var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/subrecord/' + this.moduleName + '/' + this.subModuleName;
@@ -82,11 +82,11 @@ class ChildTab {
     loadRecordsToHtml(data) {
         console.log(data);
         var context = this;
-        $(".childRecordHtml[submodule='"+context.subModuleName+"']").empty();
+        $(".displayTabHtml[submodule='"+context.subModuleName+"']").empty();
         if (data[0]) {
             $.each(data, function(i, obj) {
                 try {
-                    var recordHtml = $(".childRecordHtmlTemplate[submodule='"+context.subModuleName+"']").html();
+                    var recordHtml = $(".displayTabHtmlTemplate[submodule='"+context.subModuleName+"']").html();
                     $.each(obj, function(key, value) {
                         console.log(key + " -- " + value);
                         var replaceStr = new ReplaceStr();
@@ -97,7 +97,7 @@ class ChildTab {
                     recordHtml = replaceStr.replaceAll(recordHtml, "##MAIN_URL##", MAIN_URL);
                     recordHtml = replaceStr.replaceAll(recordHtml, "##COMPANY_CODE##", localStorage.companyCode);
 
-                    $(".childRecordHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
+                    $(".displayTabHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
                     }
                 catch(e) {
                 }
@@ -163,7 +163,7 @@ class ChildTab {
             console.log("SELECTED ID == "+childTable.selectedId);
             if (childTable.selectedId) {
                 context.loadToForm();
-                context.editChildRecord(this);
+                context.editDisplayTab(this);
                 context.displayAllFiles();
             }
             else {
@@ -173,23 +173,23 @@ class ChildTab {
             }
         });
         $('button.btnChildTabNew[submodule="'+this.subModuleName+'"]').click(function() {
-            context.newChildRecord(this);
+            context.newDisplayTab(this);
         });
         $('button.btnChildTabDelete[submodule="'+this.subModuleName+'"]').click(function() {
-            context.deleteChildRecord(this);
+            context.deleteDisplayTab(this);
         });
         $('button.btnChildTabCancel[submodule="'+this.subModuleName+'"]').click(function() {
-            context.cancelChildRecord();
+            context.cancelDisplayTab();
         });
     };
 
-    editChildRecord(myButton) {
+    editDisplayTab(myButton) {
         var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
     };
 
-    newChildRecord(myButton) {
+    newDisplayTab(myButton) {
         var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
@@ -207,7 +207,7 @@ class ChildTab {
         fieldConstructor.initFields();
     };
 
-    deleteChildRecord(myButton) {
+    deleteDisplayTab(myButton) {
         var context = this;
         var subRecordId = $(myButton).attr("recordId");
         var module = $(myButton).attr("module");
@@ -222,13 +222,13 @@ class ChildTab {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));
         var successCallback = function(data) {
             console.log("Delete success called : "+data);
-            context.reloadChildRecords();
+            context.reloadDisplayTabs();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
     };
 
-    cancelChildRecord() {
+    cancelDisplayTab() {
         console.log("Child Tab Cancel Button Called");
     };
 

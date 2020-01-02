@@ -3,7 +3,7 @@ class DynaButtonAction {
         var context = this;
         this.mainForm = '#mainForm';
         $(document).on('click', '.btnChildTabSave', function() {
-            context.saveChildRecord(this);
+            context.saveDisplayTab(this);
         });
         $(document).on('click', '.btnAddInfoSave', function() {
             context.saveAddInfoSave(this);
@@ -37,7 +37,7 @@ class DynaButtonAction {
         ajaxCaller.ajaxPost();
     };
 
-    saveChildRecord(myButton) {
+    saveDisplayTab(myButton) {
         var context = this;
         var moduleName = $(myButton).attr("module");
         var submodule = $(myButton).attr("submodule");
@@ -60,7 +60,7 @@ class DynaButtonAction {
             var moduleScript = new ModuleScript(moduleName);
             moduleScript.saveChild(submodule);
             var childTab = new ChildTab(moduleName, context.mainForm, submodule);
-            childTab.reloadChildRecords();
+            childTab.reloadDisplayTabs();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();

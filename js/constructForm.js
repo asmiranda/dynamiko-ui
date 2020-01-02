@@ -51,7 +51,7 @@ class MainForm {
             loadJsonToForm.load(context.mainForm, data);
             loadJsonToForm.loadAddInfo(data);
 
-            context.childTabs.reloadAllChildRecords();
+            context.childTabs.reloadAllDisplayTabs();
             context.formRule.doRule();
             context.chartRule.doChartRule();
             localStorage.latestModuleId = recordId;
@@ -639,7 +639,7 @@ class FormControlButton {
             loadJsonToForm.load(context.mainForm, data);
             loadJsonToForm.loadAddInfo(data);
 
-            context.childTabs.reloadAllChildRecords();
+            context.childTabs.reloadAllDisplayTabs();
 
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
@@ -662,7 +662,7 @@ class FormControlButton {
         var successCallback = function(data) {
             // loadJsonToForm.load(context.mainForm, data);
 
-            // context.childTabs.clearAllChildRecords();
+            // context.childTabs.clearAllDisplayTabs();
 
             // context.searchTableClass.clearSearch();
             // context.formRule.doRule();
@@ -699,7 +699,7 @@ class FormControlButton {
             loadJsonToForm.load(context.mainForm, data);
             loadJsonToForm.loadAddInfo(data);
 
-            context.childTabs.reloadAllChildRecords();
+            context.childTabs.reloadAllDisplayTabs();
 
             context.searchTableClass.reloadSearch();
             context.formRule.doRule();
@@ -747,7 +747,7 @@ class SearchTable {
             loadJsonToForm.load(context.mainForm, data);
             loadJsonToForm.loadAddInfo(data);
 
-            context.childTabs.reloadAllChildRecords();
+            context.childTabs.reloadAllDisplayTabs();
             context.formRule.doRule();
             context.chartRule.doChartRule();
 

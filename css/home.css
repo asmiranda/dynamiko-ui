@@ -86,9 +86,9 @@ td.highlight {
     height: 300px;
 }
 
-.childRecord th {text-align: center;}
+.displayTab th {text-align: center;}
 .mainSearch th {text-align: center;}
-.childRecord td:first-child[readwrite='true'] {
+.displayTab td:first-child[readwrite='true'] {
     text-align: center;
 }​
 
