@@ -26,10 +26,10 @@ class MyGoalWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/MyGoalWidget";
+            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/MyGoalWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/MyGoalWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/MyGoalWidget/"+val;
         }
         ajaxRequestDTO.data = "";
 

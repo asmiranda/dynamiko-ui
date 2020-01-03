@@ -24,7 +24,7 @@ class ChildFieldAutoComplete {
         var context = this;
         $(".autocomplete[submodule='"+this.subModuleName+"']").each(function() {
             var fieldLabelName = $(this).attr("autoName");
-            var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/subautocomplete/"+context.moduleName+"/"+context.subModuleName+"/"+fieldLabelName;
+            var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/subautocomplete/"+context.moduleName+"/"+context.subModuleName+"/"+fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $(".HiddenAutoComplete[submodule='" + context.subModuleName + "'][name='" + fieldLabelName + "']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
@@ -35,8 +35,8 @@ class ChildFieldAutoComplete {
 //                     $.ajax( {
 //                         url: url+"/"+request.term,
 //                         beforeSend: function(xhr) {
-//                             if (localStorage.token) {
-//                                 xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+//                             if (sessionStorage.token) {
+//                                 xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
 //                             }
 //                         },
 //                         success: function( data ) {

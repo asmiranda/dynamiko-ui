@@ -98,11 +98,11 @@ class DynaRegister {
     createDropZone(moduleName, selector, myForm, mainDataTable) {
         Dropzone.autoDiscover = false;
         var dropZone = new Dropzone(selector, { 
-            url: `${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/upload/any/${moduleName}/${mainDataTable.selectedId}`,
+            url: `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${moduleName}/${mainDataTable.selectedId}`,
             maxFiles: 1, 
             clickable: true, 
             maxFilesize: 1, //MB
-            headers:{"Authorization":'Bearer ' + localStorage.token},   
+            headers:{"Authorization":'Bearer ' + sessionStorage.token},   
             init: function() {
                     this.on("addedfile", function(file) {
                         // alert("Added file.");

@@ -11,7 +11,7 @@ class HrNewsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrNewsWidget/all';
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrNewsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -64,7 +64,7 @@ class HrNewsWidget {
 
     showHrNews(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrNewsWidget/showHrNews/'+recId;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrNewsWidget/showHrNews/'+recId;
         console.log(url);
     }
 }

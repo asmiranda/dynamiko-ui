@@ -21,7 +21,7 @@ class ChatWidget {
 
         var value = $("#userChatMessage").val();
         if (value && value.trim()!="") {
-            var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ChatWidget/'+value;
+            var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ChatWidget/'+value;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
                 console.log(data);

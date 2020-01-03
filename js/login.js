@@ -3,8 +3,8 @@ function LoginJS(uname, pword) {
     this.pword = pword;
     
     this.token = function () {
-        console.log(localStorage.token);
-        return localStorage.token;
+        console.log(sessionStorage.token);
+        return sessionStorage.token;
     };
 
     this.login = function(redUrl) {
@@ -18,8 +18,8 @@ function LoginJS(uname, pword) {
             contentType: 'application/json',
             success: function (data) {
                 console.log(data.token);
-                localStorage.uname = context.uname;
-                localStorage.token = data.token;
+                sessionStorage.uname = context.uname;
+                sessionStorage.token = data.token;
                 //redirect
                 setTimeout(function() {
                     window.location.href = redUrl;

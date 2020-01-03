@@ -26,7 +26,7 @@ class DynaAutoComplete {
         var moduleName = $(obj).attr("module");
         var fieldName = $(obj).attr("autoName");
         console.log("Autocomplete typed "+value);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocomplete/${moduleName}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocomplete/${moduleName}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);

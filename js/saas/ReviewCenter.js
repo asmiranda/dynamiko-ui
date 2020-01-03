@@ -39,7 +39,7 @@ class ReviewCenter {
             
             var vdata = JSON.stringify(tmpEnrollment);
             console.log(vdata);
-            var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewStudentUI/post';
+            var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ReviewStudentUI/post';
             var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
             var successCallback = function(data) {
                 console.log(data);
@@ -74,7 +74,7 @@ class ReviewCenter {
     populateEnrollmentChoices() {
         var context = this;
 
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/widget/ReviewStudentUI/programs";
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/ReviewStudentUI/programs";
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -98,7 +98,7 @@ class ReviewCenter {
         var examId = $(obj).attr("examId");
         var value = $(obj).val();
         console.log(value);
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/searchQuestions/'+examId+"/"+value;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ReviewProgramModuleUI/searchQuestions/'+examId+"/"+value;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -132,7 +132,7 @@ class ReviewCenter {
 
         var title = $(obj).attr("title");
         $(".examTitle").html(title+" ["+examId+"]");
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/loadQuestions/'+examId;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ReviewProgramModuleUI/loadQuestions/'+examId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -161,7 +161,7 @@ class ReviewCenter {
         var examQuestionId = $(obj).attr("examQuestionId");
         var txtSearch = $(".txtReviewCenterSearchQuestion").val();
 
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/addQuestion/'+examId+"/"+examQuestionId+"/"+txtSearch;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ReviewProgramModuleUI/addQuestion/'+examId+"/"+examQuestionId+"/"+txtSearch;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -192,7 +192,7 @@ class ReviewCenter {
 
         var examId = $(obj).attr("examId");
         var examQuestionId = $(obj).attr("examQuestionId");
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/ReviewProgramModuleUI/deleteQuestion/'+examId+"/"+examQuestionId;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ReviewProgramModuleUI/deleteQuestion/'+examId+"/"+examQuestionId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");

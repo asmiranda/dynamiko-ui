@@ -20,7 +20,7 @@ class FormLinker {
 
     linkChildToForm(moduleName, submodule, fieldname, mainId, childid) {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/childtoformlink/"+moduleName+"/"+submodule+"/"+fieldname+"/"+mainId+"/"+childid;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/childtoformlink/"+moduleName+"/"+submodule+"/"+fieldname+"/"+mainId+"/"+childid;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);

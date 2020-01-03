@@ -31,7 +31,7 @@ class MyInbox {
 
     loadTask(action) {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/InboxWidget/task/'+action;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/InboxWidget/task/'+action;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             context.clearInbox();
@@ -73,7 +73,7 @@ class MyInbox {
 
     loadWorkStarted() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/InboxWidget/work/';
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/InboxWidget/work/';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             context.clearInbox();

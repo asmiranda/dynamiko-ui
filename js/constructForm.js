@@ -17,7 +17,7 @@ class MainForm {
 
     construct(recordId) {
         var context = this;
-        var url = MAIN_URL+"/api/ui/"+localStorage.companyCode+"/module/"+this.moduleName;
+        var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             $("#content-main").html(data);
@@ -43,7 +43,7 @@ class MainForm {
 
     loadRecord(recordId) {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.moduleName + '/' + recordId;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + this.moduleName + '/' + recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -89,7 +89,7 @@ class FormRule {
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/formrule/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/formrule/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
@@ -139,7 +139,7 @@ class ProfilePicLoader {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
             if (recordId && recordId > 0) {
-                var imageLink = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/${context.moduleName}/${recordId}/`;
+                var imageLink = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/${context.moduleName}/${recordId}/`;
                 console.log(`ProfilePicLoader src="${imageLink}"`);
                 $("#profilePic").attr("src", imageLink);
                 $("#profilePic").show();
@@ -244,7 +244,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/historyWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/historyWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log("historyWFRecord data");
@@ -289,7 +289,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/rejectWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/rejectWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -308,7 +308,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/cancelWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/cancelWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -327,7 +327,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/forwardWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/forwardWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -346,7 +346,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/returnWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/returnWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -365,7 +365,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/approveWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/approveWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -384,7 +384,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/endorseWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/endorseWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -403,7 +403,7 @@ class FormControlButton {
         }
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+localStorage.companyCode+'/submitWFRecord/' + context.moduleName;
+        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/submitWFRecord/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -416,7 +416,7 @@ class FormControlButton {
 
     initActions() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/actions/"+this.moduleName;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/actions/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -441,7 +441,7 @@ class FormControlButton {
         var context = this;
         var moduleName = $(obj).attr("module");
         var code = $(obj).attr("value");
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/"+moduleName+"/"+code;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/"+moduleName+"/"+code;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -456,7 +456,7 @@ class FormControlButton {
 
     initReport() {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/report/dynamic/"+this.moduleName;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/report/dynamic/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -517,10 +517,10 @@ class FormControlButton {
                 showModuleHelp.show();
             }
         };
-        var myurl = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
+        var myurl = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
         xhr.responseType = 'arraybuffer';
         xhr.open('GET', myurl, true);
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
         xhr.send("");
     }
 
@@ -575,7 +575,7 @@ class FormControlButton {
 
     static downloadFile(fileId) {
         console.log("downloadFile = " + fileId);
-        window.open(MAIN_URL+'/api/generic/'+localStorage.companyCode+'/attachment/download/'+fileId, '_blank');
+        window.open(MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/attachment/download/'+fileId, '_blank');
     }
 
     static deleteFile(fileId) {
@@ -633,7 +633,7 @@ class FormControlButton {
         console.log("newRecord called");
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/new/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/new/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -657,7 +657,7 @@ class FormControlButton {
         console.log("deleteRecord called");
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/delete/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             // loadJsonToForm.load(context.mainForm, data);
@@ -693,7 +693,7 @@ class FormControlButton {
         var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
         var vdata = JSON.stringify(convertFormToJSON.convert());
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/save/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/save/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
@@ -738,8 +738,8 @@ class SearchTable {
         var context = this;
         var mainDataTable = dynaRegister.getDataTable(context.moduleName);
         var dropZone = dynaRegister.getDropZone(context.moduleName);
-        dropZone.options.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/upload/any/${context.moduleName}/${mainDataTable.selectedId}`
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/findRecord/' + this.moduleName + '/' + mainDataTable.selectedId;
+        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${context.moduleName}/${mainDataTable.selectedId}`
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + this.moduleName + '/' + mainDataTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Record Found");
@@ -764,7 +764,7 @@ class SearchTable {
     displayAllFiles() {
         var context = this;
         var mainDataTable = dynaRegister.getDataTable(context.moduleName);
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/"+context.moduleName+"/"+mainDataTable.selectedId;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/"+context.moduleName+"/"+mainDataTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -778,7 +778,7 @@ class SearchTable {
                 if (uploadType == 'Profile') {
                     str = `
                     <div class='thumbnail' style='display:inline-block; border-width: 5px;'>
-                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
                         <div class='text-center' style='margin-top: 20px;'>
                             <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
                             <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
@@ -788,7 +788,7 @@ class SearchTable {
                 else {
                     str = `
                     <div class='thumbnail' style='display:inline-block'>
-                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
                         <div class='text-center' style='margin-top: 20px;'>
                             <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
                             <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
@@ -821,7 +821,7 @@ class SearchTable {
                     </div>
                 `;
                 html = html.replace("myModal", "imgModal_"+fileUploadId);
-                html = html.replace("myImage", MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/download/"+fileUploadId);
+                html = html.replace("myImage", MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/download/"+fileUploadId);
                 $(".recordFiles").append(html);
                 $(".btnImage_"+fileUploadId).click(function() {
                     context.displayLargeImageFullScreen(this);
@@ -841,7 +841,7 @@ class SearchTable {
     setFileProfile(obj) {
         var context = this;
         var fileId = $(obj).attr("data");
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/setprofile/"+fileId;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/setprofile/"+fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -854,7 +854,7 @@ class SearchTable {
     removeAttachedFile(obj) {
         var context = this;
         var fileId = $(obj).attr("data");
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/attachment/delete/"+fileId;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/delete/"+fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -874,7 +874,7 @@ class SearchTable {
         console.log("reloadSpecialSearch");
         var context = this;
         var input = $('select.specialSearch');
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/special/' + this.moduleName + '/' + input.val();
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/special/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
@@ -885,7 +885,7 @@ class SearchTable {
         console.log("reloadSearch");
         var context = this;
         var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         this.successCallback = function(data) {
             console.log("Reload Search");
@@ -925,7 +925,7 @@ class SearchTable {
         var mainDataTable = dynaRegister.getDataTable(context.moduleName);
         $('input[class~="filter"][module="'+this.moduleName+'"]').val("");
         var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         this.successCallback = function(data) {
             console.log("Reload Search");

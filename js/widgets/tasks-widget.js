@@ -20,8 +20,8 @@ class TasksWidget {
 
     loadTask() {
         var context = this;
-        var companyCode = localStorage.companyCode;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/widget/TasksWidget/all';
+        var companyCode = sessionStorage.companyCode;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/TasksWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);

@@ -10,7 +10,7 @@ class PerformanceGraphWidget {
             var myChart = new Chart(cashChart);
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/PerformanceGraphWidget";
+            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/PerformanceGraphWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function(data) {

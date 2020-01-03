@@ -26,10 +26,10 @@ class EmployeeSearchWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/EmployeeSearchWidget";
+            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/EmployeeSearchWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/EmployeeSearchWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/EmployeeSearchWidget/"+val;
         }
         ajaxRequestDTO.data = "";
 

@@ -66,7 +66,7 @@ class LoadJsonToForm {
         if ($(field).hasClass("profilePic")) {
             var recordId = $(form + " [name='"+entityName+"Id']").val();
             console.log("RECORD ID = "+recordId);
-            var profilePicUrl = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/profilePic/"+moduleName+"/"+recordId;
+            var profilePicUrl = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/profilePic/"+moduleName+"/"+recordId;
             console.log("profilePicUrl = "+profilePicUrl);
             $(field).attr("src", profilePicUrl);
         }
@@ -165,9 +165,9 @@ class LoadAutoCompleteLabel {
         var value = $(this.field).val();
 
         if (value!=null && value!="") {
-            var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/autocompletelabel/' + moduleName + '/' + this.name + '/' + value;
+            var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + moduleName + '/' + this.name + '/' + value;
             if (subModuleName) {
-                url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/autocompletelabel/' + subModuleName + '/' + this.name + '/' + value;
+                url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + subModuleName + '/' + this.name + '/' + value;
             }
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var innerForm = this.form;
@@ -203,7 +203,7 @@ class LoadPopSearchLabel {
         var moduleName = $(this.field).attr("module");
         var value = $(this.field).val();
 
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var innerForm = this.form;
         var successCallback = function(data) {

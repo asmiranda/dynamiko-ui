@@ -33,7 +33,7 @@ class CustomReport {
 
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
         var ajax = new AjaxBytesLoader();
         ajax.loadPost(url, function(data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='AutoReport']`;
@@ -67,7 +67,7 @@ class CustomReport {
             
             var vdata = JSON.stringify(myData);
             console.log(vdata);
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${moduleName}/post`;
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${moduleName}/post`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
             var successCallback = function(data) {
                 $(currentSelect).empty();
@@ -120,7 +120,7 @@ class CustomReport {
 
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
         var ajax = new AjaxBytesLoader();
         ajax.loadPost(url, function(data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;

@@ -21,7 +21,7 @@ class PayrollScheduleUI {
         console.log("PayrollScheduleUI chooseEmployees");
         var context = this;
         var recordId = $("input.mainId").val();
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/PayrollScheduleUI/getPayroll/"+recordId;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/PayrollScheduleUI/getPayroll/"+recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -77,7 +77,7 @@ class PayrollScheduleUI {
         console.log("PayrollScheduleUI chooseEmployees");
         var context = this;
         var recordId = $("input.mainId").val();
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/PayrollScheduleUI/getEmployees/"+recordId;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/PayrollScheduleUI/getEmployees/"+recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -123,7 +123,7 @@ class PayrollScheduleUI {
         var context = this;
         var recordId = $("input.mainId").val();
         var code = $(obj).attr("value");
-        var url = MAIN_URL+"/api/generic/"+localStorage.companyCode+"/specialaction/PayrollScheduleUI/addEmployee/"+recordId+"_"+code;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/PayrollScheduleUI/addEmployee/"+recordId+"_"+code;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {

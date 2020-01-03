@@ -138,14 +138,14 @@ class UploadDataFile {
     }
 
     downloadTemplate() {
-        window.open(MAIN_URL + '/api/utils/getUploadTemplate/' + localStorage.companyCode + '/' + localStorage.chosenReport, '_blank');
+        window.open(MAIN_URL + '/api/utils/getUploadTemplate/' + sessionStorage.companyCode + '/' + sessionStorage.chosenReport, '_blank');
     }
 
     loadAllUploadDataTemplate() {
         var context = this;
         console.log("LOAD ALL REPORTS...");
 
-        var url = MAIN_URL + '/api/utils/getAllTemplate/' + localStorage.companyCode;
+        var url = MAIN_URL + '/api/utils/getAllTemplate/' + sessionStorage.companyCode;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -166,7 +166,7 @@ class UploadDataFile {
     }
 
     useChosenTemplate(chosen) {
-        localStorage.chosenReport = $(chosen).attr("value");
+        sessionStorage.chosenReport = $(chosen).attr("value");
         var chosenReportLabel = $(chosen).attr("label");
         $("#chosenTemplate").html("<b>" + chosenReportLabel + "</b>");
     }

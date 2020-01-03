@@ -52,7 +52,7 @@ class FieldMultiSelect {
         $(".multiSelect[module='" + this.moduleName + "'][mainmodule='" + this.moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("name");
             console.log("MULTI SELECT FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/" + context.moduleName + "/" + fieldLabelName + "/" + recordId;
+            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/" + context.moduleName + "/" + fieldLabelName + "/" + recordId;
             console.log("url = " + url);
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function (data) {
@@ -80,7 +80,7 @@ class FieldMultiSelect {
         var context = this;
         var fieldName = $(btn).attr("name");
         console.log("multiSelectDisplayAdd fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/options/" + context.moduleName + "/" + fieldName;
+        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/" + context.moduleName + "/" + fieldName;
         console.log("multiSelectDisplayAdd url = " + url);
         var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
         var varr = [];
@@ -138,7 +138,7 @@ class FieldMultiSelect {
         var fieldName = $(btn).attr("name");
         var fieldValue = $(btn).val();
         console.log("multiSelectTextFilter fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/multiselect/options/filter/" + context.moduleName + "/" + fieldName + "/" + fieldValue;
+        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/filter/" + context.moduleName + "/" + fieldName + "/" + fieldValue;
         console.log("multiSelectTextFilter url = " + url);
         var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
         var varr = [];
@@ -199,7 +199,7 @@ class FieldAutoComplete {
         $(".autocomplete[module='" + this.moduleName + "'][mainmodule='" + this.moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
             console.log("AUTO COMPLETE FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/"+localStorage.companyCode+"/autocomplete/" + context.moduleName + "/" + fieldLabelName;
+            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/autocomplete/" + context.moduleName + "/" + fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $("[autoNameField='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
@@ -215,8 +215,8 @@ class FieldAutoComplete {
             //         $.ajax({
             //             url: url + "/" + request.term,
             //             beforeSend: function (xhr) {
-            //                 if (localStorage.token) {
-            //                     xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+            //                 if (sessionStorage.token) {
+            //                     xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
             //                 }
             //             },
             //             success: function (data) {
@@ -295,7 +295,7 @@ class InitPopSearch {
         var context = this;
 
         var input = $('input[class~="filter"][module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
-        var url = MAIN_URL + '/api/generic/'+localStorage.companyCode+'/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
+        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             context.popSearchDataTable.clear();

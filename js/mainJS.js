@@ -169,8 +169,8 @@ class UIService {
     }
 
     changeCompany(companyCode, companyName) {
-        localStorage.companyCode = companyCode;
-        localStorage.companyName = companyName;
+        sessionStorage.companyCode = companyCode;
+        sessionStorage.companyName = companyName;
         var useCompanyStr = `
             <span style="padding-right: 15px;">${companyName}</span><i class="fa fa-bank"></i>
         `;
@@ -184,7 +184,7 @@ class UIService {
     }
 
     initLogo() {
-        var url = MAIN_URL + '/api/ui/'+localStorage.companyCode+'/logo';
+        var url = MAIN_URL + '/api/ui/'+sessionStorage.companyCode+'/logo';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("logo ==");
@@ -217,7 +217,7 @@ class LeftMenu {
         var context = this;
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
 
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/getLeftMenu';
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Left Menu Extracted");

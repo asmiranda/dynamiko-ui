@@ -8,7 +8,7 @@ class LeaveBalanceWidget {
 
         if ($(".leave-balance")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/"+localStorage.companyCode+"/widget/LeaveBalanceWidget";
+            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/LeaveBalanceWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function(data) {

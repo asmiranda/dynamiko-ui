@@ -11,7 +11,7 @@ class HrFormsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrFormsWidget/all';
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrFormsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -45,7 +45,7 @@ class HrFormsWidget {
 
     downloadForm(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/'+localStorage.companyCode+'/pwidget/HrFormsWidget/getFile/'+recId;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrFormsWidget/getFile/'+recId;
         console.log(url);
         window.open(url, '_blank');
     }
