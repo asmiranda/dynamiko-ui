@@ -50,7 +50,6 @@ class UIService {
         });
 
         var context = this;
-        uiVersion.initVersions();
         this.initCompany();
         this.initProfile();
 
@@ -180,7 +179,7 @@ class UIService {
 
         if (localStorage.latestModule) {
             var leftMenu = new LeftMenu();
-            // leftMenu.loadUI(localStorage.latestModule);
+            leftMenu.loadUI(localStorage.latestModule);
         }
     }
 
@@ -371,25 +370,13 @@ class RegisterDatatable {
     }
 }
 
-class UIVersionObj {
-    constructor() {
-        this.uiName;
-        this.version;
-        this.uiHtml;
-    }
-}
-
 class UIVersion {
     constructor() {
-        if (!window.indexedDB) {
-            window.alert("Your browser doesn't support a stable version of IndexedDB.")
-        }
-        localforage.config();
     }
 
     initVersions() {
         var context = this;
-        var url = MAIN_URL + '/api/version/all/ui';
+        var url = MAIN_URL + '/api/clientcache/all/ui';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -407,24 +394,63 @@ class UIVersion {
 
     setVersion(uiName, version) {
         //use lStorage variable
+        var clientVersion = lStorage.get(uiName+"-Version");
+        if (clientVersion!=version) {
+            console.log(uiName+" version is different.");
+            lStorage.set(uiName+"-Version", version);
+            lStorage.set(uiName+"-VersionHTML", "");
+        }
     }
 
-    geUIHtml(uiName, retVal) {
-        localforage.getItem(uiName).then(function(readValue) {
-            console.log('Read: ', readValue);
-            retVal(readValue);
-        });
+    getUIHtml(uiName) {
+        var storedHTML = lStorage.get(uiName+"-VersionHTML");
+        return storedHTML;
     }
 
     setNewUIHtml(uiName, uiHtml) {
-        localforage.setItem(uiName, uiHtml).then(function () {
-            return localforage.getItem(uiName);
-        }).then(function (value) {
-            console.log(value);
-            // we got our value
-        }).catch(function (err) {
-            // we got an error
-            console.log(err);
-        });
+        lStorage.set(uiName+"-VersionHTML", uiHtml);
+    }
+}
+
+class SearchCache {
+    constructor() {
+    }
+
+    initSearchCache() {
+        var context = this;
+        var url = MAIN_URL + '/api/clientcache/all/search';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+    
+            $.each(data, function(index, obj) {
+                var uiName = obj.getProp("key");
+                var clientCache = obj.getProp("value");
+
+                context.setCacheConfig(uiName, clientCache);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    setCacheConfig(uiName, clientCache) {
+        sStorage.set(uiName+"-SearchCache", clientCache);
+    }
+
+    getSearchCache(uiName, uri) {
+        var searchData = "";
+        var canCache = sStorage.get(uiName+"-SearchCache");
+        if (canCache=="true") {
+            searchData = sStorage.get(uri);
+        }
+        return searchData;
+    }
+
+    setNewSearchCache(uiName, uri, searchData) {
+        var canCache = sStorage.get(uiName+"-SearchCache");
+        if (canCache=="true") {
+            sStorage.set(uri, searchData);
+        }
     }
 }

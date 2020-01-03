@@ -334,8 +334,23 @@
               }
           }
       };
+      sStorage = {
+          set: function (key, value) {
+              window.sessionStorage.setItem( key, JSON.stringify(value) );
+          },
+          get: function (key) {
+              try {
+                  return JSON.parse( window.sessionStorage.getItem(key) );
+              } catch (e) {
+                  return null; 
+              }
+          }
+      };
 
       uiVersion = new UIVersion();
+      uiVersion.initVersions();
+      searchCache = new SearchCache();      
+      searchCache.initSearchCache();
 
       var uiService = new UIService();
       uiService.initHome();
