@@ -50,6 +50,7 @@ class UIService {
         });
 
         var context = this;
+        uiVersion.initVersions();
         this.initCompany();
         this.initProfile();
 
@@ -179,7 +180,7 @@ class UIService {
 
         if (localStorage.latestModule) {
             var leftMenu = new LeftMenu();
-            leftMenu.loadUI(localStorage.latestModule);
+            // leftMenu.loadUI(localStorage.latestModule);
         }
     }
 
@@ -367,5 +368,63 @@ class RegisterDatatable {
             }
         });
         allTable = [];
+    }
+}
+
+class UIVersionObj {
+    constructor() {
+        this.uiName;
+        this.version;
+        this.uiHtml;
+    }
+}
+
+class UIVersion {
+    constructor() {
+        if (!window.indexedDB) {
+            window.alert("Your browser doesn't support a stable version of IndexedDB.")
+        }
+        localforage.config();
+    }
+
+    initVersions() {
+        var context = this;
+        var url = MAIN_URL + '/api/version/all/ui';
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+    
+            $.each(data, function(index, obj) {
+                var uiName = obj.getProp("key");
+                var version = obj.getProp("value");
+
+                context.setVersion(uiName, version);
+            });
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet();
+    }
+
+    setVersion(uiName, version) {
+        //use lStorage variable
+    }
+
+    geUIHtml(uiName, retVal) {
+        localforage.getItem(uiName).then(function(readValue) {
+            console.log('Read: ', readValue);
+            retVal(readValue);
+        });
+    }
+
+    setNewUIHtml(uiName, uiHtml) {
+        localforage.setItem(uiName, uiHtml).then(function () {
+            return localforage.getItem(uiName);
+        }).then(function (value) {
+            console.log(value);
+            // we got our value
+        }).catch(function (err) {
+            // we got an error
+            console.log(err);
+        });
     }
 }

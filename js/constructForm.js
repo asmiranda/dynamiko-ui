@@ -16,6 +16,45 @@ class MainForm {
     }
 
     construct(recordId) {
+        var context = this;        
+        uiVersion.geUIHtml(this.moduleName, function(uiHtml) {
+            if (uiHtml=="" || uiHtml==null) {
+                var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+context.moduleName;
+                var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+                var successCallback = function(data) {
+                    context.cacheConstruct(recordId, data);
+                    uiVersion.setNewUIHtml(context.moduleName, data);
+                };
+                var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+                ajaxCaller.ajaxGet();
+            }
+            else {
+                context.cacheConstruct(recordId, uiHtml);
+            }
+        });
+    };
+
+    cacheConstruct(recordId, uiHtml) {
+        var context = this;        
+        $("#content-main").html(uiHtml);
+        $('[data-mask]').inputmask();
+        context.controlButtonClass.initButtons();
+        context.searchTableClass.initTable();
+        context.fieldConstructor.initFields();
+        context.childTabs.initTabs();
+        context.moduleHelper.initHelp();
+        context.profilePicLoader.init();
+        context.formRule.doRule();
+        context.chartRule.doChartRule();
+        // context.printForm.init();
+        if (recordId) {
+            context.loadRecord(recordId);
+        }
+        var moduleScript = new ModuleScript(context.moduleName);
+        moduleScript.init();
+    };
+
+    constructOld(recordId) {
         var context = this;
         var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+this.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");

@@ -268,6 +268,7 @@
 
   <script src="js/others/dropzone.js"></script>
   <script src="js/others/jquery.fullscreen.js"></script>
+  <script src="js/others/localforage.js"></script>
 
   <script src="js/config.js"></script>
   <script src="js/login.js"></script>
@@ -321,6 +322,21 @@
   <script>
 
     $(function () {
+      lStorage = {
+          set: function (key, value) {
+              window.localStorage.setItem( key, JSON.stringify(value) );
+          },
+          get: function (key) {
+              try {
+                  return JSON.parse( window.localStorage.getItem(key) );
+              } catch (e) {
+                  return null;
+              }
+          }
+      };
+
+      uiVersion = new UIVersion();
+
       var uiService = new UIService();
       uiService.initHome();
     });
