@@ -11,7 +11,7 @@ class ChildTabs {
             console.log("initTabs");
             console.log(i);
             console.log($(obj).attr("submodule"));
-            var childTab = new ChildTab(context.moduleName, context.mainForm, $(obj).attr("submodule"));
+            var childTab = new ChildTab(context.moduleName, context.mainForm, $(obj).attr("submodule"), $(obj).attr("cache"));
             childTab.constructTab();
 
             context.childTabs.push(childTab);
@@ -42,10 +42,11 @@ class ChildTabs {
 };
 
 class ChildTab {
-    constructor(moduleName, mainForm, subModuleName) {
+    constructor(moduleName, mainForm, subModuleName, cache) {
         this.moduleName = moduleName;
         this.mainForm = mainForm;
         this.subModuleName = subModuleName;
+        this.cache = cache;
 
         this.tableSelector = 'table[class~="displayTab"][submodule="'+this.subModuleName+'"]';
         this.formSelector = 'form[module="'+this.moduleName+'"][submodule="'+this.subModuleName+'"]';
@@ -67,17 +68,44 @@ class ChildTab {
         var context = this;
         var convertFormToJSON = new ConvertFormToJSON($(this.mainForm));
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/subrecord/' + this.moduleName + '/' + this.subModuleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(convertFormToJSON.convert()));
-        var successCallback = function(data) {
-            console.log(context.subModuleName + " Sub Record Reloaded");
-            dynaRegister.getDataTable(context.subModuleName).selectedId = null;
-            context.loadRecordsToHtml(data);
-            context.loadRecordsToChildTable(data);
-            context.initButtons();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        convertFormToJSON["childURL"] = url;
+        var cacheKey = JSON.stringify(convertFormToJSON.convert());
+        var mainId = $("input.mainId").val();
+        if (mainId > 0) {
+            if (this.cache!="true") {
+                var ajaxRequestDTO = new AjaxRequestDTO(url, cacheKey);
+                var successCallback = function(data) {
+                    context.loadDisplayTabData(data);
+                };
+                var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+                ajaxCaller.ajaxPost();
+            }
+            else {
+                var data = sStorage.get(cacheKey);
+                if (data==null || data=="") {
+                    var ajaxRequestDTO = new AjaxRequestDTO(url, cacheKey);
+                    var successCallback = function(data) {
+                        context.loadDisplayTabData(data);
+                        sStorage.set(cacheKey, data);
+                    };
+                    var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+                    ajaxCaller.ajaxPost();
+                }
+                else {
+                    context.loadDisplayTabData(data);
+                }
+            }
+        }
     };
+
+    loadDisplayTabData(data) {
+        var context = this;
+        console.log(context.subModuleName + " Sub Record Reloaded");
+        dynaRegister.getDataTable(context.subModuleName).selectedId = null;
+        context.loadRecordsToHtml(data);
+        context.loadRecordsToChildTable(data);
+        context.initButtons();
+    }
 
     loadRecordsToHtml(data) {
         console.log(data);

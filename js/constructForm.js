@@ -17,13 +17,13 @@ class MainForm {
 
     construct(recordId) {
         var context = this;        
-        var uiHtml = uiVersion.getUIHtml(this.moduleName);
+        var uiHtml = uiCache.getUIHtml(this.moduleName);
         if (uiHtml=="" || uiHtml==null) {
             var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+context.moduleName;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
                 context.cacheConstruct(recordId, data);
-                uiVersion.setNewUIHtml(context.moduleName, data);
+                uiCache.setUIHtml(context.moduleName, data);
             };
             var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
             ajaxCaller.ajaxGet();
@@ -43,8 +43,8 @@ class MainForm {
         context.childTabs.initTabs();
         context.moduleHelper.initHelp();
         context.profilePicLoader.init();
-        context.formRule.doRule();
-        context.chartRule.doChartRule();
+        // context.formRule.doRule();
+        // context.chartRule.doChartRule();
         // context.printForm.init();
         if (recordId) {
             context.loadRecord(recordId);
@@ -56,20 +56,29 @@ class MainForm {
     loadRecord(recordId) {
         var context = this;
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + this.moduleName + '/' + recordId;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log("Record Found");
-            console.log(data);
-            loadJsonToForm.load(context.mainForm, data);
-            loadJsonToForm.loadAddInfo(data);
+
+        var searchData = searchCache.getSearchCache(this.moduleName, url);
+        if (searchData==null || searchData=="") {
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+            var successCallback = function(data) {
+                searchCache.setNewSearchCache(context.moduleName, url, data);
+
+                loadJsonToForm.load(context.mainForm, data);
+                loadJsonToForm.loadAddInfo(data);
+    
+                context.childTabs.reloadAllDisplayTabs();
+                localStorage.latestModuleId = recordId;
+            };
+            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+            ajaxCaller.ajaxGet();
+        }
+        else {
+            loadJsonToForm.load(context.mainForm, searchData);
+            loadJsonToForm.loadAddInfo(searchData);
 
             context.childTabs.reloadAllDisplayTabs();
-            context.formRule.doRule();
-            context.chartRule.doChartRule();
             localStorage.latestModuleId = recordId;
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        }
     }
 }
 
@@ -244,8 +253,8 @@ class FormControlButton {
         $('li.btnWfHistory').click(function() {
             context.historyWFRecord();
         });
-        context.initReport();
-        context.initActions();
+        // context.initReport();
+        // context.initActions();
     };
 
     historyWFRecord() {
@@ -306,7 +315,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -325,7 +334,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -344,7 +353,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -363,7 +372,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -382,7 +391,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -401,7 +410,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -420,7 +429,7 @@ class FormControlButton {
         var successCallback = function(data) {
             loadJsonToForm.load(context.mainForm, data);
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -654,7 +663,7 @@ class FormControlButton {
             context.childTabs.reloadAllDisplayTabs();
 
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -714,7 +723,7 @@ class FormControlButton {
             context.childTabs.reloadAllDisplayTabs();
 
             context.searchTableClass.reloadSearch();
-            context.formRule.doRule();
+            // context.formRule.doRule();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -752,25 +761,35 @@ class SearchTable {
         var dropZone = dynaRegister.getDropZone(context.moduleName);
         dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${context.moduleName}/${mainDataTable.selectedId}`
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + this.moduleName + '/' + mainDataTable.selectedId;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log("Record Found");
-            console.log(data);
-            loadJsonToForm.load(context.mainForm, data);
-            loadJsonToForm.loadAddInfo(data);
+
+        var searchData = searchCache.getSearchCache(this.moduleName, url);
+        if (searchData==null || searchData=="") {
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+            var successCallback = function(data) {
+                searchCache.setNewSearchCache(context.moduleName, url, data);
+
+                loadJsonToForm.load(context.mainForm, data);
+                loadJsonToForm.loadAddInfo(data);
+    
+                context.childTabs.reloadAllDisplayTabs();
+                for (const [key, value] of dynaRegister.saasMap) {
+                    value.loadToForm(context);
+                }
+                localStorage.latestModuleId = mainDataTable.selectedId;
+            };
+            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+            ajaxCaller.ajaxGet();
+        }
+        else {
+            loadJsonToForm.load(context.mainForm, searchData);
+            loadJsonToForm.loadAddInfo(searchData);
 
             context.childTabs.reloadAllDisplayTabs();
-            context.formRule.doRule();
-            context.chartRule.doChartRule();
-
             for (const [key, value] of dynaRegister.saasMap) {
-                console.log(key, value);
                 value.loadToForm(context);
             }
             localStorage.latestModuleId = mainDataTable.selectedId;
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        }
     };
 
     displayAllFiles() {

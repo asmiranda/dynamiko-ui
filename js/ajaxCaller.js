@@ -24,10 +24,13 @@ class AjaxCaller {
                 console.log(jqXHR);
                 console.log('textStatus:');
                 console.log(textStatus);
-                // console.log('responseJSON:');
-                // console.log(jqXHR.responseJSON.message);
-                var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseJSON.message);
-                showModuleHelp.show();
+                if (jqXHR.responseJSON.message=="Access Denied") {
+                    window.location.href = "login.html";
+                }
+                else {
+                    var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseJSON.message);
+                    showModuleHelp.show();
+                }
             },
             success: callback
         });

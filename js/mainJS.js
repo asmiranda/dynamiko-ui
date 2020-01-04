@@ -370,45 +370,17 @@ class RegisterDatatable {
     }
 }
 
-class UIVersion {
+class UICache {
     constructor() {
     }
 
-    initVersions() {
-        var context = this;
-        var url = MAIN_URL + '/api/clientcache/all/ui';
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
-    
-            $.each(data, function(index, obj) {
-                var uiName = obj.getProp("key");
-                var version = obj.getProp("value");
-
-                context.setVersion(uiName, version);
-            });
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
-    }
-
-    setVersion(uiName, version) {
-        //use lStorage variable
-        var clientVersion = lStorage.get(uiName+"-Version");
-        if (clientVersion!=version) {
-            console.log(uiName+" version is different.");
-            lStorage.set(uiName+"-Version", version);
-            lStorage.set(uiName+"-VersionHTML", "");
-        }
-    }
-
     getUIHtml(uiName) {
-        var storedHTML = lStorage.get(uiName+"-VersionHTML");
+        var storedHTML = sStorage.get(uiName+"-HTML");
         return storedHTML;
     }
 
-    setNewUIHtml(uiName, uiHtml) {
-        lStorage.set(uiName+"-VersionHTML", uiHtml);
+    setUIHtml(uiName, uiHtml) {
+        sStorage.set(uiName+"-HTML", uiHtml);
     }
 }
 
