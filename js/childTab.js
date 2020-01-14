@@ -147,11 +147,21 @@ class ChildTab {
                     console.log(key);
                     var record = [];
                     var modalId = "#myModal"+context.subModuleName;
-                    if (childTable.readWrite=='true') {
+                    if (childTable.canEdit=='true' || childTable.canDelete=='true') {
                         var buttonEdit = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" data-target="'+modalId+'" data-toggle="modal" type="button" class="btn btn-info btnChildTabEdit" title="Edit Selected Record"><i class="fa fa-pencil"></i></button>';
                         var buttonDelete = '<button recordId="'+keyId+'" module="'+context.subModuleName+'" submodule="'+context.subModuleName+'" type="button" class="btn btn-danger btnChildTabDelete" style="margin-left: 5px;" title="Delete Selected Record"><i class="fa fa-trash"></i></button>';
-                        var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
-                        record.push(buttons);
+                        if (childTable.canEdit=='true' && childTable.canDelete=='true') {
+                            var buttons = '<div class="btn-group">'+buttonEdit+buttonDelete+'</div>'
+                            record.push(buttons);
+                        }
+                        else if (childTable.canEdit=='true') {
+                            var buttons = '<div class="btn-group">'+buttonEdit+'</div>'
+                            record.push(buttons);
+                        }
+                        else if (childTable.canDelete=='true') {
+                            var buttons = '<div class="btn-group">'+buttonDelete+'</div>'
+                            record.push(buttons);
+                        }
                     }
                     for (var key of keys) {
                         var value = obj.getProp(key);

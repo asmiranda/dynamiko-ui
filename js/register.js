@@ -18,6 +18,9 @@ class DynaRegister {
     }
     createChildTable(moduleName, tableSelector) {
         var readWrite = $(tableSelector).attr("readWrite");
+        var canNew = $(tableSelector).attr("canNew");
+        var canEdit = $(tableSelector).attr("canEdit");
+        var canDelete = $(tableSelector).attr("canDelete");
         var childTableColFields = $(tableSelector).attr("columns");
         var childFieldId = $(tableSelector).attr("childFieldId");
         var linkableColumns = $(tableSelector).attr("linkableColumns");
@@ -26,7 +29,7 @@ class DynaRegister {
         }
 
         var childTable = null;
-        if (readWrite=='true') {
+        if (readWrite=='true'||canEdit=='true'||canDelete=='true') {
             childTable = $(tableSelector).DataTable( {
                 "searching": false,
                 "bLengthChange": false,
@@ -66,6 +69,9 @@ class DynaRegister {
         childTable.childTableColFields = childTableColFields;
         childTable.childFieldId = childFieldId;
         childTable.readWrite = readWrite;
+        childTable.canNew = canNew;
+        childTable.canEdit = canEdit;
+        childTable.canDelete = canDelete;
         childTable.linkableColumns = linkableColumns;
         childTable.selectedId = null;
 
