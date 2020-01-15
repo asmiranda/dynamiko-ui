@@ -68,7 +68,7 @@ class HrRequisitionUI {
             var nextScheduleDate = obj.getProp("nextScheduleDate");
             var lookFor = obj.getProp("lookFor");
             var strHtml = `
-                <div class="box">
+                <div class="box" draggable="true" ondragstart="dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
                     <div class="box-header text-left" style="padding-bottom: 0px;">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
