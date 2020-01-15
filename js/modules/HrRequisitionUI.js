@@ -63,22 +63,29 @@ class HrRequisitionUI {
             var contact = obj.getProp("contact");
             var applyDate = obj.getProp("applyDate");
             var companyCode = obj.getProp("companyCode");
+
+            var specialization = obj.getProp("specialization");
+            var nextScheduleDate = obj.getProp("nextScheduleDate");
+            var lookFor = obj.getProp("lookFor");
             var strHtml = `
-                <li class="list-group-item">
-                    <div class="row applicantBox" requisitionId="${requisitionId}" applicantId="${applicantId}" style="margin: 2px; border-radius: 10px 10px 5px 5px;background:#f5f6f7;" draggable="true" ondragstart="dragApplicant(event)">
-                        <div class="col-md-4">
-                            <img class="profile-user-img img-responsive img-circle formLinker" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                <div class="box">
+                    <div class="box-header text-left" style="padding-bottom: 0px;">
+                        <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
+                        <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-remove"></i> Remove</a>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4" style="padding-left: 0px;">
+                            <img class="profile-user-img img-responsive formLinker" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
                         </div>
-                        <div class="col-md-8 text-left" style="margin-top: 5px;">
-                            <span class="info-box-number"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a></span>
+                        <div class="col-md-8 text-left" style="padding-left: 0px;">
+                            <span class="info-box-text">${specialization}</span>
                             <span class="info-box-text">${email} - ${contact}</span>
                             <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
-                            <span class="info-box-text pull-right">
-                                <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-remove"></i> Remove</a>
-                            </span>
+                            <span class="info-box-text"><a href="#" class="btnChangeApplicantSchedule" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-calendar"></i> Schedule</a> : <b>${nextScheduleDate}</b></span>
+                            <span class="info-box-text"><a href="#" class="btnChangeApplicantSchedule" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-user"></i> Look For</a> : <b>${lookFor}</b></span>
                         </div>
                     </div>
-                </li>
+                </div>
             `;
             if (applicationStatus=="NEW") {
                 $(".newApplicant").append(strHtml);
