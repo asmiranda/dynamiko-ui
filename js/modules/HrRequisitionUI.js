@@ -71,7 +71,9 @@ class HrRequisitionUI {
                 <div class="box">
                     <div class="box-header text-left" style="padding-bottom: 0px;">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
-                        <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-remove"></i> Remove</a>
+                        <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
+                        <a href="#" class="pull-right btn-box-tool btnAttachApplicantResume" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
+                        <a href="#" class="pull-right btn-box-tool btnDownloadApplicantResume" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Download Resume"><i class="fa fa-newspaper-o"></i></a>
                     </div>
                     <div class="box-body">
                         <div class="col-md-4" style="padding-left: 0px;">
