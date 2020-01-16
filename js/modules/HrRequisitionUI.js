@@ -4,6 +4,21 @@ class HrRequisitionUI {
         $(document).on('click', '.btnRemoveApplicant', function() {
             context.removeApplicant(this);
         });
+        $(document).on('click', '.toggle-box', function() {
+            var str = $(this).attr("target");
+
+            var b = $(str).is(":visible");
+            console.log(b);
+            if (b) {
+                $(str).hide();
+            } else {
+                $(str).show();
+            }
+        });
+        $(document).on('change', 'input.mainId[name="HrRequisitionId"]', function() {
+            console.log("###############HrRequisitionId change#############");
+            context.reArrange(this);
+        });
     }
 
     removeApplicant(obj) {
@@ -69,13 +84,13 @@ class HrRequisitionUI {
             var lookFor = obj.getProp("lookFor");
             var strHtml = `
                 <div class="box" draggable="true" ondragstart="dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
-                    <div class="box-header text-left" style="padding-bottom: 0px;">
+                    <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
                         <a href="#" class="pull-right btn-box-tool btnAttachApplicantResume" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
                         <a href="#" class="pull-right btn-box-tool btnDownloadApplicantResume" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Download Resume"><i class="fa fa-newspaper-o"></i></a>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body box${applicantId}" style="display:none;">
                         <div class="col-md-4" style="padding-left: 0px;">
                             <img class="profile-user-img img-responsive formLinker" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
                         </div>
@@ -100,4 +115,29 @@ class HrRequisitionUI {
             }
         })
     }
+
+    dragApplicant(ev) {
+        ev.dataTransfer.setData("applicantId", $(ev.target).attr("applicantId"));
+        ev.dataTransfer.setData("requisitionId", $(ev.target).attr("requisitionId"));
+    }
+    dropApplicant(obj, ev) {
+        ev.preventDefault();
+        var requisitionId = ev.dataTransfer.getData("requisitionId");
+        var applicantId = ev.dataTransfer.getData("applicantId");
+        var applicationStage = $(obj).attr("applicationStage");
+        console.log("applicantId "+applicantId);
+        console.log("requisitionId "+requisitionId);
+        console.log("applicationStage "+applicationStage);
+
+        this.moveApplicant(requisitionId, applicantId, applicationStage);
+    }
+    allowDrop(ev) {
+        ev.preventDefault();
+    }
+
 }
+
+$(function () {
+    hrRequisitionUI = new HrRequisitionUI();
+});
+
