@@ -4,6 +4,12 @@ class HrRequisitionUI {
         $(document).on('click', '.btnRemoveApplicant', function() {
             context.removeApplicant(this);
         });
+        $(document).on('click', '.btnAttachApplicantResume', function() {
+            context.attachApplicantResume(this);
+        });
+        $(document).on('click', '.btnDownloadApplicantResume', function() {
+            context.downloadApplicantResume(this);
+        });
         $(document).on('click', '.toggle-box', function() {
             var str = $(this).attr("target");
 
@@ -19,6 +25,40 @@ class HrRequisitionUI {
             console.log("###############HrRequisitionId change#############");
             context.reArrange(this);
         });
+    }
+
+    downloadApplicantResume(obj) {
+        var context = this;
+        console.log("downloadApplicantResume for applicant");
+        var applicantId = $(obj).attr("applicantId");
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/downloadApplicantResume/${applicantId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet(); 
+    }
+
+    attachApplicantResume(obj) {
+        var context = this;
+        console.log("attachApplicantResume for applicant");
+        var applicantId = $(obj).attr("applicantId");
+
+        var tmpAttach = {};
+        tmpAttach["action"] = "attachApplicantResume";
+        tmpAttach["applicantId"] = applicantId;
+        
+        var vdata = JSON.stringify(tmpAttach);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost(); 
     }
 
     removeApplicant(obj) {
@@ -87,8 +127,8 @@ class HrRequisitionUI {
                     <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
-                        <a href="#" class="pull-right btn-box-tool btnAttachApplicantResume" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
-                        <a href="#" class="pull-right btn-box-tool btnDownloadApplicantResume" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Download Resume"><i class="fa fa-newspaper-o"></i></a>
+                        <a href="#" class="pull-right btn-box-tool btnAttachApplicantResume" module="HrRequisitionUI" applicantId="${applicantId}" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
+                        <a href="#" class="pull-right btn-box-tool btnDownloadApplicantResume" module="HrRequisitionUI" applicantId="${applicantId}" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Download Resume"><i class="fa fa-download"></i></a>
                     </div>
                     <div class="box-body box${applicantId}" style="display:none;">
                         <div class="col-md-4" style="padding-left: 0px;">
