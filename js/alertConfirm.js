@@ -163,3 +163,42 @@ class ShowConfirmAny {
        });
     }
 }
+
+class ShowUploadAttachment {
+    constructor(title, moduleName, recordId, uploadType, successCallback) {
+        this.title = title;
+        this.content = `<input type="file" name="popupUploader"/>`;
+        this.moduleName = moduleName;
+        this.recordId = recordId;
+        this.uploadType = uploadType;
+
+        this.successUpload = function() {
+            console.log("testing confirm only");
+
+            var data = new FormData();
+            var file = $('input[name="popupUploader"]').prop('files')[0];
+            console.log("Received File");
+            console.log(file);
+            data.append("file", file);
+
+            var ajaxUploader = new AjaxUploader(successCallback);
+            ajaxUploader.uploadFile(moduleName, recordId, uploadType, data); 
+        }
+    }
+
+    show() {
+        var context = this;
+        $.confirm({
+           title: context.title,
+           content: context.content,
+           boxWidth: '500px',
+           useBootstrap: false,
+           buttons: {
+               confirm: context.successUpload,
+               cancel: function () {
+//                   $.alert('Canceled!');
+               }
+           }
+       });
+    }
+}

@@ -148,7 +148,7 @@ class AjaxUploader {
 
     uploadFile(moduleName, recordId, uploadType, formUploadData) {
         var callback = this.ajaxCallback;
-        var vurl = MAIN_URL+"/api/generic/attachment/upload/"+uploadType+"/"+moduleName+"/"+recordId;
+        var vurl = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/upload/"+uploadType+"/"+moduleName+"/"+recordId;
         console.log(vurl);
         $.ajax({
             url: vurl,

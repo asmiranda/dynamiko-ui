@@ -36,6 +36,7 @@ class HrRequisitionUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
+            window.open(MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/attachment/download/'+data, '_blank');
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet(); 
@@ -45,20 +46,15 @@ class HrRequisitionUI {
         var context = this;
         console.log("attachApplicantResume for applicant");
         var applicantId = $(obj).attr("applicantId");
-
-        var tmpAttach = {};
-        tmpAttach["action"] = "attachApplicantResume";
-        tmpAttach["applicantId"] = applicantId;
         
-        var vdata = JSON.stringify(tmpAttach);
-
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
+            var showModalAny = new ShowModalAny("Upload Success", "Resume uploaded successfully!");
+            showModalAny.show();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost(); 
+
+        var showUploadAttachment = new ShowUploadAttachment("Resume Uploader", "HrApplicantUI", applicantId, "RESUME", successCallback);
+        showUploadAttachment.show();
     }
 
     removeApplicant(obj) {
