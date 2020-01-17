@@ -90,7 +90,7 @@ class PrintForm {
     }
 
     init() {
-        $("#printForm").click(function() {
+        $(document).on('click', '#printForm', function() {
             console.log("Print Form.");
             printJS('mainForm', 'html');
         });
@@ -181,7 +181,7 @@ class ModuleHelper {
 
     initHelp() {
         var context = this;
-        $(".moduleHeader").click(function() {
+        $(document).on('click', '.moduleHeader', function() {
             var title = $(".moduleHelp").attr("title");
             var helpHtml = $(".moduleHelp").html();
             showModuleHelp.show(title, helpHtml);
@@ -206,272 +206,28 @@ class FormControlButton {
         });
         this.initFileUpload();
         
-        $('.btnToggleSearch[module="'+this.moduleName+'"]').click(function() {
+        $(document).on('click', '.btnToggleSearch', function() {
             context.toggleSearch();
         });
-        $('.btnNew[module="'+this.moduleName+'"]').click(function() {
+        $(document).on('click', '.btnNew', function() {
             context.newRecord();
         });
-        $('.btnUpdate[module="'+this.moduleName+'"]').click(function() {
+        $(document).on('click', '.btnUpdate', function() {
             context.showModalUpdateRecord();
         });
-        $('.btnSave[module="'+this.moduleName+'"]').click(function() {
+        $(document).on('click', '.btnSave', function() {
             context.saveRecord();
         });
-        $('.btnDelete[module="'+this.moduleName+'"]').click(function() {
+        $(document).on('click', '.btnDelete', function() {
             context.deleteRecord();
         });
-        $('li.btnUpload').click(function() {
-            context.listFileAttachments(this);
+        $(document).on('click', 'li.btnUpload', function() {
+            context.listFileAttachments();
         });
-        $('button.btnSaveUpload').click(function() {
-            context.saveUpload(this);
+        $(document).on('click', 'button.btnSaveUpload', function() {
+            context.saveUpload();
         });
-
-        $('li.btnSubmit').click(function() {
-            context.submitWFRecord();
-        });
-        $('li.btnEndorse').click(function() {
-            context.endorseWFRecord();
-        });
-        $('li.btnApprove').click(function() {
-            context.approveWFRecord();
-        });
-        $('li.btnReturn').click(function() {
-            context.returnWFRecord();
-        });
-        $('li.btnForward').click(function() {
-            context.forwardWFRecord();
-        });
-        $('li.btnCancel').click(function() {
-            context.cancelWFRecord();
-        });
-        $('li.btnReject').click(function() {
-            context.rejectWFRecord();
-        });
-        $('li.btnWfHistory').click(function() {
-            context.historyWFRecord();
-        });
-        // context.initReport();
-        // context.initActions();
     };
-
-    historyWFRecord() {
-        var context = this;
-        console.log("historyWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/historyWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            console.log("historyWFRecord data");
-            console.log(data);
-
-
-            var str = '<div class="box">';
-            str += '<div class="box-header with-border">';
-            str += '<h3 class="box-title">Workflow Status</h3>';
-            str += '</div>';
-            str += '<!-- /.box-header -->';
-            str += '<div class="box-body">'
-            str += '<table class="table table-bordered"><tbody>';
-            str += '<tr><th>Approver</th><th>Role</th><th>Status</th></tr>';
-            $(data).each(function(index, obj) {
-                console.log(obj);
-                var employeeName = obj.getProp("employeeName");
-                var role = obj.getProp("role");
-                var status = obj.getProp("wfStatus");
-                if (status) {
-                    str += '<tr><td>'+employeeName+'</td><td>'+role+'</td><td>'+status+'</td></tr>';
-                }
-                else {
-                    str += '<tr><td>'+employeeName+'</td><td>'+role+'</td><td>--</td></tr>';
-                }
-            });
-            str += '</tbody></table>';
-            str += '</div></div>';
-          
-            showModalAny.show('', str);
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    rejectWFRecord() {
-        var context = this;
-        console.log("rejectWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/rejectWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    cancelWFRecord() {
-        var context = this;
-        console.log("cancelWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/cancelWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    forwardWFRecord() {
-        var context = this;
-        console.log("forwardWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/forwardWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    returnWFRecord() {
-        var context = this;
-        console.log("returnWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/returnWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    approveWFRecord() {
-        var context = this;
-        console.log("approveWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/approveWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    endorseWFRecord() {
-        var context = this;
-        console.log("endorseWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/endorseWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    submitWFRecord() {
-        var context = this;
-        console.log("submitWFRecord called");
-        if (!this.mandatorySelectRecord()) {
-            return;
-        }
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
-        var url = MAIN_URL+'/api/workflow/'+sessionStorage.companyCode+'/submitWFRecord/' + context.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            context.searchTableClass.reloadSearch();
-            // context.formRule.doRule();
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
-    }
-
-    initActions() {
-        var context = this;
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/actions/"+this.moduleName;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
-            $(data).each(function(index, obj) {
-                console.log(obj);
-                var code = obj.getProp("key");
-                var name = obj.getProp("value");
-                var module = context.moduleName;
-
-                var str = `<li class="mySpecialAction ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
-                $(".specialActions").after(str);
-            });
-            $('.mySpecialAction').click(function() {
-                context.doAction(this);
-            });
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
-    }
-
-    doAction(obj) {
-        var context = this;
-        var moduleName = $(obj).attr("module");
-        var code = $(obj).attr("value");
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/"+moduleName+"/"+code;
-        console.log(url);
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
-            var moduleScript = new ModuleScript(moduleName);
-            var moduleObj = moduleScript.getModuleScript();
-            moduleObj.doSpecialAction(data);
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
-    }
 
     initReport() {
         var context = this;
