@@ -43,7 +43,7 @@ class ReviewCenter {
             var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
             var successCallback = function(data) {
                 console.log(data);
-                new ShowModalAny(data.getProp("key"), data.getProp("value")).show();
+                showModalAny.show(data.getProp("key"), data.getProp("value"));
             };
             var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback); 
             ajaxCaller.ajaxPost();                            

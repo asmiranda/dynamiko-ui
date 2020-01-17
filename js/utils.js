@@ -241,7 +241,30 @@ class ExtractColumnArray {
     }
 }
 
+class ScreenUtil {
+    constructor() {
+        var context = this;
+        $(document).on('click', '.toggle-box', function() {
+            context.toggleBox(this);
+        });
+    }
+
+    toggleBox(obj) {
+        var str = $(obj).attr("target");
+
+        var b = $(str).is(":visible");
+        console.log(b);
+        if (b) {
+            $(str).hide();
+        } else {
+            $(str).show();
+        }
+    }
+}
+
 $(function () {
+    screenUtil = new ScreenUtil();
+
     loadJsonToForm = new LoadJsonToForm();
     config = new Config();
 });

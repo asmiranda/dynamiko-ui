@@ -124,8 +124,7 @@ class UploadDataFile {
     uploadDataFile() {
         var successCallback = function (data) {
             console.log(data);
-            var showModal = new ShowModalAny('Processed Records', data);
-            showModal.show();
+            showModalAny.show('Processed Records', data);
         };
 
         var formUploadData = new FormData();

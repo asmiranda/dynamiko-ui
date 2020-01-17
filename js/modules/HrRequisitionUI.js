@@ -4,57 +4,10 @@ class HrRequisitionUI {
         $(document).on('click', '.btnRemoveApplicant', function() {
             context.removeApplicant(this);
         });
-        $(document).on('click', '.btnAttachApplicantResume', function() {
-            context.attachApplicantResume(this);
-        });
-        $(document).on('click', '.btnDownloadApplicantResume', function() {
-            context.downloadApplicantResume(this);
-        });
-        $(document).on('click', '.toggle-box', function() {
-            var str = $(this).attr("target");
-
-            var b = $(str).is(":visible");
-            console.log(b);
-            if (b) {
-                $(str).hide();
-            } else {
-                $(str).show();
-            }
-        });
         $(document).on('change', 'input.mainId[name="HrRequisitionId"]', function() {
             console.log("###############HrRequisitionId change#############");
             context.reArrange(this);
         });
-    }
-
-    downloadApplicantResume(obj) {
-        var context = this;
-        console.log("downloadApplicantResume for applicant");
-        var applicantId = $(obj).attr("applicantId");
-
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/downloadApplicantResume/${applicantId}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
-            window.open(MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/attachment/download/'+data, '_blank');
-        };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
-    }
-
-    attachApplicantResume(obj) {
-        var context = this;
-        console.log("attachApplicantResume for applicant");
-        var applicantId = $(obj).attr("applicantId");
-        
-        var successCallback = function(data) {
-            console.log(data);
-            var showModalAny = new ShowModalAny("Upload Success", "Resume uploaded successfully!");
-            showModalAny.show();
-        };
-
-        var showUploadAttachment = new ShowUploadAttachment("Resume Uploader", "HrApplicantUI", applicantId, "RESUME", successCallback);
-        showUploadAttachment.show();
     }
 
     removeApplicant(obj) {
@@ -116,15 +69,24 @@ class HrRequisitionUI {
             var companyCode = obj.getProp("companyCode");
 
             var specialization = obj.getProp("specialization");
+            if (specialization == undefined) {
+                specialization = "<sub>type specialization here...</sub>";
+            }
             var nextScheduleDate = obj.getProp("nextScheduleDate");
+            if (nextScheduleDate == undefined) {
+                nextScheduleDate = "<sub>next schedule...</sub>";
+            }
             var lookFor = obj.getProp("lookFor");
+            if (lookFor == undefined) {
+                lookFor = "<sub>employee here...</sub>";
+            }
             var strHtml = `
                 <div class="box" draggable="true" ondragstart="dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
                     <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
-                        <a href="#" class="pull-right btn-box-tool btnAttachApplicantResume" module="HrRequisitionUI" applicantId="${applicantId}" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
-                        <a href="#" class="pull-right btn-box-tool btnDownloadApplicantResume" module="HrRequisitionUI" applicantId="${applicantId}" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Download Resume"><i class="fa fa-download"></i></a>
+                        <a href="#" class="pull-right btn-box-tool btnQuickAttachment" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
+                        <a href="#" class="pull-right btn-box-tool btnQuickDownloader" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"></i></a>
                     </div>
                     <div class="box-body box${applicantId}" style="display:none;">
                         <div class="col-md-4" style="padding-left: 0px;">
@@ -134,8 +96,8 @@ class HrRequisitionUI {
                             <span class="info-box-text">${specialization}</span>
                             <span class="info-box-text">${email} - ${contact}</span>
                             <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
-                            <span class="info-box-text"><a href="#" class="btnChangeApplicantSchedule" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-calendar"></i> Schedule</a> : <b>${nextScheduleDate}</b></span>
-                            <span class="info-box-text"><a href="#" class="btnChangeApplicantSchedule" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}"><i class="fa fa-user"></i> Look For</a> : <b>${lookFor}</b></span>
+                            <span class="info-box-text"><i class="fa fa-calendar"></i> Schedule : <b><a href="#" class="btnQuickUpdater" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="schedule">${nextScheduleDate}</a></b></span>
+                            <span class="info-box-text"><i class="fa fa-user"></i> Look For : <b><a href="#" class="btnQuickUpdater" updater="autoComplete" autoComplete="EmployeeUI" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="lookFor">${lookFor}</a></b></span>
                         </div>
                     </div>
                 </div>

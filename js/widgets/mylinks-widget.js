@@ -131,7 +131,6 @@ class MyLinksWidget {
 
     showTravel() {
         var context = this;
-        var showModalAny = new ShowModalAny("For Implementation", "This site is for implementation.");
     }
 
     showProjects() {
