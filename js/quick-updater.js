@@ -22,6 +22,22 @@ class QuickUpdater {
         var updater = $(obj).attr("updater");
 
         if (updater=="calendar") {
+            var str = $("#calendarQuickUpdater").html();
+            console.log(str);
+
+            $(obj).popover({
+                placement : 'right',
+                trigger : 'manual',
+                html : true,
+                title : "Choose Date",
+                content : str,
+                sanitize : false,
+            });
+            $(obj).popover('show');
+            $('.calendar').datepicker({
+                autoclose: true,
+                format: config.getDateFormat()
+            });
         }
     }
 

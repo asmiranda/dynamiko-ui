@@ -204,35 +204,18 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="calendarQuickUpdater" tabindex="-1" role="dialog" aria-labelledby="calendarQuickUpdater" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h3 class="modal-title modalTitle">Update Calendar</h3>
-              </div>
-              <div class="modal-body">
-                  <div class="box box-primary">
-                      <div class="box-header with-border">
-                      </div>
-                      <div class="box-body">
-                        <div class="form-group">
-                          <label for="calendarInput">Choose Date</label>
-                          <div class="input-group date">
-                              <input type="text" class="form-control calendar displayEdit" id="calendarInput" placeholder="Choose Date">
-                              <div class="input-group-addon displayEdit">
-                                  <i class="fa fa-calendar"></i>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="box-footer text-center">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+
+    <div id="calendarQuickUpdater">
+
+        <div class="input-group date">
+            <input type="text" class="form-control calendar displayEdit" style="min-width: 300px;">
+            <div class="input-group-addon displayEdit">
+                <i class="fa fa-calendar"></i>
+            </div>
+        </div>
+
+    </div>
+
   </div>
 </div>
 
@@ -385,12 +368,6 @@
 
       var uiService = new UIService();
       uiService.initHome();
-
-      $(document).ready(function() {
-        console.log("Popover Ready");
-        $('[data-toggle="popover"]').popover();
-      });
-
     });
 
   </script>

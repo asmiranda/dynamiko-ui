@@ -98,7 +98,7 @@ class HrRequisitionUI {
                             <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
                             <span class="info-box-text"><i class="fa fa-calendar"></i> Schedule : 
                                 <b>
-                                    <a href="#" class="btnQuickUpdater" data-toggle="popover" data-target="#calendarQuickUpdater" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="schedule">${nextScheduleDate}</a>
+                                    <a href="#" class="btnQuickUpdater" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="schedule">${nextScheduleDate}</a>
                                 </b>
                             </span>
                             <span class="info-box-text"><i class="fa fa-user"></i> Look For : 
