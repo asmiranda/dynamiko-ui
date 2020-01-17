@@ -84,14 +84,12 @@ class QuickUpdater {
     }
 
     quickUpdater(obj) {
-        var context = this;
+        console.log("quickUpdater called");
+
         QUICK_UPDATER_COUNTER++;
         $(obj).attr("quickUpdaterId", QUICK_UPDATER_COUNTER);
 
         var updater = $(obj).attr("updater");
-
-        console.log("quickUpdater called");
-
         if (updater=="calendar") {
             this.doCalendarUpdate(obj);
         }
