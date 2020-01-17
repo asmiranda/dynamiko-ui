@@ -178,7 +178,7 @@
   </div>
   <!-- ./wrapper -->
 
-  <div class="autoModalReports">
+  <div class="allModal">
     <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -204,6 +204,36 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="calendarQuickUpdater" tabindex="-1" role="dialog" aria-labelledby="calendarQuickUpdater" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h3 class="modal-title modalTitle">Update Calendar</h3>
+              </div>
+              <div class="modal-body">
+                  <div class="box box-primary">
+                      <div class="box-header with-border">
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label for="calendarInput">Choose Date</label>
+                          <div class="input-group date">
+                              <input type="text" class="form-control calendar displayEdit" id="calendarInput" placeholder="Choose Date">
+                              <div class="input-group-addon displayEdit">
+                                  <i class="fa fa-calendar"></i>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer text-center">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 
@@ -218,7 +248,7 @@
   
 
   <!-- Bootstrap 3.3.7 -->
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <!-- FastClick -->
   <script src="bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
@@ -355,6 +385,12 @@
 
       var uiService = new UIService();
       uiService.initHome();
+
+      $(document).ready(function() {
+        console.log("Popover Ready");
+        $('[data-toggle="popover"]').popover();
+      });
+
     });
 
   </script>
