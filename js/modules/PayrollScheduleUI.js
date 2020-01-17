@@ -68,8 +68,7 @@ class PayrollScheduleUI {
             this.chooseEmployees();
         }
         else {
-            var showModalAny = new ShowModalAny("Payroll", data);
-            showModalAny.show();
+            showModalAny.show("Payroll", data);
         }
     }
 
@@ -106,14 +105,13 @@ class PayrollScheduleUI {
             });
             str += "    </tbody>";
             str += "</table>";
-            var showModalAny = new ShowModalAny500("Choose Employees", str, function() {
+            showModalAny500.show("Choose Employees", str, function() {
                 console.log("Callback Called for Choose Employee");
                 $(".addToPayroll").click(function() {
                     console.log("addToPayroll Click Called");
                     context.addToPayroll(this);
                 });
             });
-            showModalAny.show();
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();

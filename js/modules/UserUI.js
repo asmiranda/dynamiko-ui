@@ -13,8 +13,7 @@ class UserUI {
             this.resetPassword("");
         }
         else {
-            var showModalAny = new ShowModalAny("User", data);
-            showModalAny.show();
+            showModalAny.show("User", data);
         }
     }
 
@@ -54,12 +53,10 @@ class UserUI {
             console.log("testing confirm only");
             context.saveReset();
           }
-          var showConfirmAny = new ShowConfirmAny("Password Reset", str, success);
-          showConfirmAny.confirm();
+          showConfirmAny.confirm("Password Reset", str, success);
         }
         else {
-          var showModalAny = new ShowModalAny("Password Reset", "Please select a user");
-          showModalAny.show();
+          showModalAny.show("Password Reset", "Please select a user");
         }
     }
 
@@ -80,8 +77,7 @@ class UserUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
-            var showModalAny = new ShowModalAny("Password Reset", data);
-            showModalAny.show();
+            showModalAny.show("Password Reset", data);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();

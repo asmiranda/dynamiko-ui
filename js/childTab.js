@@ -206,7 +206,6 @@ class ChildTab {
             }
             else {
                 e.stopPropagation();
-                var noSelectedRecordEdit = new NoSelectedRecordEdit();
                 noSelectedRecordEdit.alert();
             }
         });

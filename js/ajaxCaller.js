@@ -28,8 +28,7 @@ class AjaxCaller {
                     window.location.href = "login.html";
                 }
                 else {
-                    var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseJSON.message);
-                    showModuleHelp.show();
+                    showModuleHelp.show("Information", jqXHR.responseJSON.message);
                 }
             },
             success: callback
@@ -56,8 +55,7 @@ class AjaxCaller {
                 console.log(textStatus);
                 // console.log('responseJSON:');
                 // console.log(jqXHR.responseJSON.message);
-                var showModuleHelp = new ShowModuleHelp("Information", jqXHR.responseJSON.message);
-                showModuleHelp.show();
+                showModuleHelp.show("Information", jqXHR.responseJSON.message);
             },
             success: callback
         });

@@ -184,8 +184,7 @@ class ModuleHelper {
         $(".moduleHeader").click(function() {
             var title = $(".moduleHelp").attr("title");
             var helpHtml = $(".moduleHelp").html();
-            var showHelp = new ShowModuleHelp(title, helpHtml);
-            showHelp.show();
+            showModuleHelp.show(title, helpHtml);
         });
     }
 }
@@ -295,8 +294,7 @@ class FormControlButton {
             str += '</tbody></table>';
             str += '</div></div>';
           
-            var showModal = new ShowModalAny('', str);
-            showModal.show();
+            showModalAny.show('', str);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxPost();
@@ -534,8 +532,7 @@ class FormControlButton {
                 var enc = new TextDecoder("utf-8");
                 var str = enc.decode(xhr.response)
                 console.log(str);
-                var showModuleHelp = new ShowModuleHelp("Information", str);
-                showModuleHelp.show();
+                showModuleHelp.show("Information", str);
             }
         };
         var myurl = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
@@ -568,8 +565,7 @@ class FormControlButton {
             return true;
         }
         else {
-            var showModalAny = new ShowModalAny("No Record Selected", "Please select a record.");
-            showModalAny.show();
+            showModalAny.show("No Record Selected", "Please select a record.");
             return false;
         }
     }
@@ -702,9 +698,7 @@ class FormControlButton {
             var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
             ajaxCaller.ajaxPost();
         }
-
-        var deleteRecordConfirm = new DeleteRecordConfirm(confirmDelete);
-        deleteRecordConfirm.confirm();
+        deleteRecordConfirm.confirm(confirmDelete);
     };
 
     saveRecord() {

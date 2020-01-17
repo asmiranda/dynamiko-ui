@@ -27,8 +27,7 @@ function LoginJS(uname, pword) {
             },
             error: function (data) {
                 console.log(data.responseJSON.message);
-                var showModal = new ShowModalAny('', data.responseJSON.message);
-                showModal.show();
+                showModalAny.show('', data.responseJSON.message);
             }
         });
     }
@@ -50,8 +49,7 @@ function LoginJS(uname, pword) {
             },
             error: function (data) {
                 console.log(data.responseJSON.message);
-                var showModal = new ShowModalAny('', data.responseJSON.message);
-                showModal.show();
+                showModalAny.show('', data.responseJSON.message);
             }
         });
     }

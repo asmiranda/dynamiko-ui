@@ -207,8 +207,7 @@ class FieldAutoComplete {
             var autoCompleteHelpTip = $("label[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
             $(autoCompleteHelpTip).click(function (e) {
                 console.log("Clicked Help!!!");
-                var showFieldHelp = new ShowAutoCompleteFieldHelp($(autoCompleteDisplayField).attr("helpTitle"), autoCompleteDisplayField, autoCompleteDescDivDefault, autoCompleteDescDiv);
-                showFieldHelp.show();
+                showAutoCompleteFieldHelp.show($(autoCompleteDisplayField).attr("helpTitle"), autoCompleteDisplayField, autoCompleteDescDivDefault, autoCompleteDescDiv);
             });
             // var autoCompleteField = $(this).autocomplete({
             //     source: function (request, response) {
