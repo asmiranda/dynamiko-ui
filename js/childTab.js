@@ -117,11 +117,8 @@ class ChildTab {
                     var recordHtml = $(".displayTabHtmlTemplate[submodule='"+context.subModuleName+"']").html();
                     $.each(obj, function(key, value) {
                         console.log(key + " -- " + value);
-                        var replaceStr = new ReplaceStr();
                         recordHtml = replaceStr.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
                     });
-
-                    var replaceStr = new ReplaceStr();
                     recordHtml = replaceStr.replaceAll(recordHtml, "##MAIN_URL##", MAIN_URL);
                     recordHtml = replaceStr.replaceAll(recordHtml, "##COMPANY_CODE##", sessionStorage.companyCode);
 

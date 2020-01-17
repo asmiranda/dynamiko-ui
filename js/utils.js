@@ -264,6 +264,7 @@ class ScreenUtil {
 
 $(function () {
     screenUtil = new ScreenUtil();
+    replaceStr = new ReplaceStr();
 
     loadJsonToForm = new LoadJsonToForm();
     config = new Config();
