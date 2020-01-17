@@ -1,3 +1,7 @@
+.popover {
+    max-width: 500px;
+}
+
 #dynamikoMainSearch {
     max-width: 400px;
 }
