@@ -1,5 +1,5 @@
-class MainForm {
-    constructor(moduleName, searchTable, mainForm) {
+class ConstructMainForm {
+    construct(moduleName, searchTable, mainForm, recordId) {
         this.moduleName = moduleName;
         this.searchTable = searchTable;
         this.mainForm = mainForm;
@@ -13,9 +13,7 @@ class MainForm {
         this.formRule = new FormRule(this.moduleName, this.mainForm);
         this.chartRule = new ChartRule(this.moduleName, this.mainForm);
         this.printForm = new PrintForm(this.moduleName, this.mainForm);
-    }
 
-    construct(recordId) {
         var context = this;        
         var uiHtml = uiCache.getUIHtml(this.moduleName);
         if (uiHtml=="" || uiHtml==null) {
@@ -444,8 +442,7 @@ class FormControlButton {
             var registerDatatable = new RegisterDatatable();
             registerDatatable.clearRegister();
         
-            var constructForm = new MainForm(context.moduleName, `#searchTable[module="${context.moduleName}"]`, `#mainForm[module="${context.moduleName}"]`);
-            constructForm.construct();
+            constructMainForm.construct(context.moduleName, `#searchTable[module="${context.moduleName}"]`, `#mainForm[module="${context.moduleName}"]`);
         
             var fileUpload = new FileUpload();
             fileUpload.initUpload();
@@ -757,3 +754,7 @@ class SearchTable {
         ajaxCaller.ajaxGet();
     };
 };
+
+$(function () {
+    constructMainForm = new ConstructMainForm();
+});

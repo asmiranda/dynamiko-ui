@@ -121,8 +121,7 @@ class UIService {
         var registerDatatable = new RegisterDatatable();
         registerDatatable.clearRegister();
     
-        var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-        constructForm.construct();
+        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
     
         var fileUpload = new FileUpload();
         fileUpload.initUpload();
@@ -280,8 +279,7 @@ class LeftMenu {
         var registerDatatable = new RegisterDatatable();
         registerDatatable.clearRegister();
     
-        var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-        constructForm.construct();
+        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
     
         var fileUpload = new FileUpload();
         fileUpload.initUpload();

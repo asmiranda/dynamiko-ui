@@ -43,8 +43,7 @@ class FormLinker {
         var registerDatatable = new RegisterDatatable();
         registerDatatable.clearRegister();
 
-        var constructForm = new MainForm(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-        constructForm.construct(recordId);
+        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]', recordId);
 
         var fileUpload = new FileUpload();
         fileUpload.initUpload();
