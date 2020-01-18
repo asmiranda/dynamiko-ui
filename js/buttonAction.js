@@ -16,11 +16,8 @@ class DynaButtonAction {
         var addInfo = $(myButton).attr("addInfo");
         console.log("Child Tab Save Button Called");
 
-        var convertParent = new ConvertFormToJSON($(this.mainForm));
-        var parentRecord = convertParent.convert();
-
-        var convertRecord = new ConvertFormToJSON($(`form[addInfo='${addInfo}']`));
-        var subRecord = convertRecord.convert();
+        var parentRecord = utils.convertFormToJSON($(this.mainForm));
+        var subRecord = utils.convertFormToJSON($(`form[addInfo='${addInfo}']`));
 
         var tmp = [];
         tmp.push(parentRecord);
@@ -30,8 +27,8 @@ class DynaButtonAction {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data, status, hqr) {
             console.log(data);
-            loadJsonToForm.load(context.mainForm, data);
-            loadJsonToForm.loadAddInfo(data);
+            utils.loadJsonToForm(context.mainForm, data);
+            utils.loadJsonAddInfo(data);
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
@@ -42,11 +39,8 @@ class DynaButtonAction {
         var submodule = $(myButton).attr("submodule");
         console.log("Child Tab Save Button Called");
 
-        var convertParent = new ConvertFormToJSON($(this.mainForm));
-        var parentRecord = convertParent.convert();
-
-        var convertRecord = new ConvertFormToJSON($(`form[submodule='${submodule}']`));
-        var subRecord = convertRecord.convert();
+        var parentRecord = utils.convertFormToJSON($(this.mainForm));
+        var subRecord = utils.convertFormToJSON($(`form[submodule='${submodule}']`));
 
         var tmp = [];
         tmp.push(parentRecord);
@@ -66,5 +60,5 @@ class DynaButtonAction {
 }
 
 $(function () {
-    var dynaButtonAction = new DynaButtonAction();
+    dynaButtonAction = new DynaButtonAction();
 });

@@ -1,29 +1,18 @@
-class ReplaceStr {
+class Utils {
     constructor() {
-
+        var context = this;
+        $(document).on('click', '.toggle-box', function() {
+            context.toggleBox(this);
+        });
     }
-
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
-     
-    /* Define functin to find and replace specified term with replacement string */
+    }     
     replaceAll(str, term, replacement) {
       return str.replace(new RegExp(this.escapeRegExp(term), 'g'), replacement);
     }
-     
-    /* Testing our replaceAll() function  */
-    // var myStr = 'if the facts do not fit the theory, change the facts.';
-    // var newStr = replaceAll(myStr, 'facts', 'statistics')
-}
-
-class ClearForm {
-    constructor(form) {
-        this.form = form;
-    }
-
-    clear() {
-        $(this.form).each(function(){
+    clearForm(form) {
+        $(form).each(function(){
             var allFields = $(this).find(':input');
             $(allFields).each( function(a, b) {
                 $(b).val("");
@@ -32,16 +21,9 @@ class ClearForm {
         $(".inputHtml").html("");
         $(".inputHtmlImage").attr("src", "");
     };
-}
-
-class ConvertFormToJSON {
-    constructor(form) {
-        this.form = form;
-    }
-
-    convert() {
+    convertFormToJSON(form) {
         var out = {};
-        var myform = $(this.form).serializeArray();
+        var myform = $(form).serializeArray();
         $.each(myform, function () {
             if (out[this.name]) {
                 if (!out[this.name].push) {
@@ -54,12 +36,6 @@ class ConvertFormToJSON {
         });
         return out;
     };
-}
-
-class LoadJsonToForm {
-    constructor() {
-    }
-
     setFieldValue(form, field, value) {
         var moduleName = $(form).attr("module");
         var entityName = $(form).attr("bean");
@@ -89,26 +65,23 @@ class LoadJsonToForm {
             }
         }
     }
-
-    loadAddInfo (data) {
+    loadJsonAddInfo(data) {
         this.load("form.addInfo ", data);
     }
-
-    load (form, data) {
+    loadJsonToForm(form, data) {
         var context = this;
         var innerForm = form;
         var innerData = data;
         var entityName = $(form).attr("bean");
-        console.log("LoadJsonToForm == " + innerForm);
-        var clearForm = new ClearForm(innerForm);
-        clearForm.clear();
+        console.log("loadJsonToForm == " + innerForm);
+        this.clearForm(innerForm);
 
         $.each(innerData, function(k, v) {
             // set id value first
             if (k == entityName+"Id") {
                 var field = $(innerForm + " [name='"+k+"']");
                 if (field) {
-                    console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                    console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
                     console.log(field);
                     context.setFieldValue(form, field, v);
                 }
@@ -119,7 +92,7 @@ class LoadJsonToForm {
             var fields = $(innerForm + " [name='"+k+"'].textOnly");
             if (fields) {
                 $.each(fields, function(k, field) {
-                    console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                    console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
                     console.log(field);
                     context.setFieldValue(form, field, v);
                 });
@@ -127,50 +100,37 @@ class LoadJsonToForm {
 
             var field = $(innerForm + " [name='"+k+"']:not(.textOnly)");
             if (field) {
-                console.log("LoadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
                 console.log(field);
                 context.setFieldValue(form, field, v);
                 if ($(field).hasClass("PopSearch")) {
                     console.log("PopSearch ==== "+k+" == "+v);
-                    var loadPopSearchLabel = new LoadPopSearchLabel(innerForm, field, k, v);
-                    loadPopSearchLabel.setData();
+                    context.loadPopSearchLabel(innerForm, field, k);
                 }
                 else if ($(field).hasClass("HiddenAutoComplete")) {
                     console.log("AutoComplete ==== "+k+" == "+v);
-                    var loadAutoCompleteLabel = new LoadAutoCompleteLabel(innerForm, field, k, v);
-                    loadAutoCompleteLabel.setData();
+                    context.loadAutoCompleteLabel(innerForm, field, k, v);
                 }
             }
         });
-    };
-}
-
-class LoadAutoCompleteLabel { 
-    constructor(form, field, name, value) {
-        this.context = this;
-        this.form = form;
-        this.field = field;
-        this.name = name;
-        this.value = value;
-        this.resultData = "";
     }
 
-    setData() {
-        console.log("LoadAutoCompleteLabel == " + this.form + " [autoname='"+this.name+"'] == " + this.value);
-        var tmpLabel = $(this.form + " [class~='autocomplete'][autoname='"+this.name+"']");
+    loadAutoCompleteLabel(form, field, name) {
+        console.log("loadAutoCompleteLabel == " + form + " [autoname='"+name+"'] == ");
+        var tmpLabel = $(form + " [class~='autocomplete'][autoname='"+name+"']");
         tmpLabel.val("");
 
-        var moduleName = $(this.field).attr("module");
-        var subModuleName = $(this.field).attr("submodule");
-        var value = $(this.field).val();
+        var moduleName = $(field).attr("module");
+        var subModuleName = $(field).attr("submodule");
+        var value = $(field).val();
 
         if (value!=null && value!="") {
-            var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + moduleName + '/' + this.name + '/' + value;
+            var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + moduleName + '/' + name + '/' + value;
             if (subModuleName) {
-                url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + subModuleName + '/' + this.name + '/' + value;
+                url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
             }
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var innerForm = this.form;
+            var innerForm = form;
             var successCallback = function(data) {
                 console.log(data);
                 console.log("Callback called "+innerForm);
@@ -182,20 +142,9 @@ class LoadAutoCompleteLabel {
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
     };
-};
 
-class LoadPopSearchLabel {
-    constructor(form, field, name, value) {
-        this.context = this;
-        this.form = form;
-        this.field = field;
-        this.name = name;
-        this.value = value;
-        this.resultData = "";
-    }
-
-    setData() {
-        console.log("LoadPopSearchLabel == " + this.form + " [tmpname='"+this.name+"'] == " + this.value);
+    loadPopSearchLabel(form, field, name) {
+        console.log("loadPopSearchLabel == " + this.form + " [tmpname='"+this.name+"'] == ");
         var tmpLabel = $(this.form + " [class~='labelPopSearch'][tmpname='"+this.name+"']");
         tmpLabel.val("");
 
@@ -213,13 +162,8 @@ class LoadPopSearchLabel {
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
-};
 
-class ExtractColumnArray {
-    constructor() {
-    }
-
-    extract(arr, columnName) {
+    extractArray(arr, columnName) {
         var retArr = [];
         $(arr).each(function(i, obj) {
             retArr.push(obj[columnName]);
@@ -227,7 +171,7 @@ class ExtractColumnArray {
         return retArr;
     }
 
-    extractMinMax(arr, minCol, maxCol) {
+    extractArrayMinMax(arr, minCol, maxCol) {
         var retArr = [];
         $(arr).each(function(i, obj) {
             retArr.push({
@@ -237,16 +181,6 @@ class ExtractColumnArray {
         });
         return retArr;
     }
-}
-
-class ScreenUtil {
-    constructor() {
-        var context = this;
-        $(document).on('click', '.toggle-box', function() {
-            context.toggleBox(this);
-        });
-    }
-
     toggleBox(obj) {
         var str = $(obj).attr("target");
 
@@ -261,9 +195,5 @@ class ScreenUtil {
 }
 
 $(function () {
-    screenUtil = new ScreenUtil();
-    replaceStr = new ReplaceStr();
-
-    loadJsonToForm = new LoadJsonToForm();
-    config = new Config();
+    utils = new Utils();
 });

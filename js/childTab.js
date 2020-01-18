@@ -66,10 +66,8 @@ class ChildTab {
 
     reloadDisplayTabs() {
         var context = this;
-        var convertFormToJSON = new ConvertFormToJSON($(this.mainForm));
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/subrecord/' + this.moduleName + '/' + this.subModuleName;
-        convertFormToJSON["childURL"] = url;
-        var cacheKey = JSON.stringify(convertFormToJSON.convert());
+        var cacheKey = JSON.stringify(utils.convertFormToJSON($(this.mainForm)));
         var mainId = $("input.mainId").val();
         if (mainId > 0) {
             if (this.cache!="true") {
@@ -115,10 +113,10 @@ class ChildTab {
                     var recordHtml = $(".displayTabHtmlTemplate[submodule='"+context.subModuleName+"']").html();
                     $.each(obj, function(key, value) {
                         console.log(key + " -- " + value);
-                        recordHtml = replaceStr.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
+                        recordHtml = utils.replaceAll(recordHtml, "##"+key.toUpperCase()+"##", value);
                     });
-                    recordHtml = replaceStr.replaceAll(recordHtml, "##MAIN_URL##", MAIN_URL);
-                    recordHtml = replaceStr.replaceAll(recordHtml, "##COMPANY_CODE##", sessionStorage.companyCode);
+                    recordHtml = utils.replaceAll(recordHtml, "##MAIN_URL##", MAIN_URL);
+                    recordHtml = utils.replaceAll(recordHtml, "##COMPANY_CODE##", sessionStorage.companyCode);
 
                     $(".displayTabHtml[submodule='"+context.subModuleName+"']").append(recordHtml);
                     }
@@ -229,14 +227,12 @@ class ChildTab {
         var childTable = dynaRegister.getDataTable(this.subModuleName);
         childTable.selectedId = null;
         this.removeTableSelectedRecord();
-        var clearForm = new ClearForm(this.formSelector);
-        clearForm.clear();
+        utils.clearForm(this.formSelector);
 
-        var module = $(myButton).attr("module")
+        var moduleName = $(myButton).attr("module")
         var submodule = $(myButton).attr("submodule")
-        var formSelector = 'form[module="'+module+'"][submodule="'+submodule+'"]';
-        var fieldConstructor = new ChildFieldConstructor(module, submodule, formSelector);
-        fieldConstructor.initFields();
+        var formSelector = 'form[module="'+moduleName+'"][submodule="'+submodule+'"]';
+        childFieldConstructor.initFields(moduleName, submodule, formSelector);
     };
 
     deleteDisplayTab(myButton) {
@@ -247,8 +243,7 @@ class ChildTab {
 
         console.log("Child Tab Delete Button Called");
 
-        var convertParent = new ConvertFormToJSON($(this.mainForm));
-        var parentRecord = convertParent.convert();
+        var parentRecord = utils.onvertFormToJSON($(this.mainForm));
 
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/deletesubrecord/' + module + '/' + submodule + '/' + subRecordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));
@@ -277,7 +272,7 @@ class ChildTab {
         var successCallback = function(data) {
             console.log("Record Found");
             console.log(data);
-            loadJsonToForm.load(context.formSelector, data);
+            utils.loadJsonToForm(context.formSelector, data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };

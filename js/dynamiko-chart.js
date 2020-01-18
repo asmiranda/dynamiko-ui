@@ -8,8 +8,7 @@ class ChartRule {
     doChartRule() {
         var context = this;
         console.log("doRule called");
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
         console.log(vdata);
         var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/chartrule/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);

@@ -8,8 +8,6 @@ class FieldConstructor {
         console.log("this.initFields called == " + this.moduleName + ":" + this.mainForm);
         var context = this;
 
-        var config = new Config();
-
         var fieldAutoComplete = new FieldAutoComplete(this.moduleName);
         fieldAutoComplete.init();
 

@@ -56,5 +56,5 @@ class DynaAutoComplete {
 }
 
 $(function () {
-    var dynaAutoComplete = new DynaAutoComplete();
+    dynaAutoComplete = new DynaAutoComplete();
 });

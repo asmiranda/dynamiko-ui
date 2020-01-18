@@ -60,8 +60,8 @@ class ConstructMainForm {
             var successCallback = function(data) {
                 searchCache.setNewSearchCache(context.moduleName, url, data);
 
-                loadJsonToForm.load(context.mainForm, data);
-                loadJsonToForm.loadAddInfo(data);
+                utils.loadJsonToForm(context.mainForm, data);
+                utils.loadJsonAddInfo(data);
     
                 context.childTabs.reloadAllDisplayTabs();
                 localStorage.latestModuleId = recordId;
@@ -69,8 +69,8 @@ class ConstructMainForm {
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
-            loadJsonToForm.load(context.mainForm, searchData);
-            loadJsonToForm.loadAddInfo(searchData);
+            utils.loadJsonToForm(context.mainForm, searchData);
+            utils.loadJsonAddInfo(searchData);
 
             context.childTabs.reloadAllDisplayTabs();
             localStorage.latestModuleId = recordId;
@@ -103,8 +103,7 @@ class FormRule {
     doRule() {
         var context = this;
         console.log("doRule called");
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
         console.log(vdata);
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/formrule/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
@@ -395,13 +394,12 @@ class FormControlButton {
     newRecord() {
         var context = this;
         console.log("newRecord called");
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/new/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            loadJsonToForm.loadAddInfo(data);
+            utils.loadJsonToForm(context.mainForm, data);
+            utils.loadJsonAddInfo(data);
 
             context.childTabs.reloadAllDisplayTabs();
 
@@ -418,12 +416,11 @@ class FormControlButton {
     deleteRecord() {
         var context = this;
         console.log("deleteRecord called");
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            // loadJsonToForm.load(context.mainForm, data);
+            // utils.loadJsonToForm(context.mainForm, data);
 
             // context.childTabs.clearAllDisplayTabs();
 
@@ -449,14 +446,13 @@ class FormControlButton {
         var context = this;
         console.log("saveRecord called");
         $('.multiSelect option').prop('selected', true);
-        var convertFormToJSON = new ConvertFormToJSON($(context.mainForm));
-        var vdata = JSON.stringify(convertFormToJSON.convert());
+        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
         console.log(vdata);
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/save/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            loadJsonToForm.load(context.mainForm, data);
-            loadJsonToForm.loadAddInfo(data);
+            utils.loadJsonToForm(context.mainForm, data);
+            utils.loadJsonAddInfo(data);
 
             context.childTabs.reloadAllDisplayTabs();
 
@@ -505,8 +501,8 @@ class SearchTable {
             var successCallback = function(data) {
                 searchCache.setNewSearchCache(context.moduleName, url, data);
 
-                loadJsonToForm.load(context.mainForm, data);
-                loadJsonToForm.loadAddInfo(data);
+                utils.loadJsonToForm(context.mainForm, data);
+                utils.loadJsonAddInfo(data);
     
                 context.childTabs.reloadAllDisplayTabs();
                 for (const [key, value] of dynaRegister.saasMap) {
@@ -517,8 +513,8 @@ class SearchTable {
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
-            loadJsonToForm.load(context.mainForm, searchData);
-            loadJsonToForm.loadAddInfo(searchData);
+            utils.loadJsonToForm(context.mainForm, searchData);
+            utils.loadJsonAddInfo(searchData);
 
             context.childTabs.reloadAllDisplayTabs();
             for (const [key, value] of dynaRegister.saasMap) {

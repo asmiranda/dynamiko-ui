@@ -79,10 +79,10 @@ class QuickUpdater {
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
 
         var str = $(updaterId).html();
-        str = replaceStr.replaceAll(str, "##MODULE##", moduleName);
-        str = replaceStr.replaceAll(str, "##RECORDID##", recordId);
-        str = replaceStr.replaceAll(str, "##FIELDNAME##", fieldName);
-        str = replaceStr.replaceAll(str, "##QUICKUPDATERID##", quickUpdaterId);
+        str = utils.replaceAll(str, "##MODULE##", moduleName);
+        str = utils.replaceAll(str, "##RECORDID##", recordId);
+        str = utils.replaceAll(str, "##FIELDNAME##", fieldName);
+        str = utils.replaceAll(str, "##QUICKUPDATERID##", quickUpdaterId);
 
         console.log(str);
         var pop = $(obj);

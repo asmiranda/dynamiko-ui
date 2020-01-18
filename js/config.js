@@ -11,3 +11,7 @@ class Config {
         return 'yyyy-mm-dd';
     }
 }
+
+$(function () {
+    config = new Config();
+});
