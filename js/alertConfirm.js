@@ -138,9 +138,7 @@ class ShowUploadAttachment {
             console.log("Received File");
             console.log(file);
             data.append("file", file);
-
-            var ajaxUploader = new AjaxUploader(successCallback);
-            ajaxUploader.uploadFile(moduleName, recordId, uploadType, data); 
+            ajaxCaller.uploadFile(successCallback, moduleName, recordId, uploadType, data); 
         }
 
         $.confirm({

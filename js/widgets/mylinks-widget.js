@@ -80,11 +80,11 @@ class MyLinksWidget {
         $("#MyLinksBody").append(str); 
 
         var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/widget/MyLinksWidget/payslip';
-        var ajax = new AjaxBytesLoader();
-        ajax.loadGet(url, function(data_url) {
+        var successCallback = function(data_url) {
             document.querySelector('#myPayslipFrame').src = data_url;
             $('#myLinksModal').modal();
-        });
+        };
+        ajaxCaller.loadGetBytes(successCallback, url);
     }
 
     showHoliday() {

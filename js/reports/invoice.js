@@ -5,8 +5,7 @@ class InvoiceReport {
     loadReport() {
         $(".btnShowInvoiceReport").click(function() {
             console.log("LOAD InvoiceReport");
-            var ajaxReportViewer = new AjaxReportViewer();
-            ajaxReportViewer.display("Invoice", "sample=sample");
+            ajaxCaller.displayReport("Invoice", "sample=sample");
         });
     }
 }

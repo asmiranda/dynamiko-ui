@@ -335,8 +335,7 @@ class FormControlButton {
                 console.log(data);
                 context.listFileToTable(data);
             };
-            var ajaxFileViewer = new AjaxFileViewer(successCallback);
-            ajaxFileViewer.getAllFiles(moduleName, recordId);
+            ajaxCaller.getAllFiles(successCallback, moduleName, recordId);
         }
     }
 
@@ -352,8 +351,7 @@ class FormControlButton {
             console.log(data);
             context.listFileToTable(data);
         };
-        var ajaxDeleteFile = new AjaxDeleteFile(successCallback);
-        ajaxDeleteFile.deleteFile(fileId);
+        ajaxCaller.deleteFile(successCallback, fileId);
     }
 
     saveUpload(myButton) {
@@ -368,8 +366,7 @@ class FormControlButton {
         var recordId = $(inputName).val();
         console.log("recordId = " + recordId);
         var uploadType = $("#XXuploadType").val();
-        var ajaxUploader = new AjaxUploader(successCallback);
-        ajaxUploader.uploadFile(moduleName, recordId, uploadType, this.formUploadData);
+        ajaxCaller.uploadFile(successCallback, moduleName, recordId, uploadType, this.formUploadData);
     }
 
     initFileUpload() {

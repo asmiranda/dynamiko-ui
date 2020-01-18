@@ -34,12 +34,12 @@ class CustomReport {
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
-        var ajax = new AjaxBytesLoader();
-        ajax.loadPost(url, function(data_url) {
+        var successCallback = function(data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='AutoReport']`;
             console.log(iframeViewer);
             document.querySelector(iframeViewer).src=data_url;
-        }, vdata);
+        };
+        ajaxCaller.loadPostBytes(successCallback, url, vdata);
     }
 
     customDisplayModalReport(obj) {
@@ -120,8 +120,7 @@ class CustomReport {
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
-        var ajax = new AjaxBytesLoader();
-        ajax.loadPost(url, function(data_url) {
+        ajaxCaller.loadPost(url, function(data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
             console.log(iframeViewer);
             document.querySelector(iframeViewer).src=data_url;

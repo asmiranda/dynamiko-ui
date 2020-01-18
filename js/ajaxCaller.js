@@ -70,18 +70,10 @@ class AjaxCaller {
             success: callback,
         });
     }
-}
-
-class AjaxFileViewer {
-    constructor(ajaxCallback) {
-        this.ajaxCallback = ajaxCallback;
-    }
-
-    getAllFiles(moduleName, recordId) {
-        var callback = this.ajaxCallback;
+    getAllFiles(callback, moduleName, recordId) {
         $.ajax({
             type: 'GET',
-            url: MAIN_URL+"/api/generic/attachment/"+moduleName+"/"+recordId,
+            url: `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/${moduleName}/${recordId}`,
             data: "",
             contentType: 'application/json',
             beforeSend: function(xhr) {
@@ -93,32 +85,9 @@ class AjaxFileViewer {
             success: callback
         });
     }
-
-    download(fileUploadId) {
-        var callback = this.ajaxCallback;
-        $.ajax({
-            type: 'GET',
-            url: MAIN_URL+"/api/generic/attachment/download/"+recordId,
-            data: "",
-            contentType: 'application/octet-stream',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
-                }
-            },
-            success: callback
-        });
-    }
-}
-
-class AjaxReportViewer {
-    constructor() {
-    }
-
-    display(reportName, vdata) {
+    displayReport(reportName, vdata) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', MAIN_URL+'/api/generic/report/'+reportName, true);
+        xhr.open('GET', `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/report/${reportName}`, true);
         xhr.responseType = 'arraybuffer';
         xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
 
@@ -131,10 +100,9 @@ class AjaxReportViewer {
         };
         xhr.send(vdata);
     }
-
-    displayDynamic(entity, selectedValue) {
+    displayDynamicReport(entity, selectedValue) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', MAIN_URL+'/api/generic/report/dynamic/'+entity+"/"+selectedValue, true);
+        xhr.open('GET', `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/report/dynamic/${entity}/${selectedValue}`, true);
         xhr.responseType = 'arraybuffer';
         xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
 
@@ -147,16 +115,9 @@ class AjaxReportViewer {
         };
         xhr.send(vdata);
     }
-}
-
-class AjaxUploader {
-    constructor(ajaxCallback) {
-        this.ajaxCallback = ajaxCallback;
-    }
-
-    uploadFile(moduleName, recordId, uploadType, formUploadData) {
+    uploadFile(callback, moduleName, recordId, uploadType, formUploadData) {
         var callback = this.ajaxCallback;
-        var vurl = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/upload/"+uploadType+"/"+moduleName+"/"+recordId;
+        var vurl = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/${uploadType}/${moduleName}/${recordId}`;
         console.log(vurl);
         $.ajax({
             url: vurl,
@@ -174,15 +135,7 @@ class AjaxUploader {
             success: callback,
         });
     }
-}
-
-class AjaxDeleteFile {
-    constructor(ajaxCallback) {
-        this.ajaxCallback = ajaxCallback;
-    }
-
-    deleteFile(fileUploadId) {
-        var callback = this.ajaxCallback;
+    deleteFile(callback, fileUploadId) {
         $.ajax({
             url: MAIN_URL+"/api/generic/attachment/delete/"+fileUploadId,
             type: "GET",
@@ -197,14 +150,7 @@ class AjaxDeleteFile {
             success: callback,
         });
     }
-}
-
-class AjaxBytesLoader {
-    constructor() {
-
-    }
-
-    loadGet(url, callback) {
+    loadGetBytes(callback, url) {
         var xhr = new XMLHttpRequest();
 
         xhr.open('GET', url);
@@ -223,8 +169,7 @@ class AjaxBytesLoader {
         xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
         xhr.send();
     }
-
-    loadPost(url, callback, vdata) {
+    loadPostBytes(callback, url, vdata) {
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', url);
