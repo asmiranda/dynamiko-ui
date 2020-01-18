@@ -2,13 +2,13 @@ class QuickUpdater {
     constructor() {
         var context = this;
 
-        $(document).on('click', '.btnQuickAttachment', function() {
+        $(document).on('click', '.quickAttachmentTarget', function() {
             context.quickAttachment(this);
         });
-        $(document).on('click', '.btnQuickDownloader', function() {
+        $(document).on('click', '.quickDownloaderTarget', function() {
             context.quickDownloader(this);
         });
-        $(document).on('click', '.btnQuickUpdater', function() {
+        $(document).on('click', '.quickUpdaterTarget', function() {
             context.quickUpdater(this);
         });
         $(document).on('change', '.calendarQuickUpdaterInput', function() {
@@ -17,6 +17,27 @@ class QuickUpdater {
         $(document).on('change', '.textQuickUpdaterInput', function() {
             context.quickUpdateInput(this);
         });
+        $(document).on('change', '.autoCompleteQuickUpdaterSelect', function() {
+            context.quickAutoCompleteUpdateInput(this);
+        });
+    }
+
+    quickAutoCompleteUpdateInput(obj) {
+        var moduleName = $(obj).attr("module");
+        var recordId = $(obj).attr("recordId");
+        var fieldName = $(obj).attr("fieldName");
+        var quickUpdaterId = $(obj).attr("quickUpdaterId");
+        var value = $(obj).val();
+        var textValue = obj.options[obj.selectedIndex].text;
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(textValue);
+        };
+        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxGet(); 
     }
 
     quickUpdateInput(obj) {
@@ -30,7 +51,7 @@ class QuickUpdater {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            $(`[quickUpdaterId="${quickUpdaterId}"]`).html(data);
+            $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(data);
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet(); 
@@ -41,6 +62,7 @@ class QuickUpdater {
     }
 
     displayAutoCompleteUpdate(obj) {
+        this.displayInputUpdater(obj, "#autoCompleteQuickUpdater", 'Please Type Below <a class="close" href="#">&times;</a>');
     }
 
     displayCalendarUpdate(obj) {

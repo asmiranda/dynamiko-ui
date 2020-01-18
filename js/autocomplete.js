@@ -25,18 +25,31 @@ class DynaAutoComplete {
         var value = $(obj).val();
         var moduleName = $(obj).attr("module");
         var fieldName = $(obj).attr("autoName");
+        var isAutoCompleteQuickUpdaterInput = $(obj).hasClass("autoCompleteQuickUpdaterInput");
+
         console.log("Autocomplete typed "+value);
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocomplete/${moduleName}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
-            $.each(data, function(index, obj) {
-                var key = obj.getProp("key");
-                var value = obj.getProp("value");
-                var strHtml = `<div value="${key}" class="autocomplete-choice" autoName="${fieldName}" module="${moduleName}">${value}</div>`;
-                $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).append(strHtml);
-            });
+            if (isAutoCompleteQuickUpdaterInput) {
+                $(`.autoCompleteQuickUpdaterSelect`).empty();
+                $.each(data, function(index, obj) {
+                    var key = obj.getProp("key");
+                    var value = obj.getProp("value");
+                    var strHtml = `<option value="${key}">${value}</option>`;
+                    $(`.autoCompleteQuickUpdaterSelect`).append(strHtml);
+                });
+            }
+            else {
+                $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
+                $.each(data, function(index, obj) {
+                    var key = obj.getProp("key");
+                    var value = obj.getProp("value");
+                    var strHtml = `<div value="${key}" class="autocomplete-choice" autoName="${fieldName}" module="${moduleName}">${value}</div>`;
+                    $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).append(strHtml);
+                });
+            }
         };
         var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
         ajaxCaller.ajaxGet();

@@ -85,8 +85,8 @@ class HrRequisitionUI {
                     <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
-                        <a href="#" class="pull-right btn-box-tool btnQuickAttachment" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
-                        <a href="#" class="pull-right btn-box-tool btnQuickDownloader" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"></i></a>
+                        <a href="#" class="pull-right btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
+                        <a href="#" class="pull-right btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"></i></a>
                     </div>
                     <div class="box-body box${applicantId}" style="display:none;">
                         <div class="col-md-4" style="padding-left: 0px;">
@@ -94,19 +94,18 @@ class HrRequisitionUI {
                         </div>
                         <div class="col-md-8 text-left" style="padding-left: 0px;">
                             <span class="info-box-text">
-                                <a href="#" class="btnQuickUpdater" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
-                                
+                                <a href="#" class="quickUpdaterTarget" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
                             </span>
                             <span class="info-box-text">${email} - ${contact}</span>
                             <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
                             <span class="info-box-text"><i class="fa fa-calendar"></i> Schedule : 
                                 <b>
-                                    <a href="#" class="btnQuickUpdater" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate">${nextScheduleDate}</a>
+                                    <a href="#" class="quickUpdaterTarget" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate">${nextScheduleDate}</a>
                                 </b>
                             </span>
                             <span class="info-box-text"><i class="fa fa-user"></i> Look For : 
                                 <b>
-                                    <a href="#" class="btnQuickUpdater" updater="autoComplete" autoComplete="EmployeeUI" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="lookFor">${lookFor}</a>
+                                    <a href="#" class="quickUpdaterTarget" updater="autoComplete" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="lookForEmployeeCode">${lookFor}</a>
                                 </b>
                             </span>
                         </div>
