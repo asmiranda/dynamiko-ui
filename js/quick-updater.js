@@ -12,22 +12,19 @@ class QuickUpdater {
             context.quickUpdater(this);
         });
         $(document).on('change', '.calendarQuickUpdaterInput', function() {
-            context.quickUpdateCalendarInput(this);
+            context.quickUpdateInput(this);
+        });
+        $(document).on('change', '.textQuickUpdaterInput', function() {
+            context.quickUpdateInput(this);
         });
     }
 
-    quickUpdateCalendarInput(obj) {
+    quickUpdateInput(obj) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
         var fieldName = $(obj).attr("fieldName");
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
         var value = $(obj).val();
-
-        console.log(moduleName);
-        console.log(recordId);
-        console.log(fieldName);
-        console.log(quickUpdaterId);
-        console.log(value);
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -39,48 +36,60 @@ class QuickUpdater {
         ajaxCaller.ajaxGet(); 
     }
 
-    doCalendarUpdate(obj) {
+    displayTextUpdate(obj) {
+        this.displayInputUpdater(obj, "#textQuickUpdater", 'Please Type Below <a class="close" href="#">&times;</a>');
+    }
+
+    displayAutoCompleteUpdate(obj) {
+    }
+
+    displayCalendarUpdate(obj) {
+        this.displayInputUpdater(obj, "#calendarQuickUpdater", 'Choose Date <a class="close" href="#">&times;</a>');
+
+        $('.calendar').datepicker({
+            autoclose: true,
+            format: config.getDateFormat()
+        });
+    }
+
+    displayInputUpdater(obj, updaterId, updaterTitle) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
         var fieldName = $(obj).attr("fieldName");
 
-        var str = $("#calendarQuickUpdater").html();
+        var str = $(updaterId).html();
         str = replaceStr.replaceAll(str, "##MODULE##", moduleName);
         str = replaceStr.replaceAll(str, "##RECORDID##", recordId);
         str = replaceStr.replaceAll(str, "##FIELDNAME##", fieldName);
         str = replaceStr.replaceAll(str, "##QUICKUPDATERID##", QUICK_UPDATER_COUNTER);
 
         console.log(str);
-        var $pop = $(obj);
+        var pop = $(obj);
 
-        $pop.popover({
+        pop.popover({
             placement : 'right',
             trigger : 'manual',
             html : true,
-            title : 'Choose Date <a class="close" href="#">&times;</a>',
+            title : updaterTitle,
             content : str,
             sanitize : false,
         }).on('shown.bs.popover', function(e) {
             //console.log('shown triggered');
             // 'aria-describedby' is the id of the current popover
             var current_popover = '#' + $(e.target).attr('aria-describedby');
-            var $cur_pop = $(current_popover);
+            var cur_pop = $(current_popover);
           
-            $cur_pop.find('.close').click(function(){
+            cur_pop.find('.close').click(function(){
                 //console.log('close triggered');
-                $pop.popover('hide');
+                pop.popover('hide');
             });
           
-            $cur_pop.find('.OK').click(function(){
+            cur_pop.find('.OK').click(function(){
                 //console.log('OK triggered');
-                $pop.popover('hide');
+                pop.popover('hide');
             });
         });
-        $pop.popover('show');
-        $('.calendar').datepicker({
-            autoclose: true,
-            format: config.getDateFormat()
-        });
+        pop.popover('show');
     }
 
     quickUpdater(obj) {
@@ -91,7 +100,13 @@ class QuickUpdater {
 
         var updater = $(obj).attr("updater");
         if (updater=="calendar") {
-            this.doCalendarUpdate(obj);
+            this.displayCalendarUpdate(obj);
+        }
+        else if (updater=="text") {
+            this.displayTextUpdate(obj);
+        }
+        if (updater=="autoComplete") {
+            this.displayAutoCompleteUpdate(obj);
         }
     }
 

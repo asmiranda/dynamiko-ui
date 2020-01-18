@@ -93,7 +93,10 @@ class HrRequisitionUI {
                             <img class="profile-user-img img-responsive formLinker" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
                         </div>
                         <div class="col-md-8 text-left" style="padding-left: 0px;">
-                            <span class="info-box-text">${specialization}</span>
+                            <span class="info-box-text">
+                                <a href="#" class="btnQuickUpdater" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
+                                
+                            </span>
                             <span class="info-box-text">${email} - ${contact}</span>
                             <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
                             <span class="info-box-text"><i class="fa fa-calendar"></i> Schedule : 
