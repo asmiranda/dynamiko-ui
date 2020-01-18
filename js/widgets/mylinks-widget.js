@@ -69,8 +69,7 @@ class MyLinksWidget {
             $("#myLinksModalLabel").html("My Last 30 Attendance");
             $('#myLinksModal').modal();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     showPayslip() {
@@ -125,8 +124,7 @@ class MyLinksWidget {
             $("#myLinksModalLabel").html("Holidays");
             $('#myLinksModal').modal();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     showTravel() {
@@ -177,8 +175,7 @@ class MyLinksWidget {
             $("#myLinksModalLabel").html("Trainings");
             $('#myLinksModal').modal();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     showAccounting() {

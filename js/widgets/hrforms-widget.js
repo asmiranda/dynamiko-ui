@@ -39,8 +39,7 @@ class HrFormsWidget {
                 context.downloadForm(this);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     downloadForm(obj) {

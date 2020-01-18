@@ -23,8 +23,7 @@ class ConstructMainForm {
                 context.cacheConstruct(recordId, data);
                 uiCache.setUIHtml(context.moduleName, data);
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
             context.cacheConstruct(recordId, uiHtml);
@@ -67,8 +66,7 @@ class ConstructMainForm {
                 context.childTabs.reloadAllDisplayTabs();
                 localStorage.latestModuleId = recordId;
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
             loadJsonToForm.load(context.mainForm, searchData);
@@ -114,8 +112,7 @@ class FormRule {
             console.log(data);
             context.setupButtons(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     setupButtons(formrule) {
@@ -246,8 +243,7 @@ class FormControlButton {
                 context.displayReport(this);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     displayReport(mySelectReport) {
@@ -415,8 +411,7 @@ class FormControlButton {
             context.searchTableClass.reloadSearch();
             // context.formRule.doRule();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 
     showModalUpdateRecord() {
@@ -448,8 +443,7 @@ class FormControlButton {
             fileUpload.initUpload();
         };
         var confirmDelete = function() {
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxPost();
+            ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
         }
         deleteRecordConfirm.confirm(confirmDelete);
     };
@@ -472,8 +466,7 @@ class FormControlButton {
             context.searchTableClass.reloadSearch();
             // context.formRule.doRule();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 }
 
@@ -524,8 +517,7 @@ class SearchTable {
                 }
                 localStorage.latestModuleId = mainDataTable.selectedId;
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
             loadJsonToForm.load(context.mainForm, searchData);
@@ -612,8 +604,7 @@ class SearchTable {
                 context.removeAttachedFile(this);
             });               
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     setFileProfile(obj) {
@@ -625,8 +616,7 @@ class SearchTable {
             console.log(data);
             context.displayAllFiles();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     removeAttachedFile(obj) {
@@ -638,8 +628,7 @@ class SearchTable {
             console.log(data);
             context.displayAllFiles();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     displayLargeImageFullScreen(btn) {
@@ -655,8 +644,7 @@ class SearchTable {
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/special/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, this.successCallback);
     };
 
     loadSearchData(data) {
@@ -702,8 +690,7 @@ class SearchTable {
                 searchCache.setNewSearchCache(context.moduleName, url, data);
                 context.loadSearchData(data);
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, this.successCallback);
         }
         else {
             this.loadSearchData(searchData);
@@ -750,8 +737,7 @@ class SearchTable {
             });
             // console.log(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, this.successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, this.successCallback);
     };
 };
 

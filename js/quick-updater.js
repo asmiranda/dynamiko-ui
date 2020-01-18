@@ -36,8 +36,7 @@ class QuickUpdater {
             console.log(data);
             $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(textValue);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     quickUpdateInput(obj) {
@@ -53,8 +52,7 @@ class QuickUpdater {
             console.log(data);
             $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     displayTextUpdate(obj) {
@@ -78,12 +76,13 @@ class QuickUpdater {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
         var fieldName = $(obj).attr("fieldName");
+        var quickUpdaterId = $(obj).attr("quickUpdaterId");
 
         var str = $(updaterId).html();
         str = replaceStr.replaceAll(str, "##MODULE##", moduleName);
         str = replaceStr.replaceAll(str, "##RECORDID##", recordId);
         str = replaceStr.replaceAll(str, "##FIELDNAME##", fieldName);
-        str = replaceStr.replaceAll(str, "##QUICKUPDATERID##", QUICK_UPDATER_COUNTER);
+        str = replaceStr.replaceAll(str, "##QUICKUPDATERID##", quickUpdaterId);
 
         console.log(str);
         var pop = $(obj);
@@ -145,8 +144,7 @@ class QuickUpdater {
             console.log(data);
             window.open(MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/attachment/download/'+data, '_blank');
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     quickAttachment(obj) {

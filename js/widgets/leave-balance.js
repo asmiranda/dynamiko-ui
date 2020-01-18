@@ -19,9 +19,7 @@ class LeaveBalanceWidget {
                     $(".leave-balance").append( '<a class="users-list-name" href="#">'+obj.firstName+' '+obj.lastName+'</a><span>SL : '+obj.slBenefitDaysCount+' - VL : '+obj.vlBenefitDaysCount+'</span>' );
                 });
             };
-
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 }

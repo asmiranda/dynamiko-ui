@@ -89,8 +89,7 @@ class DataVisualizer {
                 data: vdata.data
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadAllDataVisualizers() {
@@ -107,8 +106,7 @@ class DataVisualizer {
                 $("#dataVisualizer").append('<option value="' + obj.name + '">' + obj.title + '</option>');
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     prepareDataFunction(rawData) {

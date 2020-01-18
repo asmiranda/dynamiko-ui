@@ -29,8 +29,7 @@ class FormLinker {
             var formId = data.getProp("recordId");
             context.linkToForm(formModule, formId);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     startLink(obj) {

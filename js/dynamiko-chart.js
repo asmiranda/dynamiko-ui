@@ -45,8 +45,7 @@ class ChartRule {
                 }
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     doAreaChart(index, data) {

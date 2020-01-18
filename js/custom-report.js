@@ -79,8 +79,7 @@ class CustomReport {
                     $(currentSelect).append(opt);
                 });
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback); 
-            ajaxCaller.ajaxPost();                            
+            ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);                            
         });
     }
 

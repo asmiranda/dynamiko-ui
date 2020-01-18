@@ -18,7 +18,6 @@ class Dashboard {
             // context.moduleHelper.initHelp();
             // context.profilePicLoader.init();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }

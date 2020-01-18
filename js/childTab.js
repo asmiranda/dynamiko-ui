@@ -77,8 +77,7 @@ class ChildTab {
                 var successCallback = function(data) {
                     context.loadDisplayTabData(data);
                 };
-                var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-                ajaxCaller.ajaxPost();
+                ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
             }
             else {
                 var data = sStorage.get(cacheKey);
@@ -88,8 +87,7 @@ class ChildTab {
                         context.loadDisplayTabData(data);
                         sStorage.set(cacheKey, data);
                     };
-                    var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-                    ajaxCaller.ajaxPost();
+                    ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
                 }
                 else {
                     context.loadDisplayTabData(data);
@@ -258,8 +256,7 @@ class ChildTab {
             console.log("Delete success called : "+data);
             context.reloadDisplayTabs();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 
     cancelDisplayTab() {
@@ -282,8 +279,7 @@ class ChildTab {
             console.log(data);
             loadJsonToForm.load(context.formSelector, data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 
     removeAttachedFile(obj) {
@@ -295,8 +291,7 @@ class ChildTab {
             console.log(data);
             context.displayAllFiles();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     setFileProfile(obj) {
@@ -308,8 +303,7 @@ class ChildTab {
             console.log(data);
             context.displayAllFiles();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     displayAllFiles() {
@@ -386,8 +380,7 @@ class ChildTab {
                 context.removeAttachedFile(this);
             });               
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     removeTableSelectedRecord() {

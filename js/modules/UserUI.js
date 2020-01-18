@@ -79,8 +79,7 @@ class UserUI {
             console.log(data);
             showModalAny.show("Password Reset", data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
       }
     }
 }

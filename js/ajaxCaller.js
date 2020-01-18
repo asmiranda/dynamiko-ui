@@ -1,17 +1,9 @@
 class AjaxCaller {
-    constructor(ajaxDTO, ajaxCallback) {
-        this.ajaxDTO = ajaxDTO;
-        this.ajaxCallback = ajaxCallback;
-        this.resultData = "";
-        console.log("URL ===== "+this.ajaxDTO.url);
-    }
-
-    ajaxGet() {
-        var callback = this.ajaxCallback;
+    ajaxGet(dto, callback) {
         $.ajax({
             type: 'GET',
-            url: this.ajaxDTO.url,
-            data: this.ajaxDTO.data,
+            url: dto.url,
+            data: dto.data,
             contentType: 'application/json',
             beforeSend: function(xhr) {
                 if (sessionStorage.token) {
@@ -34,13 +26,11 @@ class AjaxCaller {
             success: callback
         });
     }
-
-    ajaxPost() {
-        var callback = this.ajaxCallback;
+    ajaxPost(dto, callback) {
         $.ajax({
             type: 'POST',
-            url: this.ajaxDTO.url,
-            data: this.ajaxDTO.data,
+            url: dto.url,
+            data: dto.data,
             contentType: 'application/json',
             beforeSend: function(xhr) {
                 if (sessionStorage.token) {
@@ -58,6 +48,26 @@ class AjaxCaller {
                 showModuleHelp.show("Information", jqXHR.responseJSON.message);
             },
             success: callback
+        });
+    }
+    uploadCSV(callback, formUploadData) {
+        var vurl = MAIN_URL+'/api/utils/uploadData/'+sessionStorage.companyCode+'/'+sessionStorage.chosenReport;
+
+        console.log(vurl);
+        $.ajax({
+            url: vurl,
+            type: "POST",
+            data: formUploadData,
+            processData: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            beforeSend: function(xhr) {
+                if (sessionStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+                }
+            },
+            success: callback,
         });
     }
 }
@@ -236,30 +246,6 @@ class AjaxBytesLoader {
     }
 }
 
-class AjaxCSVUploader {
-    constructor(ajaxCallback) {
-        this.ajaxCallback = ajaxCallback;
-    }
-
-    uploadFile(formUploadData) {
-        var callback = this.ajaxCallback;
-        var vurl = MAIN_URL+'/api/utils/uploadData/'+sessionStorage.companyCode+'/'+sessionStorage.chosenReport;
-
-        console.log(vurl);
-        $.ajax({
-            url: vurl,
-            type: "POST",
-            data: formUploadData,
-            processData: false,
-            contentType: false,
-            enctype: 'multipart/form-data',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
-                }
-            },
-            success: callback,
-        });
-    }
-}
+$(function () {
+    ajaxCaller = new AjaxCaller();
+});

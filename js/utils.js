@@ -179,8 +179,7 @@ class LoadAutoCompleteLabel {
                 var fieldAutoComplete = $(innerForm + " [class~='autocomplete'][autoname='"+data.getProp("fieldName")+"']");
                 fieldAutoComplete.val(data.getProp("value"));
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
     };
 };
@@ -212,8 +211,7 @@ class LoadPopSearchLabel {
             var fieldPopSearchLabel = $(innerForm + " [class~='labelPopSearch'][tmpname='"+data.POPSEARCHFIELDNAME+"']");
             fieldPopSearchLabel.val(data.POPSEARCHVALLABEL);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 };
 

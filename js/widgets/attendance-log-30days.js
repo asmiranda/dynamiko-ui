@@ -48,7 +48,6 @@ class AttendanceLog30DaysWidget {
             });
             console.log("Complete Called.");
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 }

@@ -21,8 +21,7 @@ class HrRequisitionUI {
         var successCallback = function(data) {
             context.arrangeStages(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     moveApplicant(requisitionId, applicantId, applicationStatus) {
@@ -34,8 +33,7 @@ class HrRequisitionUI {
         var successCallback = function(data) {
             context.arrangeStages(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     reArrange(obj) {
@@ -48,8 +46,7 @@ class HrRequisitionUI {
         var successCallback = function(data) {
             context.arrangeStages(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     arrangeStages(data) {

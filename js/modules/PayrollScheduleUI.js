@@ -53,8 +53,7 @@ class PayrollScheduleUI {
             $("input[mainmodule='PayrollSchedule'][name='totalGrossAmount']").val(totalGrossAmount);
             $("input[mainmodule='PayrollSchedule'][name='totalTaxAmount']").val(totalTaxAmount);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     onsaveChild(subModuleName) {
@@ -113,8 +112,7 @@ class PayrollScheduleUI {
                 });
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     addToPayroll(obj) {
@@ -128,7 +126,6 @@ class PayrollScheduleUI {
             console.log(data);
             $("tr.addToPayroll_"+code).hide();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }

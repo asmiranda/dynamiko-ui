@@ -19,9 +19,7 @@ class NextHolidayWidget {
                     $(".next-holiday").append( '<a class="users-list-name" href="#">'+obj.name+'</a><span>'+obj.nextHoliday+'</span>' );
                 });
             };
-
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 }

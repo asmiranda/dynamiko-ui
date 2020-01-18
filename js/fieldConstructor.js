@@ -71,8 +71,7 @@ class FieldMultiSelect {
                     }
                 });
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         });
     }
 
@@ -105,8 +104,7 @@ class FieldMultiSelect {
                 }
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     addSelected(btn) {
@@ -163,8 +161,7 @@ class FieldMultiSelect {
                 }
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     init() {
@@ -310,8 +307,7 @@ class InitPopSearch {
             });
             console.log(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 
     loadToForm() {

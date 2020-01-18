@@ -16,9 +16,7 @@ class ProcurementChartWidget {
                 var rule = new WidgetChartRule();
                 rule.doChart("#procurementChart", data, data.chartType);
             };
-
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 }

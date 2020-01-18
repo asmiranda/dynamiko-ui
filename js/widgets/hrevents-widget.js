@@ -58,8 +58,7 @@ class HrEventsWidget {
                 context.showHrEvent(this);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     showHrEvent(obj) {

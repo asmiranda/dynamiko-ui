@@ -28,8 +28,7 @@ class ChatWidget {
                 context.writeFromUser(value)
                 context.writeFromBot(data);
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
     }
 

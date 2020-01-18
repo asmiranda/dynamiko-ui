@@ -16,9 +16,7 @@ class SalesChartWidget {
                 var rule = new WidgetChartRule();
                 rule.doChart("#salesChart", data, data.chartType);
             };
-
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 }

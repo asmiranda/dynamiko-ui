@@ -45,8 +45,7 @@ class ReviewCenter {
                 console.log(data);
                 showModalAny.show(data.getProp("key"), data.getProp("value"));
             };
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback); 
-            ajaxCaller.ajaxPost();                            
+            ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);                            
         }
     }
 
@@ -88,8 +87,7 @@ class ReviewCenter {
                 $("select[name='choiceProgram']").append(option);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet(); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     searchQuestion(obj) {
@@ -120,8 +118,7 @@ class ReviewCenter {
                 $(".addQuestionList").append(qHtml);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     showQuestions(obj) {
@@ -150,8 +147,7 @@ class ReviewCenter {
                 $(".questionList").append(qHtml);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     addQuestion(obj) {
@@ -183,8 +179,7 @@ class ReviewCenter {
                 $(".addQuestionList").append(qHtml);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     deleteQuestion(obj) {
@@ -210,8 +205,7 @@ class ReviewCenter {
                 $(".questionList").append(qHtml);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
     loadToForm(obj) {
         console.log(obj);

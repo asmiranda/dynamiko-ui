@@ -16,9 +16,7 @@ class TicketChartWidget {
                 var rule = new WidgetChartRule();
                 rule.doChart("#ticketChart", data, data.chartType);
             };
-
-            var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successFunction);
-            ajaxCaller.ajaxGet();
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 }

@@ -67,8 +67,7 @@ class MyInbox {
                 $("table#myInbox").append(str);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadWorkStarted() {
@@ -109,8 +108,7 @@ class MyInbox {
                 $("table#myInbox").append(str);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     clearInbox() {

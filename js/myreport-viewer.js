@@ -88,8 +88,7 @@ class MyReportViewer {
             var reportLoader = new ReportLoader();
             reportLoader.init();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadAllReports() {
@@ -112,7 +111,6 @@ class MyReportViewer {
                 context.displayReportPage(this);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }

@@ -163,8 +163,7 @@ class UIService {
                 context.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     changeCompany(companyCode, companyName) {
@@ -190,8 +189,7 @@ class UIService {
             console.log(data);
             $(".logo").html(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     initProfile() {
@@ -203,8 +201,7 @@ class UIService {
             USERNAME = data.getProp("userName");
             $(".profileName").html(data.getProp("profileName"));
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
 
@@ -229,8 +226,7 @@ class LeftMenu {
             });
             context.initialize();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 
     addMenu(menu, data) {
@@ -400,8 +396,7 @@ class SearchCache {
                 context.setCacheConfig(uiName, clientCache);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     setCacheConfig(uiName, clientCache) {

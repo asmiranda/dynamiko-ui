@@ -132,8 +132,7 @@ class UploadDataFile {
         console.log(file);
         formUploadData.append("file", file);
 
-        var csvUploader = new AjaxCSVUploader(successCallback);
-        csvUploader.uploadFile(formUploadData);
+        ajaxCaller.uploadCSV(successCallback, formUploadData);
     }
 
     downloadTemplate() {
@@ -160,8 +159,7 @@ class UploadDataFile {
                 context.useChosenTemplate(this);
             });
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxGet();
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     useChosenTemplate(chosen) {

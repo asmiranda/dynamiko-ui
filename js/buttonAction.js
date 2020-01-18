@@ -33,8 +33,7 @@ class DynaButtonAction {
             loadJsonToForm.load(context.mainForm, data);
             loadJsonToForm.loadAddInfo(data);
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 
     saveDisplayTab(myButton) {
@@ -62,8 +61,7 @@ class DynaButtonAction {
             var childTab = new ChildTab(moduleName, context.mainForm, submodule);
             childTab.reloadDisplayTabs();
         };
-        var ajaxCaller = new AjaxCaller(ajaxRequestDTO, successCallback);
-        ajaxCaller.ajaxPost();
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 }
 
