@@ -66,7 +66,7 @@ class Utils {
         }
     }
     loadJsonAddInfo(data) {
-        this.load("form.addInfo ", data);
+        this.loadJsonToForm("form.addInfo ", data);
     }
     loadJsonToForm(form, data) {
         var context = this;

@@ -1,8 +1,4 @@
 class UploadDataFile {
-    constructor(moduleName) {
-        this.moduleName = moduleName;
-    }
-
     init() {
         var context = this;
         $("#uploadDataFile").click(function () {
@@ -120,7 +116,6 @@ class UploadDataFile {
         };
     }
 
-
     uploadDataFile() {
         var successCallback = function (data) {
             console.log(data);
@@ -168,3 +163,7 @@ class UploadDataFile {
         $("#chosenTemplate").html("<b>" + chosenReportLabel + "</b>");
     }
 }
+
+$(function () {
+    uploadDataFile = new UploadDataFile();
+});

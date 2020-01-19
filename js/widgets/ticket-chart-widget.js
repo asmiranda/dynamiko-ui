@@ -13,8 +13,7 @@ class TicketChartWidget {
 
             var successFunction = function(data) {
                 console.log(data);
-                var rule = new WidgetChartRule();
-                rule.doChart("#ticketChart", data, data.chartType);
+                didgetChartRule.doChart("#ticketChart", data, data.chartType);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }

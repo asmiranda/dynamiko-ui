@@ -1,7 +1,4 @@
 class Dashboard {
-    constructor() {
-    }
-
     load(moduleName) {
         console.log("load "+moduleName);
         var context = this;
@@ -13,7 +10,6 @@ class Dashboard {
             $('[data-mask]').inputmask();
             // context.controlButtonClass.initButtons();
             // context.searchTableClass.initTable();
-            // context.fieldConstructor.initFields();
             // context.childTabs.initTabs();
             // context.moduleHelper.initHelp();
             // context.profilePicLoader.init();
@@ -21,3 +17,7 @@ class Dashboard {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
+
+$(function () {
+    dashboard = new Dashboard();
+});

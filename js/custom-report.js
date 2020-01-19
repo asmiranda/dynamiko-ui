@@ -129,5 +129,5 @@ class CustomReport {
 }
 
 $(function () {
-    var customReport = new CustomReport();
+    customReport = new CustomReport();
 });

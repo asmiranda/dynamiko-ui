@@ -13,8 +13,7 @@ class ProcurementChartWidget {
 
             var successFunction = function(data) {
                 console.log(data);
-                var rule = new WidgetChartRule();
-                rule.doChart("#procurementChart", data, data.chartType);
+                widgetChartRule.doChart("#procurementChart", data, data.chartType);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }

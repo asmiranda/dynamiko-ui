@@ -1,15 +1,12 @@
-function LoginJS(uname, pword) {
-    this.uname = uname;
-    this.pword = pword;
-    
+function LoginJS() {
     this.token = function () {
         console.log(sessionStorage.token);
         return sessionStorage.token;
     };
 
-    this.login = function(redUrl) {
+    this.login = function(uname, pword, redUrl) {
         var context = this;
-        var vdata = JSON.stringify({ "username": this.uname, "password": this.pword });
+        var vdata = JSON.stringify({ "username": uname, "password": pword });
         console.log(vdata);
         $.ajax({
             url: MAIN_URL+'/api/auth/signin',
@@ -32,10 +29,10 @@ function LoginJS(uname, pword) {
         });
     }
 
-    this.register = function(firstName, lastName) {
+    this.register = function(uname, pword, firstName, lastName) {
         console.log(firstName);
         console.log(lastName);
-        var vdata = JSON.stringify({ "username": this.uname, "password": this.pword, "name": firstName, "lastName": lastName });
+        var vdata = JSON.stringify({ "username": uname, "password": pword, "name": firstName, "lastName": lastName });
         var redUrl = this.redirectURL;
         console.log(vdata);
         $.ajax({
@@ -54,3 +51,7 @@ function LoginJS(uname, pword) {
         });
     }
 }
+
+$(function () {
+    loginJS = new LoginJS();
+});

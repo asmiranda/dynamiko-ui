@@ -362,3 +362,7 @@ class DataVisualizer {
         return chartOptions;
     }
 }
+
+$(function () {
+    dataVisualizer = new DataVisualizer();
+});

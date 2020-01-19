@@ -102,8 +102,7 @@
 
                 var vname = $('#name').val();
                 var vlastName = $('#lastName').val();
-                var loginjs = new LoginJS(vusername, vpassword, "/home");
-                loginjs.register(vname, vlastName);
+                loginjs.register(vusername, vpassword, vname, vlastName);
             }
         );
 

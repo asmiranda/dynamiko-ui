@@ -1,16 +1,10 @@
 class ChartRule {
-    constructor(moduleName, mainForm) {
-        console.log("ChartRule");
-        this.moduleName = moduleName;
-        this.mainForm = mainForm;
-    }
-
-    doChartRule() {
+    doChart(moduleName, mainForm) {
         var context = this;
         console.log("doRule called");
-        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
+        var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/chartrule/' + context.moduleName;
+        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/chartrule/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -254,3 +248,7 @@ class ChartRule {
         return chartOptions;
     }
 }
+
+$(function () {
+    chartRule = new ChartRule();
+});

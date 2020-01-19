@@ -1,15 +1,9 @@
 class MyReportViewer {
-    constructor(moduleName) {
-        this.moduleName = moduleName;
-        this.invoiceReport = new InvoiceReport();
-    }
-
-    init() {
-        var context = this;
-        $(".myReportViewer").click(function() {
-            context.displayReportViewer();
+    constructor() {
+        $(document).on('click', '.myReportViewer', function() {
+            context.displayReportViewer(this);
         });
-    };
+    }
 
     displayReportViewer() {
         var context = this;
@@ -84,8 +78,6 @@ class MyReportViewer {
             $('.btnSubmitReportCriteria').click(function() {
                 context.displayReportPdf(this);
             });
-
-            var reportLoader = new ReportLoader();
             reportLoader.init();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -114,3 +106,7 @@ class MyReportViewer {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
+
+$(function () {
+    myReportViewer = new MyReportViewer();
+});

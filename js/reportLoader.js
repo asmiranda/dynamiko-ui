@@ -1,8 +1,4 @@
 class ReportLoader {
-    constructor() {
-
-    }
-
     init() {
         console.log("ReportLoader called.");
         this.initDateRange();
@@ -44,3 +40,7 @@ class ReportLoader {
         )
     }
 }
+
+$(function () {
+    reportLoader = new ReportLoader();
+});

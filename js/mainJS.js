@@ -1,7 +1,4 @@
 class UIService {
-    constructor() {
-    }
-    
     initHome() {
         $(window).keydown(function(event){
             if(event.keyCode == 13) {
@@ -117,14 +114,10 @@ class UIService {
     loadUI(myui) {
         var moduleName = myui;
         localStorage.latestModule = moduleName;
-    
-        var registerDatatable = new RegisterDatatable();
         registerDatatable.clearRegister();
     
         constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-    
-        var fileUpload = new FileUpload();
-        fileUpload.initUpload();
+       fileUpload.initUpload();
     }    
 
     initCompany() {
@@ -147,16 +140,8 @@ class UIService {
             });
             context.initLogo();
 
-            var leftMenu = new LeftMenu();
-            leftMenu.init();
-    
-            var dataVisualizer = new DataVisualizer();
-            dataVisualizer.init();
-    
-            var reportViewer = new MyReportViewer();
-            reportViewer.init();
-    
-            var uploadDataFile = new UploadDataFile();
+            leftMenu.init();    
+            dataVisualizer.init();    
             uploadDataFile.init();
 
             $(".choiceCompany").click(function() {
@@ -176,7 +161,6 @@ class UIService {
         $("#useCompany").append(useCompanyStr);
 
         if (localStorage.latestModule) {
-            var leftMenu = new LeftMenu();
             leftMenu.loadUI(localStorage.latestModule);
         }
     }
@@ -206,9 +190,6 @@ class UIService {
 }
 
 class LeftMenu {
-    constructor() {
-    }
-
     init() {
         var context = this;
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
@@ -259,8 +240,7 @@ class LeftMenu {
         });
         $(".leftMenuItem[report='true']").click(function() {
             var moduleName = $(this).attr("data");
-            var constructReport = new MainReport(moduleName);
-            constructReport.construct();
+            mainReport.constructMainReport(moduleName);
         });
         $(".leftMenuItem[report='false']").click(function() {
             var moduleName = $(this).attr("data");
@@ -271,13 +251,9 @@ class LeftMenu {
     loadUI(myui) {
         var moduleName = myui;
         localStorage.latestModule = moduleName;
-    
-        var registerDatatable = new RegisterDatatable();
         registerDatatable.clearRegister();
     
         constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-    
-        var fileUpload = new FileUpload();
         fileUpload.initUpload();
     }    
 }
@@ -331,19 +307,12 @@ class ToggleForm {
     }
 }
 
-var allTable = [];
-
 class RegisterDatatable {
-    constructor(datatable) {
-        console.log("constructor");
-        this.datatable = datatable;
-    }
-
-    register() {
+    register(datatable) {
         console.log("register");
-        if (this.datatable) {
+        if (datatable) {
             console.log("register datatable");
-            allTable.push(this.datatable);
+            allTable.push(datatable);
             console.log("length : "+allTable.length);
         }
     }
@@ -365,9 +334,6 @@ class RegisterDatatable {
 }
 
 class UICache {
-    constructor() {
-    }
-
     getUIHtml(uiName) {
         var storedHTML = sStorage.get(uiName+"-HTML");
         return storedHTML;
@@ -379,9 +345,6 @@ class UICache {
 }
 
 class SearchCache {
-    constructor() {
-    }
-
     initSearchCache() {
         var context = this;
         var url = MAIN_URL + '/api/clientcache/all/search';
@@ -419,3 +382,14 @@ class SearchCache {
         }
     }
 }
+
+$(function () {
+    allTable = [];
+    uiService = new UIService();
+    leftMenu = new LeftMenu();
+    fileUpload = new FileUpload();
+    toggleForm = new ToggleForm();
+    registerDatatable = new RegisterDatatable();
+    uiCache = new UICache();
+    searchCache = new SearchCache();
+});

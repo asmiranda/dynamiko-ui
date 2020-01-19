@@ -107,8 +107,7 @@
         function login() {
             var vusername = $('#email').val();
             var vpassword = $('#password').val();
-            var loginjs = new LoginJS(vusername, vpassword);
-            loginjs.login("home.html");
+            loginJS.login(vusername, vpassword, "home.html");
         }
     </script>
 </body>

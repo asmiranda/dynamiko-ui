@@ -1,15 +1,14 @@
 class MainReport {
-    constructor(moduleName) {
-        this.moduleName = moduleName;
-        this.invoiceReport = new InvoiceReport();
-    }
-
-    construct() {
+    constructMainReport(moduleName) {
         var context = this;
-        $.get( "/module/"+this.moduleName, function( result ) {
+        $.get( "/module/"+moduleName, function( result ) {
             // console.log(result);
             $("#content-main").html(result);
-            context.invoiceReport.loadReport();
+            invoiceReport.loadReport();
         });
     };
 }
+
+$(function () {
+    mainReport = new MainReport();
+});

@@ -1,18 +1,12 @@
 class FieldConstructor {
-    constructor(moduleName, mainForm) {
-        this.moduleName = moduleName;
-        this.mainForm = mainForm; 
-    }
-
-    initFields() {
-        console.log("this.initFields called == " + this.moduleName + ":" + this.mainForm);
+    initFields(moduleName, mainForm) {
+        console.log("this.initFields called == " + moduleName + ":" + mainForm);
         var context = this;
 
-        var fieldAutoComplete = new FieldAutoComplete(this.moduleName);
+        var fieldAutoComplete = new FieldAutoComplete(moduleName);
         fieldAutoComplete.init();
 
-        var fieldMultiSelect = new FieldMultiSelect(this.moduleName);
-        fieldMultiSelect.init();
+        fieldMultiSelect.init(moduleName);
 
         // <!--this is for calendar-->
         $('.calendar').datepicker({
@@ -29,8 +23,7 @@ class FieldConstructor {
                     // <!--this is for popsearch only-->
                     var popSearchName = $(obj).attr("popSearchName");
                     if (popSearchName) {
-                        var initPopSearch = new InitPopSearch(context.moduleName, context.mainForm, name);
-                        initPopSearch.init();
+                        initPopSearch.init(moduleName, mainForm, name);
                     }
                 }
             });
@@ -39,25 +32,20 @@ class FieldConstructor {
 }
 
 class FieldMultiSelect {
-    constructor(moduleName) {
-        this.moduleName = moduleName;
-    }
-
-    changeMultiSelectData(mainId) {
-        var context = this;
+    changeMultiSelectData(moduleName, mainId) {
         var recordId = $(mainId).val();
         console.log("RECORD ID = " + recordId);
-        $(".multiSelect[module='" + this.moduleName + "'][mainmodule='" + this.moduleName + "']").each(function () {
+        $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("name");
             console.log("MULTI SELECT FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/" + context.moduleName + "/" + fieldLabelName + "/" + recordId;
+            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/" + moduleName + "/" + fieldLabelName + "/" + recordId;
             console.log("url = " + url);
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function (data) {
                 console.log(data);
                 var fieldName = $(data)[0].field;
                 console.log("fieldName = " + fieldName);
-                var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+                var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
                 $(myInput).empty();
                 $.each(data, function (i, obj) {
                     if (i > 0) {
@@ -73,15 +61,15 @@ class FieldMultiSelect {
         });
     }
 
-    clickDisplayAdd(btn) {
+    clickDisplayAdd(moduleName, btn) {
         var context = this;
         var fieldName = $(btn).attr("name");
         console.log("multiSelectDisplayAdd fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/" + context.moduleName + "/" + fieldName;
+        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/" + moduleName + "/" + fieldName;
         console.log("multiSelectDisplayAdd url = " + url);
-        var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+        var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
         var varr = [];
-        $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
+        $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "'] > option").each(function () {
             varr.push(this.value);
         });
         console.log("multiSelectDisplayAdd varr = " + varr);
@@ -90,7 +78,7 @@ class FieldMultiSelect {
             console.log(data);
             var fieldName = $(data)[0].field;
             console.log("fieldName = " + fieldName);
-            var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+            var myInput = $(".multiSelectOptionList[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
             $(myInput).empty();
             $.each(data, function (i, obj) {
                 if (i > 0) {
@@ -105,12 +93,11 @@ class FieldMultiSelect {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
-    addSelected(btn) {
-        var context = this;
+    addSelected(moduleName, btn) {
         var fieldName = $(btn).attr("name");
         console.log("fieldName = " + fieldName);
-        var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
-        $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
+        var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
+        $(".multiSelectOptionList[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
             var opt = new Option($(this).text(), $(this).val());
             $(opt).html($(this).text());
             $(myInput).append(opt);
@@ -120,25 +107,23 @@ class FieldMultiSelect {
         console.log("myInput = " + $(myInput).val());
     }
 
-    deleteSelected(btn) {
-        var context = this;
+    deleteSelected(moduleName, btn) {
         var fieldName = $(btn).attr("name");
         console.log("fieldName = " + fieldName);
-        $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
+        $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']" + " option:selected").each(function () {
             $(this).remove();
         });
     }
 
-    filterChoices(btn) {
-        var context = this;
+    filterChoices(moduleName, btn) {
         var fieldName = $(btn).attr("name");
         var fieldValue = $(btn).val();
         console.log("multiSelectTextFilter fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/filter/" + context.moduleName + "/" + fieldName + "/" + fieldValue;
+        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/filter/" + moduleName + "/" + fieldName + "/" + fieldValue;
         console.log("multiSelectTextFilter url = " + url);
-        var myInput = $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+        var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
         var varr = [];
-        $(".multiSelect[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "'] > option").each(function () {
+        $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "'] > option").each(function () {
             varr.push(this.value);
         });
         console.log("multiSelectTextFilter varr = " + varr);
@@ -147,7 +132,7 @@ class FieldMultiSelect {
             console.log(data);
             var fieldName = $(data)[0].field;
             console.log("fieldName = " + fieldName);
-            var myInput = $(".multiSelectOptionList[module='" + context.moduleName + "'][mainmodule='" + context.moduleName + "'][name='" + fieldName + "']");
+            var myInput = $(".multiSelectOptionList[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
             $(myInput).empty();
             $.each(data, function (i, obj) {
                 if (i > 0) {
@@ -162,39 +147,35 @@ class FieldMultiSelect {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
-    init() {
-        console.log("MULTI SELECT MODULE " + this.moduleName);
+    init(moduleName) {
+        console.log("MULTI SELECT MODULE " + moduleName);
         var context = this;
         $(".mainId").change(function () {
             context.changeMultiSelectData(this);
         });
-        $(".multiSelectDisplayAdd[module='" + this.moduleName + "']").click(function () {
+        $(".multiSelectDisplayAdd[module='" + moduleName + "']").click(function () {
             context.clickDisplayAdd(this);
         });
-        $(".multiSelectAdd[module='" + this.moduleName + "']").click(function () {
+        $(".multiSelectAdd[module='" + moduleName + "']").click(function () {
             context.addSelected(this);
         });
-        $(".multiSelectDelete[module='" + this.moduleName + "']").click(function () {
+        $(".multiSelectDelete[module='" + moduleName + "']").click(function () {
             context.deleteSelected(this);
         });
-        $(".multiSelectTextFilter[module='" + this.moduleName + "']").keyup(function () {
+        $(".multiSelectTextFilter[module='" + moduleName + "']").keyup(function () {
             context.filterChoices(this);
         });
     }
 }
 
 class FieldAutoComplete {
-    constructor(moduleName) {
-        this.moduleName = moduleName;
-    }
-
-    init() {
-        console.log("AUTO COMPLETE MODULE " + this.moduleName);
+    init(moduleName) {
+        console.log("AUTO COMPLETE MODULE " + moduleName);
         var context = this;
-        $(".autocomplete[module='" + this.moduleName + "'][mainmodule='" + this.moduleName + "']").each(function () {
+        $(".autocomplete[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
             console.log("AUTO COMPLETE FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/autocomplete/" + context.moduleName + "/" + fieldLabelName;
+            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/autocomplete/" + moduleName + "/" + fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $("[autoNameField='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
@@ -204,47 +185,13 @@ class FieldAutoComplete {
                 console.log("Clicked Help!!!");
                 showAutoCompleteFieldHelp.show($(autoCompleteDisplayField).attr("helpTitle"), autoCompleteDisplayField, autoCompleteDescDivDefault, autoCompleteDescDiv);
             });
-            // var autoCompleteField = $(this).autocomplete({
-            //     source: function (request, response) {
-            //         $.ajax({
-            //             url: url + "/" + request.term,
-            //             beforeSend: function (xhr) {
-            //                 if (sessionStorage.token) {
-            //                     xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-            //                 }
-            //             },
-            //             success: function (data) {
-            //                 //                            console.log(data);
-            //                 response(data);
-            //             }
-            //         });
-            //     },
-            //     minLength: 1,
-            //     select: function (event, ui) {
-            //         var code = ui.item.getProp("key");
-            //         var name = ui.item.getProp("value");
-            //         console.log("Selected: " + name + ":" + code);
-            //         autoCompleteValueField.val(code);
-            //         autoCompleteDisplayField.val(name);
-            //         autoCompleteDescDiv.html(name);
-            //         return false;
-            //     },
-            // });
-            // autoCompleteField.autocomplete("instance")._renderItem = function (ul, item) {
-            //     //                console.log(item);
-            //     return $("<li class='list-group-item' style='width: 500px;'><div>" + item.getProp("key") + " - " + item.getProp("value") + "</div></li>").appendTo(ul);
-            // };
         });
 
     }
 }
 
 class InitPopSearch {
-    constructor(moduleName, mainForm, name) {
-        this.moduleName = moduleName;
-        this.mainForm = mainForm;
-        this.name = name;
-
+    constructor() {
         this.popSearchDataTable;
         this.mainPopInput;
         this.labelPopInput;
@@ -255,15 +202,15 @@ class InitPopSearch {
         this.tableSelectorName;
     }
 
-    init() {
-        console.log("this.init called == " + this.moduleName + ":" + this.mainForm + ":" + this.name);
+    init(moduleName, mainForm, name) {
+        console.log("this.init called == " + moduleName + ":" + mainForm + ":" + name);
         // <!--get all the 3 fields for popsearch-->
         var context = this;
-        this.mainPopInput = $(this.mainForm + ' input[module="' + this.moduleName + '"][name="' + this.name + '"][popSearchName="' + this.name + '"]');
-        this.labelPopInput = $(this.mainForm + ' input[module="' + this.moduleName + '"][tmpName="' + this.name + '"][popSearchName="' + this.name + '"]');
-        this.popButton = $(this.mainForm + ' button[module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
-        this.popFilterButton = $(this.mainForm + ' button[class~="filter"][module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
-        this.tableSelectorName = 'table[module="' + this.moduleName + '"][popSearchName="' + this.name + '"]';
+        this.mainPopInput = $(mainForm + ' input[module="' + moduleName + '"][name="' + name + '"][popSearchName="' + name + '"]');
+        this.labelPopInput = $(mainForm + ' input[module="' + moduleName + '"][tmpName="' + name + '"][popSearchName="' + name + '"]');
+        this.popButton = $(mainForm + ' button[module="' + moduleName + '"][popSearchName="' + name + '"]');
+        this.popFilterButton = $(mainForm + ' button[class~="filter"][module="' + moduleName + '"][popSearchName="' + name + '"]');
+        this.tableSelectorName = 'table[module="' + moduleName + '"][popSearchName="' + name + '"]';
         this.popSearchDataTable = $(this.tableSelectorName).DataTable({
             "searching": false
         });
@@ -316,3 +263,9 @@ class InitPopSearch {
         $(this.labelPopInput).val(this.selectedRow.find('td').eq(0).text());
     };
 }
+
+$(function () {
+    fieldConstructor = new FieldConstructor();
+    fieldMultiSelect = new FieldMultiSelect();
+    initPopSearch = new InitPopSearch();
+});

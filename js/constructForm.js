@@ -7,11 +7,9 @@ class ConstructMainForm {
         this.childTabs = new ChildTabs(this.moduleName, this.mainForm);
         this.searchTableClass = new SearchTable(this.moduleName, this.mainForm, this.searchTable, this.childTabs);
         this.controlButtonClass = new FormControlButton(this.moduleName, this.mainForm, this.searchTableClass, this.childTabs);
-        this.fieldConstructor = new FieldConstructor(this.moduleName, this.mainForm);
         this.moduleHelper = new ModuleHelper(this.moduleName, this.mainForm);
         this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
         this.formRule = new FormRule(this.moduleName, this.mainForm);
-        this.chartRule = new ChartRule(this.moduleName, this.mainForm);
         this.printForm = new PrintForm(this.moduleName, this.mainForm);
 
         var context = this;        
@@ -36,12 +34,12 @@ class ConstructMainForm {
         $('[data-mask]').inputmask();
         context.controlButtonClass.initButtons();
         context.searchTableClass.initTable();
-        context.fieldConstructor.initFields();
+        fieldConstructor.initFields(this.moduleName, this.mainForm);
         context.childTabs.initTabs();
         context.moduleHelper.initHelp();
         context.profilePicLoader.init();
         // context.formRule.doRule();
-        // context.chartRule.doChartRule();
+        // chartRule.doChart(this.moduleName, this.mainForm);
         // context.printForm.init();
         if (recordId) {
             context.loadRecord(recordId);
@@ -427,13 +425,9 @@ class FormControlButton {
             // context.searchTableClass.clearSearch();
             // context.formRule.doRule();
             localStorage.latestModule = context.moduleName;
-    
-            var registerDatatable = new RegisterDatatable();
             registerDatatable.clearRegister();
         
             constructMainForm.construct(context.moduleName, `#searchTable[module="${context.moduleName}"]`, `#mainForm[module="${context.moduleName}"]`);
-        
-            var fileUpload = new FileUpload();
             fileUpload.initUpload();
         };
         var confirmDelete = function() {
@@ -471,7 +465,6 @@ class SearchTable {
         this.childTabs = childTabs;
         this.successCallback;
         this.formRule = new FormRule(this.moduleName, this.mainForm);
-        this.chartRule = new ChartRule(this.moduleName, this.mainForm);
     }
 
     initTable() {

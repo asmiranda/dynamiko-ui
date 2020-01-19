@@ -1,7 +1,4 @@
 class MyInbox {
-    constructor() {
-    }
-
     init() {
         var context = this;
         console.log("Testing Inbox");
@@ -137,3 +134,7 @@ class MyInbox {
         });
     }
 }
+
+$(function () {
+    myInbox = new MyInbox();
+});

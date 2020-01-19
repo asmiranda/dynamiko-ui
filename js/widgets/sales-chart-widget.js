@@ -13,8 +13,7 @@ class SalesChartWidget {
 
             var successFunction = function(data) {
                 console.log(data);
-                var rule = new WidgetChartRule();
-                rule.doChart("#salesChart", data, data.chartType);
+                widgetChartRule.doChart("#salesChart", data, data.chartType);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }

@@ -1,8 +1,4 @@
 class WidgetChartRule {
-    constructor() {
-        console.log("WidgetChartRule");
-    }
-
     doChart(ecanvas, data, chartType) {
         if (chartType=='BAR') {
             this.doBarChart(ecanvas, data);
@@ -185,3 +181,7 @@ class WidgetChartRule {
         return chartOptions;
     }
 }
+
+$(function () {
+    widgetChartRule = new WidgetChartRule();
+});
