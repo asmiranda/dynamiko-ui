@@ -1,13 +1,13 @@
 class TasksWidget {
     constructor() {
-    }
-
-    init() {
         var context = this;
         console.log("Testing Task Widget");
 
-        $(".btnStartTask").click(function() {
+        $(document).on('click', '.btnStartTask', function() {
             context.startTask();
+        });
+        $(document).on('click', '.taskLinker', function() {
+            context.taskLinker(this);
         });
         this.loadTask();
     }
@@ -78,9 +78,6 @@ class TasksWidget {
                         $(".forApprovalMessage").append(str);
                     }
                 }
-                $(".taskLinker").click(function() {
-                    context.taskLinker(this);
-                });
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

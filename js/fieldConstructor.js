@@ -150,19 +150,19 @@ class FieldMultiSelect {
     init(moduleName) {
         console.log("MULTI SELECT MODULE " + moduleName);
         var context = this;
-        $(".mainId").change(function () {
+        $(document).on('click', '.mainId', function() {
             context.changeMultiSelectData(this);
         });
-        $(".multiSelectDisplayAdd[module='" + moduleName + "']").click(function () {
+        $(document).on('click', '.multiSelectDisplayAdd', function() {
             context.clickDisplayAdd(this);
         });
-        $(".multiSelectAdd[module='" + moduleName + "']").click(function () {
+        $(document).on('click', '.multiSelectAdd', function() {
             context.addSelected(this);
         });
-        $(".multiSelectDelete[module='" + moduleName + "']").click(function () {
+        $(document).on('click', '.multiSelectDelete', function() {
             context.deleteSelected(this);
         });
-        $(".multiSelectTextFilter[module='" + moduleName + "']").keyup(function () {
+        $(document).on('keyup', '.multiSelectTextFilter', function() {
             context.filterChoices(this);
         });
     }

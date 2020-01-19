@@ -1,11 +1,10 @@
 class InvoiceReport {
     constructor() {
+        $(document).on('click', '.btnShowInvoiceReport', function() {
+            ajaxCaller.displayReport("Invoice", "sample=sample");
+        });
     }
 
     loadReport() {
-        $(".btnShowInvoiceReport").click(function() {
-            console.log("LOAD InvoiceReport");
-            ajaxCaller.displayReport("Invoice", "sample=sample");
-        });
     }
 }

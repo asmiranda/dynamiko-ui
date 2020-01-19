@@ -4,11 +4,9 @@ class DataVisualizer {
         this.chart;
         this.serverData;
         this.slice;
-    }
-
-    init() {
+        
         var context = this;
-        $(".pivotTable").click(function () {
+        $(document).on('click', '.pivotTable', function() {
             context.showPivot();
         });
     }

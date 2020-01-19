@@ -3,6 +3,9 @@ class MyReportViewer {
         $(document).on('click', '.myReportViewer', function() {
             context.displayReportViewer(this);
         });
+        $(document).on('click', '.btnSubmitReportCriteria', function() {
+            context.displayReportPdf(this);
+        });
     }
 
     displayReportViewer() {
@@ -75,9 +78,6 @@ class MyReportViewer {
             $(".formCriteriaBody").empty();
             $(".formCriteriaBody").append(data);
 
-            $('.btnSubmitReportCriteria').click(function() {
-                context.displayReportPdf(this);
-            });
             reportLoader.init();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -98,9 +98,6 @@ class MyReportViewer {
 
                 var str = `<li class="myReportViewer ${code}" value="${code}" label="${name}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
                 $(".reportViewerList").append(str);
-            });
-            $('.myReportViewer').click(function() {
-                context.displayReportPage(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

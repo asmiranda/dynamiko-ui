@@ -1,17 +1,74 @@
 class ChildTabs {
-    constructor(moduleName, mainForm) {
-        this.moduleName = moduleName;
-        this.mainForm = mainForm;
+    constructor() {
         this.childTabs = [];
+
+        $(document).on('click', 'button.btnChildTabEdit', function() {
+            var submodule = $(this).attr("submodule")
+            var recId = $(this).attr("recordId");
+            var childTab = this.getChildTab(subModule);
+
+            var childTable = dynaRegister.getDataTable(submodule);
+            childTable.selectedId = recId;
+            console.log("SELECTED ID == "+childTable.selectedId);
+            if (childTable.selectedId) {
+                childTab.loadToForm();
+                childTab.editDisplayTab(this);
+                childTab.displayAllFiles();
+            }
+            else {
+                e.stopPropagation();
+                noSelectedRecordEdit.alert();
+            }
+        });
+        $(document).on('click', 'button.btnChildTabNew', function() {
+            var subModule = $(this).attr("submodule")
+            var childTab = this.getChildTab(subModule);
+            childTab.newDisplayTab(this);
+        });
+        $(document).on('click', 'button.btnChildTabDelete', function() {
+            var subModule = $(this).attr("submodule")
+            var childTab = this.getChildTab(subModule);
+            childTab.deleteDisplayTab(this);
+        });
+        $(document).on('click', 'button.btnChildTabCancel', function() {
+            var subModule = $(this).attr("submodule")
+            var childTab = this.getChildTab(subModule);
+            childTab.cancelDisplayTab();
+        });
+        $(document).on('click', '.setFileProfile', function() {
+            var subModule = $(this).attr("submodule")
+            var childTab = this.getChildTab(subModule);
+            childTab.setFileProfile(this);
+        });               
+        $(document).on('click', '.attachFileRemove', function() {
+            var subModule = $(this).attr("submodule")
+            var childTab = this.getChildTab(subModule);
+            childTab.removeAttachedFile(this);
+        });               
+        $(document).on('click', '.btnImage_', function() {
+            var subModule = $(this).attr("submodule")
+            var childTab = this.getChildTab(subModule);
+            childTab.displayLargeImageFullScreen(this);
+        });
     }
 
-    initTabs() {
+    getChildTab(subModule) {
+        var childTab = null;
+        $.each(this.childTabs, function(index, obj) {
+            if (obj.subModuleName==subModule) {
+                childTab = obj;
+            }
+        });
+        return childTab;
+    }
+
+    initTabs(moduleName, mainForm) {
         var context = this;
         $.each($('.myChildTab[submodule]'), function(i, obj) {  
             console.log("initTabs");
             console.log(i);
             console.log($(obj).attr("submodule"));
-            var childTab = new ChildTab(context.moduleName, context.mainForm, $(obj).attr("submodule"), $(obj).attr("cache"));
+            var childTab = new ChildTab(moduleName, mainForm, $(obj).attr("submodule"), $(obj).attr("cache"));
             childTab.constructTab();
 
             context.childTabs.push(childTab);
@@ -100,7 +157,6 @@ class ChildTab {
         dynaRegister.getDataTable(context.subModuleName).selectedId = null;
         context.loadRecordsToHtml(data);
         context.loadRecordsToChildTable(data);
-        context.initButtons();
     }
 
     loadRecordsToHtml(data) {
@@ -185,34 +241,6 @@ class ChildTab {
         }
     }
     
-    initButtons() {
-        var context = this;
-        var childTable = dynaRegister.getDataTable(this.subModuleName);
-        $('button.btnChildTabEdit[submodule="'+this.subModuleName+'"]').click(function(e) {
-            var recId = $(this).attr("recordId");
-            childTable.selectedId = recId;
-            console.log("SELECTED ID == "+childTable.selectedId);
-            if (childTable.selectedId) {
-                context.loadToForm();
-                context.editDisplayTab(this);
-                context.displayAllFiles();
-            }
-            else {
-                e.stopPropagation();
-                noSelectedRecordEdit.alert();
-            }
-        });
-        $('button.btnChildTabNew[submodule="'+this.subModuleName+'"]').click(function() {
-            context.newDisplayTab(this);
-        });
-        $('button.btnChildTabDelete[submodule="'+this.subModuleName+'"]').click(function() {
-            context.deleteDisplayTab(this);
-        });
-        $('button.btnChildTabCancel[submodule="'+this.subModuleName+'"]').click(function() {
-            context.cancelDisplayTab();
-        });
-    };
-
     editDisplayTab(myButton) {
         var context = this;
         console.log("Child Tab New Button Called");
@@ -223,14 +251,14 @@ class ChildTab {
         var context = this;
         console.log("Child Tab New Button Called");
         console.log("Modal ID === "+this.modalId);
+        var submodule = $(myButton).attr("submodule");
 
-        var childTable = dynaRegister.getDataTable(this.subModuleName);
+        var childTable = dynaRegister.getDataTable(submodule);
         childTable.selectedId = null;
         this.removeTableSelectedRecord();
         utils.clearForm(this.formSelector);
 
         var moduleName = $(myButton).attr("module")
-        var submodule = $(myButton).attr("submodule")
         var formSelector = 'form[module="'+moduleName+'"][submodule="'+submodule+'"]';
         childFieldConstructor.initFields(moduleName, submodule, formSelector);
     };
@@ -343,7 +371,7 @@ class ChildTab {
                         <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close btn btnImage_${fileUploadId}" title="Full Screen" value="image_${fileUploadId}">
+                                    <button type="button" class="close btn btnImage btnImage_${fileUploadId}" title="Full Screen" value="image_${fileUploadId}">
                                         <i class="glyphicon glyphicon-fullscreen"></i>
                                     </button>       
                                     <h4 class="modal-title">Larger Image</h4>
@@ -364,16 +392,7 @@ class ChildTab {
                 html = html.replace("myImage", MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/download/"+fileUploadId);
                 $(".childTabRecordFiles[submodule='"+context.subModuleName+"']").append(html);
                 $(".recordFiles").append(html);
-                $(".btnImage_"+fileUploadId).click(function() {
-                    context.displayLargeImageFullScreen(this);
-                });
             });
-            $('.setFileProfile').click(function() {
-                context.setFileProfile(this);
-            });               
-            $('.attachFileRemove').click(function() {
-                context.removeAttachedFile(this);
-            });               
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -387,4 +406,9 @@ class ChildTab {
         });
     };
 }
+
+$(function () {
+    childTabs = new ChildTabs();
+});
+
 

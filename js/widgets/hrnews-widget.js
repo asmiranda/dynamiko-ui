@@ -1,11 +1,11 @@
 class HrNewsWidget {
     constructor() {
-    }
-
-    init() {
         var context = this;
         console.log("HrNewsWidget");
 
+        $(document).on('click', '.showHrNews', function() {
+            context.showHrNews(this);
+        });
         this.loadTask();
     }
 
@@ -53,9 +53,6 @@ class HrNewsWidget {
                 </div>
                 `;
                 $("#HrNewsWidgetList").append(str);
-            });
-            $(".showHrNews").click(function() {
-                context.showHrNews(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

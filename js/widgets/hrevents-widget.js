@@ -1,10 +1,11 @@
 class HrEventsWidget {
     constructor() {
-    }
-
-    init() {
-        var context = this;
         console.log("HrEventsWidget");
+        var context = this;
+
+        $(document).on('click', '.showHrEvent', function() {
+            context.showHrEvent(this);
+        });
 
         this.loadTask();
     }
@@ -53,9 +54,6 @@ class HrEventsWidget {
                 </div>
                 `;
                 $("#HrEventsWidgetList").append(str);
-            });
-            $(".showHrEvent").click(function() {
-                context.showHrEvent(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

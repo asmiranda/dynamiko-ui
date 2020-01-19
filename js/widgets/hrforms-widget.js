@@ -1,10 +1,11 @@
 class HrFormsWidget {
     constructor() {
-    }
-
-    init() {
-        var context = this;
         console.log("HrFormsWidget");
+
+        var context = this;
+        $(document).on('click', '.downloadHrForm', function() {
+            context.downloadForm(this);
+        });
 
         this.loadTask();
     }
@@ -34,9 +35,6 @@ class HrFormsWidget {
                 </p>
                 `;
                 $("#HrFormsWidgetList").append(str);
-            });
-            $(".downloadHrForm").click(function() {
-                context.downloadForm(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

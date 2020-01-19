@@ -1,8 +1,22 @@
 class UploadDataFile {
-    init() {
+    constructor() {
         var context = this;
-        $("#uploadDataFile").click(function () {
+        $(document).on('click', '#uploadDataFile', function() {
             context.displayUploadDataViewer();
+        });
+        $(document).on('click', '.downloadTemplate', function() {
+            context.downloadTemplate();
+        });
+        $(document).on('change', '#fileDataUpload', function(evt) {
+            context.displayCsvFile(evt);
+            var fileName = evt.target.files[0].name;
+            $("#chosenFileForUpload").html(fileName);
+        });
+        $(document).on('change', '.btnUploadDataFile', function(evt) {
+            context.uploadDataFile();
+        });
+        $(document).on('click', '.useTemplate', function() {
+            context.useChosenTemplate(this);
         });
     };
 
@@ -72,17 +86,6 @@ class UploadDataFile {
         `;
         $("#content-main").append(str);
         this.loadAllUploadDataTemplate();
-        $(".downloadTemplate").click(function () {
-            context.downloadTemplate();
-        });
-        $("#fileDataUpload").change(function (evt) {
-            context.displayCsvFile(evt);
-            var fileName = evt.target.files[0].name;
-            $("#chosenFileForUpload").html(fileName);
-        });
-        $(".btnUploadDataFile").click(function () {
-            context.uploadDataFile();
-        });
     }
 
     displayCsvFile(evt) {
@@ -149,9 +152,6 @@ class UploadDataFile {
 
                 var str = `<li class="useTemplate ${code}" value="${code}" label="${name}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-gears"> ${name}</i></a></li>`;
                 $(".templateList").append(str);
-            });
-            $('.useTemplate').click(function () {
-                context.useChosenTemplate(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

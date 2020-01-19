@@ -8,11 +8,6 @@ class Dashboard {
         var successCallback = function(data) {
             $("#content-main").html(data);
             $('[data-mask]').inputmask();
-            // context.controlButtonClass.initButtons();
-            // context.searchTableClass.initTable();
-            // context.childTabs.initTabs();
-            // context.moduleHelper.initHelp();
-            // context.profilePicLoader.init();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

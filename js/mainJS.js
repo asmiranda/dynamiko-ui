@@ -50,32 +50,35 @@ class UIService {
         this.initCompany();
         this.initProfile();
 
-        $(".btnSignOut").click(function() {
+        $(document).on('click', '.btnSignOut', function() {
             window.location.href = "login.html";
         });
-        $(".manageUserRoles").click(function() {
+        $(document).on('click', '.manageUserRoles', function() {
             context.manageUserRoles();
         });
-        $(".manageDepartment").click(function() {
+        $(document).on('click', '.manageDepartment', function() {
             context.manageDepartment();
         });
-        $(".manageTaxCategory").click(function() {
+        $(document).on('click', '.manageTaxCategory', function() {
             context.manageTaxCategory();
         });
-        $(".manageAccountChart").click(function() {
+        $(document).on('click', '.manageAccountChart', function() {
             context.manageAccountChart();
         });
-        $(".manageBenefit").click(function() {
+        $(document).on('click', '.manageBenefit', function() {
             context.manageBenefit();
         });
-        $(".manageEmployee").click(function() {
+        $(document).on('click', '.manageEmployee', function() {
             context.manageEmployee();
         });
-        $(".manageSupplier").click(function() {
+        $(document).on('click', '.manageSupplier', function() {
             context.manageSupplier();
         });
-        $(".manageProduct").click(function() {
+        $(document).on('click', '.manageProduct', function() {
             context.manageProduct();
+        });
+        $(document).on('click', '.choiceCompany', function() {
+            context.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
         });
     }
 
@@ -139,14 +142,6 @@ class UIService {
                 context.changeCompany(companyCode, companyName);
             });
             context.initLogo();
-
-            leftMenu.init();    
-            dataVisualizer.init();    
-            uploadDataFile.init();
-
-            $(".choiceCompany").click(function() {
-                context.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
-            });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -190,7 +185,7 @@ class UIService {
 }
 
 class LeftMenu {
-    init() {
+    constructor() {
         var context = this;
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
 
@@ -205,9 +200,24 @@ class LeftMenu {
             $.each(menus, function(i, obj) {
                 context.addMenu(obj, data);
             });
-            context.initialize();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+
+        $(document).on('click', '.leftDashboardItem', function() {
+            console.log("leftDashboardItem CALLED...");
+            var moduleName = $(this).attr("data");
+            console.log("moduleName == "+moduleName);
+            var dashboard = new Dashboard();
+            dashboard.load(moduleName);
+        });
+        $(document).on('click', '.leftMenuItem[report="true"]', function() {
+            var moduleName = $(this).attr("data");
+            mainReport.constructMainReport(moduleName);
+        });
+        $(document).on('click', '.leftMenuItem[report="false"]', function() {
+            var moduleName = $(this).attr("data");
+            context.loadUI(moduleName);
+        });
     };
 
     addMenu(menu, data) {
@@ -226,25 +236,6 @@ class LeftMenu {
             if (obj.getProp("dashboard")) {
                 $(".mysidemenu").append('<li><a href="#" class="leftDashboardItem" data="'+obj.getProp("name")+'"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
             }
-        });
-    }
-
-    initialize() {
-        var context = this;
-        $(".leftDashboardItem").click(function() {
-            console.log("leftDashboardItem CALLED...");
-            var moduleName = $(this).attr("data");
-            console.log("moduleName == "+moduleName);
-            var dashboard = new Dashboard();
-            dashboard.load(moduleName);
-        });
-        $(".leftMenuItem[report='true']").click(function() {
-            var moduleName = $(this).attr("data");
-            mainReport.constructMainReport(moduleName);
-        });
-        $(".leftMenuItem[report='false']").click(function() {
-            var moduleName = $(this).attr("data");
-            context.loadUI(moduleName);
         });
     }
 

@@ -1,33 +1,30 @@
 class MyLinksWidget {
     constructor() {
-    }
-
-    init() {
         var context = this;
         console.log("MyLinksWidget");
 
-        $(".myLink.attendance").click(function () {
+        $(document).on('click', '.myLink.attendance', function() {
             context.showAttendance();
         });
-        $(".myLink.payslip").click(function () {
+        $(document).on('click', '.myLink.payslip', function() {
             context.showPayslip();
         });
-        $(".myLink.holiday").click(function () {
+        $(document).on('click', '.myLink.holiday', function() {
             context.showHoliday();
         });
-        $(".myLink.travel").click(function() {
+        $(document).on('click', '.myLink.travel', function() {
             context.showTravel();
         });
-        $(".myLink.projects").click(function() {
+        $(document).on('click', '.myLink.projects', function() {
             context.showProjects();
         });
-        $(".myLink.training").click(function() {
+        $(document).on('click', '.myLink.training', function() {
             context.showTraining();
         });
-        $(".myLink.accounting").click(function() {
+        $(document).on('click', '.myLink.accounting', function() {
             context.showAccounting();
         });
-        $(".myLink.helpdesk").click(function() {
+        $(document).on('click', '.myLink.helpdesk', function() {
             context.showHelpdesk();
         });
     }

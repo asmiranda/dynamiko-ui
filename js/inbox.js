@@ -3,26 +3,42 @@ class MyInbox {
         var context = this;
         console.log("Testing Inbox");
         
-        $(".workStarted").click(function() {
+        $(document).on('click', '.workStarted', function() {
             context.loadWorkStarted();
         });
-        $(".taskForMe").click(function() {
+        $(document).on('click', '.taskForMe', function() {
             context.loadTask('me');
         });
-        $(".taskForOpen").click(function() {
+        $(document).on('click', '.taskForOpen', function() {
             context.loadTask('open');
         });
-        $(".taskForCompleted").click(function() {
+        $(document).on('click', '.taskForCompleted', function() {
             context.loadTask('completed');
         });
-        $(".taskForRejected").click(function() {
+        $(document).on('click', '.taskForRejected', function() {
             context.loadTask('rejected');
         });
-        $(".taskForCancelled").click(function() {
+        $(document).on('click', '.taskForCancelled', function() {
             context.loadTask('cancelled');
         });
+        $(document).on('click', '.mailbox-star', function() {
+            e.preventDefault();
+            //detect type
+            var $this = $(this).find("a > i");
+            var glyph = $this.hasClass("glyphicon");
+            var fa = $this.hasClass("fa");
 
-        this.initFavorite();
+            //Switch states
+            if (glyph) {
+                $this.toggleClass("glyphicon-star");
+                $this.toggleClass("glyphicon-star-empty");
+            }
+
+            if (fa) {
+                $this.toggleClass("fa-star");
+                $this.toggleClass("fa-star-o");
+            }
+        });
         this.loadWorkStarted();
     }
 
@@ -110,28 +126,6 @@ class MyInbox {
 
     clearInbox() {
         $("table#myInbox").find("tr:gt(0)").remove();
-    }
-
-    initFavorite() {
-        //Handle starring for glyphicon and font awesome
-        $(".mailbox-star").click(function (e) {
-            e.preventDefault();
-            //detect type
-            var $this = $(this).find("a > i");
-            var glyph = $this.hasClass("glyphicon");
-            var fa = $this.hasClass("fa");
-
-            //Switch states
-            if (glyph) {
-                $this.toggleClass("glyphicon-star");
-                $this.toggleClass("glyphicon-star-empty");
-            }
-
-            if (fa) {
-                $this.toggleClass("fa-star");
-                $this.toggleClass("fa-star-o");
-            }
-        });
     }
 }
 

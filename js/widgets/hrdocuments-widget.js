@@ -1,9 +1,12 @@
 class HrDocumentsWidget {
     constructor() {
+        var context = this;
+        $(document).on('click', '.showHrDocument', function() {
+            context.showHrDocument(this);
+        });
     }
 
     init() {
-        var context = this;
         console.log("HrDocumentsWidget");
 
         this.loadTask();
@@ -34,9 +37,6 @@ class HrDocumentsWidget {
                 </p>
                 `;
                 $("#HrDocumentsWidgetList").append(str);
-            });
-            $(".showHrDocument").click(function() {
-                context.showHrDocument(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

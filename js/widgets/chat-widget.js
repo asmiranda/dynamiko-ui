@@ -1,15 +1,10 @@
 class ChatWidget {
     constructor() {
-    }
-
-    init() { 
         var context = this;
-        console.log("ChatWidget");
-
-        $("#btnChatMessage").click(function() {
+        $(document).on('click', '#btnChatMessage', function() {
             context.sendBot();
         });
-        $("#userChatMessage").on('keyup', function (e) {
+        $(document).on('click', '#userChatMessage', function() {
             if (e.keyCode === 13) {
                 context.sendBot();
             }

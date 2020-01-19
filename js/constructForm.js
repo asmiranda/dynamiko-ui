@@ -4,9 +4,8 @@ class ConstructMainForm {
         this.searchTable = searchTable;
         this.mainForm = mainForm;
 
-        this.childTabs = new ChildTabs(this.moduleName, this.mainForm);
-        this.searchTableClass = new SearchTable(this.moduleName, this.mainForm, this.searchTable, this.childTabs);
-        this.controlButtonClass = new FormControlButton(this.moduleName, this.mainForm, this.searchTableClass, this.childTabs);
+        this.searchTableClass = new SearchTable(this.moduleName, this.mainForm, this.searchTable);
+        this.controlButtonClass = new FormControlButton(this.moduleName, this.mainForm, this.searchTableClass);
         this.moduleHelper = new ModuleHelper(this.moduleName, this.mainForm);
         this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
         this.formRule = new FormRule(this.moduleName, this.mainForm);
@@ -35,7 +34,7 @@ class ConstructMainForm {
         context.controlButtonClass.initButtons();
         context.searchTableClass.initTable();
         fieldConstructor.initFields(this.moduleName, this.mainForm);
-        context.childTabs.initTabs();
+        childTabs.initTabs(this.moduleName, this.mainForm);
         context.moduleHelper.initHelp();
         context.profilePicLoader.init();
         // context.formRule.doRule();
@@ -61,7 +60,7 @@ class ConstructMainForm {
                 utils.loadJsonToForm(context.mainForm, data);
                 utils.loadJsonAddInfo(data);
     
-                context.childTabs.reloadAllDisplayTabs();
+                childTabs.reloadAllDisplayTabs();
                 localStorage.latestModuleId = recordId;
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -70,7 +69,7 @@ class ConstructMainForm {
             utils.loadJsonToForm(context.mainForm, searchData);
             utils.loadJsonAddInfo(searchData);
 
-            context.childTabs.reloadAllDisplayTabs();
+            childTabs.reloadAllDisplayTabs();
             localStorage.latestModuleId = recordId;
         }
     }
@@ -182,11 +181,10 @@ class ModuleHelper {
 }
 
 class FormControlButton {
-    constructor(moduleName, mainForm, searchTableClass, childTabs) {
+    constructor(moduleName, mainForm, searchTableClass) {
         this.moduleName = moduleName;
         this.mainForm = mainForm;
         this.searchTableClass = searchTableClass;
-        this.childTabs = childTabs;
         this.formUploadData = new FormData();
         this.formRule = new FormRule(this.moduleName, this.mainForm);
     }
@@ -219,6 +217,13 @@ class FormControlButton {
         $(document).on('click', 'button.btnSaveUpload', function() {
             context.saveUpload();
         });
+        $(document).on('click', '.myReport', function() {
+            context.displayReport(this);
+        });
+        $(document).on('click', '.reportClose', function() {
+            console.log("close report");
+            dynamicReport.dialog("close");
+        });
     };
 
     initReport() {
@@ -235,9 +240,6 @@ class FormControlButton {
 
                 var str = `<li class="myReport ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-line-chart"> ${name}</i></a></li>`;
                 $(".dynamicReport").after(str);
-            });
-            $('.myReport').click(function() {
-                context.displayReport(this);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -268,10 +270,6 @@ class FormControlButton {
                 var dynamicReport = $("#reportDynamicDialog").dialog({
                     width: '90%',
                     modal: true,
-                });
-                $(".reportClose").click(function() {
-                    console.log("close report");
-                    dynamicReport.dialog("close");
                 });
             }
             else {
@@ -399,7 +397,7 @@ class FormControlButton {
             utils.loadJsonToForm(context.mainForm, data);
             utils.loadJsonAddInfo(data);
 
-            context.childTabs.reloadAllDisplayTabs();
+            childTabs.reloadAllDisplayTabs();
 
             context.searchTableClass.reloadSearch();
             // context.formRule.doRule();
@@ -419,8 +417,6 @@ class FormControlButton {
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             // utils.loadJsonToForm(context.mainForm, data);
-
-            // context.childTabs.clearAllDisplayTabs();
 
             // context.searchTableClass.clearSearch();
             // context.formRule.doRule();
@@ -448,7 +444,7 @@ class FormControlButton {
             utils.loadJsonToForm(context.mainForm, data);
             utils.loadJsonAddInfo(data);
 
-            context.childTabs.reloadAllDisplayTabs();
+            childTabs.reloadAllDisplayTabs();
 
             context.searchTableClass.reloadSearch();
             // context.formRule.doRule();
@@ -458,13 +454,28 @@ class FormControlButton {
 }
 
 class SearchTable {
-    constructor(moduleName, mainForm, searchTable, childTabs) {
+    constructor(moduleName, mainForm, searchTable) {
         this.moduleName = moduleName;
         this.mainForm = mainForm;
         this.searchTable = searchTable;
-        this.childTabs = childTabs;
         this.successCallback;
         this.formRule = new FormRule(this.moduleName, this.mainForm);
+    
+        $(document).on('click', '.setFileProfile', function() {
+            context.setFileProfile(this);
+        });               
+        $(document).on('click', '.attachFileRemove', function() {
+            context.removeAttachedFile(this);
+        });               
+        $(document).on('keyup', 'input[class~="filter"]', function() {
+            context.reloadSearch();
+        });
+        $(document).on('click', 'select.specialSearch', function() {
+            context.reloadSpecialSearch();
+        });
+        $(document).on('click', 'btnImage', function() {
+            context.displayLargeImageFullScreen(this);
+        });
     }
 
     initTable() {
@@ -473,12 +484,6 @@ class SearchTable {
         dynaRegister.createDropZone(context.moduleName, "div#mainDropZone", context, mainDataTable);
 
         this.reloadSearch();
-        $('input[class~="filter"][module="'+this.moduleName+'"]').keyup(function() {
-            context.reloadSearch();
-        });
-        $('select.specialSearch').change(function() {
-            context.reloadSpecialSearch();
-        });
     };
 
     loadToForm() {
@@ -497,7 +502,7 @@ class SearchTable {
                 utils.loadJsonToForm(context.mainForm, data);
                 utils.loadJsonAddInfo(data);
     
-                context.childTabs.reloadAllDisplayTabs();
+                childTabs.reloadAllDisplayTabs();
                 for (const [key, value] of dynaRegister.saasMap) {
                     value.loadToForm(context);
                 }
@@ -509,7 +514,7 @@ class SearchTable {
             utils.loadJsonToForm(context.mainForm, searchData);
             utils.loadJsonAddInfo(searchData);
 
-            context.childTabs.reloadAllDisplayTabs();
+            childTabs.reloadAllDisplayTabs();
             for (const [key, value] of dynaRegister.saasMap) {
                 value.loadToForm(context);
             }
@@ -559,7 +564,7 @@ class SearchTable {
                         <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close btn btnImage_${fileUploadId}" title="Full Screen" value="image_${fileUploadId}">
+                                    <button type="button" class="close btn btnImage btnImage_${fileUploadId}" title="Full Screen" value="image_${fileUploadId}">
                                         <i class="glyphicon glyphicon-fullscreen"></i>
                                     </button>       
                                     <h4 class="modal-title">Larger Image</h4>
@@ -579,16 +584,7 @@ class SearchTable {
                 html = html.replace("myModal", "imgModal_"+fileUploadId);
                 html = html.replace("myImage", MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/download/"+fileUploadId);
                 $(".recordFiles").append(html);
-                $(".btnImage_"+fileUploadId).click(function() {
-                    context.displayLargeImageFullScreen(this);
-                });
             });
-            $('.setFileProfile').click(function() {
-                context.setFileProfile(this);
-            });               
-            $('.attachFileRemove').click(function() {
-                context.removeAttachedFile(this);
-            });               
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

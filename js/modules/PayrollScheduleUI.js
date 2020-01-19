@@ -1,11 +1,11 @@
 class PayrollScheduleUI {
     constructor() {
-        this.init();
-    }
-
-    init() {
         var context = this;
-        $("input").focusout(function() {
+        $(document).on('click', '.addToPayroll', function() {
+            console.log("addToPayroll Click Called");
+            context.addToPayroll(this);
+        });
+        $(document).on('click', 'input.payrollInput]', function() {
             context.onfocusout(this);
         });
     }
@@ -106,10 +106,6 @@ class PayrollScheduleUI {
             str += "</table>";
             showModalAny500.show("Choose Employees", str, function() {
                 console.log("Callback Called for Choose Employee");
-                $(".addToPayroll").click(function() {
-                    console.log("addToPayroll Click Called");
-                    context.addToPayroll(this);
-                });
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
