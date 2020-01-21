@@ -80,7 +80,7 @@ class HrRequisitionUI {
             var strHtml = `
                 <div class="box" draggable="true" ondragstart="dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
                     <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
-                        <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI"><b>${applicant}</b></a></h3> 
+                        <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
                         <a href="#" class="pull-right btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
                         <a href="#" class="pull-right btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"></i></a>
