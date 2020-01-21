@@ -3,7 +3,7 @@ class TicketChartWidget {
     }
 
     init() {
-        console.log("LOAD TICKET CHART");
+        console.log("LOAD TICKET CHART"); 
         if ($("#ticketChart")) {
             var cashChart = document.getElementById("ticketChart").getContext("2d");
 

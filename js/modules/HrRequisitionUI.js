@@ -140,6 +140,23 @@ class HrRequisitionUI {
         ev.preventDefault();
     }
 
+    initRecruitmentPerformanceChart() {
+        console.log("LOAD RECRUITMENT PERFORMANCE CHART"); 
+        if ($("#recruitmentPerformanceChart")) {
+            var cashChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
+
+            var ajaxRequestDTO = new AjaxRequestDTO();
+            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/HrRequisitionUI/recruitmentPerformanceChart";
+            ajaxRequestDTO.data = "";
+
+            var successFunction = function(data) {
+                console.log(data);
+                widgetChartRule.doChart("#recruitmentPerformanceChart", data, data.chartType);
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        }
+    }
+
 }
 
 $(function () {
