@@ -636,7 +636,7 @@ class SearchTable {
         var mainDataTable = dynaRegister.getDataTable(context.moduleName);
         mainDataTable.clear();
         var columns = $(context.searchTable).attr("columns");
-        console.log(columns);
+        // console.log(columns);
         var firstRec = Object.keys(data[0]);
         var keys = columns.split(',');
         $.each(data, function(index, obj) {

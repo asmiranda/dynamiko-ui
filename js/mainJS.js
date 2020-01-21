@@ -120,7 +120,7 @@ class UIService {
         registerDatatable.clearRegister();
     
         constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
-       fileUpload.initUpload();
+        fileUpload.initUpload();
     }    
 
     initCompany() {

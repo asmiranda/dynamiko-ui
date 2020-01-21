@@ -17,6 +17,7 @@ function LoginJS() {
                 console.log(data.token);
                 sessionStorage.uname = context.uname;
                 sessionStorage.token = data.token;
+                sessionStorage.companyCode = data.companyCode;
                 //redirect
                 setTimeout(function() {
                     window.location.href = redUrl;
