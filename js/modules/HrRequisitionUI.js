@@ -1,4 +1,4 @@
-class HrRequisitionUI {
+class HrRequisitionUI { 
     constructor() {
         var context = this;
         $(document).on('click', '.btnRemoveApplicant', function() {
@@ -140,13 +140,18 @@ class HrRequisitionUI {
         ev.preventDefault();
     }
 
+    initOpenRequisition() {
+        console.log("initOpenRequisition");
+    }
+
     initRecruitmentPerformanceChart() {
-        console.log("LOAD RECRUITMENT PERFORMANCE CHART"); 
-        if ($("#recruitmentPerformanceChart")) {
-            var cashChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
+        console.log("initRecruitmentPerformanceChart");
+
+        if ($("#recruitmentPerformanceChart").attr("id")) {
+            var recruitmentPerformanceChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/HrRequisitionUI/recruitmentPerformanceChart";
+            ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/recruitmentPerformanceChart`;
             ajaxRequestDTO.data = "";
 
             var successFunction = function(data) {
@@ -156,7 +161,6 @@ class HrRequisitionUI {
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
-
 }
 
 $(function () {
