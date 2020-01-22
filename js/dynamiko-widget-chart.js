@@ -1,10 +1,28 @@
 class WidgetChartRule {
+    constructor() {
+        var context = this;
+        $(document).on('click', '.btnChartFullScreen', function() {
+            context.chartFullScreen(this);
+        });        
+    }
+
+    chartFullScreen(btn) {
+        var myChart = $(btn).attr("chart");
+        $(myChart).fullScreen(true);
+    }
+
     doChart(ecanvas, data, chartType) {
         if (chartType=='BAR') {
             this.doVerticalBarChart(ecanvas, data);
         }
+        if (chartType=='STACKED_BAR') {
+            this.doVerticalStackedBarChart(ecanvas, data);
+        }
         else if (chartType=='HORIZONTALBAR') {
             this.doHorizontalBarChart(ecanvas, data);
+        }
+        else if (chartType=='STACKED_HORIZONTALBAR') {
+            this.doHorizontalStackedBarChart(ecanvas, data);
         }
         else if (chartType=='LINE') {
             this.doLineChart(ecanvas, data);
@@ -47,8 +65,16 @@ class WidgetChartRule {
         this.doBarChart(ecanvas, data, "bar");
     }
 
+    doVerticalStackedBarChart(ecanvas, data) {
+        this.doStackedBarChart(ecanvas, data, "bar");
+    }
+
     doHorizontalBarChart(ecanvas, data) {
         this.doBarChart(ecanvas, data, "horizontalBar");
+    }
+
+    doHorizontalStackedBarChart(ecanvas, data) {
+        this.doStackedBarChart(ecanvas, data, "horizontalBar");
     }
 
     doBarChart(ecanvas, data, orientation) {
@@ -57,6 +83,19 @@ class WidgetChartRule {
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
         var chartOptions = this.getChartOption(chartData);
+        var barChart = new Chart(lineChartCanvas, {
+            type: orientation,
+            data: lineChartData,
+            options: chartOptions
+        });
+    }
+
+    doStackedBarChart(ecanvas, data, orientation) {
+        var lineChartCanvas = $(ecanvas).get(0).getContext('2d')
+
+        var chartData = data.chartData;
+        var lineChartData = this.getLineData(chartData);
+        var chartOptions = this.getStackedChartOption(chartData);
         var barChart = new Chart(lineChartCanvas, {
             type: orientation,
             data: lineChartData,
@@ -184,6 +223,55 @@ class WidgetChartRule {
                 }
             },
             responsive: true,
+            maintainAspectRatio: true
+        }
+        if (chartData && !chartData.label2) {
+            chartOptions.legend.display = false;
+        }
+        return chartOptions;
+    }
+
+    getStackedChartOption(chartData) {
+        var chartOptions = {
+            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: true,
+            //Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor: 'rgba(0,0,0,.05)',
+            //Number - Width of the grid lines
+            scaleGridLineWidth: 1,
+            //Boolean - Whether to show horizontal lines (except X axis)
+            scaleShowHorizontalLines: true,
+            //Boolean - Whether to show vertical lines (except Y axis)
+            scaleShowVerticalLines: true,
+            //Boolean - If there is a stroke on each bar
+            barShowStroke: true,
+            //Number - Pixel width of the bar stroke
+            barStrokeWidth: 2,
+            //Number - Spacing between each of the X value sets
+            barValueSpacing: 5,
+            //Number - Spacing between data sets within X values
+            barDatasetSpacing: 1,
+            //String - A legend template
+            // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            //Boolean - whether to make the chart responsive
+            legend: {
+                position: 'top',
+                labels: {
+                    boxWidth: 20,
+                    fontSize: 8,
+                }
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            },
             maintainAspectRatio: true
         }
         if (chartData && !chartData.label2) {
