@@ -1,7 +1,10 @@
 class WidgetChartRule {
     doChart(ecanvas, data, chartType) {
         if (chartType=='BAR') {
-            this.doBarChart(ecanvas, data);
+            this.doVerticalBarChart(ecanvas, data);
+        }
+        else if (chartType=='HORIZONTALBAR') {
+            this.doHorizontalBarChart(ecanvas, data);
         }
         else if (chartType=='LINE') {
             this.doLineChart(ecanvas, data);
@@ -40,14 +43,22 @@ class WidgetChartRule {
         });
     }
 
-    doBarChart(ecanvas, data) {
+    doVerticalBarChart(ecanvas, data) {
+        this.doBarChart(ecanvas, data, "bar");
+    }
+
+    doHorizontalBarChart(ecanvas, data) {
+        this.doBarChart(ecanvas, data, "horizontalBar");
+    }
+
+    doBarChart(ecanvas, data, orientation) {
         var lineChartCanvas = $(ecanvas).get(0).getContext('2d')
 
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
         var chartOptions = this.getChartOption(chartData);
         var barChart = new Chart(lineChartCanvas, {
-            type: 'bar',
+            type: orientation,
             data: lineChartData,
             options: chartOptions
         });
