@@ -147,6 +147,7 @@ class HrRequisitionUI {
     initRecruitmentPerformanceChart() {
         console.log("initRecruitmentPerformanceChart");
 
+        var context = this;
         if ($("#recruitmentPerformanceChart").attr("id")) {
             var recruitmentPerformanceChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
 
@@ -156,10 +157,20 @@ class HrRequisitionUI {
 
             var successFunction = function(data) {
                 console.log(data);
-                widgetChartRule.doChart("#recruitmentPerformanceChart", data, data.chartType);
+                widgetChartRule.doChart("#recruitmentPerformanceChart", data, data.chartType, function(evt) {
+                    context.recruitmentPerformanceChartClickHandler(evt, recruitmentPerformanceChart, this.getElementsAtEvent(evt), this);
+                });
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
+    }
+
+    recruitmentPerformanceChartClickHandler(evt, chart, obj, segment) {
+        // var activePoints = chart.getElementsAtEvent(evt);
+        // var selectedIndex = activePoints[0]._index;
+        // console.log(this.data.datasets[0].data[selectedIndex]);              
+        console.log(obj);
+        console.log(segment);
     }
 }
 

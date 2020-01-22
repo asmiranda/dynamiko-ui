@@ -1,6 +1,7 @@
 class WidgetChartRule {
     constructor() {
         var context = this;
+        this.clickCallback;
         $(document).on('click', '.btnChartFullScreen', function() {
             context.chartFullScreen(this);
         });        
@@ -11,7 +12,8 @@ class WidgetChartRule {
         $(myChart).fullScreen(true);
     }
 
-    doChart(ecanvas, data, chartType) {
+    doChart(ecanvas, data, chartType, clickCallback) {
+        this.clickCallback = clickCallback;
         if (chartType=='BAR') {
             this.doVerticalBarChart(ecanvas, data);
         }
@@ -191,6 +193,7 @@ class WidgetChartRule {
     }
 
     getChartOption(chartData) {
+        var context = this;
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -222,6 +225,7 @@ class WidgetChartRule {
                     fontSize: 8,
                 }
             },
+            onClick: context.clickCallback,
             responsive: true,
             maintainAspectRatio: true
         }
@@ -232,6 +236,7 @@ class WidgetChartRule {
     }
 
     getStackedChartOption(chartData) {
+        var context = this;
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -272,6 +277,7 @@ class WidgetChartRule {
                     stacked: true
                 }]
             },
+            onClick: context.clickCallback,
             maintainAspectRatio: true
         }
         if (chartData && !chartData.label2) {
