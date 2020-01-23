@@ -1,6 +1,9 @@
 class HrRequisitionUI { 
     constructor() {
         var context = this;
+        $(document).on('click', '.btnCreateJob', function() {
+            context.createJob(this);
+        });
         $(document).on('click', '.btnRemoveApplicant', function() {
             context.removeApplicant(this);
         });
@@ -8,6 +11,30 @@ class HrRequisitionUI {
             console.log("###############HrRequisitionId change#############");
             context.reArrange(this);
         });
+    }
+
+    createJob(obj) {
+        var context = this;
+        var title = $("input[name='createJobRequisitionTitle']").val();
+        var recruiterCode = $(".HiddenAutoComplete[name='createJobRecruiterCode']").val();
+        var managerCode = $(".HiddenAutoComplete[name='createJobManagerCode']").val();
+        var numberOfOpening = $("input[name='createJobNumberOfOpening']").val();
+
+        var tmp = {};
+        tmp["title"] = title;
+        tmp["recruiterCode"] = recruiterCode;
+        tmp["managerCode"] = managerCode;
+        tmp["numberOfOpening"] = numberOfOpening;
+        
+        var vdata = JSON.stringify(tmp);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/createJob`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            //todo: refresh MyTeamRequisition
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
     removeApplicant(obj) {
