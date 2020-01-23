@@ -119,7 +119,7 @@ class UIService {
         localStorage.latestModule = moduleName;
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', mainForm);
+        constructMainForm.construct(moduleName);
         fileUpload.initUpload();
     }    
 
@@ -244,7 +244,7 @@ class LeftMenu {
         localStorage.latestModule = moduleName;
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', mainForm);
+        constructMainForm.construct(moduleName);
         fileUpload.initUpload();
     }    
 }
@@ -376,6 +376,8 @@ class SearchCache {
 
 $(function () {
     mainForm = '#mainForm';
+    mainSearchForm = '#searchTable';
+    mainId = 'input.mainId';
 
     allTable = [];
     uiService = new UIService();

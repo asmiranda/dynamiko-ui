@@ -12,15 +12,15 @@ class FormLinker {
     startChildToFormLink(obj) {
         var moduleName = $(obj).attr("module");
         var submodule = $(obj).attr("submodule");
-        var mainId = $(obj).attr("mainId");
+        var recordId = $(obj).attr("mainId");
         var fieldname = $(obj).attr("fieldname");
         var childid = $(obj).attr("childid");
-        this.linkChildToForm(moduleName, submodule, fieldname, mainId, childid);
+        this.linkChildToForm(moduleName, submodule, fieldname, recordId, childid);
     }
 
-    linkChildToForm(moduleName, submodule, fieldname, mainId, childid) {
+    linkChildToForm(moduleName, submodule, fieldname, recordId, childid) {
         var context = this;
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/childtoformlink/"+moduleName+"/"+submodule+"/"+fieldname+"/"+mainId+"/"+childid;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/childtoformlink/"+moduleName+"/"+submodule+"/"+fieldname+"/"+recordId+"/"+childid;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -41,7 +41,7 @@ class FormLinker {
     linkToForm(moduleName, recordId) {
         registerDatatable.clearRegister();
 
-        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', mainForm, recordId);
+        constructMainForm.construct(moduleName, recordId);
         fileUpload.initUpload();
     }
 }

@@ -124,8 +124,8 @@ class ChildTab {
         var context = this;
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/subrecord/' + this.moduleName + '/' + this.subModuleName;
         var cacheKey = JSON.stringify(utils.convertFormToJSON($(mainForm)));
-        var mainId = $("input.mainId").val();
-        if (mainId > 0) {
+        var mainIdVal = $(mainId).val();
+        if (mainIdVal > 0) {
             if (this.cache!="true") {
                 var ajaxRequestDTO = new AjaxRequestDTO(url, cacheKey);
                 var successCallback = function(data) {
@@ -232,7 +232,7 @@ class ChildTab {
         var childTable = dynaRegister.getDataTable(this.subModuleName);
         var isLinkable = ~childTable.linkableColumns.indexOf(key.toUpperCase());
         if (isLinkable) {
-            var recordId = $('input.mainId').val();
+            var recordId = $(mainId).val();
             return `<a href="#" class="childFormLinker" fieldName="${key}" mainId="${recordId}" childId="${childId}" module="${this.moduleName}" submodule="${this.subModuleName}">${value}</a>`;
         }
         else {

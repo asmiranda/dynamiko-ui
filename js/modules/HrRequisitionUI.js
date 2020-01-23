@@ -7,7 +7,7 @@ class HrRequisitionUI {
         $(document).on('click', '.btnRemoveApplicant', function() {
             context.removeApplicant(this);
         });
-        $(document).on('change', 'input.mainId[name="HrRequisitionId"]', function() {
+        $(document).on('change', mainId, function() {
             console.log("###############HrRequisitionId change#############");
             context.reArrange(this);
         });

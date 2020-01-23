@@ -47,7 +47,7 @@ class UserUI {
             </div>
           </div>        
         `;
-        var recordId = $('input.mainId').val();
+        var recordId = $(mainId).val();
         if (recordId > 0) {
           var success = function() {
             console.log("testing confirm only");
@@ -70,7 +70,7 @@ class UserUI {
       }
       else {
         var context = this;
-        var recordId = $("input.mainId").val();
+        var recordId = $(mainId).val();
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/UserUI/savereset/"+recordId;
         var resetPasswordDTO = new ResetPasswordDTO(oldPassword, newPassword);
         var vdata = JSON.stringify(resetPasswordDTO);

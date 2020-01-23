@@ -17,7 +17,7 @@ class FieldConstructor {
 }
 
 class FieldMultiSelect {
-    changeMultiSelectData(moduleName, mainId) {
+    changeMultiSelectData(moduleName) {
         var recordId = $(mainId).val();
         console.log("RECORD ID = " + recordId);
         $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
@@ -135,7 +135,7 @@ class FieldMultiSelect {
     init(moduleName) {
         console.log("MULTI SELECT MODULE " + moduleName);
         var context = this;
-        $(document).on('click', '.mainId', function() {
+        $(document).on('click', mainId, function() {
             context.changeMultiSelectData(this);
         });
         $(document).on('click', '.multiSelectDisplayAdd', function() {

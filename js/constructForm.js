@@ -1,11 +1,7 @@
 class ConstructMainForm {
-    construct(moduleName, searchTable, recordId) {
+    construct(moduleName, recordId) {
         this.moduleName = moduleName;
-        this.searchTable = searchTable;
 
-        this.searchTableClass = new SearchTable(this.moduleName, this.searchTable);
-        this.controlButtonClass = new FormControlButton(this.moduleName, this.searchTableClass);
-        this.moduleHelper = new ModuleHelper(this.moduleName);
         this.profilePicLoader = new ProfilePicLoader(this.moduleName);
         this.formRule = new FormRule(this.moduleName);
         this.printForm = new PrintForm(this.moduleName);
@@ -30,11 +26,10 @@ class ConstructMainForm {
         var context = this;        
         $("#content-main").html(uiHtml);
         $('[data-mask]').inputmask();
-        context.controlButtonClass.initButtons();
-        context.searchTableClass.initTable();
+        formControlButton.initButtons(this.moduleName);
+        searchTable.initTable(this.moduleName);
         fieldConstructor.initFields(this.moduleName);
         childTabs.initTabs(this.moduleName);
-        context.moduleHelper.initHelp();
         context.profilePicLoader.init();
         // context.formRule.doRule();
         // chartRule.doChart(this.moduleName);
@@ -143,7 +138,7 @@ class ProfilePicLoader {
     init() {
         console.log("ProfilePicLoader init called");
         var context = this;
-        $(`input.mainId[module='${this.moduleName}']`).on('change', function() {
+        $(mainId).on('change', function() {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
             if (recordId && recordId > 0) {
@@ -160,30 +155,12 @@ class ProfilePicLoader {
     }
 }
 
-class ModuleHelper {
-    constructor(moduleName) {
-        this.moduleName = moduleName;
-    }
-
-    initHelp() {
-        var context = this;
-        $(document).on('click', '.moduleHeader', function() {
-            var title = $(".moduleHelp").attr("title");
-            var helpHtml = $(".moduleHelp").html();
-            showModuleHelp.show(title, helpHtml);
-        });
-    }
-}
-
 class FormControlButton {
-    constructor(moduleName, searchTableClass) {
+    initButtons(moduleName) {
         this.moduleName = moduleName;
-        this.searchTableClass = searchTableClass;
         this.formUploadData = new FormData();
         this.formRule = new FormRule(this.moduleName);
-    }
 
-    initButtons() {
         var context = this;
         var myUploadDialog = $("#myUploadDialog").dialog({
             autoOpen: false,
@@ -248,9 +225,7 @@ class FormControlButton {
             return;
         }
         console.log("moduleName = " + this.moduleName);
-        var inputName = 'input.mainId[module="'+this.moduleName+'"]';
-        console.log("inputName = " + inputName);
-        var recordId = $(inputName).val();
+        var recordId = $(mainId).val();
 
         console.log("displayReport");
         console.log(value);
@@ -298,7 +273,7 @@ class FormControlButton {
     }
 
     mandatorySelectRecord() {
-        var recordId = $('input.mainId').val();
+        var recordId = $(mainId).val();
 
         if (recordId > 0) {
             return true;
@@ -312,9 +287,7 @@ class FormControlButton {
     listFileAttachments(myButton) {
         console.log("listFileAttachments");
         var moduleName = $(myButton).attr("module");
-        var inputName = 'input.mainId[module="'+moduleName+'"]';
-        console.log("inputName = " + inputName);
-        var recordId = $(inputName).val();
+        var recordId = $(mainId).val();
         console.log("recordId = " + recordId);
 
         if (this.mandatorySelectRecord()) {
@@ -350,9 +323,7 @@ class FormControlButton {
             context.listFileToTable(data);
         };
         var moduleName = $(myButton).attr("module");
-        var inputName = 'input.mainId[module="'+moduleName+'"]';
-        console.log("inputName = " + inputName);
-        var recordId = $(inputName).val();
+        var recordId = $(mainId).val();
         console.log("recordId = " + recordId);
         var uploadType = $("#XXuploadType").val();
         ajaxCaller.uploadFile(successCallback, moduleName, recordId, uploadType, this.formUploadData);
@@ -393,14 +364,14 @@ class FormControlButton {
 
             childTabs.reloadAllDisplayTabs();
 
-            context.searchTableClass.reloadSearch();
+            searchTable.reloadSearch();
             // context.formRule.doRule();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 
     showModalUpdateRecord() {
-        this.searchTableClass.displayAllFiles();
+        searchTable.displayAllFiles();
     }
 
     deleteRecord() {
@@ -412,12 +383,12 @@ class FormControlButton {
         var successCallback = function(data) {
             // utils.loadJsonToForm(mainForm, data);
 
-            // context.searchTableClass.clearSearch();
+            // searchTable.clearSearch();
             // context.formRule.doRule();
             localStorage.latestModule = context.moduleName;
             registerDatatable.clearRegister();
         
-            constructMainForm.construct(context.moduleName, `#searchTable[module="${context.moduleName}"]`, mainForm);
+            constructMainForm.construct(context.moduleName);
             fileUpload.initUpload();
         };
         var confirmDelete = function() {
@@ -440,7 +411,7 @@ class FormControlButton {
 
             childTabs.reloadAllDisplayTabs();
 
-            context.searchTableClass.reloadSearch();
+            searchTable.reloadSearch();
             // context.formRule.doRule();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
@@ -448,11 +419,8 @@ class FormControlButton {
 }
 
 class SearchTable {
-    constructor(moduleName, searchTable) {
-        this.moduleName = moduleName;
-        this.searchTable = searchTable;
-        this.successCallback;
-        this.formRule = new FormRule(this.moduleName);
+    constructor() {
+        var context = this;
     
         $(document).on('click', '.setFileProfile', function() {
             context.setFileProfile(this);
@@ -471,9 +439,13 @@ class SearchTable {
         });
     }
 
-    initTable() {
+    initTable(moduleName) {
+        this.moduleName = moduleName;
+        this.successCallback;
+        this.formRule = new FormRule(this.moduleName);
+
         var context = this;
-        var mainDataTable = dynaRegister.createMainTable(this.moduleName, this.searchTable, this);
+        var mainDataTable = dynaRegister.createMainTable(this.moduleName, mainSearchForm, this);
         dynaRegister.createDropZone(context.moduleName, "div#mainDropZone", context, mainDataTable);
 
         this.reloadSearch();
@@ -628,7 +600,7 @@ class SearchTable {
         console.log("Reload Search");
         var mainDataTable = dynaRegister.getDataTable(context.moduleName);
         mainDataTable.clear();
-        var columns = $(context.searchTable).attr("columns");
+        var columns = $(mainSearchForm).attr("columns");
         // console.log(columns);
         var firstRec = Object.keys(data[0]);
         var keys = columns.split(',');
@@ -683,7 +655,7 @@ class SearchTable {
         this.successCallback = function(data) {
             console.log("Reload Search");
             mainDataTable.clear();
-            var columns = $(context.searchTable).attr("columns");
+            var columns = $(mainSearchForm).attr("columns");
             console.log(columns);
             var firstRec = Object.keys(data[0]);
             var keys = columns.split(',');
@@ -718,4 +690,6 @@ class SearchTable {
 
 $(function () {
     constructMainForm = new ConstructMainForm();
+    searchTable = new SearchTable();
+    formControlButton = new FormControlButton();
 });
