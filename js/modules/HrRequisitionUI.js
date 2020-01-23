@@ -140,6 +140,42 @@ class HrRequisitionUI {
         ev.preventDefault();
     }
 
+    loadTeamRequisition() {
+        console.log("loadTeamRequisition");
+
+        var context = this;
+        var ajaxRequestDTO = new AjaxRequestDTO();
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadTeamRequisition`;
+        ajaxRequestDTO.data = "";
+
+        var successFunction = function(data) {
+            console.log(data);
+            $(".myTeamRequisition").empty();
+            $(data).each(function(index, obj) {
+                var requisitionId = obj.getProp("reqId");
+                var jobTitle = obj.getProp("title");            
+                var recruiter = obj.getProp("recruiter");
+                var manager = obj.getProp("manager");
+                var status = obj.getProp("status");
+                var opening = obj.getProp("opening");
+
+                var strHtml = `
+                    <strong><a href="#" class="loadRequisitionById" recordId="${requisitionId}">${jobTitle}</a></strong>
+                    <p class="text-muted">
+                        Served By: <a>${recruiter}</a> for <a>${manager}</a>
+                    </p>
+                    <p>
+                        <span class="label label-danger">Opening - ${opening}</span>
+                        <span class="label label-info">Status - ${status}</span>
+                    </p>
+                    <hr/>
+                `;
+                $(".myTeamRequisition").append(strHtml);
+            })
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
     initOpenRequisition() {
         console.log("initOpenRequisition");
     }
