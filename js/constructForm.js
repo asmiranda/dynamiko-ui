@@ -147,35 +147,34 @@ class FormControlButton {
         this.moduleName = moduleName;
         this.formUploadData = new FormData();
 
-        var context = this;
         var myUploadDialog = $("#myUploadDialog").dialog({
             autoOpen: false,
         });
         this.initFileUpload();
         
         $(document).on('click', '.btnToggleSearch', function() {
-            context.toggleSearch();
+            formControlButton.toggleSearch();
         });
         $(document).on('click', '.btnNew', function() {
-            context.newRecord();
+            formControlButton.newRecord(this);
         });
         $(document).on('click', '.btnUpdate', function() {
-            context.showModalUpdateRecord();
+            formControlButton.showModalUpdateRecord(this);
         });
         $(document).on('click', '.btnSave', function() {
-            context.saveRecord();
+            formControlButton.saveRecord(this);
         });
         $(document).on('click', '.btnDelete', function() {
-            context.deleteRecord();
+            formControlButton.deleteRecord(this);
         });
         $(document).on('click', 'li.btnUpload', function() {
-            context.listFileAttachments();
+            formControlButton.listFileAttachments(this);
         });
         $(document).on('click', 'button.btnSaveUpload', function() {
-            context.saveUpload();
+            formControlButton.saveUpload(this);
         });
         $(document).on('click', '.myReport', function() {
-            context.displayReport(this);
+            formControlButton.displayReport(this);
         });
         $(document).on('click', '.reportClose', function() {
             console.log("close report");
@@ -203,14 +202,13 @@ class FormControlButton {
     }
 
     displayReport(mySelectReport) {
-        var context = this;
         var value = $(mySelectReport).attr("value");
         // var value = $(mySelectReport).val();
         if (value == null || value == '' || value == '--Reports--') {
             console.log("EMPTY REPRT");
             return;
         }
-        console.log("moduleName = " + this.moduleName);
+        console.log("moduleName = " + formControlButton.moduleName);
         var recordId = $(mainId).val();
 
         console.log("displayReport");
@@ -235,7 +233,7 @@ class FormControlButton {
                 showModuleHelp.show("Information", str);
             }
         };
-        var myurl = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/report/dynamic/'+this.moduleName+"/"+value+"/"+recordId;
+        var myurl = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/report/dynamic/'+formControlButton.moduleName+"/"+value+"/"+recordId;
         xhr.responseType = 'arraybuffer';
         xhr.open('GET', myurl, true);
         xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
@@ -302,10 +300,9 @@ class FormControlButton {
     }
 
     saveUpload(myButton) {
-        var context = this;
         var successCallback = function(data) {
             console.log(data);
-            context.listFileToTable(data);
+            formControlButton.listFileToTable(data);
         };
         var moduleName = $(myButton).attr("module");
         var recordId = $(mainId).val();
@@ -323,7 +320,7 @@ class FormControlButton {
                 var file = $(this).prop('files')[0];
                 console.log("Received File");
                 console.log(file);
-                context.formUploadData.append("file", file);
+                formControlButton.formUploadData.append("file", file);
             }
         });
     }
@@ -337,11 +334,11 @@ class FormControlButton {
         }
     }
 
-    newRecord() {
-        var context = this;
+    newRecord(myButton) {
         console.log("newRecord called");
+        var moduleName = $(myButton).attr("module");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/new/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/new/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             utils.loadJsonToForm(mainForm, data);
@@ -358,17 +355,17 @@ class FormControlButton {
         searchTable.displayAllFiles();
     }
 
-    deleteRecord() {
-        var context = this;
+    deleteRecord(myButton) {
+        var moduleName = $(myButton).attr("module");
         console.log("deleteRecord called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            localStorage.latestModule = context.moduleName;
+            localStorage.latestModule = moduleName;
             registerDatatable.clearRegister();
         
-            constructMainForm.construct(context.moduleName);
+            constructMainForm.construct(moduleName);
             fileUpload.initUpload();
         };
         var confirmDelete = function() {
@@ -377,13 +374,13 @@ class FormControlButton {
         deleteRecordConfirm.confirm(confirmDelete);
     };
 
-    saveRecord() {
-        var context = this;
+    saveRecord(myButton) {
+        var moduleName = $(myButton).attr("module");
         console.log("saveRecord called");
         $('.multiSelect option').prop('selected', true);
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/save/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/save/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             utils.loadJsonToForm(mainForm, data);

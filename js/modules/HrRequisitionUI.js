@@ -133,7 +133,7 @@ class HrRequisitionUI {
                 lookFor = "<sub>employee here...</sub>";
             }
             var strHtml = `
-                <div class="box" draggable="true" ondragstart="dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                <div class="box" draggable="true" ondragstart="hrRequisitionUI.dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
                     <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
                         <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a></h3> 
                         <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
@@ -231,12 +231,80 @@ class HrRequisitionUI {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    initOpenRequisition() {
-        console.log("initOpenRequisition");
+    loadOpenRequisition() {
+        console.log("loadOpenRequisition");
+
+        var context = this;
+        var ajaxRequestDTO = new AjaxRequestDTO();
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadOpenRequisition`;
+        ajaxRequestDTO.data = "";
+
+        var successFunction = function(data) {
+            console.log(data);
+            $(".myOpenRequisition").empty();
+            $(data).each(function(index, obj) {
+                var requisitionId = obj.getProp("reqId");
+                var jobTitle = obj.getProp("title");            
+                var recruiter = obj.getProp("recruiter");
+                var manager = obj.getProp("manager");
+                var status = obj.getProp("status");
+                var opening = obj.getProp("opening");
+
+                var strHtml = `
+                    <strong><a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordId="${requisitionId}">${jobTitle}</a></strong>
+                    <p class="text-muted">
+                        Served By: <a>${recruiter}</a> for <a>${manager}</a>
+                    </p>
+                    <p>
+                        <span class="label label-danger">Opening - ${opening}</span>
+                        <span class="label label-info">Status - ${status}</span>
+                    </p>
+                    <hr/>
+                `;
+                $(".myOpenRequisition").append(strHtml);
+            })
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    initRecruitmentPerformanceChart() {
-        console.log("initRecruitmentPerformanceChart");
+    loadMyAssignedRequisition() {
+        console.log("loadMyAssignedRequisition");
+
+        var context = this;
+        var ajaxRequestDTO = new AjaxRequestDTO();
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadMyAssignedRequisition`;
+        ajaxRequestDTO.data = "";
+
+        var successFunction = function(data) {
+            console.log(data);
+            $(".myAssignedRequisition").empty();
+            $(data).each(function(index, obj) {
+                var requisitionId = obj.getProp("reqId");
+                var jobTitle = obj.getProp("title");            
+                var recruiter = obj.getProp("recruiter");
+                var manager = obj.getProp("manager");
+                var status = obj.getProp("status");
+                var opening = obj.getProp("opening");
+
+                var strHtml = `
+                    <strong><a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordId="${requisitionId}">${jobTitle}</a></strong>
+                    <p class="text-muted">
+                        Served By: <a>${recruiter}</a> for <a>${manager}</a>
+                    </p>
+                    <p>
+                        <span class="label label-danger">Opening - ${opening}</span>
+                        <span class="label label-info">Status - ${status}</span>
+                    </p>
+                    <hr/>
+                `;
+                $(".myAssignedRequisition").append(strHtml);
+            })
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadRecruitmentPerformanceChart() {
+        console.log("loadRecruitmentPerformanceChart");
 
         var context = this;
         if ($("#recruitmentPerformanceChart").attr("id")) {
