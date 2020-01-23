@@ -1,11 +1,10 @@
 class DynaButtonAction {
     constructor() {
-        var context = this;
         $(document).on('click', '.btnChildTabSave', function() {
-            context.saveDisplayTab(this);
+            dynaButtonAction.saveDisplayTab(this);
         });
         $(document).on('click', '.btnAddInfoSave', function() {
-            context.saveAddInfoSave(this);
+            dynaButtonAction.saveAddInfoSave(this);
         });
     }
 
@@ -49,8 +48,7 @@ class DynaButtonAction {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data, status, hqr) {
             $(context.modalId).modal('hide');
-            var moduleScript = new ModuleScript(moduleName);
-            moduleScript.saveChild(submodule);
+            moduleScript.saveChild(moduleName, submodule);
             var childTab = new ChildTab(moduleName, submodule);
             childTab.reloadDisplayTabs();
         };

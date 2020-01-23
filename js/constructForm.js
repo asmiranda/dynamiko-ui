@@ -2,10 +2,6 @@ class ConstructMainForm {
     construct(moduleName, recordId) {
         this.moduleName = moduleName;
 
-        this.profilePicLoader = new ProfilePicLoader(this.moduleName);
-        this.formRule = new FormRule(this.moduleName);
-        this.printForm = new PrintForm(this.moduleName);
-
         var context = this;        
         var uiHtml = uiCache.getUIHtml(this.moduleName);
         if (uiHtml=="" || uiHtml==null) {
@@ -23,22 +19,21 @@ class ConstructMainForm {
     };
 
     cacheConstruct(recordId, uiHtml) {
-        var context = this;        
         $("#content-main").html(uiHtml);
         $('[data-mask]').inputmask();
+
+        formRule.init(this.moduleName);
+        profilePicLoader.init(this.moduleName);
+        printForm.init(this.moduleName);
         formControlButton.initButtons(this.moduleName);
         searchTable.initTable(this.moduleName);
         fieldConstructor.initFields(this.moduleName);
         childTabs.initTabs(this.moduleName);
-        context.profilePicLoader.init();
-        // context.formRule.doRule();
-        // chartRule.doChart(this.moduleName);
-        // context.printForm.init();
+        profilePicLoader.init(this.moduleName);
+
         if (recordId) {
-            context.loadRecord(recordId);
+            this.loadRecord(recordId);
         }
-        var moduleScript = new ModuleScript(context.moduleName);
-        moduleScript.init();
     };
 
     loadRecord(recordId) {
@@ -70,12 +65,7 @@ class ConstructMainForm {
 }
 
 class PrintForm {
-    constructor(moduleName) {
-        console.log("PrintForm");
-        this.moduleName = moduleName;
-    }
-
-    init() {
+    init(moduleName) {
         $(document).on('click', '#printForm', function() {
             console.log("Print Form.");
             printJS('mainForm', 'html');
@@ -84,7 +74,7 @@ class PrintForm {
 }
 
 class FormRule {
-    constructor(moduleName) {
+    init(moduleName) {
         console.log("FormRule");
         this.moduleName = moduleName;
     }
@@ -103,16 +93,16 @@ class FormRule {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
-    setupButtons(formrule) {
-        this.disableHideSelector(".btnNew", "btnNew", formrule);
-        this.disableHideSelector(".btnSave", "btnSave", formrule);
-        this.disableHideSelector(".btnUpload", "btnUpload", formrule);
-        this.disableHideSelector(".btnDelete", "btnDelete", formrule);
-        this.disableHideSelector(".btnWf", "btnWf", formrule);
+    setupButtons(returnData) {
+        this.disableHideSelector(".btnNew", "btnNew", returnData);
+        this.disableHideSelector(".btnSave", "btnSave", returnData);
+        this.disableHideSelector(".btnUpload", "btnUpload", returnData);
+        this.disableHideSelector(".btnDelete", "btnDelete", returnData);
+        this.disableHideSelector(".btnWf", "btnWf", returnData);
     }
 
-    disableHideSelector(selector, field, formrule) {
-        var dispComp = formrule.getProp("componentDisplays").filter(display => field==display.name)[0];
+    disableHideSelector(selector, field, returnData) {
+        var dispComp = returnData.getProp("componentDisplays").filter(display => field==display.name)[0];
         if (dispComp.getProp("display")) {
             $(selector).show();
         }
@@ -130,12 +120,9 @@ class FormRule {
 }
 
 class ProfilePicLoader {
-    constructor(moduleName) {
-        console.log("ProfilePicLoader");
+    init(moduleName) {
         this.moduleName = moduleName;
-    }
 
-    init() {
         console.log("ProfilePicLoader init called");
         var context = this;
         $(mainId).on('change', function() {
@@ -159,7 +146,6 @@ class FormControlButton {
     initButtons(moduleName) {
         this.moduleName = moduleName;
         this.formUploadData = new FormData();
-        this.formRule = new FormRule(this.moduleName);
 
         var context = this;
         var myUploadDialog = $("#myUploadDialog").dialog({
@@ -307,11 +293,10 @@ class FormControlButton {
     }
 
     static deleteFile(fileId) {
-        var context = new FormControlButton();
         console.log("deletedFile = " + fileId);
         var successCallback = function(data) {
             console.log(data);
-            context.listFileToTable(data);
+            formControlButton.listFileToTable(data);
         };
         ajaxCaller.deleteFile(successCallback, fileId);
     }
@@ -365,7 +350,6 @@ class FormControlButton {
             childTabs.reloadAllDisplayTabs();
 
             searchTable.reloadSearch();
-            // context.formRule.doRule();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
@@ -381,10 +365,6 @@ class FormControlButton {
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            // utils.loadJsonToForm(mainForm, data);
-
-            // searchTable.clearSearch();
-            // context.formRule.doRule();
             localStorage.latestModule = context.moduleName;
             registerDatatable.clearRegister();
         
@@ -408,11 +388,8 @@ class FormControlButton {
         var successCallback = function(data) {
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
-
             childTabs.reloadAllDisplayTabs();
-
             searchTable.reloadSearch();
-            // context.formRule.doRule();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
@@ -442,7 +419,6 @@ class SearchTable {
     initTable(moduleName) {
         this.moduleName = moduleName;
         this.successCallback;
-        this.formRule = new FormRule(this.moduleName);
 
         var context = this;
         var mainDataTable = dynaRegister.createMainTable(this.moduleName, mainSearchForm, this);
@@ -692,4 +668,7 @@ $(function () {
     constructMainForm = new ConstructMainForm();
     searchTable = new SearchTable();
     formControlButton = new FormControlButton();
+    formRule = new FormRule();
+    profilePicLoader = new ProfilePicLoader();
+    printForm = new PrintForm();
 });

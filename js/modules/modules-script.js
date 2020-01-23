@@ -1,39 +1,29 @@
 class ModuleScript {
-    constructor(module) {
+    getModuleObj(module) {
         this.module = module;
-        this.moduleObj;
-        this.init();
-    }
+        var moduleObj;
 
-    init() {
         if (this.module == 'SalesOrderUI') {
-            this.moduleObj = new SalesOrderUI();
+            moduleObj = new SalesOrderUI();
         }
         else if (this.module == 'PurchaseOrderUI') {
-            this.moduleObj = new PurchaseOrderUI();
+            moduleObj = new PurchaseOrderUI();
         }
         else if (this.module == 'PayrollScheduleUI') {
-            this.moduleObj = new PayrollScheduleUI();
+            moduleObj = new PayrollScheduleUI();
         }
         else if (this.module == 'UserUI') {
-            this.moduleObj = new UserUI();
+            moduleObj = new UserUI();
         }
+        return moduleObj;
     }
 
-    doSpecialAction(data) {
-        if (this.moduleObj) {
-            this.moduleObj.doSpecialAction(data);
-        }
+    doSpecialAction(module, data) {
+        getModuleObj(module).doSpecialAction(subModuleName, data);
     }
 
-    saveChild(subModuleName) {
-        if (this.moduleObj) {
-            this.moduleObj.onsaveChild(subModuleName);
-        }
-    }
-
-    getModuleScript() {
-        return this.moduleObj;
+    saveChild(module, subModuleName) {
+        getModuleObj(module).onsaveChild(subModuleName);
     }
 }
 
@@ -57,3 +47,7 @@ function zeroNaN(val) {
         return val;
     }
 }
+
+$(function () {
+    moduleScript = new ModuleScript();
+});
