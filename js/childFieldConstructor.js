@@ -1,6 +1,6 @@
 class ChildFieldConstructor {
-    initFields(moduleName, subModuleName, mainForm) {
-        console.log("this.initFields called == "+moduleName+":"+subModuleName+":"+mainForm);
+    initFields(moduleName, subModuleName) {
+        console.log("this.initFields called == "+moduleName+":"+subModuleName);
         childFieldAutoComplete.init(moduleName, subModuleName);
     }
 }

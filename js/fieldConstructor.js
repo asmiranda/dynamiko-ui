@@ -1,6 +1,6 @@
 class FieldConstructor {
-    initFields(moduleName, mainForm) {
-        console.log("this.initFields called == " + moduleName + ":" + mainForm);
+    initFields(moduleName) {
+        console.log("this.initFields called == " + moduleName);
         var context = this;
 
         var fieldAutoComplete = new FieldAutoComplete(moduleName);
@@ -12,21 +12,6 @@ class FieldConstructor {
         $('.calendar').datepicker({
             autoclose: true,
             format: config.getDateFormat()
-        });
-
-        $(mainForm).each(function (index, obj) {
-            console.log("all inputs");
-            var inputs = $(this).find(':input');
-            $(inputs).each(function (index, obj) {
-                var name = $(obj).attr("name");
-                if (name) {
-                    // <!--this is for popsearch only-->
-                    var popSearchName = $(obj).attr("popSearchName");
-                    if (popSearchName) {
-                        initPopSearch.init(moduleName, mainForm, name);
-                    }
-                }
-            });
         });
     }
 }
@@ -190,82 +175,7 @@ class FieldAutoComplete {
     }
 }
 
-class InitPopSearch {
-    constructor() {
-        this.popSearchDataTable;
-        this.mainPopInput;
-        this.labelPopInput;
-        this.popButton;
-        this.popFilterButton;
-
-        this.selectedRow;
-        this.tableSelectorName;
-    }
-
-    init(moduleName, mainForm, name) {
-        console.log("this.init called == " + moduleName + ":" + mainForm + ":" + name);
-        // <!--get all the 3 fields for popsearch-->
-        var context = this;
-        this.mainPopInput = $(mainForm + ' input[module="' + moduleName + '"][name="' + name + '"][popSearchName="' + name + '"]');
-        this.labelPopInput = $(mainForm + ' input[module="' + moduleName + '"][tmpName="' + name + '"][popSearchName="' + name + '"]');
-        this.popButton = $(mainForm + ' button[module="' + moduleName + '"][popSearchName="' + name + '"]');
-        this.popFilterButton = $(mainForm + ' button[class~="filter"][module="' + moduleName + '"][popSearchName="' + name + '"]');
-        this.tableSelectorName = 'table[module="' + moduleName + '"][popSearchName="' + name + '"]';
-        this.popSearchDataTable = $(this.tableSelectorName).DataTable({
-            "searching": false
-        });
-        $(this.tableSelectorName + ' tbody').on('click', 'tr', function () {
-            if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            }
-            else {
-                context.popSearchDataTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-                context.selectedRow = $(this);
-                context.loadToForm();
-                $('.modal').modal('hide');
-            }
-        });
-        $(this.popButton).click(function () {
-            context.reloadSearchRecords();
-        });
-    };
-
-    reloadSearchRecords() {
-        console.log("innerContext.popButton called");
-        var context = this;
-
-        var input = $('input[class~="filter"][module="' + this.moduleName + '"][popSearchName="' + this.name + '"]');
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/popsearch/' + this.moduleName + '/' + this.name + '/' + input.val();
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function (data) {
-            context.popSearchDataTable.clear();
-            var keys = Object.keys(data[0]);
-            $.each(data, function (i, obj) {
-                var key = obj[keys[0]];
-                var record = [];
-                for (i = 1; i < keys.length; i++) {
-                    record.push(obj[keys[i]]);
-                }
-                context.popSearchDataTable.row.add(record).node().id = key;
-                context.popSearchDataTable.draw(false);
-            });
-            console.log(data);
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-    };
-
-    loadToForm() {
-        console.log("this.loadToForm called");
-        console.log(this.selectedRow);
-
-        $(this.mainPopInput).val(this.selectedRow.attr("id"));
-        $(this.labelPopInput).val(this.selectedRow.find('td').eq(0).text());
-    };
-}
-
 $(function () {
     fieldConstructor = new FieldConstructor();
     fieldMultiSelect = new FieldMultiSelect();
-    initPopSearch = new InitPopSearch();
 });

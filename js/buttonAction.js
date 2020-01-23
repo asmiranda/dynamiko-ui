@@ -1,7 +1,6 @@
 class DynaButtonAction {
     constructor() {
         var context = this;
-        this.mainForm = '#mainForm';
         $(document).on('click', '.btnChildTabSave', function() {
             context.saveDisplayTab(this);
         });
@@ -16,7 +15,7 @@ class DynaButtonAction {
         var addInfo = $(myButton).attr("addInfo");
         console.log("Child Tab Save Button Called");
 
-        var parentRecord = utils.convertFormToJSON($(this.mainForm));
+        var parentRecord = utils.convertFormToJSON($(mainForm));
         var subRecord = utils.convertFormToJSON($(`form[addInfo='${addInfo}']`));
 
         var tmp = [];
@@ -27,7 +26,7 @@ class DynaButtonAction {
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data, status, hqr) {
             console.log(data);
-            utils.loadJsonToForm(context.mainForm, data);
+            utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
@@ -39,7 +38,7 @@ class DynaButtonAction {
         var submodule = $(myButton).attr("submodule");
         console.log("Child Tab Save Button Called");
 
-        var parentRecord = utils.convertFormToJSON($(this.mainForm));
+        var parentRecord = utils.convertFormToJSON($(mainForm));
         var subRecord = utils.convertFormToJSON($(`form[submodule='${submodule}']`));
 
         var tmp = [];
@@ -52,7 +51,7 @@ class DynaButtonAction {
             $(context.modalId).modal('hide');
             var moduleScript = new ModuleScript(moduleName);
             moduleScript.saveChild(submodule);
-            var childTab = new ChildTab(moduleName, context.mainForm, submodule);
+            var childTab = new ChildTab(moduleName, submodule);
             childTab.reloadDisplayTabs();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);

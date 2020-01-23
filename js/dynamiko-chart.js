@@ -1,5 +1,5 @@
 class ChartRule {
-    doChart(moduleName, mainForm) {
+    doChart(moduleName) {
         var context = this;
         console.log("doRule called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));

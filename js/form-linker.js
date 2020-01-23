@@ -41,7 +41,7 @@ class FormLinker {
     linkToForm(moduleName, recordId) {
         registerDatatable.clearRegister();
 
-        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]', recordId);
+        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', mainForm, recordId);
         fileUpload.initUpload();
     }
 }

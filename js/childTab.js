@@ -62,13 +62,13 @@ class ChildTabs {
         return childTab;
     }
 
-    initTabs(moduleName, mainForm) {
+    initTabs(moduleName) {
         var context = this;
         $.each($('.myChildTab[submodule]'), function(i, obj) {  
             console.log("initTabs");
             console.log(i);
             console.log($(obj).attr("submodule"));
-            var childTab = new ChildTab(moduleName, mainForm, $(obj).attr("submodule"), $(obj).attr("cache"));
+            var childTab = new ChildTab(moduleName, $(obj).attr("submodule"), $(obj).attr("cache"));
             childTab.constructTab();
 
             context.childTabs.push(childTab);
@@ -99,9 +99,8 @@ class ChildTabs {
 };
 
 class ChildTab {
-    constructor(moduleName, mainForm, subModuleName, cache) {
+    constructor(moduleName, subModuleName, cache) {
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
         this.subModuleName = subModuleName;
         this.cache = cache;
 
@@ -124,7 +123,7 @@ class ChildTab {
     reloadDisplayTabs() {
         var context = this;
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/subrecord/' + this.moduleName + '/' + this.subModuleName;
-        var cacheKey = JSON.stringify(utils.convertFormToJSON($(this.mainForm)));
+        var cacheKey = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         var mainId = $("input.mainId").val();
         if (mainId > 0) {
             if (this.cache!="true") {
@@ -271,7 +270,7 @@ class ChildTab {
 
         console.log("Child Tab Delete Button Called");
 
-        var parentRecord = utils.onvertFormToJSON($(this.mainForm));
+        var parentRecord = utils.onvertFormToJSON($(mainForm));
 
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/deletesubrecord/' + module + '/' + submodule + '/' + subRecordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));

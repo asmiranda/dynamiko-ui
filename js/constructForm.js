@@ -1,15 +1,14 @@
 class ConstructMainForm {
-    construct(moduleName, searchTable, mainForm, recordId) {
+    construct(moduleName, searchTable, recordId) {
         this.moduleName = moduleName;
         this.searchTable = searchTable;
-        this.mainForm = mainForm;
 
-        this.searchTableClass = new SearchTable(this.moduleName, this.mainForm, this.searchTable);
-        this.controlButtonClass = new FormControlButton(this.moduleName, this.mainForm, this.searchTableClass);
-        this.moduleHelper = new ModuleHelper(this.moduleName, this.mainForm);
-        this.profilePicLoader = new ProfilePicLoader(this.moduleName, this.mainForm);
-        this.formRule = new FormRule(this.moduleName, this.mainForm);
-        this.printForm = new PrintForm(this.moduleName, this.mainForm);
+        this.searchTableClass = new SearchTable(this.moduleName, this.searchTable);
+        this.controlButtonClass = new FormControlButton(this.moduleName, this.searchTableClass);
+        this.moduleHelper = new ModuleHelper(this.moduleName);
+        this.profilePicLoader = new ProfilePicLoader(this.moduleName);
+        this.formRule = new FormRule(this.moduleName);
+        this.printForm = new PrintForm(this.moduleName);
 
         var context = this;        
         var uiHtml = uiCache.getUIHtml(this.moduleName);
@@ -33,12 +32,12 @@ class ConstructMainForm {
         $('[data-mask]').inputmask();
         context.controlButtonClass.initButtons();
         context.searchTableClass.initTable();
-        fieldConstructor.initFields(this.moduleName, this.mainForm);
-        childTabs.initTabs(this.moduleName, this.mainForm);
+        fieldConstructor.initFields(this.moduleName);
+        childTabs.initTabs(this.moduleName);
         context.moduleHelper.initHelp();
         context.profilePicLoader.init();
         // context.formRule.doRule();
-        // chartRule.doChart(this.moduleName, this.mainForm);
+        // chartRule.doChart(this.moduleName);
         // context.printForm.init();
         if (recordId) {
             context.loadRecord(recordId);
@@ -57,7 +56,7 @@ class ConstructMainForm {
             var successCallback = function(data) {
                 searchCache.setNewSearchCache(context.moduleName, url, data);
 
-                utils.loadJsonToForm(context.mainForm, data);
+                utils.loadJsonToForm(mainForm, data);
                 utils.loadJsonAddInfo(data);
     
                 childTabs.reloadAllDisplayTabs();
@@ -66,7 +65,7 @@ class ConstructMainForm {
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
-            utils.loadJsonToForm(context.mainForm, searchData);
+            utils.loadJsonToForm(mainForm, searchData);
             utils.loadJsonAddInfo(searchData);
 
             childTabs.reloadAllDisplayTabs();
@@ -76,10 +75,9 @@ class ConstructMainForm {
 }
 
 class PrintForm {
-    constructor(moduleName, mainForm) {
+    constructor(moduleName) {
         console.log("PrintForm");
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
     }
 
     init() {
@@ -91,16 +89,15 @@ class PrintForm {
 }
 
 class FormRule {
-    constructor(moduleName, mainForm) {
+    constructor(moduleName) {
         console.log("FormRule");
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
     }
 
     doRule() {
         var context = this;
         console.log("doRule called");
-        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
+        var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/formrule/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
@@ -138,10 +135,9 @@ class FormRule {
 }
 
 class ProfilePicLoader {
-    constructor(moduleName, mainForm) {
+    constructor(moduleName) {
         console.log("ProfilePicLoader");
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
     }
 
     init() {
@@ -165,9 +161,8 @@ class ProfilePicLoader {
 }
 
 class ModuleHelper {
-    constructor(moduleName, mainForm) {
+    constructor(moduleName) {
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
     }
 
     initHelp() {
@@ -181,12 +176,11 @@ class ModuleHelper {
 }
 
 class FormControlButton {
-    constructor(moduleName, mainForm, searchTableClass) {
+    constructor(moduleName, searchTableClass) {
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
         this.searchTableClass = searchTableClass;
         this.formUploadData = new FormData();
-        this.formRule = new FormRule(this.moduleName, this.mainForm);
+        this.formRule = new FormRule(this.moduleName);
     }
 
     initButtons() {
@@ -390,11 +384,11 @@ class FormControlButton {
     newRecord() {
         var context = this;
         console.log("newRecord called");
-        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
+        var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/new/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            utils.loadJsonToForm(context.mainForm, data);
+            utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
 
             childTabs.reloadAllDisplayTabs();
@@ -412,18 +406,18 @@ class FormControlButton {
     deleteRecord() {
         var context = this;
         console.log("deleteRecord called");
-        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
+        var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            // utils.loadJsonToForm(context.mainForm, data);
+            // utils.loadJsonToForm(mainForm, data);
 
             // context.searchTableClass.clearSearch();
             // context.formRule.doRule();
             localStorage.latestModule = context.moduleName;
             registerDatatable.clearRegister();
         
-            constructMainForm.construct(context.moduleName, `#searchTable[module="${context.moduleName}"]`, `#mainForm[module="${context.moduleName}"]`);
+            constructMainForm.construct(context.moduleName, `#searchTable[module="${context.moduleName}"]`, mainForm);
             fileUpload.initUpload();
         };
         var confirmDelete = function() {
@@ -436,12 +430,12 @@ class FormControlButton {
         var context = this;
         console.log("saveRecord called");
         $('.multiSelect option').prop('selected', true);
-        var vdata = JSON.stringify(utils.convertFormToJSON($(context.mainForm)));
+        var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/save/' + context.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            utils.loadJsonToForm(context.mainForm, data);
+            utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
 
             childTabs.reloadAllDisplayTabs();
@@ -454,12 +448,11 @@ class FormControlButton {
 }
 
 class SearchTable {
-    constructor(moduleName, mainForm, searchTable) {
+    constructor(moduleName, searchTable) {
         this.moduleName = moduleName;
-        this.mainForm = mainForm;
         this.searchTable = searchTable;
         this.successCallback;
-        this.formRule = new FormRule(this.moduleName, this.mainForm);
+        this.formRule = new FormRule(this.moduleName);
     
         $(document).on('click', '.setFileProfile', function() {
             context.setFileProfile(this);
@@ -499,7 +492,7 @@ class SearchTable {
             var successCallback = function(data) {
                 searchCache.setNewSearchCache(context.moduleName, url, data);
 
-                utils.loadJsonToForm(context.mainForm, data);
+                utils.loadJsonToForm(mainForm, data);
                 utils.loadJsonAddInfo(data);
     
                 childTabs.reloadAllDisplayTabs();
@@ -511,7 +504,7 @@ class SearchTable {
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
-            utils.loadJsonToForm(context.mainForm, searchData);
+            utils.loadJsonToForm(mainForm, searchData);
             utils.loadJsonAddInfo(searchData);
 
             childTabs.reloadAllDisplayTabs();

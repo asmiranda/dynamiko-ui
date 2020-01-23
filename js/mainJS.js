@@ -119,7 +119,7 @@ class UIService {
         localStorage.latestModule = moduleName;
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
+        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', mainForm);
         fileUpload.initUpload();
     }    
 
@@ -244,7 +244,7 @@ class LeftMenu {
         localStorage.latestModule = moduleName;
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', '#mainForm[module="'+moduleName+'"]');
+        constructMainForm.construct(moduleName, '#searchTable[module="'+moduleName+'"]', mainForm);
         fileUpload.initUpload();
     }    
 }
@@ -375,6 +375,8 @@ class SearchCache {
 }
 
 $(function () {
+    mainForm = '#mainForm';
+
     allTable = [];
     uiService = new UIService();
     leftMenu = new LeftMenu();

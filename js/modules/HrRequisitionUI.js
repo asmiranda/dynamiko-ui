@@ -11,6 +11,34 @@ class HrRequisitionUI {
             console.log("###############HrRequisitionId change#############");
             context.reArrange(this);
         });
+        $(document).on('click', '.loadRecordToForm', function() {
+            context.loadRecordToForm(this);
+        });
+    }
+
+    loadRecordToForm(obj) {
+        var context = this;
+        var moduleName = $(obj).attr("module");
+        var selectedId = $(obj).attr("recordId");
+
+        var mainDataTable = dynaRegister.getDataTable(moduleName);
+        var dropZone = dynaRegister.getDropZone(moduleName);
+        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${moduleName}/${selectedId}`
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
+
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+
+            utils.loadJsonToForm(mainForm, data);
+            utils.loadJsonAddInfo(data);
+
+            childTabs.reloadAllDisplayTabs();
+            for (const [key, value] of dynaRegister.saasMap) {
+                value.loadToForm(context);
+            }
+            localStorage.latestModuleId = mainDataTable.selectedId;
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     createJob(obj) {
@@ -32,7 +60,7 @@ class HrRequisitionUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
-            //todo: refresh MyTeamRequisition
+            hrRequisitionUI.loadTeamRequisition();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
@@ -187,7 +215,7 @@ class HrRequisitionUI {
                 var opening = obj.getProp("opening");
 
                 var strHtml = `
-                    <strong><a href="#" class="loadRequisitionById" recordId="${requisitionId}">${jobTitle}</a></strong>
+                    <strong><a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordId="${requisitionId}">${jobTitle}</a></strong>
                     <p class="text-muted">
                         Served By: <a>${recruiter}</a> for <a>${manager}</a>
                     </p>
