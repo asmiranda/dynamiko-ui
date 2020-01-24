@@ -120,7 +120,7 @@ class CustomReport {
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
-        ajaxCaller.loadPost(url, function(data_url) {
+        ajaxCaller.ajaxPost(url, function(data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
             console.log(iframeViewer);
             document.querySelector(iframeViewer).src=data_url;

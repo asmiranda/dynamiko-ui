@@ -134,7 +134,7 @@ class AjaxCaller {
             },
             success: callback,
         });
-    }
+    } 
     deleteFile(callback, fileUploadId) {
         $.ajax({
             url: MAIN_URL+"/api/generic/attachment/delete/"+fileUploadId,
