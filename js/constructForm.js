@@ -22,6 +22,10 @@ class ConstructMainForm {
         $("#content-main").html(uiHtml);
         $('[data-mask]').inputmask();
 
+        if (recordId) {
+            this.loadRecord(recordId);
+        }
+
         formRule.init(this.moduleName);
         profilePicLoader.init(this.moduleName);
         printForm.init(this.moduleName);
@@ -30,10 +34,6 @@ class ConstructMainForm {
         fieldConstructor.initFields(this.moduleName);
         childTabs.initTabs(this.moduleName);
         profilePicLoader.init(this.moduleName);
-
-        if (recordId) {
-            this.loadRecord(recordId);
-        }
     };
 
     loadRecord(recordId) {

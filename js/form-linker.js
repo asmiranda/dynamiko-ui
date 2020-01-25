@@ -1,11 +1,10 @@
 class FormLinker {
     constructor() {
-        var context = this;
         $(document).on('click', '.formLinker', function() {
-            context.startLink(this);
+            formLinker.startLink(this);
         });
         $(document).on('click', '.childFormLinker', function() {
-            context.startChildToFormLink(this);
+            formLinker.startChildToFormLink(this);
         });
     }
 
@@ -15,11 +14,10 @@ class FormLinker {
         var recordId = $(obj).attr("mainId");
         var fieldname = $(obj).attr("fieldname");
         var childid = $(obj).attr("childid");
-        this.linkChildToForm(moduleName, submodule, fieldname, recordId, childid);
+        formLinker.linkChildToForm(moduleName, submodule, fieldname, recordId, childid);
     }
 
     linkChildToForm(moduleName, submodule, fieldname, recordId, childid) {
-        var context = this;
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/childtoformlink/"+moduleName+"/"+submodule+"/"+fieldname+"/"+recordId+"/"+childid;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -27,7 +25,7 @@ class FormLinker {
 
             var formModule = data.getProp("moduleName");
             var formId = data.getProp("recordId");
-            context.linkToForm(formModule, formId);
+            formLinker.linkToForm(formModule, formId);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -35,7 +33,7 @@ class FormLinker {
     startLink(obj) {
         var linkModule = $(obj).attr("linkModule");
         var recordId = $(obj).attr("recordId");
-        this.linkToForm(linkModule, recordId);
+        formLinker.linkToForm(linkModule, recordId);
     }
 
     linkToForm(moduleName, recordId) {
@@ -47,5 +45,5 @@ class FormLinker {
 }
 
 $(function () {
-    var formLinker = new FormLinker();
+    formLinker = new FormLinker();
 });
