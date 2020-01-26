@@ -1,13 +1,4 @@
 class FormLinker {
-    constructor() {
-        $(document).on('click', '.formLinker', function() {
-            formLinker.startLink(this);
-        });
-        $(document).on('click', '.childFormLinker', function() {
-            formLinker.startChildToFormLink(this);
-        });
-    }
-
     startChildToFormLink(obj) {
         var moduleName = $(obj).attr("module");
         var submodule = $(obj).attr("submodule");
@@ -43,7 +34,3 @@ class FormLinker {
         fileUpload.initUpload();
     }
 }
-
-$(function () {
-    formLinker = new FormLinker();
-});

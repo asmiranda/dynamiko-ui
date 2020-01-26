@@ -1,36 +1,11 @@
 class ReviewCenter {
-    constructor() {
-        var context = this;
-        $(document).on('click', '.btnReviewCenterShowQuestions', function(){
-            context.showQuestions(this);
-        });
-        $(document).on('click', '.btnReviewCenterAddQuestion', function(){
-            context.addQuestion(this);
-        });
-        $(document).on('click', '.btnReviewCenterDeleteQuestion', function(){
-            context.deleteQuestion(this);
-        });
-        $(document).on('keyup', '.txtReviewCenterSearchQuestion', function(){
-            context.searchQuestion(this);
-        });
-        $(document).on('click', '.btnReviewCenterSubmitEnrollment', function(){
-            context.submitEnrollment();
-        });
-        $(document).on('click', '.btnReviewCenterEnrollTo', function(){
-            context.populateEnrollmentChoices(); 
-        });
-        
-    }
-
     submitEnrollment() {
         var studentId = $("input[name='PersonId']").val();
         var choiceProgram = $("select[name='choiceProgram']").val();
         var paymentReceipt = $("input[name='paymentReceipt']").val();
         var enrollmentRemarks = $("textarea[name='enrollmentRemarks']").val();
         
-        if (this.validateEnrollment()) {
-            var context = this;
-
+        if (reviewCenter.validateEnrollment()) {
             var tmpEnrollment = {};
             tmpEnrollment["studentId"] = studentId;
             tmpEnrollment["choiceProgram"] = choiceProgram;
@@ -71,8 +46,6 @@ class ReviewCenter {
     }
 
     populateEnrollmentChoices() {
-        var context = this;
-
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/ReviewStudentUI/programs";
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -91,8 +64,6 @@ class ReviewCenter {
     }
 
     searchQuestion(obj) {
-        var context = this;
-
         var examId = $(obj).attr("examId");
         var value = $(obj).val();
         console.log(value);
@@ -122,8 +93,6 @@ class ReviewCenter {
     }
 
     showQuestions(obj) {
-        var context = this;
-
         var examId = $(obj).attr("examId");
         $("input.txtReviewCenterSearchQuestion").attr("examId", examId);
 
@@ -151,8 +120,6 @@ class ReviewCenter {
     }
 
     addQuestion(obj) {
-        var context = this;
-
         var examId = $(obj).attr("examId");
         var examQuestionId = $(obj).attr("examQuestionId");
         var txtSearch = $(".txtReviewCenterSearchQuestion").val();
@@ -183,8 +150,6 @@ class ReviewCenter {
     }
 
     deleteQuestion(obj) {
-        var context = this;
-
         var examId = $(obj).attr("examId");
         var examQuestionId = $(obj).attr("examQuestionId");
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/ReviewProgramModuleUI/deleteQuestion/'+examId+"/"+examQuestionId;
@@ -223,8 +188,3 @@ class ReviewCenter {
     }
 
 }
-
-$(function () {
-    var reviewCenter = new ReviewCenter();
-    dynaRegister.registerSaas("ReviewCenter", reviewCenter);
-});

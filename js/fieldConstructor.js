@@ -1,12 +1,9 @@
 class FieldConstructor {
     initFields(moduleName) {
         console.log("this.initFields called == " + moduleName);
-        var context = this;
 
         var fieldAutoComplete = new FieldAutoComplete(moduleName);
         fieldAutoComplete.init();
-
-        fieldMultiSelect.init(moduleName);
 
         // <!--this is for calendar-->
         $('.calendar').datepicker({
@@ -47,7 +44,6 @@ class FieldMultiSelect {
     }
 
     clickDisplayAdd(moduleName, btn) {
-        var context = this;
         var fieldName = $(btn).attr("name");
         console.log("multiSelectDisplayAdd fieldName = " + fieldName);
         var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/" + moduleName + "/" + fieldName;
@@ -133,30 +129,12 @@ class FieldMultiSelect {
     }
 
     init(moduleName) {
-        console.log("MULTI SELECT MODULE " + moduleName);
-        var context = this;
-        $(document).on('click', mainId, function() {
-            context.changeMultiSelectData(this);
-        });
-        $(document).on('click', '.multiSelectDisplayAdd', function() {
-            context.clickDisplayAdd(this);
-        });
-        $(document).on('click', '.multiSelectAdd', function() {
-            context.addSelected(this);
-        });
-        $(document).on('click', '.multiSelectDelete', function() {
-            context.deleteSelected(this);
-        });
-        $(document).on('keyup', '.multiSelectTextFilter', function() {
-            context.filterChoices(this);
-        });
     }
 }
 
 class FieldAutoComplete {
     init(moduleName) {
         console.log("AUTO COMPLETE MODULE " + moduleName);
-        var context = this;
         $(".autocomplete[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
             console.log("AUTO COMPLETE FIELD " + fieldLabelName);
@@ -174,8 +152,3 @@ class FieldAutoComplete {
 
     }
 }
-
-$(function () {
-    fieldConstructor = new FieldConstructor();
-    fieldMultiSelect = new FieldMultiSelect();
-});

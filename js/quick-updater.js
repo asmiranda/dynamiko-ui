@@ -1,27 +1,4 @@
 class QuickUpdater {
-    constructor() {
-        var context = this;
-
-        $(document).on('click', '.quickAttachmentTarget', function() {
-            context.quickAttachment(this);
-        });
-        $(document).on('click', '.quickDownloaderTarget', function() {
-            context.quickDownloader(this);
-        });
-        $(document).on('click', '.quickUpdaterTarget', function() {
-            context.quickUpdater(this);
-        });
-        $(document).on('change', '.calendarQuickUpdaterInput', function() {
-            context.quickUpdateInput(this);
-        });
-        $(document).on('change', '.textQuickUpdaterInput', function() {
-            context.quickUpdateInput(this);
-        });
-        $(document).on('change', '.autoCompleteQuickUpdaterSelect', function() {
-            context.quickAutoCompleteUpdateInput(this);
-        });
-    }
-
     quickAutoCompleteUpdateInput(obj) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
@@ -56,15 +33,15 @@ class QuickUpdater {
     }
 
     displayTextUpdate(obj) {
-        this.displayInputUpdater(obj, "#textQuickUpdater", 'Please Type Below <a class="close" href="#">&times;</a>');
+        quickUpdater.displayInputUpdater(obj, "#textQuickUpdater", 'Please Type Below <a class="close" href="#">&times;</a>');
     }
 
     displayAutoCompleteUpdate(obj) {
-        this.displayInputUpdater(obj, "#autoCompleteQuickUpdater", 'Please Type Below <a class="close" href="#">&times;</a>');
+        quickUpdater.displayInputUpdater(obj, "#autoCompleteQuickUpdater", 'Please Type Below <a class="close" href="#">&times;</a>');
     }
 
     displayCalendarUpdate(obj) {
-        this.displayInputUpdater(obj, "#calendarQuickUpdater", 'Choose Date <a class="close" href="#">&times;</a>');
+        quickUpdater.displayInputUpdater(obj, "#calendarQuickUpdater", 'Choose Date <a class="close" href="#">&times;</a>');
 
         $('.calendar').datepicker({
             autoclose: true,
@@ -121,18 +98,17 @@ class QuickUpdater {
 
         var updater = $(obj).attr("updater");
         if (updater=="calendar") {
-            this.displayCalendarUpdate(obj);
+            quickUpdater.displayCalendarUpdate(obj);
         }
         else if (updater=="text") {
-            this.displayTextUpdate(obj);
+            quickUpdater.displayTextUpdate(obj);
         }
         if (updater=="autoComplete") {
-            this.displayAutoCompleteUpdate(obj);
+            quickUpdater.displayAutoCompleteUpdate(obj);
         }
     }
 
     quickDownloader(obj) {
-        var context = this;
         console.log("quickDownloader called");
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
@@ -161,8 +137,3 @@ class QuickUpdater {
         showUploadAttachment.show("File Uploader", moduleName, recordId, fileType, successCallback);
     }
 }
-
-$(function () {
-    QUICK_UPDATER_COUNTER=0;
-    quickUpdater = new QuickUpdater();   
-});

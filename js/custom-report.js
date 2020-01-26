@@ -1,27 +1,5 @@
 class CustomReport {
-    constructor() {
-        console.log("CustomReport called");
-        var context = this;
-        $(document).on('click', '.btnCustomReportToggleCriteria', function() {
-            context.customReportToggleCriteria(this);
-        });
-        $(document).on('click', '.btnCustomReportFullScreen', function() {
-            context.customReportFullScreen(this);
-        });
-        $(document).on('click', '.btnCustomReportRun', function() {
-            context.customReportRun(this);
-        });     
-        $(document).on('click', '.btnCustomDisplayModalReport', function() {
-            context.customDisplayModalReport(this);
-        });     
-        $(document).on('click', '.btnAutoCustomDisplayModalReport', function() {
-            context.customAutoDisplayModalReport(this);
-        });     
-       
-    }
-
     customAutoDisplayModalReport(obj) {
-        var context = this;
         console.log("customAutoDisplayModalReport");
         var moduleName = $(obj).attr("module");
         var reportName = $(obj).attr("report");
@@ -102,7 +80,6 @@ class CustomReport {
     }
 
     customReportRun(obj) {
-        var context = this;
         console.log("customReportRun");
         var moduleName = $(obj).attr("module");
         var reportName = $(obj).attr("report");
@@ -127,7 +104,3 @@ class CustomReport {
         }, vdata);
     }
 }
-
-$(function () {
-    customReport = new CustomReport();
-});

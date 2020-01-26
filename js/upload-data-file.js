@@ -1,27 +1,5 @@
 class UploadDataFile {
-    constructor() {
-        var context = this;
-        $(document).on('click', '#uploadDataFile', function() {
-            context.displayUploadDataViewer();
-        });
-        $(document).on('click', '.downloadTemplate', function() {
-            context.downloadTemplate();
-        });
-        $(document).on('change', '#fileDataUpload', function(evt) {
-            context.displayCsvFile(evt);
-            var fileName = evt.target.files[0].name;
-            $("#chosenFileForUpload").html(fileName);
-        });
-        $(document).on('change', '.btnUploadDataFile', function(evt) {
-            context.uploadDataFile();
-        });
-        $(document).on('click', '.useTemplate', function() {
-            context.useChosenTemplate(this);
-        });
-    };
-
     displayUploadDataViewer() {
-        var context = this;
         $("#content-main").empty();
         var str = `
         <div style="padding: 10px; height: 100%; min-height: 100%;">
@@ -85,7 +63,7 @@ class UploadDataFile {
         </div>
         `;
         $("#content-main").append(str);
-        this.loadAllUploadDataTemplate();
+        uploadDataFile.loadAllUploadDataTemplate();
     }
 
     displayCsvFile(evt) {
@@ -138,7 +116,6 @@ class UploadDataFile {
     }
 
     loadAllUploadDataTemplate() {
-        var context = this;
         console.log("LOAD ALL REPORTS...");
 
         var url = MAIN_URL + '/api/utils/getAllTemplate/' + sessionStorage.companyCode;
@@ -163,7 +140,3 @@ class UploadDataFile {
         $("#chosenTemplate").html("<b>" + chosenReportLabel + "</b>");
     }
 }
-
-$(function () {
-    uploadDataFile = new UploadDataFile();
-});

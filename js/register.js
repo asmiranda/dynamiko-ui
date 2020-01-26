@@ -6,14 +6,14 @@ class DynaRegister {
     }
 
     clearDataTable() {
-        this.dataTableMap.clear();
+        dynaRegister.dataTableMap.clear();
     }
     getDataTable(moduleName) {
-        var obj = this.dataTableMap.get(moduleName);
+        var obj = dynaRegister.dataTableMap.get(moduleName);
         return obj;
     }
     getDropZone(moduleName) {
-        var obj = this.dropZoneMap.get(moduleName);
+        var obj = dynaRegister.dropZoneMap.get(moduleName);
         return obj;
     }
     createChildTable(moduleName, tableSelector) {
@@ -75,7 +75,7 @@ class DynaRegister {
         childTable.linkableColumns = linkableColumns;
         childTable.selectedId = null;
 
-        this.dataTableMap.set(moduleName, childTable);
+        dynaRegister.dataTableMap.set(moduleName, childTable);
         return childTable;
     }
     createMainTable(moduleName, tableSelector, myForm) {
@@ -98,7 +98,7 @@ class DynaRegister {
                 myForm.loadToForm();
             }
         } );
-        this.dataTableMap.set(moduleName, mainDataTable);
+        dynaRegister.dataTableMap.set(moduleName, mainDataTable);
         return mainDataTable;
     }
     createDropZone(moduleName, selector, myForm, mainDataTable) {
@@ -114,23 +114,19 @@ class DynaRegister {
                         // alert("Added file.");
                     }),
                     this.on("success", function(file, response) {
-                        this.removeAllFiles();
+                        dynaRegister.removeAllFiles();
                         myForm.displayAllFiles();
                     })
             }                   
         });
-        this.dropZoneMap.set(moduleName, dropZone);
+        dynaRegister.dropZoneMap.set(moduleName, dropZone);
         return dropZone;
     }
     clearTable(moduleName) {
-        var tbl = this.getDataTable(moduleName);
+        var tbl = dynaRegister.getDataTable(moduleName);
         tbl.clear().draw(false);
     }
     registerSaas(saas, obj) {
-        this.saasMap.set(saas, obj);
+        dynaRegister.saasMap.set(saas, obj);
     }
 }
-
-$(function () {
-    dynaRegister = new DynaRegister();
-});

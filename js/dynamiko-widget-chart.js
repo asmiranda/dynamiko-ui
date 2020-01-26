@@ -1,10 +1,6 @@
 class WidgetChartRule {
     constructor() {
-        var context = this;
         this.clickCallback;
-        $(document).on('click', '.btnChartFullScreen', function() {
-            context.chartFullScreen(this);
-        });        
     }
 
     chartFullScreen(btn) {
@@ -13,27 +9,27 @@ class WidgetChartRule {
     }
 
     doChart(ecanvas, data, chartType, clickCallback) {
-        this.clickCallback = clickCallback;
+        widgetChartRule.clickCallback = clickCallback;
         if (chartType=='BAR') {
-            this.doVerticalBarChart(ecanvas, data);
+            widgetChartRule.doVerticalBarChart(ecanvas, data);
         }
         if (chartType=='STACKED_BAR') {
-            this.doVerticalStackedBarChart(ecanvas, data);
+            widgetChartRule.doVerticalStackedBarChart(ecanvas, data);
         }
         else if (chartType=='HORIZONTALBAR') {
-            this.doHorizontalBarChart(ecanvas, data);
+            widgetChartRule.doHorizontalBarChart(ecanvas, data);
         }
         else if (chartType=='STACKED_HORIZONTALBAR') {
-            this.doHorizontalStackedBarChart(ecanvas, data);
+            widgetChartRule.doHorizontalStackedBarChart(ecanvas, data);
         }
         else if (chartType=='LINE') {
-            this.doLineChart(ecanvas, data);
+            widgetChartRule.doLineChart(ecanvas, data);
         }
         else if (chartType=='AREA') {
-            this.doAreaChart(ecanvas, data);
+            widgetChartRule.doAreaChart(ecanvas, data);
         }
         else {
-            this.doPieChart(ecanvas, data);
+            widgetChartRule.doPieChart(ecanvas, data);
         }
     }
 
@@ -41,8 +37,8 @@ class WidgetChartRule {
         var lineChartCanvas = $(ecanvas).get(0).getContext('2d')
 
         var chartData = data.chartData;
-        var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getChartOption(chartData);
+        var lineChartData = widgetChartRule.getLineData(chartData);
+        var chartOptions = widgetChartRule.getChartOption(chartData);
         var areaChart = new Chart(lineChartCanvas, {
             type: 'line',
             data: lineChartData,
@@ -54,8 +50,8 @@ class WidgetChartRule {
         var lineChartCanvas = $(ecanvas).get(0).getContext('2d')
 
         var chartData = data.chartData;
-        var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getChartOption(chartData);
+        var lineChartData = widgetChartRule.getLineData(chartData);
+        var chartOptions = widgetChartRule.getChartOption(chartData);
         var lineChart = new Chart(lineChartCanvas, {
             type: 'line',
             data: lineChartData,
@@ -64,27 +60,27 @@ class WidgetChartRule {
     }
 
     doVerticalBarChart(ecanvas, data) {
-        this.doBarChart(ecanvas, data, "bar");
+        widgetChartRule.doBarChart(ecanvas, data, "bar");
     }
 
     doVerticalStackedBarChart(ecanvas, data) {
-        this.doStackedBarChart(ecanvas, data, "bar");
+        widgetChartRule.doStackedBarChart(ecanvas, data, "bar");
     }
 
     doHorizontalBarChart(ecanvas, data) {
-        this.doBarChart(ecanvas, data, "horizontalBar");
+        widgetChartRule.doBarChart(ecanvas, data, "horizontalBar");
     }
 
     doHorizontalStackedBarChart(ecanvas, data) {
-        this.doStackedBarChart(ecanvas, data, "horizontalBar");
+        widgetChartRule.doStackedBarChart(ecanvas, data, "horizontalBar");
     }
 
     doBarChart(ecanvas, data, orientation) {
         var lineChartCanvas = $(ecanvas).get(0).getContext('2d')
 
         var chartData = data.chartData;
-        var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getChartOption(chartData);
+        var lineChartData = widgetChartRule.getLineData(chartData);
+        var chartOptions = widgetChartRule.getChartOption(chartData);
         var barChart = new Chart(lineChartCanvas, {
             type: orientation,
             data: lineChartData,
@@ -96,8 +92,8 @@ class WidgetChartRule {
         var lineChartCanvas = $(ecanvas).get(0).getContext('2d')
 
         var chartData = data.chartData;
-        var lineChartData = this.getLineData(chartData);
-        var chartOptions = this.getStackedChartOption(chartData);
+        var lineChartData = widgetChartRule.getLineData(chartData);
+        var chartOptions = widgetChartRule.getStackedChartOption(chartData);
         var barChart = new Chart(lineChartCanvas, {
             type: orientation,
             data: lineChartData,
@@ -152,7 +148,7 @@ class WidgetChartRule {
                 data: chartData.data3
             });
         }
-        var chartOptions = this.getChartOption();
+        var chartOptions = widgetChartRule.getChartOption();
         var pieChart = new Chart(pieChartCanvas, {
             type: 'doughnut',
             data: pieChartData,
@@ -193,7 +189,6 @@ class WidgetChartRule {
     }
 
     getChartOption(chartData) {
-        var context = this;
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -225,7 +220,7 @@ class WidgetChartRule {
                     fontSize: 8,
                 }
             },
-            onClick: context.clickCallback,
+            onClick: widgetChartRule.clickCallback,
             responsive: true,
             maintainAspectRatio: true
         }
@@ -236,7 +231,6 @@ class WidgetChartRule {
     }
 
     getStackedChartOption(chartData) {
-        var context = this;
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -277,7 +271,7 @@ class WidgetChartRule {
                     stacked: true
                 }]
             },
-            onClick: context.clickCallback,
+            onClick: widgetChartRule.clickCallback,
             maintainAspectRatio: true
         }
         if (chartData && !chartData.label2) {
@@ -286,7 +280,3 @@ class WidgetChartRule {
         return chartOptions;
     }
 }
-
-$(function () {
-    widgetChartRule = new WidgetChartRule();
-});

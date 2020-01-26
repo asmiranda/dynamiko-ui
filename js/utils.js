@@ -1,10 +1,4 @@
 class Utils {
-    constructor() {
-        var context = this;
-        $(document).on('click', '.toggle-box', function() {
-            context.toggleBox(this);
-        });
-    }
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     }     
@@ -193,7 +187,3 @@ class Utils {
         }
     }
 }
-
-$(function () {
-    utils = new Utils();
-});

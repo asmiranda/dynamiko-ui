@@ -1,19 +1,8 @@
 class PurchaseOrderUI {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        var context = this;
-        $("input").focusout(function() {
-            context.onfocusout(this);
-        });
-    }
-
     onfocusout(obj) {
         console.log("PurchaseOrderUI change "+obj);
         if ("|quantity|unitPrice|totalAmount|".includes("|"+obj.name)+"|") {
-            this.calculateAmounts();
+            purchaseOrderUI.calculateAmounts();
         }
     }
 
@@ -27,6 +16,6 @@ class PurchaseOrderUI {
 
     onsaveChild(subModuleName) {
         console.log("PurchaseOrderUI saveChild "+subModuleName);
-        this.calculateAmounts();
+        purchaseOrderUI.calculateAmounts();
     }
 }

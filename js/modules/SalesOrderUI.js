@@ -1,24 +1,13 @@
 class SalesOrderUI {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        var context = this;
-        $("input").focusout(function() {
-            context.onfocusout(this);
-        });
-    }
-
     onfocusout(obj) {
         console.log("SalesOrderUI change "+obj);
         if ("|totalBeforeDiscount|discountAmount|freightAmount|totalAmount|taxAmount|".includes("|"+obj.name)+"|") {
-            this.calculateAmounts();
+            salesOrderUI.calculateAmounts();
         }
     }
 
     calculateAmounts() {
-        var totalBeforeDiscount = this.getSalesOrderItemTotalAmount();
+        var totalBeforeDiscount = salesOrderUI.getSalesOrderItemTotalAmount();
         if (totalBeforeDiscount > 0) {
             var discountAmount = $("input[name='discountAmount']").val();
             var freightAmount = $("input[name='freightAmount']").val();
@@ -53,6 +42,6 @@ class SalesOrderUI {
 
     onsaveChild(subModuleName) {
         console.log("SalesOrderUI saveChild "+subModuleName);
-        this.calculateAmounts();
+        salesOrderUI.calculateAmounts();
     }
 }

@@ -1,15 +1,5 @@
 class MyReportViewer {
-    constructor() {
-        $(document).on('click', '.myReportViewer', function() {
-            context.displayReportViewer(this);
-        });
-        $(document).on('click', '.btnSubmitReportCriteria', function() {
-            context.displayReportPdf(this);
-        });
-    }
-
     displayReportViewer() {
-        var context = this;
         $("#content-main").empty();
         var str = `
         <div style="padding: 10px; height: 100%; min-height: 100%;">
@@ -51,7 +41,7 @@ class MyReportViewer {
         </div>
         `;
         $("#content-main").append(str);
-        this.loadAllReports();
+        myReportViewer.loadAllReports();
     }
 
     displayReportPdf(obj) {
@@ -65,7 +55,6 @@ class MyReportViewer {
     }
 
     displayReportPage(obj) {
-        var context = this;
         var val = $(obj).attr("value");
         var label = $(obj).attr("label");
         $(".reportViewerTitle").html(label);
@@ -84,7 +73,6 @@ class MyReportViewer {
     }
 
     loadAllReports() {
-        var context = this;
         console.log("LOAD ALL REPORTS...");
 
         var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/customreports/all';
@@ -103,7 +91,3 @@ class MyReportViewer {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
-
-$(function () {
-    myReportViewer = new MyReportViewer();
-});

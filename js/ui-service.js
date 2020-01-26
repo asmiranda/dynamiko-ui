@@ -115,7 +115,7 @@ class LeftMenu {
         var successCallback = function(data) {
             console.log("Left Menu Extracted");
 //            console.log(data);
-            context.addDashboard(data);
+            leftMenu.addDashboard(data);
             
             var menus = ["School", "Admin", "HR", "Accounting", "Procurement", "Production", "Supply Chain", "Marketing", "CRM", "Reference"];
             $.each(menus, function(i, obj) {
@@ -123,22 +123,6 @@ class LeftMenu {
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-
-        $(document).on('click', '.leftDashboardItem', function() {
-            console.log("leftDashboardItem CALLED...");
-            var moduleName = $(this).attr("data");
-            console.log("moduleName == "+moduleName);
-            var dashboard = new Dashboard();
-            dashboard.load(moduleName);
-        });
-        $(document).on('click', '.leftMenuItem[report="true"]', function() {
-            var moduleName = $(this).attr("data");
-            mainReport.constructMainReport(moduleName);
-        });
-        $(document).on('click', '.leftMenuItem[report="false"]', function() {
-            var moduleName = $(this).attr("data");
-            context.loadUI(moduleName);
-        });
     };
 
     addMenu(menu, data) {

@@ -1,16 +1,8 @@
 class UserUI {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        var context = this;
-    }
-
     doSpecialAction(data) {
         console.log("UserUI doSpecialAction "+data);
         if (data == "startReset") {
-            this.resetPassword("");
+          userUI.resetPassword("");
         }
         else {
             showModalAny.show("User", data);
@@ -18,7 +10,6 @@ class UserUI {
     }
 
     resetPassword(anyText) {
-        var context = this;
         var str = `
           <div class="box box-info">
             <div class="box-body">
@@ -51,7 +42,7 @@ class UserUI {
         if (recordId > 0) {
           var success = function() {
             console.log("testing confirm only");
-            context.saveReset();
+            userUI.saveReset();
           }
           showConfirmAny.confirm("Password Reset", str, success);
         }
@@ -66,10 +57,9 @@ class UserUI {
       var confirmPassword = $("#confirmPassword").val();
 
       if (newPassword != confirmPassword) {
-        this.resetPassword("New and Confirm password not match.");
+        userUI.resetPassword("New and Confirm password not match.");
       }
       else {
-        var context = this;
         var recordId = $(mainId).val();
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/UserUI/savereset/"+recordId;
         var resetPasswordDTO = new ResetPasswordDTO(oldPassword, newPassword);

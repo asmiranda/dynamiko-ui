@@ -1,15 +1,4 @@
 class PayrollScheduleUI {
-    constructor() {
-        var context = this;
-        $(document).on('click', '.addToPayroll', function() {
-            console.log("addToPayroll Click Called");
-            context.addToPayroll(this);
-        });
-        $(document).on('click', 'input.payrollInput]', function() {
-            context.onfocusout(this);
-        });
-    }
-
     onfocusout(obj) {
         console.log("PayrollScheduleUI change "+obj);
         if ("|basicPay|totalBasicPay|".includes("|"+obj.name)+"|") {
@@ -19,7 +8,6 @@ class PayrollScheduleUI {
 
     calculateAmounts(index) {
         console.log("PayrollScheduleUI chooseEmployees");
-        var context = this;
         var recordId = $(mainId).val();
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/PayrollScheduleUI/getPayroll/"+recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -73,7 +61,6 @@ class PayrollScheduleUI {
 
     chooseEmployees() {
         console.log("PayrollScheduleUI chooseEmployees");
-        var context = this;
         var recordId = $(mainId).val();
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/PayrollScheduleUI/getEmployees/"+recordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -112,7 +99,6 @@ class PayrollScheduleUI {
     }
 
     addToPayroll(obj) {
-        var context = this;
         var recordId = $(mainId).val();
         var code = $(obj).attr("value");
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/specialaction/PayrollScheduleUI/addEmployee/"+recordId+"_"+code;

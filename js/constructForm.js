@@ -2,19 +2,18 @@ class ConstructMainForm {
     construct(moduleName, recordId) {
         this.moduleName = moduleName;
 
-        var context = this;        
-        var uiHtml = uiCache.getUIHtml(this.moduleName);
+        var uiHtml = uiCache.getUIHtml(constructMainForm.moduleName);
         if (uiHtml=="" || uiHtml==null) {
-            var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+context.moduleName;
+            var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+constructMainForm.moduleName;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
-                context.cacheConstruct(recordId, data);
-                uiCache.setUIHtml(context.moduleName, data);
+                constructMainForm.cacheConstruct(recordId, data);
+                uiCache.setUIHtml(constructMainForm.moduleName, data);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
-            context.cacheConstruct(recordId, uiHtml);
+            constructMainForm.cacheConstruct(recordId, uiHtml);
         }
     };
 
@@ -23,28 +22,26 @@ class ConstructMainForm {
         $('[data-mask]').inputmask();
 
         if (recordId) {
-            this.loadRecord(recordId);
+            constructMainForm.loadRecord(recordId);
         }
 
-        formRule.init(this.moduleName);
-        profilePicLoader.init(this.moduleName);
-        printForm.init(this.moduleName);
-        formControlButton.initButtons(this.moduleName);
-        searchTable.initTable(this.moduleName);
-        fieldConstructor.initFields(this.moduleName);
-        childTabs.initTabs(this.moduleName);
-        profilePicLoader.init(this.moduleName);
+        formRule.init(constructMainForm.moduleName);
+        profilePicLoader.init(constructMainForm.moduleName);
+        formControlButton.initButtons(constructMainForm.moduleName);
+        searchTable.initTable(constructMainForm.moduleName);
+        fieldConstructor.initFields(constructMainForm.moduleName);
+        childTabs.initTabs(constructMainForm.moduleName);
+        profilePicLoader.init(constructMainForm.moduleName);
     };
 
     loadRecord(recordId) {
-        var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + this.moduleName + '/' + recordId;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + constructMainForm.moduleName + '/' + recordId;
 
-        var searchData = searchCache.getSearchCache(this.moduleName, url);
+        var searchData = searchCache.getSearchCache(constructMainForm.moduleName, url);
         if (searchData==null || searchData=="") {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
-                searchCache.setNewSearchCache(context.moduleName, url, data);
+                searchCache.setNewSearchCache(constructMainForm.moduleName, url, data);
 
                 utils.loadJsonToForm(mainForm, data);
                 utils.loadJsonAddInfo(data);
@@ -64,15 +61,6 @@ class ConstructMainForm {
     }
 }
 
-class PrintForm {
-    init(moduleName) {
-        $(document).on('click', '#printForm', function() {
-            console.log("Print Form.");
-            printJS('mainForm', 'html');
-        });
-    }
-}
-
 class FormRule {
     init(moduleName) {
         console.log("FormRule");
@@ -80,15 +68,14 @@ class FormRule {
     }
 
     doRule() {
-        var context = this;
         console.log("doRule called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/formrule/' + context.moduleName;
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/formrule/' + formRule.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
-            context.setupButtons(data);
+            formRule.setupButtons(data);
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
@@ -124,12 +111,11 @@ class ProfilePicLoader {
         this.moduleName = moduleName;
 
         console.log("ProfilePicLoader init called");
-        var context = this;
         $(mainId).on('change', function() {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
             if (recordId && recordId > 0) {
-                var imageLink = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/${context.moduleName}/${recordId}/`;
+                var imageLink = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/${profilePicLoader.moduleName}/${recordId}/`;
                 console.log(`ProfilePicLoader src="${imageLink}"`);
                 $("#profilePic").attr("src", imageLink);
                 $("#profilePic").show();
@@ -150,41 +136,11 @@ class FormControlButton {
         var myUploadDialog = $("#myUploadDialog").dialog({
             autoOpen: false,
         });
-        this.initFileUpload();
-        
-        $(document).on('click', '.btnToggleSearch', function() {
-            formControlButton.toggleSearch();
-        });
-        $(document).on('click', '.btnNew', function() {
-            formControlButton.newRecord(this);
-        });
-        $(document).on('click', '.btnUpdate', function() {
-            formControlButton.showModalUpdateRecord(this);
-        });
-        $(document).on('click', '.btnSave', function() {
-            formControlButton.saveRecord(this);
-        });
-        $(document).on('click', '.btnDelete', function() {
-            formControlButton.deleteRecord(this);
-        });
-        $(document).on('click', 'li.btnUpload', function() {
-            formControlButton.listFileAttachments(this);
-        });
-        $(document).on('click', 'button.btnSaveUpload', function() {
-            formControlButton.saveUpload(this);
-        });
-        $(document).on('click', '.myReport', function() {
-            formControlButton.displayReport(this);
-        });
-        $(document).on('click', '.reportClose', function() {
-            console.log("close report");
-            dynamicReport.dialog("close");
-        });
+        this.initFileUpload();       
     };
 
     initReport() {
-        var context = this;
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/report/dynamic/"+this.moduleName;
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/report/dynamic/"+formControlButton.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -192,7 +148,7 @@ class FormControlButton {
                 console.log(obj);
                 var code = obj.getProp("key");
                 var name = obj.getProp("value");
-                var module = context.moduleName;
+                var module = formControlButton.moduleName;
 
                 var str = `<li class="myReport ${code}" module="${module}" value="${code}"><a href="#" style="padding: 3px 20px;"><i class="fa fa-line-chart"> ${name}</i></a></li>`;
                 $(".dynamicReport").after(str);
@@ -312,7 +268,6 @@ class FormControlButton {
     }
 
     initFileUpload() {
-        var context = this;
         $('#fileUpload').change(function(){
             console.log("File Upload Change Called");
             //on change event
@@ -393,56 +348,35 @@ class FormControlButton {
 }
 
 class SearchTable {
-    constructor() {
-        var context = this;
-    
-        $(document).on('click', '.setFileProfile', function() {
-            context.setFileProfile(this);
-        });               
-        $(document).on('click', '.attachFileRemove', function() {
-            context.removeAttachedFile(this);
-        });               
-        $(document).on('keyup', 'input[class~="filter"]', function() {
-            context.reloadSearch();
-        });
-        $(document).on('click', 'select.specialSearch', function() {
-            context.reloadSpecialSearch();
-        });
-        $(document).on('click', 'btnImage', function() {
-            context.displayLargeImageFullScreen(this);
-        });
-    }
-
     initTable(moduleName) {
         this.moduleName = moduleName;
         this.successCallback;
 
-        var context = this;
-        var mainDataTable = dynaRegister.createMainTable(this.moduleName, mainSearchForm, this);
-        dynaRegister.createDropZone(context.moduleName, "div#mainDropZone", context, mainDataTable);
+        var mainDataTable = dynaRegister.createMainTable(searchTable.moduleName, mainSearchForm, this);
+        dynaRegister.createDropZone(searchTable.moduleName, "div#mainDropZone", this, mainDataTable);
 
         this.reloadSearch();
     };
 
     loadToForm() {
         var context = this;
-        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
-        var dropZone = dynaRegister.getDropZone(context.moduleName);
-        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${context.moduleName}/${mainDataTable.selectedId}`
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + this.moduleName + '/' + mainDataTable.selectedId;
+        var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
+        var dropZone = dynaRegister.getDropZone(searchTable.moduleName);
+        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${searchTable.moduleName}/${mainDataTable.selectedId}`
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + searchTable.moduleName + '/' + mainDataTable.selectedId;
 
-        var searchData = searchCache.getSearchCache(this.moduleName, url);
+        var searchData = searchCache.getSearchCache(searchTable.moduleName, url);
         if (searchData==null || searchData=="") {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
-                searchCache.setNewSearchCache(context.moduleName, url, data);
+                searchCache.setNewSearchCache(searchTable.moduleName, url, data);
 
                 utils.loadJsonToForm(mainForm, data);
                 utils.loadJsonAddInfo(data);
     
                 childTabs.reloadAllDisplayTabs();
                 for (const [key, value] of dynaRegister.saasMap) {
-                    value.loadToForm(context);
+                    value.loadToForm(searchTable);
                 }
                 localStorage.latestModuleId = mainDataTable.selectedId;
             };
@@ -454,16 +388,15 @@ class SearchTable {
 
             childTabs.reloadAllDisplayTabs();
             for (const [key, value] of dynaRegister.saasMap) {
-                value.loadToForm(context);
+                value.loadToForm(searchTable);
             }
             localStorage.latestModuleId = mainDataTable.selectedId;
         }
     };
 
     displayAllFiles() {
-        var context = this;
-        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/"+context.moduleName+"/"+mainDataTable.selectedId;
+        var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
+        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/"+searchTable.moduleName+"/"+mainDataTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -528,25 +461,23 @@ class SearchTable {
     }
 
     setFileProfile(obj) {
-        var context = this;
         var fileId = $(obj).attr("data");
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/setprofile/"+fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            context.displayAllFiles();
+            searchTable.displayAllFiles();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     removeAttachedFile(obj) {
-        var context = this;
         var fileId = $(obj).attr("data");
         var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/delete/"+fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            context.displayAllFiles();
+            searchTable.displayAllFiles();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -559,7 +490,6 @@ class SearchTable {
 
     reloadSpecialSearch() {
         console.log("reloadSpecialSearch");
-        var context = this;
         var input = $('select.specialSearch');
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/special/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -568,10 +498,8 @@ class SearchTable {
     };
 
     loadSearchData(data) {
-        var context = this;
-
         console.log("Reload Search");
-        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
+        var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
         mainDataTable.clear();
         var columns = $(mainSearchForm).attr("columns");
         // console.log(columns);
@@ -600,32 +528,30 @@ class SearchTable {
 
     reloadSearch() {
         console.log("reloadSearch");
-        var context = this;
-        var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
-        var searchData = searchCache.getSearchCache(this.moduleName, url);
+        var input = $('input[class~="filter"][module="'+searchTable.moduleName+'"]');
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + searchTable.moduleName + '/' + input.val();
+        var searchData = searchCache.getSearchCache(searchTable.moduleName, url);
         if (searchData==null || searchData=="") {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            this.successCallback = function(data) {
-                searchCache.setNewSearchCache(context.moduleName, url, data);
-                context.loadSearchData(data);
+            var successCallback = function(data) {
+                searchCache.setNewSearchCache(searchTable.moduleName, url, data);
+                searchTable.loadSearchData(data);
             };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, this.successCallback);
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
         else {
-            this.loadSearchData(searchData);
+            searchTable.loadSearchData(searchData);
         }
     };
 
     clearSearch() {
         console.log("reloadSearch");
-        var context = this;
-        var mainDataTable = dynaRegister.getDataTable(context.moduleName);
-        $('input[class~="filter"][module="'+this.moduleName+'"]').val("");
-        var input = $('input[class~="filter"][module="'+this.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + this.moduleName + '/' + input.val();
+        var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
+        $('input[class~="filter"][module="'+searchTable.moduleName+'"]').val("");
+        var input = $('input[class~="filter"][module="'+searchTable.moduleName+'"]');
+        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + searchTable.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        this.successCallback = function(data) {
+        var successCallback = function(data) {
             console.log("Reload Search");
             mainDataTable.clear();
             var columns = $(mainSearchForm).attr("columns");
@@ -652,20 +578,11 @@ class SearchTable {
 
                 for (const [key, value] of dynaRegister.saasMap) {
                     console.log(key, value);
-                    value.clearSearch(context);
+                    value.clearSearch(searchTable);
                 }
             });
             // console.log(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, this.successCallback);
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 };
-
-$(function () {
-    constructMainForm = new ConstructMainForm();
-    searchTable = new SearchTable();
-    formControlButton = new FormControlButton();
-    formRule = new FormRule();
-    profilePicLoader = new ProfilePicLoader();
-    printForm = new PrintForm();
-});

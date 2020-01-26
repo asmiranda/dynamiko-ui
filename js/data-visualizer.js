@@ -4,11 +4,6 @@ class DataVisualizer {
         this.chart;
         this.serverData;
         this.slice;
-        
-        var context = this;
-        $(document).on('click', '.pivotTable', function() {
-            context.showPivot();
-        });
     }
 
     showPivot() {
@@ -74,16 +69,15 @@ class DataVisualizer {
     }
 
     updateData() {
-        var context = this;
         var val = $("#dataVisualizer").val();
 
         var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/visualizer/' + val;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (vdata) {
             console.log(vdata);
-            context.serverData = vdata;
-            context.slice = vdata.chartSlice;
-            context.pivot.updateData({
+            dataVisualizer.serverData = vdata;
+            dataVisualizer.slice = vdata.chartSlice;
+            dataVisualizer.pivot.updateData({
                 data: vdata.data
             });
         };
@@ -91,7 +85,6 @@ class DataVisualizer {
     }
 
     loadAllDataVisualizers() {
-        var context = this;
         console.log("LOAD ALL VISUALIZERS...");
 
         var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/visualizer/all';
@@ -129,29 +122,28 @@ class DataVisualizer {
     }
 
     createChart() {
-        var context = this;
         var drawPolar = function (rawData) {
-            context.drawPolar(rawData);
+            dataVisualizer.drawPolar(rawData);
         };
         var rewritePolar = function (rawData) {
-            context.chart.destroy();
-            context.drawPolar(rawData);
+            dataVisualizer.chart.destroy();
+            dataVisualizer.drawPolar(rawData);
         };
 
         var drawBar = function (rawData) {
-            context.drawBar(rawData);
+            dataVisualizer.drawBar(rawData);
         };
         var rewriteBar = function (rawData) {
-            context.chart.destroy();
-            context.drawBar(rawData);
+            dataVisualizer.chart.destroy();
+            dataVisualizer.drawBar(rawData);
         };
 
         var drawPie = function (rawData) {
-            context.drawPie(rawData);
+            dataVisualizer.drawPie(rawData);
         };
         var rewritePie = function (rawData) {
-            context.chart.destroy();
-            context.drawPie(rawData);
+            dataVisualizer.chart.destroy();
+            dataVisualizer.drawPie(rawData);
         };
 
         $("div.chartContainer").children().hide();
@@ -159,52 +151,49 @@ class DataVisualizer {
         $("div.chartContainer").append('<canvas id="wdr-chart"></canvas>');        
 
         if ($("#dataVisualizer").val() != "") {
-            if (context.serverData.chartType == 'polarArea') {
-                this.pivot.getData({
-                    slice: context.slice,
+            if (dataVisualizer.serverData.chartType == 'polarArea') {
+                dataVisualizer.pivot.getData({
+                    slice: dataVisualizer.slice,
                 }, drawPolar, rewritePolar);
             }
-            else if (context.serverData.chartType == 'pie' || 
-                context.serverData.chartType == 'doughnut') {
-                this.pivot.getData({
-                    slice: context.slice,
+            else if (dataVisualizer.serverData.chartType == 'pie' || 
+                dataVisualizer.serverData.chartType == 'doughnut') {
+                    dataVisualizer.pivot.getData({
+                    slice: dataVisualizer.slice,
                 }, drawPie, rewritePie);
             }
-            else if (context.serverData.chartType == 'bar' || 
-                context.serverData.chartType == 'area' || 
-                context.serverData.chartType == 'line') {
-                this.pivot.getData({
-                    slice: context.slice,
+            else if (dataVisualizer.serverData.chartType == 'bar' || 
+                dataVisualizer.serverData.chartType == 'area' || 
+                dataVisualizer.serverData.chartType == 'line') {
+                dataVisualizer.pivot.getData({
+                    slice: dataVisualizer.slice,
                 }, drawBar, rewriteBar);
             }
         }
     }
 
     drawPie(rawData) {
-        var context = this;
         var ctx = document.getElementById("wdr-chart").getContext("2d");
-        context.chart = new Chart(ctx, {
-            data: context.getPieData(rawData),
-            type: context.serverData.chartType,
-            options: context.getLineChartOption()
+        dataVisualizer.chart = new Chart(ctx, {
+            data: dataVisualizer.getPieData(rawData),
+            type: dataVisualizer.serverData.chartType,
+            options: dataVisualizer.getLineChartOption()
         });
     }
 
     drawBar(rawData) {
-        var context = this;
         console.log(this.serverData);
         var ctx = document.getElementById("wdr-chart").getContext("2d");
-        context.chart = new Chart(ctx, {
-            data: context.getLineData(rawData),
-            type: context.serverData.chartType,
-            options: context.getLineChartOption()
+        dataVisualizer.chart = new Chart(ctx, {
+            data: dataVisualizer.getLineData(rawData),
+            type: dataVisualizer.serverData.chartType,
+            options: dataVisualizer.getLineChartOption()
         });
     }
 
     drawPolar(rawData) {
-        var context = this;
-        console.log(this.serverData);
-        var data = context.prepareDataFunction(rawData);
+        console.log(dataVisualizer.serverData);
+        var data = dataVisualizer.prepareDataFunction(rawData);
         var data_for_charts = {
             datasets: [{
                 data: data.data,
@@ -223,7 +212,7 @@ class DataVisualizer {
         var options = {
             responsive: true,
             legend: {
-                position: context.serverData.legendPosition
+                position: dataVisualizer.serverData.legendPosition
             },
             scale: {
                 ticks: {
@@ -237,9 +226,9 @@ class DataVisualizer {
             }
         };
         var ctx = document.getElementById("wdr-chart").getContext("2d");
-        context.chart = new Chart(ctx, {
+        dataVisualizer.chart = new Chart(ctx, {
             data: data_for_charts,
-            type: context.serverData.chartType,
+            type: dataVisualizer.serverData.chartType,
             options: options
         });
     }
@@ -282,7 +271,6 @@ class DataVisualizer {
     }
 
     getLineChartOption() {
-        var context = this;
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -308,7 +296,7 @@ class DataVisualizer {
             // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
             //Boolean - whether to make the chart responsive
             legend: {
-                position: context.serverData.legendPosition,
+                position: dataVisualizer.serverData.legendPosition,
                 labels: {
                     boxWidth: 20,
                     fontSize: 8,
@@ -322,7 +310,6 @@ class DataVisualizer {
     }
 
     getPieChartOption() {
-        var context = this;
         var chartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -348,7 +335,7 @@ class DataVisualizer {
             // legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
             //Boolean - whether to make the chart responsive
             legend: {
-                position: context.serverData.legendPosition,
+                position: dataVisualizer.serverData.legendPosition,
                 labels: {
                     boxWidth: 20,
                     fontSize: 8,
@@ -360,7 +347,3 @@ class DataVisualizer {
         return chartOptions;
     }
 }
-
-$(function () {
-    dataVisualizer = new DataVisualizer();
-});
