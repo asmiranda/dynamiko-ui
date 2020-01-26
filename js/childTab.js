@@ -1,60 +1,66 @@
 class ChildTabs {
     constructor() {
-        this.childTabs = [];
+        this.childTabArray = [];
+    }
 
-        $(document).on('click', 'button.btnChildTabEdit', function() {
-            var submodule = $(this).attr("submodule")
-            var recId = $(this).attr("recordId");
-            var childTab = this.getChildTab(subModule);
+    newDisplayTab(obj) {
+        var subModule = $(obj).attr("submodule")
+        var childTab = childTabs.getChildTab(subModule);
+        childTab.newDisplayTab(obj);
+    }
 
-            var childTable = dynaRegister.getDataTable(submodule);
-            childTable.selectedId = recId;
-            console.log("SELECTED ID == "+childTable.selectedId);
-            if (childTable.selectedId) {
-                childTab.loadToForm();
-                childTab.editDisplayTab(this);
-                childTab.displayAllFiles();
-            }
-            else {
-                e.stopPropagation();
-                noSelectedRecordEdit.alert();
-            }
-        });
-        $(document).on('click', 'button.btnChildTabNew', function() {
-            var subModule = $(this).attr("submodule")
-            var childTab = this.getChildTab(subModule);
-            childTab.newDisplayTab(this);
-        });
-        $(document).on('click', 'button.btnChildTabDelete', function() {
-            var subModule = $(this).attr("submodule")
-            var childTab = this.getChildTab(subModule);
-            childTab.deleteDisplayTab(this);
-        });
-        $(document).on('click', 'button.btnChildTabCancel', function() {
-            var subModule = $(this).attr("submodule")
-            var childTab = this.getChildTab(subModule);
-            childTab.cancelDisplayTab();
-        });
-        $(document).on('click', '.setFileProfile', function() {
-            var subModule = $(this).attr("submodule")
-            var childTab = this.getChildTab(subModule);
-            childTab.setFileProfile(this);
-        });               
-        $(document).on('click', '.attachFileRemove', function() {
-            var subModule = $(this).attr("submodule")
-            var childTab = this.getChildTab(subModule);
-            childTab.removeAttachedFile(this);
-        });               
-        $(document).on('click', '.btnImage_', function() {
-            var subModule = $(this).attr("submodule")
-            var childTab = this.getChildTab(subModule);
-            childTab.displayLargeImageFullScreen(this);
-        });
+    deleteDisplayTab(obj) {
+        var subModule = $(obj).attr("submodule")
+        var childTab = childTabs.getChildTab(subModule);
+        childTab.deleteDisplayTab(obj);
+    }
+
+    cancelDisplayTab(obj) {
+        var subModule = $(obj).attr("submodule")
+        var childTab = childTabs.getChildTab(subModule);
+        childTab.cancelDisplayTab();
+    }
+
+    setFileProfile(obj) {
+        var subModule = $(obj).attr("submodule")
+        var childTab = childTabs.getChildTab(subModule);
+        childTab.setFileProfile(obj);
+    }
+
+    removeAttachedFile(obj) {
+        var subModule = $(obj).attr("submodule")
+        var childTab = childTabs.getChildTab(subModule);
+        childTab.removeAttachedFile(obj);
+    }
+
+    displayLargeImageFullScreen(obj) {
+        var subModule = $(obj).attr("submodule")
+        var childTab = childTabs.getChildTab(subModule);
+        childTab.displayLargeImageFullScreen(obj);
+    }
+
+    editChildRecord(obj) {
+        var submodule = $(obj).attr("submodule")
+        var recId = $(obj).attr("recordId");
+        var childTab = childTabs.getChildTab(subModule);
+
+        var childTable = dynaRegister.getDataTable(submodule);
+        childTable.selectedId = recId;
+        console.log("SELECTED ID == "+childTable.selectedId);
+        if (childTable.selectedId) {
+            childTab.loadToForm();
+            childTab.editDisplayTab(this);
+            childTab.displayAllFiles();
+        }
+        else {
+            e.stopPropagation();
+            noSelectedRecordEdit.alert();
+        }
     }
 
     getChildTab(subModule) {
         var childTab = null;
-        $.each(this.childTabs, function(index, obj) {
+        $.each(childTabs.childTabArray, function(index, obj) {
             if (obj.subModuleName==subModule) {
                 childTab = obj;
             }
@@ -63,7 +69,6 @@ class ChildTabs {
     }
 
     initTabs(moduleName) {
-        var context = this;
         $.each($('.myChildTab[submodule]'), function(i, obj) {  
             console.log("initTabs");
             console.log(i);
@@ -71,15 +76,14 @@ class ChildTabs {
             var childTab = new ChildTab(moduleName, $(obj).attr("submodule"), $(obj).attr("cache"));
             childTab.constructTab();
 
-            context.childTabs.push(childTab);
+            childTabs.childTabArray.push(childTab);
         });
     };
 
     clearAllDisplayTabs() {
-        var context = this;
         console.log("clearAllDisplayTabs");
-        console.log(this.childTabs);
-        $.each(context.childTabs, function(i, childTab) {
+        console.log(childTabs.childTabArray);
+        $.each(childTabs.childTabArray, function(i, childTab) {
             console.log(i);
             console.log(childTab);
             childTab.clearDisplayTabs();
@@ -87,10 +91,9 @@ class ChildTabs {
     };
 
     reloadAllDisplayTabs() {
-        var context = this;
         console.log("reloadAllDisplayTabs");
-        console.log(this.childTabs);
-        $.each(context.childTabs, function(i, childTab) {
+        console.log(childTabs.childTabArray);
+        $.each(childTabs.childTabArray, function(i, childTab) {
             console.log(i);
             console.log(childTab);
             childTab.reloadDisplayTabs();
@@ -405,9 +408,3 @@ class ChildTab {
         });
     };
 }
-
-$(function () {
-    childTabs = new ChildTabs();
-});
-
-

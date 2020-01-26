@@ -1,13 +1,4 @@
 class DynaAutoComplete {
-    constructor() {
-        $(document).on('keyup', '.autocomplete', function() {
-            dynaAutoComplete.doAutoComplete(this);
-        });
-        $(document).on('click', '.autocomplete-choice', function() {
-            dynaAutoComplete.putAutoComplete(this);
-        });
-    }
-
     putAutoComplete(obj) {
         var value = $(obj).attr("value");
         var html = $(obj).html();
@@ -53,7 +44,3 @@ class DynaAutoComplete {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
-
-$(function () {
-    dynaAutoComplete = new DynaAutoComplete();
-});

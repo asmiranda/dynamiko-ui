@@ -36,6 +36,11 @@ $(function () {
     registerDatatable = new RegisterDatatable();
     uiCache = new UICache();
     searchCache = new SearchCache();
+    dynaAutoComplete = new DynaAutoComplete();
+    dynaButtonAction = new DynaButtonAction();
+    childFieldConstructor = new ChildFieldConstructor();
+    childFieldAutoComplete = new ChildFieldAutoComplete();
+    childTabs = new ChildTabs();
 
     mainInitializer = new MainInitializer();
     mainInitializer.initialize();

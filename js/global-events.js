@@ -77,6 +77,41 @@ class GlobalEvents {
             uiService.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
         });
 
+        $(document).on('keyup', '.autocomplete', function() {
+            dynaAutoComplete.doAutoComplete(this);
+        });
+        $(document).on('click', '.autocomplete-choice', function() {
+            dynaAutoComplete.putAutoComplete(this);
+        });
+
+        $(document).on('click', '.btnChildTabSave', function() {
+            dynaButtonAction.saveDisplayTab(this);
+        });
+        $(document).on('click', '.btnAddInfoSave', function() {
+            dynaButtonAction.saveAddInfoSave(this);
+        });
+
+        $(document).on('click', 'button.btnChildTabEdit', function() {
+            childTabs.editChildRecord(this);
+        });
+        $(document).on('click', 'button.btnChildTabNew', function() {
+            childTabs.newDisplayTab(this);
+        });
+        $(document).on('click', 'button.btnChildTabDelete', function() {
+            childTabs.deleteDisplayTab(this);
+        });
+        $(document).on('click', 'button.btnChildTabCancel', function() {
+            childTabs.cancelDisplayTab(this);
+        });
+        $(document).on('click', '.setFileProfile', function() {
+            childTabs.setFileProfile(this);
+        });               
+        $(document).on('click', '.attachFileRemove', function() {
+            childTabs.removeAttachedFile(this);
+        });               
+        $(document).on('click', '.btnImage_', function() {
+            childTabs.displayLargeImageFullScreen(this);
+        });
 
         $(document).on('click', '.btnCreateJob', function() {
             hrRequisitionUI.createJob(this);

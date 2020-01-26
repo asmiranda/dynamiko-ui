@@ -8,7 +8,6 @@ class ChildFieldConstructor {
 class ChildFieldAutoComplete {
     init(moduleName, subModuleName) {
         var dialogWindow = "#myModal"+subModuleName;
-        var context = this;
         $(".autocomplete[submodule='"+subModuleName+"']").each(function() {
             var fieldLabelName = $(this).attr("autoName");
             var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/subautocomplete/"+moduleName+"/"+subModuleName+"/"+fieldLabelName;
@@ -19,8 +18,3 @@ class ChildFieldAutoComplete {
         });
     }
 }
-
-$(function () {
-    childFieldConstructor = new ChildFieldConstructor();
-    childFieldAutoComplete = new ChildFieldAutoComplete();
-});

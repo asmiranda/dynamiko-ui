@@ -1,15 +1,5 @@
 class DynaButtonAction {
-    constructor() {
-        $(document).on('click', '.btnChildTabSave', function() {
-            dynaButtonAction.saveDisplayTab(this);
-        });
-        $(document).on('click', '.btnAddInfoSave', function() {
-            dynaButtonAction.saveAddInfoSave(this);
-        });
-    }
-
     saveAddInfoSave(myButton) {
-        var context = this;
         var moduleName = $(myButton).attr("module");
         var addInfo = $(myButton).attr("addInfo");
         console.log("Child Tab Save Button Called");
@@ -32,7 +22,6 @@ class DynaButtonAction {
     };
 
     saveDisplayTab(myButton) {
-        var context = this;
         var moduleName = $(myButton).attr("module");
         var submodule = $(myButton).attr("submodule");
         console.log("Child Tab Save Button Called");
@@ -47,7 +36,7 @@ class DynaButtonAction {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/savesubrecord/${moduleName}/${submodule}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
         var successCallback = function(data, status, hqr) {
-            $(context.modalId).modal('hide');
+            $(dynaButtonAction.modalId).modal('hide');
             moduleScript.saveChild(moduleName, submodule);
             var childTab = new ChildTab(moduleName, submodule);
             childTab.reloadDisplayTabs();
@@ -55,7 +44,3 @@ class DynaButtonAction {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     };
 }
-
-$(function () {
-    dynaButtonAction = new DynaButtonAction();
-});
