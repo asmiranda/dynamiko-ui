@@ -1,21 +1,4 @@
 class HrRequisitionUI { 
-    constructor() {
-        var context = this;
-        $(document).on('click', '.btnCreateJob', function() {
-            context.createJob(this);
-        });
-        $(document).on('click', '.btnRemoveApplicant', function() {
-            context.removeApplicant(this);
-        });
-        $(document).on('change', mainId, function() {
-            console.log("###############HrRequisitionId change#############");
-            context.reArrange(this);
-        });
-        $(document).on('click', '.loadRecordToForm', function() {
-            context.loadRecordToForm(this);
-        });
-    }
-
     loadRecordToForm(obj) {
         var context = this;
         var moduleName = $(obj).attr("module");

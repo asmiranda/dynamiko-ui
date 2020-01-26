@@ -1,11 +1,10 @@
 class DynaAutoComplete {
     constructor() {
-        var context = this;
         $(document).on('keyup', '.autocomplete', function() {
-            context.doAutoComplete(this);
+            dynaAutoComplete.doAutoComplete(this);
         });
         $(document).on('click', '.autocomplete-choice', function() {
-            context.putAutoComplete(this);
+            dynaAutoComplete.putAutoComplete(this);
         });
     }
 
