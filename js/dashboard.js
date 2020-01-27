@@ -1,7 +1,7 @@
 class Dashboard {
-    load(moduleName) {
+    load(obj) {
+        var moduleName = $(obj).attr("data");
         console.log("load "+moduleName);
-        var context = this;
 
         var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -12,7 +12,3 @@ class Dashboard {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
-
-$(function () {
-    dashboard = new Dashboard();
-});

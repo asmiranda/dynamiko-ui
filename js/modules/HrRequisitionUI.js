@@ -178,6 +178,12 @@ class HrRequisitionUI {
         ev.preventDefault();
     }
 
+    initializeModule(moduleName) {
+        if (moduleName=="HrRequisitionUI") {
+            hrRequisitionUI.loadTeamRequisition();
+        }
+    }
+
     loadTeamRequisition() {
         console.log("loadTeamRequisition");
 
@@ -315,8 +321,4 @@ class HrRequisitionUI {
         console.log(segment);
     }
 }
-
-$(function () {
-    hrRequisitionUI = new HrRequisitionUI();
-});
 

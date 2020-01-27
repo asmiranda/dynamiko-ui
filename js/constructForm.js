@@ -136,7 +136,6 @@ class FormControlButton {
         var myUploadDialog = $("#myUploadDialog").dialog({
             autoOpen: false,
         });
-        this.initFileUpload();       
     };
 
     initReport() {
@@ -267,19 +266,6 @@ class FormControlButton {
         ajaxCaller.uploadFile(successCallback, moduleName, recordId, uploadType, this.formUploadData);
     }
 
-    initFileUpload() {
-        $('#fileUpload').change(function(){
-            console.log("File Upload Change Called");
-            //on change event
-            if($(this).prop('files').length > 0) {
-                var file = $(this).prop('files')[0];
-                console.log("Received File");
-                console.log(file);
-                formControlButton.formUploadData.append("file", file);
-            }
-        });
-    }
-
     toggleSearch() {
         if ($("#dynamikoMainSearch").is(":visible")) {
             $("#dynamikoMainSearch").hide();
@@ -359,7 +345,6 @@ class SearchTable {
     };
 
     loadToForm() {
-        var context = this;
         var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
         var dropZone = dynaRegister.getDropZone(searchTable.moduleName);
         dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${searchTable.moduleName}/${mainDataTable.selectedId}`

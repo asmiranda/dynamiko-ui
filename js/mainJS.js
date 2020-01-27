@@ -33,7 +33,6 @@ $(function () {
     config = new Config();
     uiService = new UIService();
     leftMenu = new LeftMenu();
-    fileUpload = new FileUpload();
     toggleForm = new ToggleForm();
     registerDatatable = new RegisterDatatable();
     uiCache = new UICache();
@@ -61,10 +60,13 @@ $(function () {
     dynaRegister = new DynaRegister();
     uploadDataFile = new UploadDataFile();
     utils = new Utils();
+    dashboard = new Dashboard();
+    mainReport = new MainReport();
 
     // #################for saas and modules
     reviewCenter = new ReviewCenter();
 
+    hrRequisitionUI = new HrRequisitionUI();
     purchaseOrderUI = new PurchaseOrderUI();
     salesOrderUI = new SalesOrderUI();
 

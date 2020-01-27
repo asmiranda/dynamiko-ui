@@ -42,7 +42,6 @@ class UIService {
         registerDatatable.clearRegister();
     
         constructMainForm.construct(moduleName);
-        fileUpload.initUpload();
     }    
 
     initCompany() {
@@ -144,36 +143,14 @@ class LeftMenu {
         });
     }
 
-    loadUI(myui) {
-        var moduleName = myui;
+    loadUI(obj) {
+        var moduleName = $(obj).attr("data");
         localStorage.latestModule = moduleName;
         registerDatatable.clearRegister();
     
         constructMainForm.construct(moduleName);
-        fileUpload.initUpload();
+        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => moduleName } }))
     }    
-}
-
-class FileUpload {
-    initUpload() {
-        console.log("File Upload initUpload Called");
-        setTimeout(
-            function() {
-                $('#fileUpload').change(function(){
-                    console.log("File Upload Change Called");
-                    //on change event
-                    var formData = new FormData();
-                    if($(this).prop('files').length > 0) {
-                        var file = $(this).prop('files')[0];
-                        console.log("Received File");
-                        console.log(file);
-                        formData.append("music", file);
-                    }
-                });
-            }, 500
-        );
-
-    }
 }
 
 class ToggleForm {

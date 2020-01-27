@@ -46,18 +46,24 @@ class GlobalEvents {
             enumerable: false
         });
         
+        $(document).on('changeModule', function(evt) {
+            var moduleName = evt.detail.text();
+            console.log(moduleName);
+            globalEvents.loadModuleInitializer(moduleName);
+        });
+
+        $(document).on('change', mainId, function() {
+            hrRequisitionUI.reArrange(this);
+        });
+
         $(document).on('click', '.leftDashboardItem', function() {
-            var moduleName = $(this).attr("data");
-            var dashboard = new Dashboard();
-            dashboard.load(moduleName);
+            dashboard.load(this);
         });
         $(document).on('click', '.leftMenuItem[report="true"]', function() {
-            var moduleName = $(this).attr("data");
-            mainReport.constructMainReport(moduleName);
+            mainReport.constructMainReport(this);
         });
         $(document).on('click', '.leftMenuItem[report="false"]', function() {
-            var moduleName = $(this).attr("data");
-            context.loadUI(moduleName);
+            leftMenu.loadUI(this);
         });
 
         $(document).on('click', '.btnSignOut', function() {
@@ -291,6 +297,12 @@ class GlobalEvents {
         $(document).on('click', '.useTemplate', function() {
             uploadDataFile.useChosenTemplate(this);
         });
+        $(document).on('change', '#fileUpload', function(evt) {
+            if($(this).prop('files').length > 0) {
+                var file = $(this).prop('files')[0];
+                formControlButton.formUploadData.append("file", file);
+            }
+        });
 
         // ################################################# for modules
         $(document).on('click', '.addToPayroll', function() {
@@ -312,10 +324,6 @@ class GlobalEvents {
         $(document).on('click', '.btnRemoveApplicant', function() {
             hrRequisitionUI.removeApplicant(this);
         });
-        $(document).on('change', mainId, function() {
-            console.log("###############HrRequisitionId change#############");
-            hrRequisitionUI.reArrange(this);
-        });
         $(document).on('click', '.loadRecordToForm', function() {
             hrRequisitionUI.loadRecordToForm(this);
         });
@@ -330,5 +338,8 @@ class GlobalEvents {
         });
 
     }
-}
 
+    loadModuleInitializer(moduleName) {
+        hrRequisitionUI.initializeModule(moduleName);
+    }
+}
