@@ -337,15 +337,15 @@ class HrRequisitionUI {
         var moduleName = $(obj).attr("module");
         var hrRequisitionApplicantId = $(obj).attr("recordId");
         console.log(moduleName);
-        console.log(selectedId);
+        console.log(hrRequisitionApplicantId);
         var ajaxRequestDTO = new AjaxRequestDTO();
         ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/acceptForEmployment/${hrRequisitionApplicantId}`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function(data) {
             console.log(data);
-            var key = obj.getProp("key");
-            var value = obj.getProp("value");
+            var key = data.getProp("key");
+            var value = data.getProp("value");
             formLinker.linkToForm(key, value)
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
