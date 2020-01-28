@@ -150,7 +150,6 @@ class LeftMenu {
         registerDatatable.clearRegister();
     
         constructMainForm.construct(localStorage.latestModule);
-        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => localStorage.latestModule } }))
     }    
 }
 

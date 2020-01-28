@@ -24,6 +24,7 @@ class ConstructMainForm {
         if (recordId) {
             constructMainForm.loadRecord(recordId);
         }
+        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => localStorage.latestModule } }))
 
         formRule.init(constructMainForm.moduleName);
         profilePicLoader.init(constructMainForm.moduleName);

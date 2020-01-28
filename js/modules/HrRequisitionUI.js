@@ -197,7 +197,22 @@ class HrRequisitionUI {
     initializeModule(moduleName) {
         if (moduleName=="HrRequisitionUI") {
             hrRequisitionUI.loadTeamRequisition();
+            hrRequisitionUI.loadOpenRequisition();
+            hrRequisitionUI.loadRecruitmentPerformanceChart();
+            hrRequisitionUI.loadMyAssignedRequisition();
         }
+    }
+
+    loadFulfilled(obj) {
+        var hrRequisitionId = $(obj).val();
+        console.log("Rearrange for record ID === "+hrRequisitionId);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            hrRequisitionUI.arrangeStages(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     loadTeamRequisition() {

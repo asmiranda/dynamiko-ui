@@ -46,15 +46,11 @@ class GlobalEvents {
             enumerable: false
         });
         
-        $(document).on('changeModule', function(evt) {
-            var moduleName = evt.detail.text();
-            console.log(moduleName);
-            globalEvents.loadModuleInitializer(moduleName);
-        });
-
-        $(document).on('change', mainId, function() {
-            hrRequisitionUI.reArrange(this);
-        });
+        // $(document).on('changeModule', function(evt) {
+        //     var moduleName = evt.detail.text();
+        //     console.log(moduleName);
+        //     globalEvents.loadModuleInitializer(moduleName);
+        // });
 
         $(document).on('click', '.leftDashboardItem', function() {
             dashboard.load(this);
@@ -330,9 +326,5 @@ class GlobalEvents {
 
         var globalEventsHr = new GlobalEventsHr();
         globalEventsHr.initializeGlobalEvents();
-    }
-
-    loadModuleInitializer(moduleName) {
-        hrRequisitionUI.initializeModule(moduleName);
     }
 }
