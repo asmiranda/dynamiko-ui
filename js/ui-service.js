@@ -76,7 +76,7 @@ class UIService {
         $("#useCompany").append(useCompanyStr);
 
         if (localStorage.latestModule) {
-            leftMenu.loadUI(localStorage.latestModule);
+            leftMenu.loadLatestUI();
         }
     }
 
@@ -106,19 +106,17 @@ class UIService {
 
 class LeftMenu {
     constructor() {
-        var context = this;
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
 
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("Left Menu Extracted");
-//            console.log(data);
             leftMenu.addDashboard(data);
             
             var menus = ["School", "Admin", "HR", "Accounting", "Procurement", "Production", "Supply Chain", "Marketing", "CRM", "Reference"];
             $.each(menus, function(i, obj) {
-                context.addMenu(obj, data);
+                leftMenu.addMenu(obj, data);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -144,12 +142,15 @@ class LeftMenu {
     }
 
     loadUI(obj) {
-        var moduleName = $(obj).attr("data");
-        localStorage.latestModule = moduleName;
+        localStorage.latestModule = $(obj).attr("data");
+        leftMenu.loadLatestUI();
+    }    
+
+    loadLatestUI() {
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(moduleName);
-        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => moduleName } }))
+        constructMainForm.construct(localStorage.latestModule);
+        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => localStorage.latestModule } }))
     }    
 }
 

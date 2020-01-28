@@ -109,35 +109,56 @@ class HrRequisitionUI {
             }
             var nextScheduleDate = obj.getProp("nextScheduleDate");
             if (nextScheduleDate == undefined) {
-                nextScheduleDate = "<sub>next schedule...</sub>";
+                nextScheduleDate = " Schedule";
             }
             var lookFor = obj.getProp("lookFor");
             if (lookFor == undefined) {
                 lookFor = "<sub>employee here...</sub>";
             }
+
+            var strAccept = "";
+            var strRemove = "";
+            var strUpload = "";
+            var strDownload = "";
+            if (applicationStatus=="NEW") {
+                strRemove = `<a href="#" class="btn btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i> Remove</a>`;
+                strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
+                strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
+            }
+            else if (applicationStatus=="INTERVIEW") {
+                strRemove = `<a href="#" class="btn btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i> Remove</a>`;
+                strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
+                strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
+            }
+            else if (applicationStatus=="OFFER") {
+                strAccept = `<a href="#" class="btn btn-box-tool btnAcceptApplicant" module="HrApplicantUI" recordId="${applicantId}" title="Accept Applicant"><i class="fa fa-thumbs-o-up"></i> Accept</a>`;
+            }
+
             var strHtml = `
                 <div class="box" draggable="true" ondragstart="hrRequisitionUI.dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
                     <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
-                        <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a></h3> 
-                        <a href="#" class="pull-right btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i></a>
-                        <a href="#" class="pull-right btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"></i></a>
-                        <a href="#" class="pull-right btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"></i></a>
+                        <div>
+                            <h3 class="box-title"><a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a></h3> 
+                            <div class="box-tools pull-right">
+                                ${strUpload}
+                                ${strDownload}
+                                ${strAccept}
+                                <a href="#" class="btn btn-box-tool quickUpdaterTarget" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate"><i class="fa fa-calendar"></i> ${nextScheduleDate}</a>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="box-title">
+                                <small><a href="#" class="quickUpdaterTarget" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a></small>
+                            </h3>
+                        </div>
                     </div>
                     <div class="box-body box${applicantId}" style="display:none;">
                         <div class="col-md-4" style="padding-left: 0px;">
                             <img class="profile-user-img img-responsive formLinker" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
                         </div>
                         <div class="col-md-8 text-left" style="padding-left: 0px;">
-                            <span class="info-box-text">
-                                <a href="#" class="quickUpdaterTarget" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
-                            </span>
                             <span class="info-box-text">${email} - ${contact}</span>
                             <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
-                            <span class="info-box-text"><i class="fa fa-calendar"></i> Schedule : 
-                                <b>
-                                    <a href="#" class="quickUpdaterTarget" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate">${nextScheduleDate}</a>
-                                </b>
-                            </span>
                             <span class="info-box-text"><i class="fa fa-user"></i> Look For : 
                                 <b>
                                     <a href="#" class="quickUpdaterTarget" updater="autoComplete" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="lookForEmployeeCode">${lookFor}</a>
