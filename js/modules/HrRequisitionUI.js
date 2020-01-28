@@ -1,6 +1,5 @@
 class HrRequisitionUI { 
     loadRecordToForm(obj) {
-        var context = this;
         var moduleName = $(obj).attr("module");
         var selectedId = $(obj).attr("recordId");
 
@@ -17,7 +16,7 @@ class HrRequisitionUI {
 
             childTabs.reloadAllDisplayTabs();
             for (const [key, value] of dynaRegister.saasMap) {
-                value.loadToForm(context);
+                value.loadToForm(hrRequisitionUI);
             }
             localStorage.latestModuleId = mainDataTable.selectedId;
         };
@@ -25,7 +24,6 @@ class HrRequisitionUI {
     }
 
     createJob(obj) {
-        var context = this;
         var title = $("input[name='createJobRequisitionTitle']").val();
         var recruiterCode = $(".HiddenAutoComplete[name='createJobRecruiterCode']").val();
         var managerCode = $(".HiddenAutoComplete[name='createJobManagerCode']").val();
@@ -49,7 +47,6 @@ class HrRequisitionUI {
     }
 
     removeApplicant(obj) {
-        var context = this;
         var hrRequisitionId = $(obj).attr("requisitionId");
         var hrRequisitionApplicantId = $(obj).attr("hrRequisitionApplicantId");
         console.log("Remove Applicant for record ID === "+hrRequisitionId);
@@ -57,32 +54,30 @@ class HrRequisitionUI {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/removeApplicant/${hrRequisitionId}/${hrRequisitionApplicantId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
-            context.arrangeStages(data);
+            hrRequisitionUI.arrangeStages(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     moveApplicant(requisitionId, applicantId, applicationStatus) {
-        var context = this;
         console.log("Rearrange for record ID === "+requisitionId);
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/moveApplicant/${requisitionId}/${applicantId}/${applicationStatus}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
-            context.arrangeStages(data);
+            hrRequisitionUI.arrangeStages(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     reArrange(obj) {
-        var context = this;
         var hrRequisitionId = $(obj).val();
         console.log("Rearrange for record ID === "+hrRequisitionId);
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
-            context.arrangeStages(data);
+            hrRequisitionUI.arrangeStages(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
@@ -131,7 +126,7 @@ class HrRequisitionUI {
                 strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
             }
             else if (applicationStatus=="OFFER") {
-                strAccept = `<a href="#" class="btn btn-box-tool btnAcceptApplicant" module="HrApplicantUI" recordId="${applicantId}" title="Accept Applicant"><i class="fa fa-thumbs-o-up"></i> Accept</a>`;
+                strAccept = `<a href="#" class="btn btn-box-tool btnAcceptApplicant" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" title="Accept Applicant"><i class="fa fa-thumbs-o-up"></i> Accept</a>`;
             }
 
             var strHtml = `
@@ -208,7 +203,6 @@ class HrRequisitionUI {
     loadTeamRequisition() {
         console.log("loadTeamRequisition");
 
-        var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadTeamRequisition`;
         ajaxRequestDTO.data = "";
@@ -244,7 +238,6 @@ class HrRequisitionUI {
     loadOpenRequisition() {
         console.log("loadOpenRequisition");
 
-        var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadOpenRequisition`;
         ajaxRequestDTO.data = "";
@@ -280,7 +273,6 @@ class HrRequisitionUI {
     loadMyAssignedRequisition() {
         console.log("loadMyAssignedRequisition");
 
-        var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadMyAssignedRequisition`;
         ajaxRequestDTO.data = "";
@@ -316,7 +308,6 @@ class HrRequisitionUI {
     loadRecruitmentPerformanceChart() {
         console.log("loadRecruitmentPerformanceChart");
 
-        var context = this;
         if ($("#recruitmentPerformanceChart").attr("id")) {
             var recruitmentPerformanceChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
 
@@ -327,7 +318,7 @@ class HrRequisitionUI {
             var successFunction = function(data) {
                 console.log(data);
                 widgetChartRule.doChart("#recruitmentPerformanceChart", data, data.chartType, function(evt) {
-                    context.recruitmentPerformanceChartClickHandler(evt, recruitmentPerformanceChart, this.getElementsAtEvent(evt), this);
+                    hrRequisitionUI.recruitmentPerformanceChartClickHandler(evt, recruitmentPerformanceChart, this.getElementsAtEvent(evt), this);
                 });
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -340,6 +331,24 @@ class HrRequisitionUI {
         // console.log(this.data.datasets[0].data[selectedIndex]);              
         console.log(obj);
         console.log(segment);
+    }
+
+    acceptApplicant(obj) {
+        var moduleName = $(obj).attr("module");
+        var hrRequisitionApplicantId = $(obj).attr("recordId");
+        console.log(moduleName);
+        console.log(selectedId);
+        var ajaxRequestDTO = new AjaxRequestDTO();
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/acceptForEmployment/${hrRequisitionApplicantId}`;
+        ajaxRequestDTO.data = "";
+
+        var successFunction = function(data) {
+            console.log(data);
+            var key = obj.getProp("key");
+            var value = obj.getProp("value");
+            formLinker.linkToForm(key, value)
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 }
 

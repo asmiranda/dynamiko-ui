@@ -318,15 +318,6 @@ class GlobalEvents {
             salesOrderUI.onfocusout(this);
         });
 
-        $(document).on('click', '.btnCreateJob', function() {
-            hrRequisitionUI.createJob(this);
-        });
-        $(document).on('click', '.btnRemoveApplicant', function() {
-            hrRequisitionUI.removeApplicant(this);
-        });
-        $(document).on('click', '.loadRecordToForm', function() {
-            hrRequisitionUI.loadRecordToForm(this);
-        });
 
         // ###################For Reports 
         $(document).on('click', '.btnShowInvoiceReport', function() {
@@ -337,6 +328,8 @@ class GlobalEvents {
             utils.toggleBox(this);
         });
 
+        var globalEventsHr = new GlobalEventsHr();
+        globalEventsHr.initializeGlobalEvents();
     }
 
     loadModuleInitializer(moduleName) {
