@@ -219,6 +219,7 @@ class HrRequisitionUI {
                 var contact = obj.getProp("contact");
                 var applyDate = obj.getProp("applyDate");
                 var companyCode = obj.getProp("companyCode");
+                var personId = obj.getProp("personId");
     
                 var specialization = obj.getProp("specialization");
                 if (specialization == undefined) {
@@ -243,7 +244,7 @@ class HrRequisitionUI {
                                 <div>
                                     <div class="box-title">
                                         <h3 class="box-title">
-                                            <a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a>
+                                            <a href="#" class="formLinker" recordId="${personId}" linkModule="EmployeeUI">${applicant}</a>
                                         </h3><br/>
                                         <h4 class="box-title">
                                             <a href="#" class="quickUpdaterTarget" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
@@ -418,9 +419,11 @@ class HrRequisitionUI {
 
         var successFunction = function(data) {
             console.log(data);
-            var key = data.getProp("key");
-            var value = data.getProp("value");
-            formLinker.linkToForm(key, value)
+            $('.nav-tabs a[href="#Tab4"]').tab('show');
+            // var key = data.getProp("key");
+            // var value = data.getProp("value");
+            // formLinker.linkToForm(key, value)
+            loadFulfilled($(mainId));
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
