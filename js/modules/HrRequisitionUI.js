@@ -156,6 +156,7 @@ class HrRequisitionUI {
                             </b>
                         </span>
                         <span class="info-box-text">Resume: ${strUpload} ${strDownload}</span>
+                        <span class="info-box-text">${strAccept}</span>
                     </div>
                 </div>
             `;
@@ -201,12 +202,74 @@ class HrRequisitionUI {
 
     loadFulfilled(obj) {
         var hrRequisitionId = $(obj).val();
-        console.log("Rearrange for record ID === "+hrRequisitionId);
+        console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadFulfilled/${hrRequisitionId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
-            hrRequisitionUI.arrangeStages(data);
+            console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
+            $(".hrRequisitionFulfilled").empty();
+            $(data).each(function(index, obj) {
+                var requisitionId = obj.getProp("hrRequisitionId");
+                var hrRequisitionApplicantId = obj.getProp("hrRequisitionApplicantId");            
+                var applicationStatus = obj.getProp("applicationStatus");
+                var applicantId = obj.getProp("hrApplicantId");
+                var applicant = obj.getProp("applicant");
+                var email = obj.getProp("email");
+                var contact = obj.getProp("contact");
+                var applyDate = obj.getProp("applyDate");
+                var companyCode = obj.getProp("companyCode");
+    
+                var specialization = obj.getProp("specialization");
+                if (specialization == undefined) {
+                    specialization = "<sub>type specialization here...</sub>";
+                }
+                var nextScheduleDate = obj.getProp("nextScheduleDate");
+                if (nextScheduleDate == undefined) {
+                    nextScheduleDate = " Start Date";
+                }
+                var lookFor = obj.getProp("lookFor");
+                if (lookFor == undefined) {
+                    lookFor = "<sub>employee here...</sub>";
+                }
+
+                var strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
+                var strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
+    
+                var strHtml = `
+                    <div class="col-md-4">
+                        <div class="box" draggable="true" ondragstart="hrRequisitionUI.dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                            <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
+                                <div>
+                                    <div class="box-title">
+                                        <h3 class="box-title">
+                                            <a href="#" class="formLinker" recordId="${applicantId}" linkModule="HrApplicantUI">${applicant}</a>
+                                        </h3><br/>
+                                        <h4 class="box-title">
+                                            <a href="#" class="quickUpdaterTarget" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
+                                        </h4><br/>
+                                        <a href="#" style="padding-left: 0px;" class="btn btn-box-tool quickUpdaterTarget" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate"><i class="fa fa-calendar"></i> ${nextScheduleDate}</a>
+                                    </div>
+                                    <div class="box-tools pull-right">
+                                        <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body text-left box${applicantId}" style="padding-left: 17px;">
+                                <span class="info-box-text">${email} - ${contact}</span>
+                                <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
+                                <span class="info-box-text"><i class="fa fa-user"></i> Look For : 
+                                    <b>
+                                        <a href="#" class="quickUpdaterTarget" updater="autoComplete" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="lookForEmployeeCode">${lookFor}</a>
+                                    </b>
+                                </span>
+                                <span class="info-box-text">Resume: ${strUpload} ${strDownload}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $(".hrRequisitionFulfilled").append(strHtml);
+            });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
