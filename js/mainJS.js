@@ -57,6 +57,7 @@ $(function () {
     userUI = new UserUI();
     myReportViewer = new MyReportViewer();
     quickUpdater = new QuickUpdater();   
+    quickSearcher = new QuickSearcher();   
     dynaRegister = new DynaRegister();
     uploadDataFile = new UploadDataFile();
     utils = new Utils();

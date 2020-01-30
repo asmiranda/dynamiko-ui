@@ -228,6 +228,18 @@
       </div>
       <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##" mainmodule="##MODULE##" autoNameField="##FIELDNAME##">
     </div>
+    <div id="quickMainSearcher">
+      <div class="input-group">
+        <input module="##MODULE##" type="text" placeholder="Please type for search" class="form-control displayEdit quickMainSearcherInput">
+        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+      </div>
+      <div class="input-group">
+        <div class="box-body">
+          <div module="##MODULE##" class="quickMainSearcherResult" style="max-height: 700px; overflow-y: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -327,6 +339,7 @@
   <script src="js/reportLoader.js"></script>
   <script src="js/upload-data-file.js"></script>
   <script src="js/quick-updater.js"></script>
+  <script src="js/quick-searcher.js"></script>
 
   <script src="js/widgets/tasks-widget.js"></script>
   <script src="js/widgets/ticket-chart-widget.js"></script>

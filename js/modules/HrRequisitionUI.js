@@ -191,7 +191,37 @@ class HrRequisitionUI {
         ev.preventDefault();
     }
 
-    initializeModule(moduleName) {
+    doMainSearchData(evt) {
+        var moduleName = evt.detail.text();
+        if (moduleName!="HrRequisitionUI") {
+            return;
+        }
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".quickMainSearcherResult").empty();
+            $(data).each(function(index, obj) {
+                var title = obj.getProp("TITLEBYMANAGER");
+                var str = `
+                    <strong>${title}</strong>
+                    <p class="text-muted">
+                        B.S. in Computer Science from the University of Tennessee at Knoxville<br/>
+                        <span class="label label-danger">New</span>
+                        <span class="label label-warning">On Going</span>
+                        <span class="label label-info">Offer</span>
+                        <span class="label label-success">Accepted</span>
+                    </p>
+                    <hr>
+                `
+                $(".quickMainSearcherResult").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+    }
+
+    changeModule(evt) {
+        var moduleName = evt.detail.text();
         if (moduleName=="HrRequisitionUI") {
             hrRequisitionUI.loadTeamRequisition();
             hrRequisitionUI.loadOpenRequisition();

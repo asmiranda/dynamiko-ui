@@ -1,9 +1,14 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
+        $(document).on('doMainSearchData', function(evt) {
+            var moduleName = evt.detail.text();
+            console.log(moduleName);
+            hrRequisitionUI.doMainSearchData(evt);
+        });
         $(document).on('changeModule', function(evt) {
             var moduleName = evt.detail.text();
             console.log(moduleName);
-            hrRequisitionUI.initializeModule(moduleName);
+            hrRequisitionUI.changeModule(evt);
         });
         $(document).on('change', mainId, function() {
             hrRequisitionUI.reArrange(this);

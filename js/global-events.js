@@ -238,6 +238,14 @@ class GlobalEvents {
             quickUpdater.quickAutoCompleteUpdateInput(this);
         });
 
+        // ########################Quick Searcher
+        $(document).on('click', '.btnQuickSearch', function() {
+            quickSearcher.displayMainQuickSearcher(this);
+        });
+        $(document).on('keyup', '.quickMainSearcherInput', function() {
+            quickSearcher.doMainQuickSearcher(this);
+        });
+
         // ###################### Other events
         $(document).on('click', '.pivotTable', function() {
             dataVisualizer.showPivot();
