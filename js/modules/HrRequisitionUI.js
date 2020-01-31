@@ -10,7 +10,7 @@ class HrRequisitionUI {
 
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
-
+            dynamikoCache.setLastRecordId(selectedId);
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
 

@@ -22,7 +22,14 @@ class ConstructMainForm {
         $('[data-mask]').inputmask();
 
         if (recordId) {
+            dynamikoCache.setLastRecordId(recordId);
             constructMainForm.loadRecord(recordId);
+        }
+        else {
+            recordId = dynamikoCache.getLastRecordId();
+            if (recordId) {
+                constructMainForm.loadRecord(recordId);
+            }
         }
         document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => localStorage.latestModule } }))
 
