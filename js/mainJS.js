@@ -126,6 +126,7 @@ $(function () {
     reviewCenter = new ReviewCenter();
 
     hrRequisitionUI = new HrRequisitionUI();
+    employeeUI = new EmployeeUI();
     purchaseOrderUI = new PurchaseOrderUI();
     salesOrderUI = new SalesOrderUI();
 

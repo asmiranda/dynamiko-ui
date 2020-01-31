@@ -1,13 +1,11 @@
 class HrRequisitionUI { 
     loadRecordToForm(obj) {
         var moduleName = $(obj).attr("module");
+        if (moduleName!="HrRequisitionUI") {
+            return;
+        }
         var selectedId = $(obj).attr("recordId");
-
-        var mainDataTable = dynaRegister.getDataTable(moduleName);
-        var dropZone = dynaRegister.getDropZone(moduleName);
-        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${moduleName}/${selectedId}`
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
-
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             dynamikoCache.setLastRecordId(selectedId);
@@ -18,7 +16,6 @@ class HrRequisitionUI {
             for (const [key, value] of dynaRegister.saasMap) {
                 value.loadToForm(hrRequisitionUI);
             }
-            localStorage.latestModuleId = mainDataTable.selectedId;
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -208,12 +205,19 @@ class HrRequisitionUI {
                 var numberOfFulfilled = obj.getPropDefault("numberOfFulfilled", "0");
                 var numberOfOpening = obj.getPropDefault("numberOfOpening");
                 var hrRequisitionId = obj.getPropDefault("hrRequisitionId");
+                var status = "";
+                if (numberOfFulfilled == numberOfOpening) {
+                    status = "Completed"
+                }
+                else {
+                    status = `${numberOfFulfilled} completed of requested ${numberOfOpening}`;
+                }
                 var str = `
-                    <a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordid="${hrRequisitionId}">${title}</a>
+                    <a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordid="${hrRequisitionId}" style="font-weight: bold;">${title}</a>
                     <p class="text-muted">
                         Recruiter: ${recruiter}<br/>
                         Manager: ${manager}<br/>
-                        Status: ${numberOfFulfilled} completed of requested ${numberOfOpening}<br/>
+                        Status: ${status}
                     </p>
                     <hr>
                 `

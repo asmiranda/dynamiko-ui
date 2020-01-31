@@ -4,6 +4,11 @@ class GlobalEventsHr {
             var moduleName = evt.detail.text();
             console.log(moduleName);
             hrRequisitionUI.doMainSearchData(evt);
+            employeeUI.doMainSearchData(evt);
+        });
+        $(document).on('click', '.loadRecordToForm', function() {
+            hrRequisitionUI.loadRecordToForm(this);
+            employeeUI.loadRecordToForm(this);
         });
         $(document).on('changeModule', function(evt) {
             var moduleName = evt.detail.text();
@@ -22,9 +27,6 @@ class GlobalEventsHr {
         });
         $(document).on('click', '.btnRemoveApplicant', function() {
             hrRequisitionUI.removeApplicant(this);
-        });
-        $(document).on('click', '.loadRecordToForm', function() {
-            hrRequisitionUI.loadRecordToForm(this);
         });
     }
 }

@@ -16,7 +16,7 @@ class QuickSearcher {
         var pop = $(obj);
 
         pop.popover({
-            placement : 'auto',
+            placement : 'left',
             trigger : 'manual',
             html : true,
             title : `Search <a class="close" href="#">×</a>`,

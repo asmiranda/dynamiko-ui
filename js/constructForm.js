@@ -15,6 +15,7 @@ class ConstructMainForm {
         else {
             constructMainForm.cacheConstruct(recordId, uiHtml);
         }
+        $(".quickMainSearcherResult").empty();
     };
 
     cacheConstruct(recordId, uiHtml) {
