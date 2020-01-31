@@ -202,15 +202,18 @@ class HrRequisitionUI {
             console.log(data);
             $(".quickMainSearcherResult").empty();
             $(data).each(function(index, obj) {
-                var title = obj.getProp("TITLEBYMANAGER");
+                var title = obj.getPropDefault("title", "Title Not Specified");
+                var recruiter = obj.getPropDefault("recruiter", "Recruiter not chosen");
+                var manager = obj.getPropDefault("manager", "Manager not chosen");
+                var numberOfFulfilled = obj.getPropDefault("numberOfFulfilled", "0");
+                var numberOfOpening = obj.getPropDefault("numberOfOpening");
+                var hrRequisitionId = obj.getPropDefault("hrRequisitionId");
                 var str = `
-                    <strong>${title}</strong>
+                    <a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordid="${hrRequisitionId}">${title}</a>
                     <p class="text-muted">
-                        B.S. in Computer Science from the University of Tennessee at Knoxville<br/>
-                        <span class="label label-danger">New</span>
-                        <span class="label label-warning">On Going</span>
-                        <span class="label label-info">Offer</span>
-                        <span class="label label-success">Accepted</span>
+                        Recruiter: ${recruiter}<br/>
+                        Manager: ${manager}<br/>
+                        Status: ${numberOfFulfilled} completed of requested ${numberOfOpening}<br/>
                     </p>
                     <hr>
                 `

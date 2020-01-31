@@ -7,51 +7,6 @@ class GlobalEvents {
             }
         });
         
-        Object.defineProperty(Object.prototype, "getProp", {
-            value: function (prop) {
-                var key,self = this;
-                for (key in self) {
-                    if (key.toLowerCase() == prop.toLowerCase()) {
-                        return self[key];
-                    }
-                }
-            },
-            //this keeps jquery happy
-            enumerable: false
-        });
-        
-        Object.defineProperty(Object.prototype, "setProp", {
-            value: function (prop, val) {
-                var key,self = this;
-                var found = false;
-                if (Object.keys(self).length > 0) {
-                    for (key in self) {
-                        if (key.toLowerCase() == prop.toLowerCase()) {
-                            //set existing property
-                            found = true;
-                            self[key] = val;
-                            break;
-                        }
-                    }
-                }
-        
-                if (!found) {
-                    //if the property was not found, create it
-                    self[prop] = val;
-                }
-        
-                return val;
-            },
-            //this keeps jquery happy
-            enumerable: false
-        });
-        
-        // $(document).on('changeModule', function(evt) {
-        //     var moduleName = evt.detail.text();
-        //     console.log(moduleName);
-        //     globalEvents.loadModuleInitializer(moduleName);
-        // });
-
         $(document).on('click', '.leftDashboardItem', function() {
             dashboard.load(this);
         });
