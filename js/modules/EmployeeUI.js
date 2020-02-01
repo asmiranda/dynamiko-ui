@@ -4,16 +4,20 @@ class EmployeeUI {
         if (moduleName!="EmployeeUI") {
             return;
         }
+        employeeUI.loadRecordToForm(obj, employeeUI);
         employeeUI.loadEmployeeSupervisor();
         employeeUI.loadTeamOrgData();
     }
 
-    loadRecordToForm(obj) {
+    loadRecordToForm(obj, classToUse) {
         var moduleName = $(obj).attr("module");
         if (moduleName!="EmployeeUI") {
             return;
         }
         var selectedId = $(obj).attr("recordId");
+        if (selectedId==null || selectedId=="" || selectedId==undefined) {
+            selectedId = $(obj).val();
+        }
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -21,12 +25,12 @@ class EmployeeUI {
             employeeUI.loadEmployeeSupervisor();
             employeeUI.loadTeamOrgData();
 
-            utils.loadJsonToForm(mainForm, data);
+            // utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
 
             childTabs.reloadAllDisplayTabs();
             for (const [key, value] of dynaRegister.saasMap) {
-                value.loadToForm(employeeUI);
+                value.loadToForm(classToUse);
             }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -70,7 +74,7 @@ class EmployeeUI {
     }
 
 
-    
+
     changeSupervisor() {
         console.log("changeSupervisor called");
         console.log(quickUpdater.callbackObject);
@@ -93,7 +97,28 @@ class EmployeeUI {
 
     loadTeamOrgData() {
         var recordId = $(mainId).val();
-        
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeUI/getTeamMembers/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            console.log(data);
+            $(".EmployeeUI_MyTeamMembers").empty();
+            $(data).each(function(index, obj) {
+                var str = `
+                    <div class="user-block col-md-5">
+                        <img class="img-circle img-bordered-sm EmployeeUI_MyTeam" name="teamMemberProfile">
+                        <span class="username">
+                            <a href="#" class="EmployeeUI_MyTeamMember" name="fullName">${obj.getProp("firstName")} ${obj.getProp("lastName")}</a>
+                            <i class="fa fa-fw fa-pencil quickUpdaterCallback" callback="employeeUI.changeTeamMember()" module="EmployeeUI" recordId="${obj.getProp("PersonId")}" fieldName="personCode"
+                            updater="autoComplete"></i>
+                        </span>
+                        <span class="description EmployeeUI_MyTeamMember" name="specialization">${obj.getPropDefault("specialization", "Not Specified")}</span>
+                    </div>   
+                `;
+                $(".EmployeeUI_MyTeamMembers").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
 

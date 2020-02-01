@@ -5,13 +5,12 @@ class GlobalEventsHr {
             employeeUI.doMainSearchData(evt);
         });
         $(document).on('click', '.loadRecordToForm', function() {
-            hrRequisitionUI.loadRecordToForm(this);
-            employeeUI.loadRecordToForm(this);
+            var recordId = $(this).attr("recordId");
+            $(mainId).val(recordId);
+            globalEventsHr.triggerChangeRecord(this);
         });
         $(document).on('change', mainId, function() {
-            hrRequisitionUI.changeMainId(this);
-            employeeUI.changeMainId(this);
-
+            globalEventsHr.triggerChangeRecord(this);
         });
         $(document).on('changeModule', function(evt) {
             hrRequisitionUI.changeModule(evt);
@@ -28,5 +27,10 @@ class GlobalEventsHr {
         $(document).on('click', '.btnRemoveApplicant', function() {
             hrRequisitionUI.removeApplicant(this);
         });
+    }
+
+    triggerChangeRecord(obj) {
+        hrRequisitionUI.changeMainId(obj);
+        employeeUI.changeMainId(obj);
     }
 }

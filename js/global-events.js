@@ -290,7 +290,11 @@ class GlobalEvents {
             utils.toggleBox(this);
         });
 
-        var globalEventsHr = new GlobalEventsHr();
-        globalEventsHr.initializeGlobalEvents();
     }
 }
+
+$(function () {
+    globalEventsHr = new GlobalEventsHr();
+    
+    globalEventsHr.initializeGlobalEvents();
+})

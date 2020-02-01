@@ -1,5 +1,5 @@
 class HrRequisitionUI { 
-    loadRecordToForm(obj) {
+    loadRecordToForm(obj, classToUse) {
         var moduleName = $(obj).attr("module");
         if (moduleName!="HrRequisitionUI") {
             return;
@@ -14,7 +14,7 @@ class HrRequisitionUI {
 
             childTabs.reloadAllDisplayTabs();
             for (const [key, value] of dynaRegister.saasMap) {
-                value.loadToForm(hrRequisitionUI);
+                value.loadToForm(classToUse);
             }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -25,6 +25,7 @@ class HrRequisitionUI {
         if (moduleName!="HrRequisitionUI") {
             return;
         }
+        hrRequisitionUI.loadRecordToForm(obj, hrRequisitionUI);
         hrRequisitionUI.reArrange(obj);
         hrRequisitionUI.loadFulfilled(obj);
     }
@@ -78,7 +79,7 @@ class HrRequisitionUI {
         }
     }
 
-    
+
     createJob(obj) {
         var title = $("input[name='createJobRequisitionTitle']").val();
         var recruiterCode = $(".HiddenAutoComplete[name='createJobRecruiterCode']").val();
