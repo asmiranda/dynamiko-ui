@@ -20,6 +20,65 @@ class HrRequisitionUI {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
+    changeMainId(obj) {
+        var moduleName = $(obj).attr("module");
+        if (moduleName!="HrRequisitionUI") {
+            return;
+        }
+        hrRequisitionUI.reArrange(obj);
+        hrRequisitionUI.loadFulfilled(obj);
+    }
+
+    doMainSearchData(evt) {
+        var moduleName = evt.detail.text();
+        if (moduleName!="HrRequisitionUI") {
+            return;
+        }
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".quickMainSearcherResult").empty();
+            $(data).each(function(index, obj) {
+                var title = obj.getPropDefault("title", "Title Not Specified");
+                var recruiter = obj.getPropDefault("recruiter", "Recruiter not chosen");
+                var manager = obj.getPropDefault("manager", "Manager not chosen");
+                var numberOfFulfilled = obj.getPropDefault("numberOfFulfilled", "0");
+                var numberOfOpening = obj.getPropDefault("numberOfOpening");
+                var hrRequisitionId = obj.getPropDefault("hrRequisitionId");
+                var status = "";
+                if (numberOfFulfilled == numberOfOpening) {
+                    status = "Completed"
+                }
+                else {
+                    status = `${numberOfFulfilled} completed of requested ${numberOfOpening}`;
+                }
+                var str = `
+                    <a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordid="${hrRequisitionId}" style="font-weight: bold;">${title}</a>
+                    <p class="text-muted">
+                        Recruiter: ${recruiter}<br/>
+                        Manager: ${manager}<br/>
+                        Status: ${status}
+                    </p>
+                    <hr>
+                `
+                $(".quickMainSearcherResult").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+    }
+
+    changeModule(evt) {
+        var moduleName = evt.detail.text();
+        if (moduleName=="HrRequisitionUI") {
+            hrRequisitionUI.loadTeamRequisition();
+            hrRequisitionUI.loadOpenRequisition();
+            hrRequisitionUI.loadRecruitmentPerformanceChart();
+            hrRequisitionUI.loadMyAssignedRequisition();
+        }
+    }
+
+    
     createJob(obj) {
         var title = $("input[name='createJobRequisitionTitle']").val();
         var recruiterCode = $(".HiddenAutoComplete[name='createJobRecruiterCode']").val();
@@ -186,55 +245,6 @@ class HrRequisitionUI {
     }
     allowDrop(ev) {
         ev.preventDefault();
-    }
-
-    doMainSearchData(evt) {
-        var moduleName = evt.detail.text();
-        if (moduleName!="HrRequisitionUI") {
-            return;
-        }
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
-            $(".quickMainSearcherResult").empty();
-            $(data).each(function(index, obj) {
-                var title = obj.getPropDefault("title", "Title Not Specified");
-                var recruiter = obj.getPropDefault("recruiter", "Recruiter not chosen");
-                var manager = obj.getPropDefault("manager", "Manager not chosen");
-                var numberOfFulfilled = obj.getPropDefault("numberOfFulfilled", "0");
-                var numberOfOpening = obj.getPropDefault("numberOfOpening");
-                var hrRequisitionId = obj.getPropDefault("hrRequisitionId");
-                var status = "";
-                if (numberOfFulfilled == numberOfOpening) {
-                    status = "Completed"
-                }
-                else {
-                    status = `${numberOfFulfilled} completed of requested ${numberOfOpening}`;
-                }
-                var str = `
-                    <a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordid="${hrRequisitionId}" style="font-weight: bold;">${title}</a>
-                    <p class="text-muted">
-                        Recruiter: ${recruiter}<br/>
-                        Manager: ${manager}<br/>
-                        Status: ${status}
-                    </p>
-                    <hr>
-                `
-                $(".quickMainSearcherResult").append(str);
-            });
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
-    }
-
-    changeModule(evt) {
-        var moduleName = evt.detail.text();
-        if (moduleName=="HrRequisitionUI") {
-            hrRequisitionUI.loadTeamRequisition();
-            hrRequisitionUI.loadOpenRequisition();
-            hrRequisitionUI.loadRecruitmentPerformanceChart();
-            hrRequisitionUI.loadMyAssignedRequisition();
-        }
     }
 
     loadFulfilled(obj) {

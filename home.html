@@ -206,24 +206,26 @@
 
     <div id="calendarQuickUpdater">
         <div class="input-group date">
-            <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput" style="width: 100px;">
+            <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" 
+              name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput" style="width: 100px;" callback="##CALLBACK##">
             <div class="input-group-addon displayEdit">
                 <i class="fa fa-calendar"></i>
             </div>
         </div>
     </div>
     <div id="textQuickUpdater">
-      <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;">
+      <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" 
+        name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;" callback="##CALLBACK##">
     </div>
     <div id="autoCompleteQuickUpdater">
       <div class="input-group">
         <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" name="##FIELDNAME##" autoName="##FIELDNAME##" type="text" 
-          class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;">
+          class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;" callback="##CALLBACK##">
         <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
       </div>
       <div class="input-group">
         <select quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" autoName="##FIELDNAME##" size="3"
-          class="form-control autoCompleteQuickUpdaterSelect" style="width: 250px;">
+          class="form-control autoCompleteQuickUpdaterSelect" style="width: 250px;" callback="##CALLBACK##">
         </select>
       </div>
       <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##" mainmodule="##MODULE##" autoNameField="##FIELDNAME##">

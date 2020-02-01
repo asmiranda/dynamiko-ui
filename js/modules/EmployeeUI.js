@@ -1,4 +1,13 @@
 class EmployeeUI { 
+    changeMainId(obj) {
+        var moduleName = $(obj).attr("module");
+        if (moduleName!="EmployeeUI") {
+            return;
+        }
+        employeeUI.loadEmployeeSupervisor();
+        employeeUI.loadTeamOrgData();
+    }
+
     loadRecordToForm(obj) {
         var moduleName = $(obj).attr("module");
         if (moduleName!="EmployeeUI") {
@@ -9,6 +18,9 @@ class EmployeeUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             dynamikoCache.setLastRecordId(selectedId);
+            employeeUI.loadEmployeeSupervisor();
+            employeeUI.loadTeamOrgData();
+
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
 
@@ -55,6 +67,33 @@ class EmployeeUI {
         var moduleName = evt.detail.text();
         if (moduleName=="EmployeeUI") {
         }
+    }
+
+
+    
+    changeSupervisor() {
+        console.log("changeSupervisor called");
+        console.log(quickUpdater.callbackObject);
+        console.log(quickUpdater.callbackData);
+        $(`.EmployeeUI_MyTeam[name="supervisorName"]`).html(quickUpdater.callbackData.recordTitle);
+        $(`.EmployeeUI_MyTeam[name="supervisorDesignation"]`).html(quickUpdater.callbackData.getPropDefault("specialization", "Not Specified"));
+    }
+
+    loadEmployeeSupervisor() {
+        var recordId = $(mainId).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeUI/getSupervisor/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            $(`.EmployeeUI_MyTeam[name="supervisorName"]`).html(data.getPropDefault("recordTitle", "Not Specified"));
+            $(`.EmployeeUI_MyTeam[name="supervisorDesignation"]`).html(data.getPropDefault("specialization", "Not Specified"));
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    loadTeamOrgData() {
+        var recordId = $(mainId).val();
+        
     }
 }
 

@@ -1,8 +1,6 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
         $(document).on('doMainSearchData', function(evt) {
-            var moduleName = evt.detail.text();
-            console.log(moduleName);
             hrRequisitionUI.doMainSearchData(evt);
             employeeUI.doMainSearchData(evt);
         });
@@ -10,15 +8,17 @@ class GlobalEventsHr {
             hrRequisitionUI.loadRecordToForm(this);
             employeeUI.loadRecordToForm(this);
         });
-        $(document).on('changeModule', function(evt) {
-            var moduleName = evt.detail.text();
-            console.log(moduleName);
-            hrRequisitionUI.changeModule(evt);
-        });
         $(document).on('change', mainId, function() {
-            hrRequisitionUI.reArrange(this);
-            hrRequisitionUI.loadFulfilled(this);
+            hrRequisitionUI.changeMainId(this);
+            employeeUI.changeMainId(this);
+
         });
+        $(document).on('changeModule', function(evt) {
+            hrRequisitionUI.changeModule(evt);
+            employeeUI.changeModule(evt);
+        });
+
+
         $(document).on('click', '.btnAcceptApplicant', function() {
             hrRequisitionUI.acceptApplicant(this);
         });

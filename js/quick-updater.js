@@ -1,9 +1,20 @@
 class QuickUpdater {
+    quickUpdaterCallback(obj) {
+        console.log("quickUpdaterCallback called");
+        this.callbackObject = obj;
+        this.callbackData;
+        quickUpdater.quickUpdater(obj);
+    }
+
     quickAutoCompleteUpdateInput(obj) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
+        if (recordId == null || recordId == "" || recordId == undefined || recordId == "0") {
+            recordId = $(mainId).val();
+        }
         var fieldName = $(obj).attr("fieldName");
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
+        var callback = $(obj).attr("callback");
         var value = $(obj).val();
         var textValue = obj.options[obj.selectedIndex].text;
 
@@ -11,7 +22,13 @@ class QuickUpdater {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(textValue);
+            if (callback==null || callback==undefined || callback=="") {
+                $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(textValue);
+            }
+            else {
+                quickUpdater.callbackData = data;
+                eval(callback);
+            }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
@@ -19,6 +36,9 @@ class QuickUpdater {
     quickUpdateInput(obj) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
+        if (recordId == null || recordId == "" || recordId == undefined || recordId == "0") {
+            recordId = $(mainId).val();
+        }
         var fieldName = $(obj).attr("fieldName");
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
         var value = $(obj).val();
@@ -27,7 +47,13 @@ class QuickUpdater {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(data);
+            if (quickUpdater.callback) {
+                eval(quickUpdater.callback);
+            }
+            else {
+                $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(data);
+            }
+            quickUpdater.callback = null;
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
@@ -52,14 +78,22 @@ class QuickUpdater {
     displayInputUpdater(obj, updaterId, updaterTitle) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
+        if (recordId == null || recordId == "" || recordId == undefined || recordId == "0") {
+            recordId = $(mainId).val();
+        }
         var fieldName = $(obj).attr("fieldName");
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
+        var callback = $(obj).attr("callback");
+        if (callback==null || callback==undefined) {
+            callback = "";
+        }
 
         var str = $(updaterId).html();
         str = utils.replaceAll(str, "##MODULE##", moduleName);
         str = utils.replaceAll(str, "##RECORDID##", recordId);
         str = utils.replaceAll(str, "##FIELDNAME##", fieldName);
         str = utils.replaceAll(str, "##QUICKUPDATERID##", quickUpdaterId);
+        str = utils.replaceAll(str, "##CALLBACK##", callback);
 
         console.log(str);
         var pop = $(obj);
@@ -112,6 +146,9 @@ class QuickUpdater {
         console.log("quickDownloader called");
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
+        if (recordId == null || recordId == "" || recordId == undefined || recordId == "0") {
+            recordId = $(mainId).val();
+        }
         var fileType = $(obj).attr("fileType");
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickDownloader/${moduleName}/${recordId}/${fileType}`;
@@ -124,10 +161,12 @@ class QuickUpdater {
     }
 
     quickAttachment(obj) {
-        var context = this;
         console.log("quickAttachment called");
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
+        if (recordId == null || recordId == "" || recordId == undefined || recordId == "0") {
+            recordId = $(mainId).val();
+        }
         var fileType = $(obj).attr("fileType");
 
         var successCallback = function(data) {

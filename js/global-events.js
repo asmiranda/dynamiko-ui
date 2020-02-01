@@ -180,6 +180,9 @@ class GlobalEvents {
         $(document).on('click', '.quickDownloaderTarget', function() {
             quickUpdater.quickDownloader(this);
         });
+        $(document).on('click', '.quickUpdaterCallback', function() {
+            quickUpdater.quickUpdaterCallback(this);
+        });
         $(document).on('click', '.quickUpdaterTarget', function() {
             quickUpdater.quickUpdater(this);
         });
