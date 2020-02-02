@@ -1,7 +1,7 @@
 var MAIN_URL = "http://localhost:8888";
 var TOKEN;
 var USERNAME;
-var dynaRegister;
+var dynaRegister; 
 
 class Config {
     getDateFormat() {

@@ -1,31 +1,6 @@
 class HrRequisitionUI { 
-    loadRecordToForm(obj, classToUse) {
-        var moduleName = $(obj).attr("module");
-        if (moduleName!="HrRequisitionUI") {
-            return;
-        }
-        var selectedId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            dynamikoCache.setLastRecordId(selectedId);
-            utils.loadJsonToForm(mainForm, data);
-            utils.loadJsonAddInfo(data);
-
-            childTabs.reloadAllDisplayTabs();
-            for (const [key, value] of dynaRegister.saasMap) {
-                value.loadToForm(classToUse);
-            }
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-    }
-
     changeMainId(obj) {
-        var moduleName = $(obj).attr("module");
-        if (moduleName!="HrRequisitionUI") {
-            return;
-        }
-        hrRequisitionUI.loadRecordToForm(obj, hrRequisitionUI);
+        utils.loadRecordToForm(obj, hrRequisitionUI);
         hrRequisitionUI.reArrange(obj);
         hrRequisitionUI.loadFulfilled(obj);
     }

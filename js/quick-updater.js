@@ -71,7 +71,7 @@ class QuickUpdater {
 
         $('.calendar').datepicker({
             autoclose: true,
-            format: config.getDateFormat()
+            format: Config.getDateFormat()
         });
     }
 

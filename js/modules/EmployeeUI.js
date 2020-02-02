@@ -4,36 +4,9 @@ class EmployeeUI {
         if (moduleName!="EmployeeUI") {
             return;
         }
-        employeeUI.loadRecordToForm(obj, employeeUI);
+        utils.loadRecordToForm(obj, employeeUI);
         employeeUI.loadEmployeeSupervisor();
         employeeUI.loadTeamOrgData();
-    }
-
-    loadRecordToForm(obj, classToUse) {
-        var moduleName = $(obj).attr("module");
-        if (moduleName!="EmployeeUI") {
-            return;
-        }
-        var selectedId = $(obj).attr("recordId");
-        if (selectedId==null || selectedId=="" || selectedId==undefined) {
-            selectedId = $(obj).val();
-        }
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            dynamikoCache.setLastRecordId(selectedId);
-            employeeUI.loadEmployeeSupervisor();
-            employeeUI.loadTeamOrgData();
-
-            // utils.loadJsonToForm(mainForm, data);
-            utils.loadJsonAddInfo(data);
-
-            childTabs.reloadAllDisplayTabs();
-            for (const [key, value] of dynaRegister.saasMap) {
-                value.loadToForm(classToUse);
-            }
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     doMainSearchData(evt) {
@@ -102,10 +75,10 @@ class EmployeeUI {
 
         var successCallback = function(data) {
             console.log(data);
-            $(".EmployeeUI_MyTeamMembers").empty();
+            $(".EmployeeUI_MyTeamMembersBox").empty();
             $(data).each(function(index, obj) {
                 var str = `
-                    <div class="user-block col-md-5">
+                    <div class="user-block EmployeeUI_MyTeamMemberBox">
                         <img class="img-circle img-bordered-sm EmployeeUI_MyTeam" name="teamMemberProfile">
                         <span class="username">
                             <a href="#" class="EmployeeUI_MyTeamMember" name="fullName">${obj.getProp("firstName")} ${obj.getProp("lastName")}</a>
@@ -115,7 +88,7 @@ class EmployeeUI {
                         <span class="description EmployeeUI_MyTeamMember" name="specialization">${obj.getPropDefault("specialization", "Not Specified")}</span>
                     </div>   
                 `;
-                $(".EmployeeUI_MyTeamMembers").append(str);
+                $(".EmployeeUI_MyTeamMembersBox").append(str);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

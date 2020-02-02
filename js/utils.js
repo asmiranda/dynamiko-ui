@@ -46,7 +46,7 @@ class Utils {
         else {
             if ($(field).hasClass("calendar")) {
                 var dateValue = moment(value);
-                var newDateValue = dateValue.format(config.getDateFormat().toUpperCase());
+                var newDateValue = dateValue.format(Config.getDateFormat().toUpperCase());
                 $(field).val(newDateValue);
             }
             else if ($(field).hasClass("currency")) {
@@ -55,15 +55,37 @@ class Utils {
             }
             else {
                 $(field).val(value);
-                $(field).trigger("change");
+                // $(field).trigger("change");
             }
         }
     }
     loadJsonAddInfo(data) {
         this.loadJsonToForm("form.addInfo ", data);
     }
+
+    loadRecordToForm(obj, classToUse) {
+        var moduleName = $(obj).attr("module");
+        var selectedId = $(obj).attr("recordId");
+        if (selectedId==null || selectedId=="" || selectedId==undefined) {
+            selectedId = $(obj).val();
+        }
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            dynamikoCache.setLastRecordId(selectedId);
+
+            utils.loadJsonToForm(mainForm, data);
+            utils.loadJsonAddInfo(data);
+
+            childTabs.reloadAllDisplayTabs();
+            for (const [key, value] of dynaRegister.saasMap) {
+                value.loadToForm(classToUse);
+            }
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
     loadJsonToForm(form, data) {
-        var context = this;
         var innerForm = form;
         var innerData = data;
         var entityName = $(form).attr("bean");
@@ -77,7 +99,7 @@ class Utils {
                 if (field) {
                     console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
                     console.log(field);
-                    context.setFieldValue(form, field, v);
+                    utils.setFieldValue(form, field, v);
                 }
             }
         });
@@ -88,7 +110,7 @@ class Utils {
                 $.each(fields, function(k, field) {
                     console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
                     console.log(field);
-                    context.setFieldValue(form, field, v);
+                    utils.setFieldValue(form, field, v);
                 });
             }
 
@@ -96,14 +118,14 @@ class Utils {
             if (field) {
                 console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
                 console.log(field);
-                context.setFieldValue(form, field, v);
+                utils.setFieldValue(form, field, v);
                 if ($(field).hasClass("PopSearch")) {
                     console.log("PopSearch ==== "+k+" == "+v);
-                    context.loadPopSearchLabel(innerForm, field, k);
+                    utils.loadPopSearchLabel(innerForm, field, k);
                 }
                 else if ($(field).hasClass("HiddenAutoComplete")) {
                     console.log("AutoComplete ==== "+k+" == "+v);
-                    context.loadAutoCompleteLabel(innerForm, field, k, v);
+                    utils.loadAutoCompleteLabel(innerForm, field, k, v);
                 }
             }
         });

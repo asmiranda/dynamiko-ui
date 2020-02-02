@@ -87,7 +87,7 @@ $(function () {
     };
 
     allTable = [];
-    config = new Config();
+    Config = new Config();
     uiService = new UIService();
     leftMenu = new LeftMenu();
     toggleForm = new ToggleForm();
