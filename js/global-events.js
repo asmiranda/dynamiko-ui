@@ -7,6 +7,26 @@ class GlobalEvents {
             }
         });
         
+        this.registeredModules = [];
+        this.registeredModules.push("hrRequisitionUI");
+        this.registeredModules.push("employeeUI");
+
+        $(document).on('changeModule', function(evt) {
+            globalEvents.triggerChangeModule(evt);
+        });
+        $(document).on('doMainSearchData', function(evt) {
+            globalEvents.triggerMainSearch(evt);
+        });
+        $(document).on('click', '.loadRecordToForm', function() {
+            var recordId = $(this).attr("recordId");
+            $(mainId).val(recordId);
+            globalEvents.triggerChangeRecord(this);
+        });
+        $(document).on('change', mainId, function() {
+            globalEvents.triggerChangeRecord(this);
+        });
+
+
         $(document).on('click', '.leftDashboardItem', function() {
             dashboard.load(this);
         });
@@ -291,10 +311,45 @@ class GlobalEvents {
         });
 
     }
+
+    triggerMainSearch(evt) {
+        console.log("triggerMainSearch");
+        console.log(evt);
+        $(this.registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == evt.detail.text().toUpperCase();
+            if (areEqual) {
+                var objEval = data+".doMainSearchData(evt)";
+                eval(objEval);
+            }
+        });
+    }
+
+    triggerChangeModule(obj) {
+        console.log("triggerChangeModule");
+        console.log(obj);
+        $(this.registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
+            if (areEqual) {
+                var objEval = data+".changeModule(obj)";
+                eval(objEval);
+            }
+        });
+    }
+
+    triggerChangeRecord(obj) {
+        console.log("triggerChangeRecord");
+        console.log(obj);
+        $(this.registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
+            if (areEqual) {
+                var objEval = data+".changeMainId(obj)";
+                eval(objEval);
+            }
+        });
+    }
 }
 
 $(function () {
-    globalEventsHr = new GlobalEventsHr();
-    
+    globalEventsHr = new GlobalEventsHr();    
     globalEventsHr.initializeGlobalEvents();
 })
