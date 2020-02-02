@@ -331,16 +331,18 @@ class GlobalEvents {
         $(mainId).val(recordId);
 
         $(this.registeredModules).each(function (index, data) {
-            var isEqual = null;
+            var useModule = null;
             if ($(obj).attr("module")==null || $(obj).attr("module")==undefined) {
-                isEqual = data.toUpperCase() == localStorage.latestModule.toUpperCase();
+                useModule = localStorage.latestModule;
             }
             else {
-                isEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
+                useModule = $(obj).attr("module");
             }
+            var isEqual = data.toUpperCase() == useModule.toUpperCase();
             if (isEqual) {
                 var objEval = data+".changeModule(obj)";
                 eval(objEval);
+                childTabs.initTabs(useModule);
             }
         });
     }
