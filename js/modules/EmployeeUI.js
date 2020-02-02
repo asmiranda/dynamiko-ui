@@ -1,20 +1,12 @@
 class EmployeeUI { 
     changeMainId(obj) {
-        var moduleName = $(obj).attr("module");
-        if (moduleName!="EmployeeUI") {
-            return;
-        }
         utils.loadRecordToForm(obj, employeeUI);
         employeeUI.loadEmployeeSupervisor();
         employeeUI.loadTeamOrgData();
     }
 
     doMainSearchData(evt) {
-        var moduleName = evt.detail.text();
-        if (moduleName!="EmployeeUI") {
-            return;
-        }
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${moduleName}/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeUI/quickMainSearcher/${localStorage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
@@ -27,7 +19,7 @@ class EmployeeUI {
                 var email = obj.getPropDefault("email", "");
 
                 var str = `
-                    <a href="#" class="loadRecordToForm" module="${moduleName}" recordid="${recordId}" style="font-weight: bold;">${firstName} ${lastName}</a>
+                    <a href="#" class="loadRecordToForm" module="EmployeeUI" recordid="${recordId}" style="font-weight: bold;">${firstName} ${lastName}</a>
                     <p class="text-muted">
                         <i class="fa fa-phone margin-r-5"></i>: ${contact}<br/>
                         <i class="fa fa-envelope margin-r-5"></i>: ${email}
@@ -41,9 +33,6 @@ class EmployeeUI {
     }
 
     changeModule(evt) {
-        var moduleName = evt.detail.text();
-        if (moduleName=="EmployeeUI") {
-        }
     }
 
 

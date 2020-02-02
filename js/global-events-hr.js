@@ -1,8 +1,18 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
+        this.registeredModules = [];
+        this.registeredModules.push("hrRequisitionUI");
+        this.registeredModules.push("employeeUI");
+
+        $(document).on('changeModule', function(evt) {
+            globalEventsHr.triggerChangeModule(evt);
+            // hrRequisitionUI.changeModule(evt);
+            // employeeUI.changeModule(evt);
+        });
         $(document).on('doMainSearchData', function(evt) {
-            hrRequisitionUI.doMainSearchData(evt);
-            employeeUI.doMainSearchData(evt);
+            globalEventsHr.triggerMainSearch(evt);
+            // hrRequisitionUI.doMainSearchData(evt);
+            // employeeUI.doMainSearchData(evt);
         });
         $(document).on('click', '.loadRecordToForm', function() {
             var recordId = $(this).attr("recordId");
@@ -11,10 +21,6 @@ class GlobalEventsHr {
         });
         $(document).on('change', mainId, function() {
             globalEventsHr.triggerChangeRecord(this);
-        });
-        $(document).on('changeModule', function(evt) {
-            hrRequisitionUI.changeModule(evt);
-            employeeUI.changeModule(evt);
         });
 
 
@@ -29,8 +35,39 @@ class GlobalEventsHr {
         });
     }
 
+    triggerMainSearch(evt) {
+        console.log("triggerMainSearch");
+        console.log(evt);
+        $(this.registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == evt.detail.text().toUpperCase();
+            if (areEqual) {
+                var objEval = data+".doMainSearchData(evt)";
+                eval(objEval);
+            }
+        });
+    }
+
+    triggerChangeModule(obj) {
+        console.log("triggerChangeModule");
+        console.log(obj);
+        $(this.registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
+            if (areEqual) {
+                var objEval = data+".changeModule(obj)";
+                eval(objEval);
+            }
+        });
+    }
+
     triggerChangeRecord(obj) {
-        hrRequisitionUI.changeMainId(obj);
-        employeeUI.changeMainId(obj);
+        console.log("triggerChangeRecord");
+        console.log(obj);
+        $(this.registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
+            if (areEqual) {
+                var objEval = data+".changeMainId(obj)";
+                eval(objEval);
+            }
+        });
     }
 }

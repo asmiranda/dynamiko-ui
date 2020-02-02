@@ -1,19 +1,11 @@
 class HrRequisitionUI { 
     changeMainId(obj) {
-        var moduleName = $(obj).attr("module");
-        if (moduleName!="HrRequisitionUI") {
-            return;
-        }
         utils.loadRecordToForm(obj, hrRequisitionUI);
         hrRequisitionUI.reArrange(obj);
         hrRequisitionUI.loadFulfilled(obj);
     }
 
     doMainSearchData(evt) {
-        var moduleName = evt.detail.text();
-        if (moduleName!="HrRequisitionUI") {
-            return;
-        }
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -49,10 +41,6 @@ class HrRequisitionUI {
     }
 
     changeModule(evt) {
-        var moduleName = evt.detail.text();
-        if (moduleName!="HrRequisitionUI") {
-            return;
-        }
         hrRequisitionUI.loadTeamRequisition();
         hrRequisitionUI.loadOpenRequisition();
         hrRequisitionUI.loadRecruitmentPerformanceChart();
