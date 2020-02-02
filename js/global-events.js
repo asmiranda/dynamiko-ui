@@ -327,9 +327,18 @@ class GlobalEvents {
     triggerChangeModule(obj) {
         console.log("triggerChangeModule");
         console.log(obj);
+        var recordId = dynamikoCache.getLastRecordId();
+        $(mainId).val(recordId);
+
         $(this.registeredModules).each(function (index, data) {
-            var areEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
-            if (areEqual) {
+            var isEqual = null;
+            if ($(obj).attr("module")==null || $(obj).attr("module")==undefined) {
+                isEqual = data.toUpperCase() == localStorage.latestModule.toUpperCase();
+            }
+            else {
+                isEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
+            }
+            if (isEqual) {
                 var objEval = data+".changeModule(obj)";
                 eval(objEval);
             }

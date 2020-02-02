@@ -33,6 +33,8 @@ class EmployeeUI {
     }
 
     changeModule(evt) {
+        employeeUI.loadEmployeeSupervisor();
+        employeeUI.loadTeamOrgData();
     }
 
 
@@ -43,6 +45,8 @@ class EmployeeUI {
         console.log(quickUpdater.callbackData);
         $(`.EmployeeUI_MyTeam[name="supervisorName"]`).html(quickUpdater.callbackData.recordTitle);
         $(`.EmployeeUI_MyTeam[name="supervisorDesignation"]`).html(quickUpdater.callbackData.getPropDefault("specialization", "Not Specified"));
+        var src = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${quickUpdater.callbackData.getPropDefault("PersonId", "0")}`
+        $(`.EmployeeUI_MyTeam[name="supervisorProfile"]`).attr("src", src);        
     }
 
     loadEmployeeSupervisor() {
@@ -53,6 +57,8 @@ class EmployeeUI {
         var successCallback = function(data) {
             $(`.EmployeeUI_MyTeam[name="supervisorName"]`).html(data.getPropDefault("recordTitle", "Not Specified"));
             $(`.EmployeeUI_MyTeam[name="supervisorDesignation"]`).html(data.getPropDefault("specialization", "Not Specified"));
+            var src = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${data.getPropDefault("PersonId", "0")}`
+            $(`.EmployeeUI_MyTeam[name="supervisorProfile"]`).attr("src", src);        
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -66,9 +72,11 @@ class EmployeeUI {
             console.log(data);
             $(".EmployeeUI_MyTeamMembersBox").empty();
             $(data).each(function(index, obj) {
+                var src = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${data.getPropDefault("PersonId", "0")}`
+    
                 var str = `
                     <div class="user-block EmployeeUI_MyTeamMemberBox">
-                        <img class="img-circle img-bordered-sm EmployeeUI_MyTeam" name="teamMemberProfile">
+                        <img class="img-circle img-bordered-sm EmployeeUI_MyTeam" name="teamMemberProfile" src="${src}">
                         <span class="username">
                             <a href="#" class="EmployeeUI_MyTeamMember" name="fullName">${obj.getProp("firstName")} ${obj.getProp("lastName")}</a>
                             <i class="fa fa-fw fa-pencil quickUpdaterCallback" callback="employeeUI.changeTeamMember()" module="EmployeeUI" recordId="${obj.getProp("PersonId")}" fieldName="personCode"
