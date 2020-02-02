@@ -8,7 +8,7 @@ class FieldConstructor {
         // <!--this is for calendar-->
         $('.calendar').datepicker({
             autoclose: true,
-            format: Config.getDateFormat()
+            format: config.getDateFormat()
         });
     }
 }

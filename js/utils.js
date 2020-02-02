@@ -46,7 +46,7 @@ class Utils {
         else {
             if ($(field).hasClass("calendar")) {
                 var dateValue = moment(value);
-                var newDateValue = dateValue.format(Config.getDateFormat().toUpperCase());
+                var newDateValue = dateValue.format(config.getDateFormat().toUpperCase());
                 $(field).val(newDateValue);
             }
             else if ($(field).hasClass("currency")) {

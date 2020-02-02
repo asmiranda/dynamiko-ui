@@ -1,5 +1,9 @@
 class HrRequisitionUI { 
     changeMainId(obj) {
+        var moduleName = $(obj).attr("module");
+        if (moduleName!="HrRequisitionUI") {
+            return;
+        }
         utils.loadRecordToForm(obj, hrRequisitionUI);
         hrRequisitionUI.reArrange(obj);
         hrRequisitionUI.loadFulfilled(obj);
@@ -46,12 +50,13 @@ class HrRequisitionUI {
 
     changeModule(evt) {
         var moduleName = evt.detail.text();
-        if (moduleName=="HrRequisitionUI") {
-            hrRequisitionUI.loadTeamRequisition();
-            hrRequisitionUI.loadOpenRequisition();
-            hrRequisitionUI.loadRecruitmentPerformanceChart();
-            hrRequisitionUI.loadMyAssignedRequisition();
+        if (moduleName!="HrRequisitionUI") {
+            return;
         }
+        hrRequisitionUI.loadTeamRequisition();
+        hrRequisitionUI.loadOpenRequisition();
+        hrRequisitionUI.loadRecruitmentPerformanceChart();
+        hrRequisitionUI.loadMyAssignedRequisition();
     }
 
 
