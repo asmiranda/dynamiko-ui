@@ -348,15 +348,12 @@ class SearchTable {
         this.successCallback;
 
         var mainDataTable = dynaRegister.createMainTable(searchTable.moduleName, mainSearchForm, this);
-        dynaRegister.createDropZone(searchTable.moduleName, "div#mainDropZone", this, mainDataTable);
 
         this.reloadSearch();
     };
 
     loadToForm() {
         var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
-        var dropZone = dynaRegister.getDropZone(searchTable.moduleName);
-        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${searchTable.moduleName}/${mainDataTable.selectedId}`
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + searchTable.moduleName + '/' + mainDataTable.selectedId;
 
         var searchData = searchCache.getSearchCache(searchTable.moduleName, url);

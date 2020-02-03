@@ -12,7 +12,6 @@ class ChildTab {
 
     constructTab() {
         var childDataTable = dynaRegister.createChildTable(this.subModuleName, this.tableSelector);
-        dynaRegister.createDropZone(this.subModuleName, `div.childTabDropZone[submodule='${this.subModuleName}']`, this, childDataTable);
         this.reloadDisplayTabs();
     };
 
@@ -188,8 +187,6 @@ class ChildTab {
     loadToForm() {
         var context = this;
         var childTable = dynaRegister.getDataTable(this.subModuleName);
-        var dropZone = dynaRegister.getDropZone(context.subModuleName);
-        dropZone.options.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${context.subModuleName}/${childTable.selectedId}`
         console.log(this.subModuleName + " loadToForm");
         console.log("selectedId == " + childTable.selectedId);
         console.log("context.formSelector == " + this.formSelector);

@@ -1,7 +1,6 @@
 class DynaRegister {
     constructor() {
         this.dataTableMap = new Map();
-        this.dropZoneMap = new Map();
         this.saasMap = new Map();
     }
 
@@ -10,10 +9,6 @@ class DynaRegister {
     }
     getDataTable(moduleName) {
         var obj = dynaRegister.dataTableMap.get(moduleName);
-        return obj;
-    }
-    getDropZone(moduleName) {
-        var obj = dynaRegister.dropZoneMap.get(moduleName);
         return obj;
     }
     createChildTable(moduleName, tableSelector) {
@@ -100,27 +95,6 @@ class DynaRegister {
         } );
         dynaRegister.dataTableMap.set(moduleName, mainDataTable);
         return mainDataTable;
-    }
-    createDropZone(moduleName, selector, myForm, mainDataTable) {
-        Dropzone.autoDiscover = false;
-        var dropZone = new Dropzone(selector, { 
-            url: `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/any/${moduleName}/${mainDataTable.selectedId}`,
-            maxFiles: 1, 
-            clickable: true, 
-            maxFilesize: 1, //MB
-            headers:{"Authorization":'Bearer ' + sessionStorage.token},   
-            init: function() {
-                    this.on("addedfile", function(file) {
-                        // alert("Added file.");
-                    }),
-                    this.on("success", function(file, response) {
-                        dynaRegister.removeAllFiles();
-                        myForm.displayAllFiles();
-                    })
-            }                   
-        });
-        dynaRegister.dropZoneMap.set(moduleName, dropZone);
-        return dropZone;
     }
     clearTable(moduleName) {
         var tbl = dynaRegister.getDataTable(moduleName);
