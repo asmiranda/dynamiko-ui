@@ -1,3 +1,22 @@
+.bg-payroll-year {
+    background-color: orange;
+}
+.bg-inactive-month {
+    background-color: lightblue;
+}
+.bg-active-month {
+    background-color: blue;
+}
+.bg-before-active-month {
+    background-color: cornflowerblue;
+}
+.bg-after-active-month {
+    background-color: cornflowerblue;
+}
+.bg-active-month h3, .bg-inactive-month h3, .bg-before-active-month h3, .bg-after-active-month h3 {
+    color: white;
+}
+
 .hand {
     cursor: pointer;
 }

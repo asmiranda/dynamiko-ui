@@ -10,6 +10,7 @@ class GlobalEvents {
         this.registeredModules = [];
         this.registeredModules.push("hrRequisitionUI");
         this.registeredModules.push("employeeUI");
+        this.registeredModules.push("payrollScheduleUI");
 
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);

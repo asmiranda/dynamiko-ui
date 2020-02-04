@@ -127,6 +127,7 @@ $(function () {
 
     hrRequisitionUI = new HrRequisitionUI();
     employeeUI = new EmployeeUI();
+    payrollScheduleUI = new PayrollScheduleUI();
     purchaseOrderUI = new PurchaseOrderUI();
     salesOrderUI = new SalesOrderUI();
 
