@@ -19,7 +19,7 @@ class PayrollScheduleUI {
             $(`[module="PayrollScheduleUI"][month="${obj}"]`).removeClass("bg-after-active-month");
             if (currentMonth==obj) {
                 $(`[module="PayrollScheduleUI"][month="${obj}"]`).addClass("bg-active-month");
-                $(`[module="PayrollScheduleUI"][month="${obj}"] a.status-display`).html("Current");
+                $(`[module="PayrollScheduleUI"][month="${obj}"] a.status-display`).html("Current"); 
             }
             else if (prevMonth==obj) {
                 $(`[module="PayrollScheduleUI"][month="${obj}"]`).addClass("bg-before-active-month");
