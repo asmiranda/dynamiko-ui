@@ -1,6 +1,11 @@
 class PayrollScheduleUI {
     changeModule(evt) {
+        payrollScheduleUI.init();
         payrollScheduleUI.loadActiveMonth();
+    }
+
+    init() {
+        $("#dynamikoMainSearch").hide();
     }
 
     loadActiveMonth() {
