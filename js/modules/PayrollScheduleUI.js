@@ -10,21 +10,40 @@ class PayrollScheduleUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    savePayroll() {
+        console.log("SAVE PAYROLL CALLED");
+    }
+
     loadEmployeesForSelectedPayrollTypes() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeesForSelectedPayrollTypes`;
+        var payrollTypes = [];
+        $(".EmployeePayrollType_CheckBox:checked").each(function(index, obj) {
+            var payrollType = $(obj).val();
+            if (payrollType) {
+                payrollTypes.push(payrollType);
+            }
+        });
+        var vdata = JSON.stringify(payrollTypes);
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/post/getEmployeesForSelectedPayrollTypes`;
         console.log(url);
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log(data);
             $(".PayrollScheduleUI_EmployeePayrollList").empty();
             $(data).each(function(index, obj) {
+                var employeeName = obj.getProp("lastName")+", "+obj.getProp("firstName");
+                var personId = obj.getProp("personId");
                 var str = `
-                    <strong class="col-md-4">${obj.getProp("lastName")+", "+obj.getProp("firstName")}</strong>
+                    <div class="checkbox col-md-4" style="flex: 1; margin: auto;">
+                        <label>
+                            <input class="AllEmployee_CheckBox" type="checkbox" value="${personId}" checked>
+                            <b>${employeeName}</b>
+                        </label>
+                    <div>
                 `;
                 $(".PayrollScheduleUI_EmployeePayrollList").append(str);
             });
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     loadPayrollTypes() {

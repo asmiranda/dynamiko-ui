@@ -1,5 +1,13 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
+        
+        $(document).on('click', '.btnSavePayroll', function() {
+            payrollScheduleUI.savePayroll();
+        });
+        $(document).on('click', '.EmployeePayrollType_CheckBox', function() {
+            payrollScheduleUI.loadEmployeesForSelectedPayrollTypes();
+        });
+
         $(document).on('click', '.btnRemoveSupervisor', function() {
             employeeUI.removeSupervisor(this);
         });
