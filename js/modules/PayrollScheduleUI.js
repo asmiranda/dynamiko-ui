@@ -2,10 +2,51 @@ class PayrollScheduleUI {
     changeModule(evt) {
         payrollScheduleUI.init();
         payrollScheduleUI.loadActiveMonth();
+        payrollScheduleUI.loadPayrollTypes();
+        payrollScheduleUI.loadEmployeesForSelectedPayrollTypes()
     }
 
     init() {
         $("#dynamikoMainSearch").hide();
+    }
+
+    loadEmployeesForSelectedPayrollTypes() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeesForSelectedPayrollTypes`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI_EmployeePayrollList").empty();
+            $(data).each(function(index, obj) {
+                var str = `
+                    <strong class="col-md-4">${obj.getProp("lastName")+", "+obj.getProp("firstName")}</strong>
+                `;
+                $(".PayrollScheduleUI_EmployeePayrollList").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    loadPayrollTypes() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollTypes`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI_EmployeePayrollTypes").empty();
+            $(data).each(function(index, obj) {
+                var str = `
+                    <div class="checkbox" style="flex: 1; margin: auto;">
+                        <label>
+                            <input class="EmployeePayrollType_CheckBox" type="checkbox" value="${obj}">
+                            <b>${obj}</b>
+                        </label>
+                    </div>
+                `;
+                $(".PayrollScheduleUI_EmployeePayrollTypes").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadActiveMonth() {
