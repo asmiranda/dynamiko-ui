@@ -1,3 +1,12 @@
+class PayrollObj {
+    constructor() {
+        this.payrollName;
+        this.startDate;
+        this.endDate;
+        this.payrollTypes;
+        this.employees;
+    }
+}
 class PayrollScheduleUI {
     changeModule(evt) {
         payrollScheduleUI.init();
@@ -12,6 +21,37 @@ class PayrollScheduleUI {
 
     savePayroll() {
         console.log("SAVE PAYROLL CALLED");
+        var payrollObj = new PayrollObj();
+        payrollObj.payrollName = $(`.displayEdit[name="runPayrollName"]`).val();
+        payrollObj.startDate = $(`.displayEdit[name="startDate"]`).val();
+        payrollObj.endDate = $(`.displayEdit[name="endDate"]`).val();
+
+        var payrollTypes = [];
+        $(".EmployeePayrollType_CheckBox:checked").each(function(index, obj) {
+            var payrollType = $(obj).val();
+            if (payrollType) {
+                payrollTypes.push(payrollType);
+            }
+        });
+        payrollObj.payrollTypes = payrollTypes;
+
+        var employees = [];
+        $(".AllEmployee_CheckBox:checked").each(function(index, obj) {
+            var employee = $(obj).val();
+            if (employee) {
+                employees.push(employee);
+            }
+        });
+        payrollObj.employees = employees;
+
+        var vdata = JSON.stringify(payrollObj);
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/post/runPayroll`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     loadEmployeesForSelectedPayrollTypes() {
