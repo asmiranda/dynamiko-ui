@@ -3,20 +3,88 @@ class PayrollObj {
         this.payrollName;
         this.startDate;
         this.endDate;
+        this.chosenYear;
+        this.chosenMonth;
         this.payrollTypes;
         this.employees;
     }
 }
 class PayrollScheduleUI {
+    constructor() {
+        var dt = new Date();
+        this.chosenYear = dt.getFullYear();
+        this.chosenMonth = dt.getMonth();
+    }
+
     changeModule(evt) {
         payrollScheduleUI.init();
         payrollScheduleUI.loadActiveMonth();
         payrollScheduleUI.loadPayrollTypes();
-        payrollScheduleUI.loadEmployeesForSelectedPayrollTypes()
+        payrollScheduleUI.loadEmployeesForSelectedPayrollTypes();
+
+        payrollScheduleUI.loadChoosePayrollList();
     }
 
     init() {
         $("#dynamikoMainSearch").hide();
+    }
+
+    choosePayrollSchedule(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollList/${recordId}`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI-ListEmployeeForUpdate").empty();
+            $(data).each(function(index, obj) {
+                var recordId = obj.getProp("EmployeePayrollId");
+                var firstName = obj.getProp("firstName");
+                var lastName = obj.getProp("lastName");
+                var basicPay = obj.getProp("basicPay");
+                var monthlyRate = obj.getProp("monthlyRate");
+                var dailyRate = obj.getProp("dailyRate");
+                var hourlyRate = obj.getProp("hourlyRate");
+                var payrollType = obj.getProp("payrollType");
+                var taxPackage = obj.getProp("taxPackage");
+                var str = `
+                    <a href="#" class="btnChooseEmployeeForUpdate" recordId=${recordId}><strong>${lastName}, ${firstName}</strong> [${taxPackage} - ${payrollType}]</a>
+                    <p class="text-muted">
+                        Basic Pay: <b>${basicPay}</b>
+                        Rates: M - <b>${monthlyRate}</b>, D - <b>${dailyRate}</b>, H - <b>${hourlyRate}</b>
+                    </p>
+                `;
+                $(".PayrollScheduleUI-ListEmployeeForUpdate").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    loadChoosePayrollList() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI-ChoosePayrollList").empty();
+            $(data).each(function(index, obj) {
+                var name = obj.getProp("name");
+                var startDate = obj.getProp("cutOffStartDate");
+                var endDate = obj.getProp("cutOffEndDate");
+                var payrollTypes = obj.getProp("payrollTypes");
+                var yearAndMonth = obj.getProp("yearAndMonth");
+                var recordId = obj.getProp("PayrollScheduleId");
+                var str = `
+                    <a href="#" class="btnChoosePayrollSchedule" recordId=${recordId}><strong>${name}</strong> for ${startDate} to ${endDate}</a>
+                    <p class="text-muted">
+                        Payroll Types: ${payrollTypes}
+                    </p>
+                    <hr/>
+                `;
+                $(".PayrollScheduleUI-ChoosePayrollList").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     savePayroll() {
@@ -25,6 +93,8 @@ class PayrollScheduleUI {
         payrollObj.payrollName = $(`.displayEdit[name="runPayrollName"]`).val();
         payrollObj.startDate = $(`.displayEdit[name="startDate"]`).val();
         payrollObj.endDate = $(`.displayEdit[name="endDate"]`).val();
+        payrollObj.chosenYear = payrollScheduleUI.chosenYear;
+        payrollObj.chosenMonth = payrollScheduleUI.chosenMonth+1;
 
         var payrollTypes = [];
         $(".EmployeePayrollType_CheckBox:checked").each(function(index, obj) {
@@ -110,10 +180,9 @@ class PayrollScheduleUI {
 
     loadActiveMonth() {
         console.log("Called Load Active Month");
-        var dt = new Date();
         var months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
-        var monthNum = dt.getMonth();
-        var currentYear = dt.getFullYear();
+        var monthNum = payrollScheduleUI.chosenMonth;;
+        var currentYear = payrollScheduleUI.chosenYear;
         var currentMonth = months[monthNum];
         var prevMonth = months[(monthNum > 0)?monthNum-1:-1];
         var nextMonth = months[(monthNum > 11)?1:monthNum+1];
@@ -141,11 +210,11 @@ class PayrollScheduleUI {
         });
         $(".PayrollMonthName").html(currentMonth);
         $(".PayrollYear").html(currentYear);
-        payrollScheduleUI.loadPayrollDetailForMonth(currentYear, monthNum);
+        payrollScheduleUI.loadPayrollDetailForMonth();
     }
 
-    loadPayrollDetailForMonth(yearNum, monthNum) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/loadPayrollDetailForMonth/${yearNum}/${monthNum+1}`;
+    loadPayrollDetailForMonth() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/loadPayrollDetailForMonth/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {

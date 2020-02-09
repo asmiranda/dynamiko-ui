@@ -1,6 +1,9 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
         
+        $(document).on('click', '.btnChoosePayrollSchedule', function() {
+            payrollScheduleUI.choosePayrollSchedule(this);
+        });
         $(document).on('click', '.btnSavePayroll', function() {
             payrollScheduleUI.savePayroll();
         });
