@@ -42,18 +42,19 @@ class QuickUpdater {
         var fieldName = $(obj).attr("fieldName");
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
         var value = $(obj).val();
+        var callback = $(obj).attr("callback");
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
-            if (quickUpdater.callback) {
-                eval(quickUpdater.callback);
-            }
-            else {
+            if (callback==null || callback==undefined || callback=="") {
                 $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(data);
             }
-            quickUpdater.callback = null;
+            else {
+                quickUpdater.callbackData = data;
+                eval(callback);
+            }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }

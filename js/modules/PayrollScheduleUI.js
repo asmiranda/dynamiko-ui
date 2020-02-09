@@ -30,7 +30,14 @@ class PayrollScheduleUI {
     }
 
     chooseEmployeeForUpdate(obj) {
-        var recordId = $(obj).attr("recordId");
+        var recordId = "";
+        if (obj == null || obj == undefined) {
+            recordId = localStorage.lastEmployeePayrollId;
+        }
+        else {
+            recordId = $(obj).attr("recordId");
+        }
+        localStorage.lastEmployeePayrollId = recordId;
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${recordId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -42,16 +49,30 @@ class PayrollScheduleUI {
                 var employeeTimeSheetId = obj.getProp("employeeTimeSheetId");
                 var employeePayrollDetailId = obj.getProp("employeePayrollDetailId");
                 var workDate = obj.getProp("workDate");
-                var totalHours = obj.getProp("totalHours");
-                var totalHoursAmount = obj.getProp("totalHoursAmount");
-                var totalOtHours = obj.getProp("totalOtHours");
-                var totalOtAmount = obj.getProp("totalOtAmount");
-                var attendanceType = obj.getProp("attendanceType");
-                var str = `
-                    <strong>${workDate} </strong>[${attendanceType}]
-                    <p class="text-muted">
-                        Total Hours: <b>${totalHours}</b> [<b>${totalHoursAmount}</b>]
-                        OT Total: <b>${totalOtHours}</b> [<b>${totalOtAmount}</b>]
+                var totalHours = obj.getPropDefault("totalHours", "0");
+                var totalHoursAmount = obj.getPropDefault("totalHoursAmount", "0");
+                var totalOtHours = obj.getPropDefault("totalOtHours", "0");
+                var totalOtAmount = obj.getPropDefault("totalOtAmount", "0");
+                var attendanceType = obj.getPropDefault("attendanceType", "GENERATED");
+                var str = `                    
+                    <p class="text-muted row">
+                        <div class="col-md-12"><strong>${workDate} </strong><span>[${attendanceType}]</span></div>
+
+                        <div class="col-md-4">Total Hours:</div>
+                        <div class="col-md-4 text-right">                            
+                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours">${totalHours}</a>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHoursAmount">${totalHoursAmount}</a>
+                        </div>
+
+                        <div class="col-md-4">OT Total:</div>
+                        <div class="col-md-4 text-right">
+                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtHours">${totalOtHours}</a>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtAmount">${totalOtAmount}</a>
+                        </div>
                     </p>
                 `;
                 $(".PayrollScheduleUI-ListEmployeePayrollDetail").append(str);
@@ -79,10 +100,10 @@ class PayrollScheduleUI {
                 var payrollType = obj.getProp("payrollType");
                 var taxPackage = obj.getProp("taxPackage");
                 var str = `
-                    <a href="#" class="btnChooseEmployeeForUpdate" recordId=${recordId}><strong>${lastName}, ${firstName}</strong> [${taxPackage} - ${payrollType}]</a>
+                    <a href="#" class="btnChooseEmployeeForUpdate" recordId=${recordId}><strong>${lastName}, ${firstName}</strong><span class="pull-right"> [${taxPackage} - ${payrollType}]</span></a>
                     <p class="text-muted">
-                        Basic Pay: <b>${basicPay}</b>
-                        Rates: M - <b>${monthlyRate}</b>, D - <b>${dailyRate}</b>, H - <b>${hourlyRate}</b>
+                        Basic Pay: <span class="pull-right"><b>${basicPay}</b></span><br/>
+                        Rates: <span class="pull-right">M - <b>${monthlyRate}</b>, D - <b>${dailyRate}</b>, H - <b>${hourlyRate}</b></span>
                     </p>
                 `;
                 $(".PayrollScheduleUI-ListEmployeeForUpdate").append(str);
@@ -106,7 +127,7 @@ class PayrollScheduleUI {
                 var yearAndMonth = obj.getProp("yearAndMonth");
                 var recordId = obj.getProp("PayrollScheduleId");
                 var str = `
-                    <a href="#" class="btnChoosePayrollSchedule" recordId=${recordId}><strong>${name}</strong> for ${startDate} to ${endDate}</a>
+                    <a href="#" class="btnChoosePayrollSchedule" recordId=${recordId}><strong>${name}</strong> <span class="pull-right">${startDate} to ${endDate}</span></a>
                     <p class="text-muted">
                         Payroll Types: ${payrollTypes}
                     </p>
