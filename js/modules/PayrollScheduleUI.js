@@ -29,6 +29,37 @@ class PayrollScheduleUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    chooseEmployeeForUpdate(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${recordId}`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI-ListEmployeePayrollDetail").empty();
+            $(data).each(function(index, obj) {
+                var recordId = obj.getProp("EmployeePayrollId");
+                var employeeTimeSheetId = obj.getProp("employeeTimeSheetId");
+                var employeePayrollDetailId = obj.getProp("employeePayrollDetailId");
+                var workDate = obj.getProp("workDate");
+                var totalHours = obj.getProp("totalHours");
+                var totalHoursAmount = obj.getProp("totalHoursAmount");
+                var totalOtHours = obj.getProp("totalOtHours");
+                var totalOtAmount = obj.getProp("totalOtAmount");
+                var attendanceType = obj.getProp("attendanceType");
+                var str = `
+                    <strong>${workDate} </strong>[${attendanceType}]
+                    <p class="text-muted">
+                        Total Hours: <b>${totalHours}</b> [<b>${totalHoursAmount}</b>]
+                        OT Total: <b>${totalOtHours}</b> [<b>${totalOtAmount}</b>]
+                    </p>
+                `;
+                $(".PayrollScheduleUI-ListEmployeePayrollDetail").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
     choosePayrollSchedule(obj) {
         var recordId = $(obj).attr("recordId");
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollList/${recordId}`;
