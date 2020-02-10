@@ -229,6 +229,9 @@ class GlobalEvents {
         $(document).on('click', '.pivotTable', function() {
             dataVisualizer.showPivot();
         });
+        $(document).on('click', '.btnFullScreenAny', function() {
+            dynamikoFullScreen.fullScreen(this);
+        });        
         $(document).on('click', '.btnChartFullScreen', function() {
             widgetChartRule.chartFullScreen(this);
         });        
@@ -311,6 +314,9 @@ class GlobalEvents {
             utils.toggleBox(this);
         });
 
+        $(document).on('click', '.toggle-any', function() {
+            utils.toggleAny(this);
+        });
     }
 
     triggerMainSearch(evt) {

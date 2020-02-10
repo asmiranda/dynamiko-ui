@@ -156,7 +156,7 @@ class HrRequisitionUI {
 
             var strHtml = `
                 <div class="box" draggable="true" ondragstart="hrRequisitionUI.dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
-                    <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
+                    <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" toggleTarget=".box${applicantId}">
                         <div>
                             <div class="box-title">
                                 <h3 class="box-title">
@@ -256,7 +256,7 @@ class HrRequisitionUI {
                 var strHtml = `
                     <div class="col-md-4">
                         <div class="box" draggable="true" ondragstart="hrRequisitionUI.dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
-                            <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" target=".box${applicantId}">
+                            <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" toggleTarget=".box${applicantId}">
                                 <div>
                                     <div class="box-title">
                                         <h3 class="box-title">

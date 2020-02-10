@@ -29,23 +29,43 @@ class PayrollScheduleUI {
         $("#dynamikoMainSearch").hide();
     }
 
-    chooseEmployeeForUpdate(obj) {
-        var recordId = "";
-        if (obj == null || obj == undefined) {
-            recordId = localStorage.lastEmployeePayrollId;
-        }
-        else {
-            recordId = $(obj).attr("recordId");
-        }
-        localStorage.lastEmployeePayrollId = recordId;
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${recordId}`;
+    loadEmployeePayrollBenefit() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollBenefit/${localStorage.lastEmployeePayrollId}`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI-ListEmployeePayrollBenefit").empty();
+            $(data).each(function(index, obj) {
+                var employeePayrollId = obj.getProp("EmployeePayrollId");
+                var employeePayrollBenefitId = obj.getProp("employeePayrollBenefitId");
+                var totalBenefitAmount = obj.getPropDefault("totalBenefitAmount", "0");
+                var benefitName = obj.getProp("benefitName");
+                var str = `  
+                    <div class="col-md-12">
+                        <div class="info-box bg-green" style="padding: 5px; min-height:0px;">
+                            <span class="info-box-text">${benefitName}</span>
+                            <span class="info-box-number hand">
+                                <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollBenefitId}" fieldName="totalBenefitAmount">${totalBenefitAmount} <i class="fa fa-fw fa-money"></i></span>
+                            </span>
+                        </div>
+                    <div>
+                `;
+                $(".PayrollScheduleUI-ListEmployeePayrollBenefit").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    loadEmployeePayrollDetail() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log(data);
             $(".PayrollScheduleUI-ListEmployeePayrollDetail").empty();
             $(data).each(function(index, obj) {
-                var recordId = obj.getProp("EmployeePayrollId");
+                var employeePayrollId = obj.getProp("EmployeePayrollId");
                 var employeeTimeSheetId = obj.getProp("employeeTimeSheetId");
                 var employeePayrollDetailId = obj.getProp("employeePayrollDetailId");
                 var workDate = obj.getProp("workDate");
@@ -54,31 +74,61 @@ class PayrollScheduleUI {
                 var totalOtHours = obj.getPropDefault("totalOtHours", "0");
                 var totalOtAmount = obj.getPropDefault("totalOtAmount", "0");
                 var attendanceType = obj.getPropDefault("attendanceType", "GENERATED");
-                var str = `                    
-                    <p class="text-muted row">
-                        <div class="col-md-12"><strong>${workDate} </strong><span>[${attendanceType}]</span></div>
+                var background = "bg-aqua";
+                if (attendanceType=="WEEKEND") {
+                    background = "bg-yellow";
+                }
+                var colorHours = "gray";
+                if (totalHours==8 || totalHours==0) {
+                    colorHours = "white";
+                }
+                var colorOTHours = "gray";
+                if (totalOtHours==0) {
+                    colorOTHours = "white";
+                }
+                var str = `  
+                    <div class="col-md-12">
+                        <div class="info-box ${background}" style="padding: 5px;">
+                            <span class="info-box-text">${workDate} <span>[${attendanceType}]</span></span>
+                            <span class="info-box-number hand" style="color: ${colorHours};">
+                                <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours">Hours: ${totalHours} </span>
+                                <span class="quickUpdaterCallback pull-right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHoursAmount">${totalHoursAmount} <i class="fa fa-fw fa-money"></i></span>
+                            </span>
 
-                        <div class="col-md-4">Total Hours:</div>
-                        <div class="col-md-4 text-right">                            
-                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours">${totalHours}</a>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                            <span class="progress-description hand" style="color: ${colorOTHours};">
+                                <span class="info-box-number">
+                                    <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtHours">OT: ${totalOtHours} </span>
+                                    <span class="quickUpdaterCallback pull-right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtAmount">${totalOtAmount} <i class="fa fa-fw fa-money"></i></span>
+                                </span>
+                            </span>
                         </div>
-                        <div class="col-md-4 text-right">
-                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHoursAmount">${totalHoursAmount}</a>
-                        </div>
-
-                        <div class="col-md-4">OT Total:</div>
-                        <div class="col-md-4 text-right">
-                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtHours">${totalOtHours}</a>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <a href="#" class="quickUpdaterCallback font-weight-bold" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtAmount">${totalOtAmount}</a>
-                        </div>
-                    </p>
+                    <div>
                 `;
                 $(".PayrollScheduleUI-ListEmployeePayrollDetail").append(str);
             });
+            $(".chosenEmployeePayroll").html("<br/> ["+localStorage.lastEmployeePayrollTitle+"]");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    chooseEmployeeForUpdate(obj) {
+        var recordId = "";
+        var recordTitle = "";
+        if (obj == null || obj == undefined) {
+            recordId = localStorage.lastEmployeePayrollId;
+            recordTitle = localStorage.lastEmployeePayrollTitle;
+        }
+        else {
+            recordId = $(obj).attr("recordId");
+            recordTitle = $(obj).attr("title");
+        }
+        localStorage.lastEmployeePayrollId = recordId;
+        localStorage.lastEmployeePayrollTitle = recordTitle;
+        payrollScheduleUI.loadEmployeePayrollDetail();
+        payrollScheduleUI.loadEmployeePayrollBenefit();
     }
 
     choosePayrollSchedule(obj) {
@@ -100,14 +150,20 @@ class PayrollScheduleUI {
                 var payrollType = obj.getProp("payrollType");
                 var taxPackage = obj.getProp("taxPackage");
                 var str = `
-                    <a href="#" class="btnChooseEmployeeForUpdate" recordId=${recordId}><strong>${lastName}, ${firstName}</strong><span class="pull-right"> [${taxPackage} - ${payrollType}]</span></a>
-                    <p class="text-muted">
+                    <a href="#" class="btnChooseEmployeeForUpdate toggle-any" toggleTarget=".divEmployeePayroll_${recordId}" recordId="${recordId}" title="${lastName}, ${firstName}"><strong>${lastName}, ${firstName}</strong> [${basicPay}]</a>
+                    <div class="text-muted divEmployeePayroll_${recordId}" style="display: none;">
                         Basic Pay: <span class="pull-right"><b>${basicPay}</b></span><br/>
-                        Rates: <span class="pull-right">M - <b>${monthlyRate}</b>, D - <b>${dailyRate}</b>, H - <b>${hourlyRate}</b></span>
-                    </p>
+                        Monthly Rate: <span class="pull-right"><b>${monthlyRate}</b></span><br/>
+                        Daily Rate: <span class="pull-right"><b>${dailyRate}</b></span><br/>
+                        Hourly Rate: <span class="pull-right"><b>${hourlyRate}</b></span><br/>
+                        Tax: <span class="pull-right"><b>${taxPackage}</b></span><br/>
+                        Type: <span class="pull-right"><b>${payrollType}</b></span>
+                    </div>
+                    <hr/>
                 `;
                 $(".PayrollScheduleUI-ListEmployeeForUpdate").append(str);
             });
+            $(".chosenPayroll").html("<br/> ["+$(obj).attr("title")+"]");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -127,11 +183,12 @@ class PayrollScheduleUI {
                 var yearAndMonth = obj.getProp("yearAndMonth");
                 var recordId = obj.getProp("PayrollScheduleId");
                 var str = `
-                    <a href="#" class="btnChoosePayrollSchedule" recordId=${recordId}><strong>${name}</strong> <span class="pull-right">${startDate} to ${endDate}</span></a>
-                    <p class="text-muted">
-                        Payroll Types: ${payrollTypes}
-                    </p>
-                    <hr/>
+                    <div class="btn btn-primary text-center" style="width: 150px; height: 100px; margin-bottom: 5px;">
+                        <span class="info-box-text btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${name}</span>
+                        <span class="info-box-number btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${startDate}</span>
+                        <span class="info-box-number btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${endDate}</span>
+                        <span class="info-box-text btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${payrollTypes}</span>
+                    </div>
                 `;
                 $(".PayrollScheduleUI-ChoosePayrollList").append(str);
             });

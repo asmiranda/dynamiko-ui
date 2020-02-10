@@ -88,6 +88,7 @@ $(function () {
 
     allTable = [];
     config = new Config();
+    dynamikoFullScreen = new DynamikoFullScreen();
     uiService = new UIService();
     leftMenu = new LeftMenu();
     toggleForm = new ToggleForm();

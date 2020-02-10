@@ -198,7 +198,10 @@ class Utils {
         return retArr;
     }
     toggleBox(obj) {
-        var str = $(obj).attr("target");
+        utils.toggleAny(obj);
+    }
+    toggleAny(obj) {
+        var str = $(obj).attr("toggleTarget");
 
         var b = $(str).is(":visible");
         console.log(b);
