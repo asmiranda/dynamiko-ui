@@ -29,6 +29,11 @@ class PayrollScheduleUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    displayEmployeePayslipPreview() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/PayrollScheduleUI/displayEmployeePayslipPreview/${localStorage.lastEmployeePayrollId}`;
+        $(`iframe[report="EmployeePayslipPreview"]`).attr("src", url);
+    }
+
     loadEmployeePayrollBenefit() {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollBenefit/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
@@ -129,6 +134,7 @@ class PayrollScheduleUI {
         localStorage.lastEmployeePayrollTitle = recordTitle;
         payrollScheduleUI.loadEmployeePayrollDetail();
         payrollScheduleUI.loadEmployeePayrollBenefit();
+        payrollScheduleUI.displayEmployeePayslipPreview();
     }
 
     choosePayrollSchedule(obj) {
