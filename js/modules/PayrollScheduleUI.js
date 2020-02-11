@@ -64,14 +64,15 @@ class PayrollScheduleUI {
             $(data).each(function(index, obj) {
                 var employeePayrollId = obj.getProp("EmployeePayrollId");
                 var employeePayrollLoanId = obj.getProp("employeePayrollLoanId");
-                var totalLoanAmount = obj.getPropDefault("totalLoanAmount", "0");
+                var loanAmount = obj.getPropDefault("loanAmount", "0");
+                var loanPaymentAmount = obj.getPropDefault("loanPaymentAmount", "0");
                 var loanName = obj.getProp("loanName");
                 var str = `  
-                    <div class="col-md-12">
+                    <div style="flex: 50%; padding: 2px;">
                         <div class="info-box bg-red" style="padding: 5px; min-height:0px;">
-                            <span class="info-box-text">${loanName}</span>
+                            <span class="info-box-text">${loanName} - ${loanAmount}</span>
                             <span class="info-box-number hand">
-                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollLoanId}" fieldName="totalLoanAmount">${totalLoanAmount} <i class="fa fa-fw fa-money"></i></span>
+                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollLoanId}" fieldName="loanPaymentAmount">${loanPaymentAmount} <i class="fa fa-fw fa-money"></i></span>
                             </span>
                         </div>
                     <div>
@@ -95,7 +96,7 @@ class PayrollScheduleUI {
                 var totalDeductionAmount = obj.getPropDefault("totalDeductionAmount", "0");
                 var deductionName = obj.getProp("deductionName");
                 var str = `  
-                    <div class="col-md-12">
+                    <div style="flex: 50%; padding: 2px;">
                         <div class="info-box bg-yellow" style="padding: 5px; min-height:0px;">
                             <span class="info-box-text">${deductionName}</span>
                             <span class="info-box-number hand">
@@ -123,7 +124,7 @@ class PayrollScheduleUI {
                 var totalBenefitAmount = obj.getPropDefault("totalBenefitAmount", "0");
                 var benefitName = obj.getProp("benefitName");
                 var str = `  
-                    <div class="col-md-12">
+                    <div style="flex: 50%; padding: 2px;">
                         <div class="info-box bg-green" style="padding: 5px; min-height:0px;">
                             <span class="info-box-text">${benefitName}</span>
                             <span class="info-box-number hand">
@@ -150,11 +151,20 @@ class PayrollScheduleUI {
                 var employeeTimeSheetId = obj.getProp("employeeTimeSheetId");
                 var employeePayrollDetailId = obj.getProp("employeePayrollDetailId");
                 var workDate = obj.getProp("workDate");
+                var workD = new Date(workDate);
+
                 var totalHours = obj.getPropDefault("totalHours", "0");
                 var totalHoursAmount = obj.getPropDefault("totalHoursAmount", "0");
                 var totalOtHours = obj.getPropDefault("totalOtHours", "0");
                 var totalOtAmount = obj.getPropDefault("totalOtAmount", "0");
                 var attendanceType = obj.getPropDefault("attendanceType", "GENERATED");
+                var dayName = obj.getPropDefault("attendanceType", "GENERATED");
+
+                var isWeekend = ([0,6].indexOf(workD.getDay()) != -1);
+                if (isWeekend) {
+                    attendanceType = "WEEKEND";
+                }
+
                 var background = "bg-aqua";
                 if (attendanceType=="WEEKEND") {
                     background = "bg-yellow";
@@ -168,11 +178,11 @@ class PayrollScheduleUI {
                     colorOTHours = "white";
                 }
                 var str = `  
-                    <div class="col-md-12">
+                    <div class="" style="flex: 50%; padding: 2px;">
                         <div class="info-box ${background}" style="padding: 5px;">
                             <span class="info-box-text">${workDate} <span>[${attendanceType}]</span></span>
                             <span class="info-box-number hand" style="color: ${colorHours};">
-                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours">Hours: ${totalHours} </span>
+                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours"><i class="fa fa-fw fa-clock-o"></i>: ${totalHours} </span>
                                 <span class="quickUpdaterCallback pull-right" placement="auto left" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHoursAmount">${totalHoursAmount} <i class="fa fa-fw fa-money"></i></span>
                             </span>
 
