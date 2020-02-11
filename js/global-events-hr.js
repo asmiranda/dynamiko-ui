@@ -1,6 +1,13 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
         
+        $(document).on('change', '#selectPayrollYear', function() {
+            payrollScheduleUI.changePayrollPeriod(this, "year");
+        });
+        $(document).on('click', '.btnPayrollMonth', function() {
+            payrollScheduleUI.changePayrollPeriod(this, "month");
+        });
+
         $(document).on('click', '.btnChooseEmployeeForUpdate', function() {
             payrollScheduleUI.chooseEmployeeForUpdate(this);
         });
