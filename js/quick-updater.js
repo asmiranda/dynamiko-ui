@@ -96,11 +96,15 @@ class QuickUpdater {
         str = utils.replaceAll(str, "##QUICKUPDATERID##", quickUpdaterId);
         str = utils.replaceAll(str, "##CALLBACK##", callback);
 
+        var placement = $(obj).attr("placement");
+        if (placement==null||placement==undefined) {
+            placement = "right";
+        }
         console.log(str);
         var pop = $(obj);
 
         pop.popover({
-            placement : 'right',
+            placement : placement,
             trigger : 'manual',
             html : true,
             title : updaterTitle,

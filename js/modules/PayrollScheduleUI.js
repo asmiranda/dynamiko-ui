@@ -71,7 +71,7 @@ class PayrollScheduleUI {
                         <div class="info-box bg-red" style="padding: 5px; min-height:0px;">
                             <span class="info-box-text">${loanName}</span>
                             <span class="info-box-number hand">
-                                <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollLoanId}" fieldName="totalLoanAmount">${totalLoanAmount} <i class="fa fa-fw fa-money"></i></span>
+                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollLoanId}" fieldName="totalLoanAmount">${totalLoanAmount} <i class="fa fa-fw fa-money"></i></span>
                             </span>
                         </div>
                     <div>
@@ -99,7 +99,7 @@ class PayrollScheduleUI {
                         <div class="info-box bg-yellow" style="padding: 5px; min-height:0px;">
                             <span class="info-box-text">${deductionName}</span>
                             <span class="info-box-number hand">
-                                <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDeductionId}" fieldName="totalDeductionAmount">${totalDeductionAmount} <i class="fa fa-fw fa-money"></i></span>
+                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDeductionId}" fieldName="totalDeductionAmount">${totalDeductionAmount} <i class="fa fa-fw fa-money"></i></span>
                             </span>
                         </div>
                     <div>
@@ -127,7 +127,7 @@ class PayrollScheduleUI {
                         <div class="info-box bg-green" style="padding: 5px; min-height:0px;">
                             <span class="info-box-text">${benefitName}</span>
                             <span class="info-box-number hand">
-                                <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollBenefitId}" fieldName="totalBenefitAmount">${totalBenefitAmount} <i class="fa fa-fw fa-money"></i></span>
+                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollBenefitId}" fieldName="totalBenefitAmount">${totalBenefitAmount} <i class="fa fa-fw fa-money"></i></span>
                             </span>
                         </div>
                     <div>
@@ -172,8 +172,8 @@ class PayrollScheduleUI {
                         <div class="info-box ${background}" style="padding: 5px;">
                             <span class="info-box-text">${workDate} <span>[${attendanceType}]</span></span>
                             <span class="info-box-number hand" style="color: ${colorHours};">
-                                <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours">Hours: ${totalHours} </span>
-                                <span class="quickUpdaterCallback pull-right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHoursAmount">${totalHoursAmount} <i class="fa fa-fw fa-money"></i></span>
+                                <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHours">Hours: ${totalHours} </span>
+                                <span class="quickUpdaterCallback pull-right" placement="auto left" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalHoursAmount">${totalHoursAmount} <i class="fa fa-fw fa-money"></i></span>
                             </span>
 
                             <div class="progress">
@@ -181,8 +181,8 @@ class PayrollScheduleUI {
                             </div>
                             <span class="progress-description hand" style="color: ${colorOTHours};">
                                 <span class="info-box-number">
-                                    <span class="quickUpdaterCallback" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtHours">OT: ${totalOtHours} </span>
-                                    <span class="quickUpdaterCallback pull-right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtAmount">${totalOtAmount} <i class="fa fa-fw fa-money"></i></span>
+                                    <span class="quickUpdaterCallback" placement="auto right" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtHours">OT: ${totalOtHours} </span>
+                                    <span class="quickUpdaterCallback pull-right" placement="auto left" callback="payrollScheduleUI.chooseEmployeeForUpdate()" updater="text" module="PayrollScheduleUI" recordId="${employeePayrollDetailId}" fieldName="totalOtAmount">${totalOtAmount} <i class="fa fa-fw fa-money"></i></span>
                                 </span>
                             </span>
                         </div>
@@ -190,7 +190,7 @@ class PayrollScheduleUI {
                 `;
                 $(".PayrollScheduleUI-ListEmployeePayrollDetail").append(str);
             });
-            $(".chosenEmployeePayroll").html("<br/> ["+localStorage.lastEmployeePayrollTitle+"]");
+            $(".chosenEmployeePayroll").html(localStorage.lastEmployeePayrollTitle);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -247,12 +247,41 @@ class PayrollScheduleUI {
                 `;
                 $(".PayrollScheduleUI-ListEmployeeForUpdate").append(str);
             });
-            $(".chosenPayroll").html("<br/> ["+$(obj).attr("title")+"]");
+            $(".chosenPayroll").html($(obj).attr("title"));
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadChoosePayrollList() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            $(".PayrollScheduleUI-ChoosePayrollList2").empty();
+            $(data).each(function(index, obj) {
+                var name = obj.getProp("name");
+                var startDate = obj.getProp("cutOffStartDate");
+                var endDate = obj.getProp("cutOffEndDate");
+                var payrollTypes = obj.getProp("payrollTypes");
+                var recordId = obj.getProp("PayrollScheduleId");
+                var str = `
+                    <div class="border-right" style="flex: 1; margin: 0px; 1px;">
+                        <div class="description-block btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">
+                            <h5 class="description-header">${name}</h5>
+                            <span class="description-text">${startDate}</span><br/>
+                            <span class="description-text">${endDate}</span>
+                        </div>
+                    </div>
+                `;
+                $(".PayrollScheduleUI-ChoosePayrollList2").append(str);
+            });
+            $(".chosenYearAndMonth").html(payrollScheduleUI.chosenYear+"-"+payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    loadChoosePayrollList_old() {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -275,7 +304,7 @@ class PayrollScheduleUI {
                 `;
                 $(".PayrollScheduleUI-ChoosePayrollList").append(str);
             });
-            $(".chosenYearAndMonth").html("<br/>"+payrollScheduleUI.chosenYear+"-"+payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
+            $(".chosenYearAndMonth").html(payrollScheduleUI.chosenYear+"-"+payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
