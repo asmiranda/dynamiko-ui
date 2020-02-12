@@ -33,10 +33,14 @@ class EmployeeUI {
     }
 
     changeModule(evt) {
+        employeeUI.init();
         employeeUI.loadEmployeeSupervisor();
         employeeUI.loadTeamOrgData();
     }
 
+    init() {
+        $("#dynamikoMainSearch").hide();
+    }
 
     removeSupervisor(obj) {
         var recordId = $(mainId).val();
