@@ -41,6 +41,7 @@ class HrRequisitionUI {
     }
 
     changeModule(evt) {
+        employeeUI.init();
         hrRequisitionUI.loadTeamRequisition();
         hrRequisitionUI.loadOpenRequisition();
         hrRequisitionUI.loadRecruitmentPerformanceChart();
@@ -48,6 +49,9 @@ class HrRequisitionUI {
     }
 
 
+    init() {
+        $("#dynamikoMainSearch").hide();
+    }
     createJob(obj) {
         var title = $("input[name='createJobRequisitionTitle']").val();
         var recruiterCode = $(".HiddenAutoComplete[name='createJobRecruiterCode']").val();

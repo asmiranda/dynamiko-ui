@@ -1,40 +1,2345 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<div class="box box-info myChildTab">
-  <div class="box-header with-border">
-    <h3 class="box-title">Create Requisition</h3>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<section class="content-header">
+  <!DOCTYPE html>
+  <h1>
+    Recruitment 360 <small><span class="chosenYearAndMonth" style="color: blue;"></span></small>
+  </h1>
+  <br />
+  <div class="row" style="display: flex;">
+    <div style="flex: 1; margin: 0 15px;">
+      <div class="info-box">
+        <span class="info-box-icon bg-aqua"><i class="fa fa-fw fa-user"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Candidates</span>
+          <span class="info-box-number HrRequisitionUI_CandidateCount">90<small>%</small></span>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1; margin: 0 15px;">
+      <div class="info-box">
+        <span class="info-box-icon bg-red"><i class="fa fa-fw fa-phone"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">For Interviews</span>
+          <span class="info-box-number HrRequisitionUI_ForInterviewCount">41,410</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1; margin: 0 15px;">
+      <div class="info-box">
+        <span class="info-box-icon bg-yellow"><i class="fa fa-fw fa-gear"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Open Jobs</span>
+          <span class="info-box-number HrRequisitionUI_OpenJobsCount">760</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1; margin: 0 15px;">
+      <div class="info-box">
+        <span class="info-box-icon bg-blue"><i class="fa fa-fw fa-calendar"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Schedule This Week</span>
+          <span class="info-box-number HrRequisitionUI_ScheduleThisWeek">2,000</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1; margin: 0 15px;">
+      <div class="info-box">
+        <span class="info-box-icon bg-green"><i class="fa fa-fw fa-money"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">For Offering</span>
+          <span class="info-box-number HrRequisitionUI_ForOfferingCount">2,000</span>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
+<section class="content">
+  <div style="display: flex;">
+    <div id="dynamikoMainContent" style="flex: 70%; padding-right: 10px; margin-left: 0px;" class="row">
 
-  <div class="box-body displayTabHtmlArrange" style="height:400px; overflow-y: auto; margin:5px;">
-    <div class="form-group">
-      <label for="requisitionTitle" class="control-label">Title</label>
-      <input type="text" class="form-control displayEdit" name="requisitionTitle" placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
-    </div>
-    <div class="form-group">
-      <label for="recruiterCode" class="control-label" name="recruiterCode" title="Click for help" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="recruiterCode">Recruiter</label>
-      <div class="input-group">
-        <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="recruiterCode" helptitle="Recruiter">
-        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+      <html xmlns="http://www.w3.org/1999/xhtml">
+
+      <div class="nav-tabs-custom" style="margin-top: 5px;">
+        <ul class="nav nav-tabs">
+          <li class="tab-pane active">
+            <a href="#Tab11" data-toggle="tab" aria-expanded="false">Dashboard</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab12" data-toggle="tab" aria-expanded="false">Job Listing</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab13" data-toggle="tab" aria-expanded="false">Applicants</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab14" data-toggle="tab" aria-expanded="false">Recruiters</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab15" data-toggle="tab" aria-expanded="false">Hiring Managers</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab1" data-toggle="tab" aria-expanded="false">Create Job</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab2" data-toggle="tab" aria-expanded="false">Job Details</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab3" data-toggle="tab" aria-expanded="false">Activity</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab4" data-toggle="tab" aria-expanded="false">Fulfilled</a>
+          </li>
+          <li class="tab-pane">
+            <a href="#Tab5" data-toggle="tab" aria-expanded="false">Performance</a>
+          </li>
+        </ul>
+        <div class="tab-content no-padding">
+          <div class="tab-pane active" id="Tab11">
+            <div style="margin: 0px -15px;">
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div style="display: flex;">
+                  <div style="flex: 30%; margin: 15px 0px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Tasks Today</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Stages</h3>
+                      </div>
+                      <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                          <li class="list-group-item">
+                            <b>New Jobs</b> <a class="pull-right">1,322</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Sourced</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Interview</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Offer</b> <a class="pull-right">13,287</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Fulfilled</b> <a class="pull-right">13,287</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Interviews</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Offer</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Applicant</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">First Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="First Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Last Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="Last Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateNewApplicant">Create New
+                          Applicant</button>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Job</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">Title</label>
+                          <input type="text" class="form-control displayEdit" name="createJobRequisitionTitle"
+                            placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Recruiter</label>
+                          <span class="pull-right"><a href="#" class="chooseMeRecruiter"
+                              field="createJobRecruiterCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                              helptitle="Recruiter">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobRecruiterCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobRecruiterCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                            autonamefield="createJobRecruiterCode" value="">
+                          <div name="createJobRecruiterCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"></div>
+                          <div name="createJobRecruiterCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode">HR, HR</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Manager</label>
+                          <span class="pull-right"><a href="#" class="chooseMeManager"
+                              field="createJobManagerCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                              helptitle="Manager">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobManagerCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobManagerCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                            autonamefield="createJobManagerCode" value="">
+                          <div name="createJobManagerCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode"></div>
+                          <div name="createJobManagerCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode">Tirrell, Osbourne</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label"># Of Opening</label>
+                          <div class="input-group">
+                            <input type="number" name="createJobNumberOfOpening" min="0" step="1"
+                              data-number-to-fixed="0" data-number-stepfactor="100" class="form-control displayEdit"
+                              module="HrRequisitionUI" mainmodule="HrRequisition">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateJob">Create New Job</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab12">
+            <div style="margin: 0px -15px;">
+
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div style="display: flex;">
+                  <div style="flex: 30%; margin: 15px 0px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Tasks Today</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Stages</h3>
+                      </div>
+                      <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                          <li class="list-group-item">
+                            <b>New Jobs</b> <a class="pull-right">1,322</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Sourced</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Interview</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Offer</b> <a class="pull-right">13,287</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Fulfilled</b> <a class="pull-right">13,287</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Interviews</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Offer</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Search Jobs</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="myTeamRequisition" style="margin:5px;">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Job</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">Title</label>
+                          <input type="text" class="form-control displayEdit" name="createJobRequisitionTitle"
+                            placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Recruiter</label>
+                          <span class="pull-right"><a href="#" class="chooseMeRecruiter"
+                              field="createJobRecruiterCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                              helptitle="Recruiter">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobRecruiterCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobRecruiterCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                            autonamefield="createJobRecruiterCode" value="">
+                          <div name="createJobRecruiterCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"></div>
+                          <div name="createJobRecruiterCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode">HR, HR</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Manager</label>
+                          <span class="pull-right"><a href="#" class="chooseMeManager"
+                              field="createJobManagerCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                              helptitle="Manager">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobManagerCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobManagerCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                            autonamefield="createJobManagerCode" value="">
+                          <div name="createJobManagerCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode"></div>
+                          <div name="createJobManagerCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode">Tirrell, Osbourne</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label"># Of Opening</label>
+                          <div class="input-group">
+                            <input type="number" name="createJobNumberOfOpening" min="0" step="1"
+                              data-number-to-fixed="0" data-number-stepfactor="100" class="form-control displayEdit"
+                              module="HrRequisitionUI" mainmodule="HrRequisition">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateJob">Create New Job</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab13">
+            <div style="margin: 0px -15px;">
+
+
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div style="display: flex;">
+                  <div style="flex: 30%; margin: 15px 0px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Tasks Today</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Stages</h3>
+                      </div>
+                      <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                          <li class="list-group-item">
+                            <b>New Jobs</b> <a class="pull-right">1,322</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Sourced</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Interview</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Offer</b> <a class="pull-right">13,287</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Fulfilled</b> <a class="pull-right">13,287</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Interviews</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Offer</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Applicant</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">First Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="First Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Last Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="Last Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateNewApplicant">Create New
+                          Applicant</button>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Job</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">Title</label>
+                          <input type="text" class="form-control displayEdit" name="createJobRequisitionTitle"
+                            placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Recruiter</label>
+                          <span class="pull-right"><a href="#" class="chooseMeRecruiter"
+                              field="createJobRecruiterCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                              helptitle="Recruiter">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobRecruiterCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobRecruiterCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                            autonamefield="createJobRecruiterCode" value="">
+                          <div name="createJobRecruiterCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"></div>
+                          <div name="createJobRecruiterCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode">HR, HR</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Manager</label>
+                          <span class="pull-right"><a href="#" class="chooseMeManager"
+                              field="createJobManagerCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                              helptitle="Manager">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobManagerCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobManagerCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                            autonamefield="createJobManagerCode" value="">
+                          <div name="createJobManagerCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode"></div>
+                          <div name="createJobManagerCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode">Tirrell, Osbourne</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label"># Of Opening</label>
+                          <div class="input-group">
+                            <input type="number" name="createJobNumberOfOpening" min="0" step="1"
+                              data-number-to-fixed="0" data-number-stepfactor="100" class="form-control displayEdit"
+                              module="HrRequisitionUI" mainmodule="HrRequisition">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateJob">Create New Job</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab14">
+            <div style="margin: 0px -15px;">
+
+
+
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div style="display: flex;">
+                  <div style="flex: 30%; margin: 15px 0px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Tasks Today</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Stages</h3>
+                      </div>
+                      <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                          <li class="list-group-item">
+                            <b>New Jobs</b> <a class="pull-right">1,322</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Sourced</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Interview</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Offer</b> <a class="pull-right">13,287</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Fulfilled</b> <a class="pull-right">13,287</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Interviews</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Offer</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Applicant</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">First Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="First Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Last Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="Last Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateNewApplicant">Create New
+                          Applicant</button>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Job</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">Title</label>
+                          <input type="text" class="form-control displayEdit" name="createJobRequisitionTitle"
+                            placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Recruiter</label>
+                          <span class="pull-right"><a href="#" class="chooseMeRecruiter"
+                              field="createJobRecruiterCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                              helptitle="Recruiter">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobRecruiterCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobRecruiterCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                            autonamefield="createJobRecruiterCode" value="">
+                          <div name="createJobRecruiterCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"></div>
+                          <div name="createJobRecruiterCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode">HR, HR</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Manager</label>
+                          <span class="pull-right"><a href="#" class="chooseMeManager"
+                              field="createJobManagerCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                              helptitle="Manager">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobManagerCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobManagerCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                            autonamefield="createJobManagerCode" value="">
+                          <div name="createJobManagerCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode"></div>
+                          <div name="createJobManagerCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode">Tirrell, Osbourne</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label"># Of Opening</label>
+                          <div class="input-group">
+                            <input type="number" name="createJobNumberOfOpening" min="0" step="1"
+                              data-number-to-fixed="0" data-number-stepfactor="100" class="form-control displayEdit"
+                              module="HrRequisitionUI" mainmodule="HrRequisition">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateJob">Create New Job</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab15">
+            <div style="margin: 0px -15px;">
+
+
+
+
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div style="display: flex;">
+                  <div style="flex: 30%; margin: 15px 0px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Tasks Today</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Stages</h3>
+                      </div>
+                      <div class="box-body box-profile">
+                        <ul class="list-group list-group-unbordered">
+                          <li class="list-group-item">
+                            <b>New Jobs</b> <a class="pull-right">1,322</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Sourced</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Interview</b> <a class="pull-right">543</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>For Offer</b> <a class="pull-right">13,287</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Fulfilled</b> <a class="pull-right">13,287</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Interviews</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">For Offer</h3>
+                      </div>
+                      <div class="box-body">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                        <p class="text-muted">
+                          B.S. in Computer Science from the University of Tennessee at Knoxville
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                          <span class="label label-danger">UI Design</span>
+                          <span class="label label-success">Coding</span>
+                          <span class="label label-info">Javascript</span>
+                          <span class="label label-warning">PHP</span>
+                          <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Applicant</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">First Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="First Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Last Name</label>
+                          <input type="text" class="form-control displayEdit" name="createApplicantFirstName"
+                            placeholder="Last Name" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateNewApplicant">Create New
+                          Applicant</button>
+                      </div>
+                    </div>
+
+                    <div class="box box-default">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">New Job</h3>
+                      </div>
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label class="control-label">Title</label>
+                          <input type="text" class="form-control displayEdit" name="createJobRequisitionTitle"
+                            placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Recruiter</label>
+                          <span class="pull-right"><a href="#" class="chooseMeRecruiter"
+                              field="createJobRecruiterCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                              helptitle="Recruiter">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobRecruiterCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobRecruiterCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                            autonamefield="createJobRecruiterCode" value="">
+                          <div name="createJobRecruiterCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"></div>
+                          <div name="createJobRecruiterCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode">HR, HR</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Manager</label>
+                          <span class="pull-right"><a href="#" class="chooseMeManager"
+                              field="createJobManagerCode">Choose me</a></span>
+                          <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager"
+                              module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                              helptitle="Manager">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                              autoname="createJobManagerCode">
+                            </div>
+                          </div>
+                          <input class="form-control HiddenAutoComplete" name="createJobManagerCode" type="hidden"
+                            module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                            autonamefield="createJobManagerCode" value="">
+                          <div name="createJobManagerCode" class="DivAutoCompleteDefault"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode"></div>
+                          <div name="createJobManagerCode" class="DivAutoComplete"
+                            style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                            mainmodule="HrRequisitionUI" autoname="createJobManagerCode">Tirrell, Osbourne</div>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label"># Of Opening</label>
+                          <div class="input-group">
+                            <input type="number" name="createJobNumberOfOpening" min="0" step="1"
+                              data-number-to-fixed="0" data-number-stepfactor="100" class="form-control displayEdit"
+                              module="HrRequisitionUI" mainmodule="HrRequisition">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <button type="button" class="btn btn-primary btnCreateJob">Create New Job</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab1">
+            <div style="margin: 0px -15px;">
+
+
+
+
+
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Create Requisition</h3>
+                  </div>
+
+                  <div class="box-body displayTabHtmlArrange" style="height:440px; overflow-y: auto; margin:5px;">
+                    <div class="form-group">
+                      <label for="createJobRequisitionTitle" class="control-label">Title</label>
+                      <input type="text" class="form-control displayEdit" name="createJobRequisitionTitle"
+                        placeholder="Title" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                    </div>
+                    <div class="form-group">
+                      <label for="createJobRecruiterCode" class="control-label">Recruiter</label>
+                      <span class="pull-right"><a href="#" class="chooseMeRecruiter"
+                          field="createJobRecruiterCode">Choose me</a></span>
+                      <div class="input-group">
+                        <input type="text" class="form-control autocomplete displayEdit" placeholder="Recruiter"
+                          module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                          helptitle="Recruiter">
+                        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                        <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                          autoname="createJobRecruiterCode">
+                        </div>
+                      </div>
+                      <input class="form-control HiddenAutoComplete" name="createJobRecruiterCode" type="hidden"
+                        module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode"
+                        autonamefield="createJobRecruiterCode" value="">
+                      <div name="createJobRecruiterCode" class="DivAutoCompleteDefault"
+                        style="margin-left: 20px; display:none" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                        autoname="createJobRecruiterCode"></div>
+                      <div name="createJobRecruiterCode" class="DivAutoComplete" style="margin-left: 20px; display:none"
+                        module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobRecruiterCode">HR, HR
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="createJobManagerCode" class="control-label">Manager</label>
+                      <span class="pull-right"><a href="#" class="chooseMeManager" field="createJobManagerCode">Choose
+                          me</a></span>
+                      <div class="input-group">
+                        <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager"
+                          module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                          helptitle="Manager">
+                        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                        <div class="autocomplete-items" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                          autoname="createJobManagerCode">
+                        </div>
+                      </div>
+                      <input class="form-control HiddenAutoComplete" name="createJobManagerCode" type="hidden"
+                        module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode"
+                        autonamefield="createJobManagerCode" value="">
+                      <div name="createJobManagerCode" class="DivAutoCompleteDefault"
+                        style="margin-left: 20px; display:none" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                        autoname="createJobManagerCode"></div>
+                      <div name="createJobManagerCode" class="DivAutoComplete" style="margin-left: 20px; display:none"
+                        module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="createJobManagerCode">Tirrell,
+                        Osbourne</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="createJobNumberOfOpening" class="control-label"># Of Opening</label>
+                      <div class="input-group">
+                        <input type="number" name="createJobNumberOfOpening" min="0" step="1" data-number-to-fixed="0"
+                          data-number-stepfactor="100" class="form-control displayEdit" module="HrRequisitionUI"
+                          mainmodule="HrRequisition">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary btnCreateJob">Create Job</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">My Team Requisition</h3>
+                  </div>
+
+                  <div class="box-body displayTabHtmlArrange myTeamRequisition" style="margin:5px;">
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab2">
+            <div style="margin: 0px -15px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab myAddInfo" module="HrRequisitionUI">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Additional Information</h3>
+                    <a href="#" data-toggle="modal" class="btnUpdateAddInfo pull-right" module="HrRequisitionUI"
+                      addInfo="Info1" data-target="#myModalHrRequisitionUIInfo1">Update</a>
+                  </div>
+
+                  <div class="box-body displayTabHtml" module="HrRequisitionUI">
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <form role="form-horizontal" class="addInfo" module="HrRequisitionUI">
+                        <div class="box-body with-border" style="height:200px; overflow-y: auto; overflow-x: hidden;">
+                          <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Division :</label>
+                                <div name="divisionCode" class="DivAutoComplete" style="margin-left: 20px;"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoName="divisionCode"></div>
+
+                                <input type="hidden" class="form-control autocomplete displayEdit"
+                                  placeholder="Division" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                  autoName="divisionCode" helpTitle="Division">
+                                <input class="form-control HiddenAutoComplete" name="divisionCode" type="hidden"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoNameField="divisionCode">
+                                <div name="divisionCode" class="DivAutoCompleteDefault"
+                                  style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                  mainmodule="HrRequisitionUI" autoName="divisionCode"></div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Location :</label>
+                                <div name="locationCode" class="DivAutoComplete" style="margin-left: 20px;"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoName="locationCode"></div>
+
+                                <input type="hidden" class="form-control autocomplete displayEdit"
+                                  placeholder="Location" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                  autoName="locationCode" helpTitle="Location">
+                                <input class="form-control HiddenAutoComplete" name="locationCode" type="hidden"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoNameField="locationCode">
+                                <div name="locationCode" class="DivAutoCompleteDefault"
+                                  style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                  mainmodule="HrRequisitionUI" autoName="locationCode"></div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Title By Manager :</label>
+                                <span class="textOnly no-border" name="titleByManager" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Shift :</label>
+                                <span class="textOnly no-border" name="shift" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Target Start Date :</label>
+                                <span class="textOnly no-border" name="targetStartDate" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Grade Level :</label>
+                                <span class="textOnly no-border" name="gradeLevel" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Overtime Status :</label>
+                                <span class="textOnly no-border" name="overtimeStatus" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Currency :</label>
+                                <div name="currencyCode" class="DivAutoComplete" style="margin-left: 20px;"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoName="currencyCode"></div>
+
+                                <input type="hidden" class="form-control autocomplete displayEdit"
+                                  placeholder="Currency" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                  autoName="currencyCode" helpTitle="Currency">
+                                <input class="form-control HiddenAutoComplete" name="currencyCode" type="hidden"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoNameField="currencyCode">
+                                <div name="currencyCode" class="DivAutoCompleteDefault"
+                                  style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                  mainmodule="HrRequisitionUI" autoName="currencyCode"></div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Target Salary :</label>
+                                <span class="textOnly no-border" name="targetSalary" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Incentive Type :</label>
+                                <span class="textOnly no-border" name="incentiveType" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">With Relocation :</label>
+                                <span class="textOnly no-border" name="withRelocation" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">With Direct Reports :</label>
+                                <span class="textOnly no-border" name="withDirectReports" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <div class="modal fade" id="myModalHrRequisitionUIInfo1" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalHrRequisitionUIInfo1">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <form role="form-horizontal" class="addInfo" module="HrRequisitionUI"
+                              submodule="HrRequisitionUI" addInfo="Info1">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title" id="myModalLabel">Additional Information</h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="box-body" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                                  <!-- /.box-body -->
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="divisionCode" class="control-label" name="divisionCode"
+                                        title="Click for help" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoName="divisionCode">Division</label>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control autocomplete displayEdit"
+                                          placeholder="Division" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                          autoName="divisionCode" helpTitle="Division">
+                                        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                                        <div class="autocomplete-items" module="HrRequisitionUI"
+                                          mainmodule="HrRequisitionUI" autoName="divisionCode">
+                                        </div>
+                                      </div>
+
+
+                                      <input class="form-control HiddenAutoComplete" name="divisionCode" type="hidden"
+                                        module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoNameField="divisionCode">
+                                      <div name="divisionCode" class="DivAutoCompleteDefault"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="divisionCode"></div>
+                                      <div name="divisionCode" class="DivAutoComplete"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="divisionCode"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="locationCode" class="control-label" name="locationCode"
+                                        title="Click for help" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoName="locationCode">Location</label>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control autocomplete displayEdit"
+                                          placeholder="Location" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                          autoName="locationCode" helpTitle="Location">
+                                        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                                        <div class="autocomplete-items" module="HrRequisitionUI"
+                                          mainmodule="HrRequisitionUI" autoName="locationCode">
+                                        </div>
+                                      </div>
+
+
+                                      <input class="form-control HiddenAutoComplete" name="locationCode" type="hidden"
+                                        module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoNameField="locationCode">
+                                      <div name="locationCode" class="DivAutoCompleteDefault"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="locationCode"></div>
+                                      <div name="locationCode" class="DivAutoComplete"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="locationCode"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="titleByManager" class="control-label">Title By Manager</label>
+                                      <input type="text" class="form-control displayEdit" name="titleByManager"
+                                        placeholder="Title By Manager" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="shift" class="control-label">Shift</label>
+                                      <select type="text" class="form-control displayEdit" name="shift"
+                                        placeholder="Shift" module="HrRequisitionUI" mainmodule="HrRequisition">
+                                        <option></option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="targetStartDate" class="control-label">Target Start Date</label>
+                                      <div class="input-group date">
+                                        <input type="text" name="targetStartDate" placeholder="Target Start Date"
+                                          class="form-control calendar displayEdit" module="HrRequisitionUI"
+                                          mainmodule="HrRequisition">
+                                        <div class="input-group-addon displayEdit">
+                                          <i class="fa fa-calendar"></i>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="gradeLevel" class="control-label">Grade Level</label>
+                                      <select type="text" class="form-control displayEdit" name="gradeLevel"
+                                        placeholder="Grade Level" module="HrRequisitionUI" mainmodule="HrRequisition">
+                                        <option></option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="overtimeStatus" class="control-label">Overtime Status</label>
+                                      <select type="text" class="form-control displayEdit" name="overtimeStatus"
+                                        placeholder="Overtime Status" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition">
+                                        <option></option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="currencyCode" class="control-label" name="currencyCode"
+                                        title="Click for help" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoName="currencyCode">Currency</label>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control autocomplete displayEdit"
+                                          placeholder="Currency" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                          autoName="currencyCode" helpTitle="Currency">
+                                        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                                        <div class="autocomplete-items" module="HrRequisitionUI"
+                                          mainmodule="HrRequisitionUI" autoName="currencyCode">
+                                        </div>
+                                      </div>
+
+
+                                      <input class="form-control HiddenAutoComplete" name="currencyCode" type="hidden"
+                                        module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoNameField="currencyCode">
+                                      <div name="currencyCode" class="DivAutoCompleteDefault"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="currencyCode"></div>
+                                      <div name="currencyCode" class="DivAutoComplete"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="currencyCode"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="targetSalary" class="control-label">Target Salary</label>
+                                      <div class="input-group">
+                                        <input type="number" name="targetSalary" min="0" step="0.01"
+                                          data-number-to-fixed="2" data-number-stepfactor="100"
+                                          class="form-control displayEdit" module="HrRequisitionUI"
+                                          mainmodule="HrRequisition" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="incentiveType" class="control-label">Incentive Type</label>
+                                      <select type="text" class="form-control displayEdit" name="incentiveType"
+                                        placeholder="Incentive Type" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition">
+                                        <option></option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <input type="checkbox" name="withRelocation" placeholder="With Relocation"
+                                        class="displayEdit" module="HrRequisitionUI" mainmodule="HrRequisition">
+                                      <label for="withRelocation" class="control-label">With Relocation</label>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <input type="checkbox" name="withDirectReports" placeholder="With Direct Reports"
+                                        class="displayEdit" module="HrRequisitionUI" mainmodule="HrRequisition">
+                                      <label for="withDirectReports" class="control-label">With Direct Reports</label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <span>
+                                  <input type="hidden" class="form-control" name="HrRequisitionId" style="width:50px;"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI" addInfo="Info1"></input>
+                                  <button type="button" class="btn btn-default btnAddInfoCancel" data-dismiss="modal"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI" addInfo="Info1">Close</button>
+                                  <button type="button" class="btn btn-primary btnAddInfoSave" module="HrRequisitionUI"
+                                    submodule="HrRequisitionUI" addInfo="Info1">Save Changes</button>
+                                </span>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab myAddInfo" module="HrRequisitionUI">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Justification</h3>
+                    <a href="#" data-toggle="modal" class="btnUpdateAddInfo pull-right" module="HrRequisitionUI"
+                      addInfo="justification" data-target="#myModalHrRequisitionUIjustification">Update</a>
+                  </div>
+
+                  <div class="box-body displayTabHtml" module="HrRequisitionUI">
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <form role="form-horizontal" class="addInfo" module="HrRequisitionUI">
+                        <div class="box-body with-border" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                          <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Replacing Employee :</label>
+                                <div name="replaceEmployeeId" class="DivAutoComplete" style="margin-left: 20px;"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoName="replaceEmployeeId">
+                                </div>
+
+                                <input type="hidden" class="form-control autocomplete displayEdit"
+                                  placeholder="Replacing Employee" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                  autoName="replaceEmployeeId" helpTitle="Replacing Employee">
+                                <input class="form-control HiddenAutoComplete" name="replaceEmployeeId" type="hidden"
+                                  module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                  autoNameField="replaceEmployeeId">
+                                <div name="replaceEmployeeId" class="DivAutoCompleteDefault"
+                                  style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                  mainmodule="HrRequisitionUI" autoName="replaceEmployeeId"></div>
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Replacing Employee Salary :</label>
+                                <span class="textOnly no-border" name="replaceEmployeeSalary" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Justification Title :</label>
+                                <span class="textOnly no-border" name="positionJustificationTitle"
+                                  module="HrRequisitionUI" mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Justification Description :</label>
+                                <span class="textOnly no-border" name="positionJustificationDescription"
+                                  module="HrRequisitionUI" mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <div class="modal fade" id="myModalHrRequisitionUIjustification" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalHrRequisitionUIjustification">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <form role="form-horizontal" class="addInfo" module="HrRequisitionUI"
+                              submodule="HrRequisitionUI" addInfo="justification">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title" id="myModalLabel">Justification</h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="box-body" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                                  <!-- /.box-body -->
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="replaceEmployeeId" class="control-label" name="replaceEmployeeId"
+                                        title="Click for help" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoName="replaceEmployeeId">Replacing Employee</label>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control autocomplete displayEdit"
+                                          placeholder="Replacing Employee" module="HrRequisitionUI"
+                                          mainmodule="HrRequisitionUI" autoName="replaceEmployeeId"
+                                          helpTitle="Replacing Employee">
+                                        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                                        <div class="autocomplete-items" module="HrRequisitionUI"
+                                          mainmodule="HrRequisitionUI" autoName="replaceEmployeeId">
+                                        </div>
+                                      </div>
+
+
+                                      <input class="form-control HiddenAutoComplete" name="replaceEmployeeId"
+                                        type="hidden" module="HrRequisitionUI" mainmodule="HrRequisitionUI"
+                                        autoNameField="replaceEmployeeId">
+                                      <div name="replaceEmployeeId" class="DivAutoCompleteDefault"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="replaceEmployeeId"></div>
+                                      <div name="replaceEmployeeId" class="DivAutoComplete"
+                                        style="margin-left: 20px; display:none" module="HrRequisitionUI"
+                                        mainmodule="HrRequisitionUI" autoName="replaceEmployeeId"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="replaceEmployeeSalary" class="control-label">Replacing Employee
+                                        Salary</label>
+                                      <div class="input-group">
+                                        <input type="number" name="replaceEmployeeSalary" min="0" step="0.01"
+                                          data-number-to-fixed="2" data-number-stepfactor="100"
+                                          class="form-control displayEdit" module="HrRequisitionUI"
+                                          mainmodule="HrRequisition" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="positionJustificationTitle" class="control-label">Justification
+                                        Title</label>
+                                      <input type="text" class="form-control displayEdit"
+                                        name="positionJustificationTitle" placeholder="Justification Title"
+                                        module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="positionJustificationDescription" class="control-label">Justification
+                                        Description</label>
+                                      <textarea name="positionJustificationDescription"
+                                        placeholder="Justification Description" class="form-control displayEdit"
+                                        rows="3" module="HrRequisitionUI" mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <span>
+                                  <input type="hidden" class="form-control" name="HrRequisitionId" style="width:50px;"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI"
+                                    addInfo="justification"></input>
+                                  <button type="button" class="btn btn-default btnAddInfoCancel" data-dismiss="modal"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI"
+                                    addInfo="justification">Close</button>
+                                  <button type="button" class="btn btn-primary btnAddInfoSave" module="HrRequisitionUI"
+                                    submodule="HrRequisitionUI" addInfo="justification">Save Changes</button>
+                                </span>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab myAddInfo" module="HrRequisitionUI">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Internal Qualifications</h3>
+                    <a href="#" data-toggle="modal" class="btnUpdateAddInfo pull-right" module="HrRequisitionUI"
+                      addInfo="internal" data-target="#myModalHrRequisitionUIinternal">Update</a>
+                  </div>
+
+                  <div class="box-body displayTabHtml" module="HrRequisitionUI">
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <form role="form-horizontal" class="addInfo" module="HrRequisitionUI">
+                        <div class="box-body with-border" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                          <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Core Skills :</label>
+                                <span class="textOnly no-border" name="coreSkills" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Core Skill Category :</label>
+                                <span class="textOnly no-border" name="coreSkillCategory" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Description :</label>
+                                <span class="textOnly no-border" name="internalDescription" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Primary Responsibilities :</label>
+                                <span class="textOnly no-border" name="internalPrimaryResponsibilities"
+                                  module="HrRequisitionUI" mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Qualifications :</label>
+                                <span class="textOnly no-border" name="internalQualifications" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Preferred Qualifications :</label>
+                                <span class="textOnly no-border" name="internalPreferredQualifications"
+                                  module="HrRequisitionUI" mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <div class="modal fade" id="myModalHrRequisitionUIinternal" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalHrRequisitionUIinternal">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <form role="form-horizontal" class="addInfo" module="HrRequisitionUI"
+                              submodule="HrRequisitionUI" addInfo="internal">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title" id="myModalLabel">Internal Qualifications</h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="box-body" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                                  <!-- /.box-body -->
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="coreSkills" class="control-label">Core Skills</label>
+                                      <input type="text" class="form-control displayEdit" name="coreSkills"
+                                        placeholder="Core Skills" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="coreSkillCategory" class="control-label">Core Skill Category</label>
+                                      <select type="text" class="form-control displayEdit" name="coreSkillCategory"
+                                        placeholder="Core Skill Category" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition">
+                                        <option></option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="internalDescription" class="control-label">Description</label>
+                                      <textarea name="internalDescription" placeholder="Description"
+                                        class="form-control displayEdit" rows="3" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="internalPrimaryResponsibilities" class="control-label">Primary
+                                        Responsibilities</label>
+                                      <textarea name="internalPrimaryResponsibilities"
+                                        placeholder="Primary Responsibilities" class="form-control displayEdit" rows="3"
+                                        module="HrRequisitionUI" mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="internalQualifications" class="control-label">Qualifications</label>
+                                      <textarea name="internalQualifications" placeholder="Qualifications"
+                                        class="form-control displayEdit" rows="3" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="internalPreferredQualifications" class="control-label">Preferred
+                                        Qualifications</label>
+                                      <textarea name="internalPreferredQualifications"
+                                        placeholder="Preferred Qualifications" class="form-control displayEdit" rows="3"
+                                        module="HrRequisitionUI" mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <span>
+                                  <input type="hidden" class="form-control" name="HrRequisitionId" style="width:50px;"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI" addInfo="internal"></input>
+                                  <button type="button" class="btn btn-default btnAddInfoCancel" data-dismiss="modal"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI"
+                                    addInfo="internal">Close</button>
+                                  <button type="button" class="btn btn-primary btnAddInfoSave" module="HrRequisitionUI"
+                                    submodule="HrRequisitionUI" addInfo="internal">Save Changes</button>
+                                </span>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab myAddInfo" module="HrRequisitionUI">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">External Qualifications</h3>
+                    <a href="#" data-toggle="modal" class="btnUpdateAddInfo pull-right" module="HrRequisitionUI"
+                      addInfo="external" data-target="#myModalHrRequisitionUIexternal">Update</a>
+                  </div>
+
+                  <div class="box-body displayTabHtml" module="HrRequisitionUI">
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <form role="form-horizontal" class="addInfo" module="HrRequisitionUI">
+                        <div class="box-body with-border" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                          <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Description :</label>
+                                <span class="textOnly no-border" name="externalDescription" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Primary Responsibilities :</label>
+                                <span class="textOnly no-border" name="externalPrimaryResponsibilities"
+                                  module="HrRequisitionUI" mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Qualifications :</label>
+                                <span class="textOnly no-border" name="externalQualifications" module="HrRequisitionUI"
+                                  mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                            <div>
+                              <html xmlns="http://www.w3.org/1999/xhtml">
+                              <div class="form-group">
+                                <label class="text-right">Preferred Qualifications :</label>
+                                <span class="textOnly no-border" name="externalPreferredQualifications"
+                                  module="HrRequisitionUI" mainmodule="HrRequisition" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div>
+                      <html xmlns="http://www.w3.org/1999/xhtml">
+                      <div class="modal fade" id="myModalHrRequisitionUIexternal" tabindex="-1" role="dialog"
+                        aria-labelledby="myModalHrRequisitionUIexternal">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <form role="form-horizontal" class="addInfo" module="HrRequisitionUI"
+                              submodule="HrRequisitionUI" addInfo="external">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                                <h3 class="modal-title" id="myModalLabel">External Qualifications</h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="box-body" style="height:400px; overflow-y: auto; overflow-x: hidden;">
+                                  <!-- /.box-body -->
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="externalDescription" class="control-label">Description</label>
+                                      <textarea name="externalDescription" placeholder="Description"
+                                        class="form-control displayEdit" rows="3" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="externalPrimaryResponsibilities" class="control-label">Primary
+                                        Responsibilities</label>
+                                      <textarea name="externalPrimaryResponsibilities"
+                                        placeholder="Primary Responsibilities" class="form-control displayEdit" rows="3"
+                                        module="HrRequisitionUI" mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="externalQualifications" class="control-label">Qualifications</label>
+                                      <textarea name="externalQualifications" placeholder="Qualifications"
+                                        class="form-control displayEdit" rows="3" module="HrRequisitionUI"
+                                        mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <div class="form-group">
+                                      <label for="externalPreferredQualifications" class="control-label">Preferred
+                                        Qualifications</label>
+                                      <textarea name="externalPreferredQualifications"
+                                        placeholder="Preferred Qualifications" class="form-control displayEdit" rows="3"
+                                        module="HrRequisitionUI" mainmodule="HrRequisition"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <span>
+                                  <input type="hidden" class="form-control" name="HrRequisitionId" style="width:50px;"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI" addInfo="external"></input>
+                                  <button type="button" class="btn btn-default btnAddInfoCancel" data-dismiss="modal"
+                                    module="HrRequisitionUI" submodule="HrRequisitionUI"
+                                    addInfo="external">Close</button>
+                                  <button type="button" class="btn btn-primary btnAddInfoSave" module="HrRequisitionUI"
+                                    submodule="HrRequisitionUI" addInfo="external">Save Changes</button>
+                                </span>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab3">
+            <div style="margin: 0px -15px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab4">
+            <div style="margin: 0px -15px;">
+
+
+
+
+
+
+
+
+
+
+
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Fulfilled</h3>
+                  </div>
+
+                  <div class="box-body hrRequisitionFulfilled row" style="margin:5px;">
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Fulfilled</h3>
+                  </div>
+
+                  <div class="box-body hrRequisitionFulfilled row" style="margin:5px;">
+                  </div>
+                </div>
+
+              </div>
+
+
+
+
+            </div>
+          </div>
+          <div class="tab-pane" id="Tab5">
+            <div style="margin: 0px -15px;">
+
+
+
+
+
+
+
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Open Requisition</h3>
+                  </div>
+
+                  <div class="box-body displayTabHtmlArrange myOpenRequisition"
+                    style="height:500px; overflow-y: auto; margin:5px;">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">My Assignment</h3>
+                  </div>
+
+                  <div class="box-body displayTabHtmlArrange myAssignedRequisition"
+                    style="height:500px; overflow-y: auto; margin:5px;">
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Recruitment Performance Chart</h3>
+                    <a href="#" class="pull-right btn-box-tool btnChartFullScreen"
+                      chart="#recruitmentPerformanceChart"><i class="glyphicon glyphicon-fullscreen"></i></a>
+                  </div>
+
+                  <div class="box-body displayTabHtmlArrange" style="height:500px; overflow-y: auto; margin:5px;">
+                    <div class="chartDivs margin">
+                      <div class="chartDiv">
+                        <canvas class="chartOnLoad" id="recruitmentPerformanceChart"
+                          style="height: 380px; width: 350px;" height="380px" width="350px"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+
+                <div class="box box-default myChildTab">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Interview Schedule</h3>
+                  </div>
+
+                  <div class="box-body row">
+                    <div class="box-body col-md-4 interviewSchedule1"
+                      style="height:400px; overflow-y: auto; margin:5px;">
+
+                    </div>
+                    <div class="box-body col-md-4 interviewSchedule2"
+                      style="height:400px; overflow-y: auto; margin:5px;">
+
+                    </div>
+                    <div class="box-body col-md-4 interviewSchedule3"
+                      style="height:400px; overflow-y: auto; margin:5px;">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
       </div>
-      <input class="form-control HiddenAutoComplete" name="recruiterCode" type="hidden" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autonamefield="recruiterCode" value="">
-      <div name="recruiterCode" class="DivAutoCompleteDefault" style="margin-left: 20px; display:none" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="recruiterCode"></div>
-      <div name="recruiterCode" class="DivAutoComplete" style="margin-left: 20px; display:none" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="recruiterCode">HR, HR</div>
+
     </div>
-    <div class="form-group">
-      <label for="managerCode" class="control-label" name="managerCode" title="Click for help" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="managerCode">Manager</label>
-      <div class="input-group">
-        <input type="text" class="form-control autocomplete displayEdit" placeholder="Manager" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="managerCode" helptitle="Manager">
-        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
-      </div>
-      <input class="form-control HiddenAutoComplete" name="managerCode" type="hidden" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autonamefield="managerCode" value="">
-      <div name="managerCode" class="DivAutoCompleteDefault" style="margin-left: 20px; display:none" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="managerCode"></div>
-      <div name="managerCode" class="DivAutoComplete" style="margin-left: 20px; display:none" module="HrRequisitionUI" mainmodule="HrRequisitionUI" autoname="managerCode">Tirrell, Osbourne</div>
-    </div>
-    <div class="form-group">
-      <label for="numberOfOpening" class="control-label"># Of Opening</label>
-      <div class="input-group">
-        <input type="number" name="numberOfOpening" min="0" step="1" data-number-to-fixed="0" data-number-stepfactor="100" class="form-control displayEdit" module="HrRequisitionUI" mainmodule="HrRequisition">
+    <div id="dynamikoMainSearch" style="flex: 30%; margin-left: 10px; margin-top: 4px;">
+      <html xmlns="http://www.w3.org/1999/xhtml">
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <!--<h3 class="box-title">Search Recruitment 360</h3>-->
+          <form>
+
+            <div>
+              <div class="input-group">
+                <input type="text" class="form-control filter" placeholder="Search Filter" module="HrRequisitionUI">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="button" module="HrRequisitionUI">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <!-- /.box-body -->
+          <table class="display mainSearch" id="searchTable" style="width:100%" module="HrRequisitionUI"
+            columns="title,reqId,recruiter,status,opening">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Req Id</th>
+                <th>Recruiter</th>
+                <th>Status</th>
+                <th>Opening</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
