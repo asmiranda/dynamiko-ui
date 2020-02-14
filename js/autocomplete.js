@@ -5,10 +5,10 @@ class DynaAutoComplete {
         var moduleName = $(obj).attr("module");
         // var submodule = $(obj).attr("submodule");
         var fieldName = $(obj).attr("autoName");
-        $(`input.autocomplete[module="${moduleName}"][autoName="${fieldName}"]`).val(html);
-        $(`input.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).val(value);
-        $(`div.DivAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).html(html);        
-        $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
+        $(`.autocomplete[module="${moduleName}"][autoName="${fieldName}"]`).val(html);
+        $(`.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).val(value);
+        $(`.DivAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).html(html);        
+        $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
     }
 
     doAutoComplete(obj) {
@@ -32,12 +32,12 @@ class DynaAutoComplete {
                 });
             }
             else {
-                $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
+                $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
                 $.each(data, function(index, obj) {
                     var key = obj.getProp("key");
                     var value = obj.getProp("value");
                     var strHtml = `<div value="${key}" class="autocomplete-choice" autoName="${fieldName}" module="${moduleName}">${value}</div>`;
-                    $(`div.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).append(strHtml);
+                    $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).append(strHtml);
                 });
             }
         };
