@@ -9,7 +9,7 @@ class QuickUpdater {
     quickAutoCompleteUpdateInput(obj) {
         var moduleName = $(obj).attr("module");
         var recordId = $(obj).attr("recordId");
-        if (recordId == null || recordId == "" || recordId == undefined || recordId == "0") {
+        if (recordId == null || recordId == "" || recordId == undefined || recordId == "undefined" || recordId == "0") {
             recordId = $(mainId).val();
         }
         var fieldName = $(obj).attr("fieldName");
