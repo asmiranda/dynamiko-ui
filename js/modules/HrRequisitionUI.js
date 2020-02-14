@@ -42,6 +42,9 @@ class HrRequisitionUI {
 
     changeModule(evt) {
         employeeUI.init();
+
+        hrRequisitionUI.loadTodoList();
+
         hrRequisitionUI.loadTeamRequisition();
         hrRequisitionUI.loadOpenRequisition();
         hrRequisitionUI.loadRecruitmentPerformanceChart();
@@ -53,39 +56,96 @@ class HrRequisitionUI {
         $("#dynamikoMainSearch").hide();
     }
 
-    loadTaskToday() {
-        console.log("loadTeamRequisition");
+    showAddTask(obj) {
+        $(`input[name="HrRequisitionUI_TaskId"]`).val("");
+        $(`input[name="HrRequisitionUI_TaskName"]`).val("");
+        $(`input[name="HrRequisitionUI_TaskDate"]`).val("");
+    }
+
+    showUpdateTask(obj) {
+        var recordId = $(obj).attr("recordId");
+        var taskName = $(`.HrRequisitionUI_Task[recordId="${recordId}"][name="taskName"]`).html();
+        var taskDate = $(`.HrRequisitionUI_Task[recordId="${recordId}"][name="taskDate"]`).attr("value");
+        $(`input[name="HrRequisitionUI_TaskId"]`).val(recordId);
+        $(`input[name="HrRequisitionUI_TaskName"]`).val(taskName);
+        $(`input[name="HrRequisitionUI_TaskDate"]`).val(taskDate);
+    }
+
+    deleteTask(obj) {
+        var taskId = $(obj).attr("recordId");
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/deleteTask/${taskId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            hrRequisitionUI.arrangeTodoList(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    saveTask(obj, nextAction) {
+        var taskId = $(`input[name="HrRequisitionUI_TaskId"]`).val();
+        var taskName = $(`input[name="HrRequisitionUI_TaskName"]`).val();
+        var taskDate = $(`input[name="HrRequisitionUI_TaskDate"]`).val();
+
+        var tmp = {};
+        tmp["taskId"] = taskId;
+        tmp["name"] = taskName;
+        tmp["taskDate"] = taskDate;
+        
+        var vdata = JSON.stringify(tmp);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/saveTask`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+
+        var successFunction = function(data) {
+            console.log(data);
+            hrRequisitionUI.arrangeTodoList(data);
+            if (nextAction=="CLOSE") {
+                $('#HrRequisitionUI_TaskDialog').modal('toggle');
+            }
+            else {
+                $(`input[name="HrRequisitionUI_TaskName"]`).val("");
+                $(`input[name="HrRequisitionUI_TaskDate"]`).val("")
+            }
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successFunction);
+    }
+
+    loadTodoList() {
+        console.log("loadTodoList");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadTeamRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadTodoList`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function(data) {
             console.log(data);
-            $(".myTeamRequisition").empty();
-            $(data).each(function(index, obj) {
-                var requisitionId = obj.getProp("reqId");
-                var jobTitle = obj.getProp("title");            
-                var recruiter = obj.getProp("recruiter");
-                var manager = obj.getProp("manager");
-                var status = obj.getProp("status");
-                var opening = obj.getProp("opening");
-
-                var strHtml = `
-                    <strong><a href="#" class="loadRecordToForm" module="HrRequisitionUI" recordId="${requisitionId}">${jobTitle}</a></strong>
-                    <p class="text-muted">
-                        Served By: <a>${recruiter}</a> for <a>${manager}</a>
-                    </p>
-                    <p>
-                        <span class="label label-danger">Opening - ${opening}</span>
-                        <span class="label label-info">Status - ${status}</span>
-                    </p>
-                    <hr/>
-                `;
-                $(".myTeamRequisition").append(strHtml);
-            })
+            hrRequisitionUI.arrangeTodoList(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangeTodoList(data) {
+        $(".divToDoList").empty();
+        $(data).each(function(index, obj) {
+            var personTaskId = obj.getProp("personTaskId");
+            var taskDate = obj.getProp("taskDate");            
+            var taskName = obj.getProp("name");
+
+            var strHtml = `
+                <li>
+                    <span class="text HrRequisitionUI_Task" recordId="${personTaskId}" name="taskName">${taskName}</span>
+                    <small class="label label-info HrRequisitionUI_Task" recordId="${personTaskId}" name="taskDate" value="${taskDate}"><i class="fa fa-clock-o"></i> ${taskDate}</small>
+                    <div class="tools">
+                        <i class="fa fa-edit HrRequisitionUI_btnShowUpdateTask" recordId="${personTaskId}" module="HrRequisitionUI" data-toggle="modal" data-target="#HrRequisitionUI_TaskDialog"></i>
+                        <i class="fa fa-trash-o HrRequisitionUI_btnDeleteTask" recordId="${personTaskId}" module="HrRequisitionUI"></i>
+                    </div>
+                </li>
+            `;
+            $(".divToDoList").append(strHtml);
+        })
     }
 
     createJob(obj) {

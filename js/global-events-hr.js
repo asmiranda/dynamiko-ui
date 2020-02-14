@@ -28,6 +28,22 @@ class GlobalEventsHr {
             employeeUI.removeTeamMember(this);
         });
 
+
+        $(document).on('click', '.HrRequisitionUI_btnShowAddTask', function() {
+            hrRequisitionUI.showAddTask(this);
+        });
+        $(document).on('click', '.HrRequisitionUI_btnShowUpdateTask', function() {
+            hrRequisitionUI.showUpdateTask(this);
+        });
+        $(document).on('click', '.HrRequisitionUI_btnAddTaskNew', function() {
+            hrRequisitionUI.saveTask(this, "NEW");
+        });
+        $(document).on('click', '.HrRequisitionUI_btnAddTaskClose', function() {
+            hrRequisitionUI.saveTask(this, "CLOSE");
+        });
+        $(document).on('click', '.HrRequisitionUI_btnDeleteTask', function() {
+            hrRequisitionUI.deleteTask(this);
+        });
         $(document).on('click', '.btnAcceptApplicant', function() {
             hrRequisitionUI.acceptApplicant(this);
         });
