@@ -44,6 +44,7 @@ class HrRequisitionUI {
         employeeUI.init();
 
         hrRequisitionUI.loadTodoList();
+        hrRequisitionUI.loadStages();
 
         hrRequisitionUI.loadTeamRequisition();
         hrRequisitionUI.loadOpenRequisition();
@@ -54,6 +55,50 @@ class HrRequisitionUI {
 
     init() {
         $("#dynamikoMainSearch").hide();
+    }
+
+    loadStages() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getRecruitmentStages`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            $(".HrRequisitionUI_CandidateCount").html("0");
+            $(".HrRequisitionUI_OpenJobsCount").html("0");
+            $(".HrRequisitionUI_ScheduleThisWeek").html("0");
+
+            $(".HrRequisitionUI_TotalNewApplication").html("0");
+            $(".HrRequisitionUI_TotalForInterview").html("0");
+            $(".HrRequisitionUI_TotalForOffer").html("0");
+            $(".HrRequisitionUI_TotalFulfilled").html("0");
+
+            $(data).each(function(index, obj) {
+                var key = obj.getProp("key");
+                var value = obj.getProp("value");
+                if (key=="INTERVIEW") {
+                    $(".HrRequisitionUI_TotalForInterview").html(value);
+                }
+                else if (key=="OFFER") {
+                    $(".HrRequisitionUI_TotalForOffer").html(value);
+                }
+                else if (key=="NEW") {
+                    $(".HrRequisitionUI_TotalNewApplication").html(value);
+                }
+                else if (key=="FULFILLED") {
+                    $(".HrRequisitionUI_TotalFulfilled").html(value);
+                }
+                else if (key=="APPLICANT_COUNT") {
+                    $(".HrRequisitionUI_CandidateCount").html(value);
+                }
+                else if (key=="OPEN_JOBS") {
+                    $(".HrRequisitionUI_OpenJobsCount").html(value);
+                }
+                else if (key=="SCHEDULE_THIS_WEEK") {
+                    $(".HrRequisitionUI_ScheduleThisWeek").html(value);
+                }
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     showAddTask(obj) {
