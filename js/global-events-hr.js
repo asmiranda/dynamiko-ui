@@ -29,8 +29,11 @@ class GlobalEventsHr {
         });
 
 
+        
 
-
+        $(document).on('click', '.HrRequisitionUI_btnAddInterviewScheduleClose', function() {
+            hrRequisitionUI.addInterviewScheduleAndClose(this);
+        });
         $(document).on('click', '.HrRequisitionUI_btnGotoApplicantProfile', function() {
             hrRequisitionUI.gotoApplicantProfile(this);
         });

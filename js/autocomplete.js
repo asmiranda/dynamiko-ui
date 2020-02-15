@@ -6,9 +6,13 @@ class DynaAutoComplete {
         // var submodule = $(obj).attr("submodule");
         var fieldName = $(obj).attr("autoName");
         $(`.autocomplete[module="${moduleName}"][autoName="${fieldName}"]`).val(html);
-        $(`.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).val(value);
         $(`.DivAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).html(html);        
         $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
+
+        $(`.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"]`).val(value);
+        $(`.HiddenAutoComplete[module="${moduleName}"][autoNameField="${fieldName}"][name="${fieldName}"]`).val(value);
+        $(`.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"]`).val(value);
+        $(`.HiddenAutoComplete[module="${moduleName}"][autoNameField="${fieldName}"]`).val(value);
     }
 
     doAutoComplete(obj) {
