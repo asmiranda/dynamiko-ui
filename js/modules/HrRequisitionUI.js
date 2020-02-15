@@ -55,8 +55,29 @@ class HrRequisitionUI {
     }
 
 
-    init() {
+    init() { 
         $("#dynamikoMainSearch").hide();
+    }
+
+    gotoApplicantProfile(obj) {
+        console.log("Called gotoApplicantProfile");
+        var recordId = $(obj).attr("recordId");
+        console.log("RecordId == "+recordId);
+    }
+    gotoRecruiterProfile(obj) {
+        console.log("Called gotoRecruiterProfile");
+        var recordId = $(obj).attr("recordId");
+        console.log("RecordId == "+recordId);
+    }
+    gotoJobListing(obj) {
+        console.log("Called gotoJobListing");
+        var recordId = $(obj).attr("recordId");
+        console.log("RecordId == "+recordId);
+    }
+    gotoManagerProfile(obj) {
+        console.log("Called gotoManagerProfile");
+        var recordId = $(obj).attr("recordId");
+        console.log("RecordId == "+recordId);
     }
 
     loadForInterview() {
@@ -66,7 +87,42 @@ class HrRequisitionUI {
         var successFunction = function(data) {
             console.log(data);
 
+            $(".HrRequisitionUI_InterviewScheduleList").empty();
             $(data).each(function(index, obj) {
+                var applicantName = obj.getProp("applicantName");
+                var recruiterName = obj.getProp("recruiterName");
+                var managerName = obj.getProp("managerName");
+                var interviewDate = obj.getProp("interviewDate");
+                var requisitionTitle = obj.getProp("requisitionTitle");
+                var hrApplicantId = obj.getProp("hrApplicantId");
+                var recruiterId = obj.getProp("recruiterId");
+                var managerId = obj.getProp("managerId");
+                var hrRequisitionId = obj.getProp("hrRequisitionId");
+                var hrRequisitionApplicantInterviewId = obj.getProp("hrRequisitionApplicantInterviewId");
+                var str = `
+                    <div style="display: flex;">
+                        <div class="text-center" style="flex: 10%">
+                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                        </div>
+                        <div style="flex: 50%">
+                            <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
+                            <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
+                            <p class="text-muted">
+                                <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}">${requisitionTitle}</a></span> for 
+                                <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
+                            </p>
+                        </div>
+                        <div style="flex: 40%">
+                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 
+                                <span>
+                                    <a href="#" class="quickUpdaterTarget" updater="calendar" module="HrRequisitionUI" recordId="${hrRequisitionApplicantInterviewId}" fieldName="interviewDate">${interviewDate}</a>
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 5px; width: 98%">
+                `;
+                $(".HrRequisitionUI_InterviewScheduleList").append(str);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
