@@ -45,6 +45,8 @@ class HrRequisitionUI {
 
         hrRequisitionUI.loadTodoList();
         hrRequisitionUI.loadStages();
+        hrRequisitionUI.loadForInterview();
+        hrRequisitionUI.loadForOffer();
 
         hrRequisitionUI.loadTeamRequisition();
         hrRequisitionUI.loadOpenRequisition();
@@ -55,6 +57,32 @@ class HrRequisitionUI {
 
     init() {
         $("#dynamikoMainSearch").hide();
+    }
+
+    loadForInterview() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getForInterview`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+
+            $(data).each(function(index, obj) {
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadForOffer() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getForOffer`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+
+            $(data).each(function(index, obj) {
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     loadStages() {
