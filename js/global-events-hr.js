@@ -30,7 +30,10 @@ class GlobalEventsHr {
 
 
         
-
+        
+        $(document).on('click', '.HrRequisitionUI_btnCancelInterview', function() {
+            hrRequisitionUI.cancelInterview(this);
+        });
         $(document).on('click', '.HrRequisitionUI_btnAddInterviewScheduleClose', function() {
             hrRequisitionUI.addInterviewScheduleAndClose(this);
         });

@@ -49,7 +49,7 @@ class QuickUpdater {
         var successCallback = function(data) {
             console.log(data);
             if (callback==null || callback==undefined || callback=="") {
-                $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(data);
+                $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(value);
             }
             else {
                 quickUpdater.callbackData = data;

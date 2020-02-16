@@ -59,6 +59,37 @@ class HrRequisitionUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    cancelInterview(obj) {
+        console.log("Called cancelInterview");
+        var recordId = $(obj).attr("recordId");
+
+        var str = `
+            <div class="form-group">
+                <label class="control-label">Reason for cancelling</label>
+                <input type="text" class="form-control displayEdit" name="HrRequisitionUI_ReasonForCancelling" placeholder="Reason" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
+            </div>
+        `;
+        var success = function() {
+            var reason = $(`input[name="HrRequisitionUI_ReasonForCancelling"]`).val();
+            console.log(recordId+"\t"+reason);
+
+            var tmp = {};
+            tmp["recordId"] = recordId;
+            tmp["remarks"] = reason;
+    
+            var vdata = JSON.stringify(tmp);    
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/cancelInterviewSchedule`;
+            var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+    
+            var successFunction = function(data) {
+                console.log(data);
+                hrRequisitionUI.arrangeForInterviewSchedule(data);
+            };
+            ajaxCaller.ajaxPost(ajaxRequestDTO, successFunction);
+        }
+        showConfirmAny.confirm("Reason for cancelling", str, success);
+    }
+
     gotoApplicantProfile(obj) {
         console.log("Called gotoApplicantProfile");
         var recordId = $(obj).attr("recordId");
@@ -105,17 +136,6 @@ class HrRequisitionUI {
             $('#HrRequisitionUI_AddInterviewScheduleDialog').modal('toggle');
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successFunction);
-
-
-
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getForInterview`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-
-        var successFunction = function(data) {
-            console.log(data);
-            hrRequisitionUI.arrangeForInterviewSchedule(data);
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     loadForInterview() {
@@ -155,12 +175,17 @@ class HrRequisitionUI {
                             <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
                         </p>
                     </div>
-                    <div style="flex: 40%">
+                    <div style="flex: 25%">
                         <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 
                             <span>
                                 <a href="#" class="quickUpdaterTarget" updater="calendar" module="HrRequisitionUI" recordId="${hrRequisitionApplicantInterviewId}" fieldName="interviewDate">${interviewDate}</a>
                             </span>
                         </small>
+                    </div>
+                    <div style="flex: 15%">
+                        <div class="tools pull-right hand">
+                            <i class="fa fa-trash-o HrRequisitionUI_btnCancelInterview" recordId="${hrRequisitionApplicantInterviewId}" module="HrRequisitionUI"> Cancel</i>
+                        </div>
                     </div>
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
