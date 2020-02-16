@@ -96,11 +96,11 @@ class HrRequisitionUI {
         console.log("RecordId == "+recordId);
         $(`.nav-tabs a[href="#Applicants"]`).tab('show');
     }
-    gotoRecruiterProfile(obj) {
-        console.log("Called gotoRecruiterProfile");
+    gotoRecruitersAndManagersProfile(obj) {
+        console.log("Called gotoRecruitersAndManagersProfile");
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
-        $(`.nav-tabs a[href="#Recruiters"]`).tab('show');
+        $(`.nav-tabs a[href="#RecruitersAndManages"]`).tab('show');
     }
     gotoJobListing(obj) {
         console.log("Called gotoJobListing");
@@ -108,12 +108,6 @@ class HrRequisitionUI {
         console.log("RecordId == "+recordId);
         $(`.nav-tabs a[href="#JobListing"]`).tab('show');
         utils.loadRecordToForm(obj, hrRequisitionUI);
-    }
-    gotoManagerProfile(obj) {
-        console.log("Called gotoManagerProfile");
-        var recordId = $(obj).attr("recordId");
-        console.log("RecordId == "+recordId);
-        $(`.nav-tabs a[href="#HiringManagers"]`).tab('show');
     }
 
     addInterviewScheduleAndClose(obj) {
