@@ -94,21 +94,26 @@ class HrRequisitionUI {
         console.log("Called gotoApplicantProfile");
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
+        $(`.nav-tabs a[href="#Applicants"]`).tab('show');
     }
     gotoRecruiterProfile(obj) {
         console.log("Called gotoRecruiterProfile");
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
+        $(`.nav-tabs a[href="#Recruiters"]`).tab('show');
     }
     gotoJobListing(obj) {
         console.log("Called gotoJobListing");
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
+        $(`.nav-tabs a[href="#JobListing"]`).tab('show');
+        utils.loadRecordToForm(obj, hrRequisitionUI);
     }
     gotoManagerProfile(obj) {
         console.log("Called gotoManagerProfile");
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
+        $(`.nav-tabs a[href="#HiringManagers"]`).tab('show');
     }
 
     addInterviewScheduleAndClose(obj) {
@@ -171,7 +176,7 @@ class HrRequisitionUI {
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
                         <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
                         <p class="text-muted">
-                            <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}">${requisitionTitle}</a></span> for 
+                            <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}" module="HrRequisitionUI">${requisitionTitle}</a></span> for 
                             <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
                         </p>
                     </div>
@@ -222,7 +227,7 @@ class HrRequisitionUI {
                             <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
                             <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
                             <p class="text-muted">
-                                <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}">${requisitionTitle}</a></span> for 
+                                <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}" module="HrRequisitionUI">${requisitionTitle}</a></span> for 
                                 <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
                             </p>
                         </div>
@@ -426,7 +431,7 @@ class HrRequisitionUI {
     }
 
     reArrange(obj) {
-        var hrRequisitionId = $(obj).val();
+        var hrRequisitionId = $(obj).val()==""?$(obj).attr("recordId"):$(obj).val();
         console.log("Rearrange for record ID === "+hrRequisitionId);
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
@@ -547,7 +552,7 @@ class HrRequisitionUI {
     }
 
     loadFulfilled(obj) {
-        var hrRequisitionId = $(obj).val();
+        var hrRequisitionId = $(obj).val()==""?$(obj).attr("recordId"):$(obj).val();
         console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadFulfilled/${hrRequisitionId}`;
