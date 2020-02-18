@@ -109,6 +109,7 @@ $(function () {
     customReport = new CustomReport();
     dataVisualizer = new DataVisualizer();
     widgetChartRule = new WidgetChartRule();
+    fieldGenerator = new FieldGenerator();
     fieldConstructor = new FieldConstructor();
     fieldMultiSelect = new FieldMultiSelect();
     formLinker = new FormLinker();

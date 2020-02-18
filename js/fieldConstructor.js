@@ -1,3 +1,87 @@
+class FieldGenerator {
+    generate() {
+        console.log("FieldGenerator generate CALLED");
+        $("field").each(function(index, obj) {
+            var type = $(obj).attr("type");
+            if (type=="TextFieldGen") {
+                fieldGenerator.generateTextField(obj);
+            }
+            else if (type=="AutoCompleteGen") {
+                fieldGenerator.generateAutoComplete(obj);
+            }
+        });
+    }
+
+    generateAutoComplete(obj) {
+        var moduleName = $(obj).attr("module");
+        var enabled = $(obj).attr("enabled");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+        var linktoBean = $(obj).attr("linktoBean");
+
+        console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+
+        }
+        else {
+            if (enabled=="false") {
+                var str = `
+                    <div class="form-group">
+                        <label class="control-label" module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" title="Click for help">
+                            ${label}
+                        </label>
+                        <div class="input-group autocomplete-div">
+                            <input module="${moduleName}" submodule="${moduleName}" autoName="${name}" type="text" class="form-control autocomplete displayEdit" th:placeholder="${label}" disabled>
+                        </div>
+                    
+                        <input module="${moduleName}" submodule="${moduleName}" autoName="${name}" class="form-control HiddenAutoComplete" name="${name}" type="hidden">
+                        <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoCompleteDefault" style="margin-left: 20px; display:none"></div>
+                        <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoComplete" style="margin-left: 20px; display:none"></div>
+                    </div>
+                `;
+            }
+            else {
+                var str = `
+                    <div class="form-group">
+                        <label class="control-label" module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" title="Click for help">
+                            ${label}
+                        </label>
+                        <div class="input-group autocomplete-div">
+                            <input module="${moduleName}" submodule="${moduleName}" autoName="${name}" type="text" class="form-control autocomplete displayEdit" th:placeholder="${label}">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="${moduleName}" submodule="${moduleName}" autoName="${name}">
+                            </div>
+                        </div>
+                    
+                        <input module="${moduleName}" submodule="${moduleName}" autoName="${name}" class="form-control HiddenAutoComplete" name="${name}" type="hidden">
+                        <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoCompleteDefault" style="margin-left: 20px; display:none"></div>
+                        <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoComplete" style="margin-left: 20px; display:none"></div>
+                    </div>
+                `;
+            }
+        }
+        $(obj).replaceWith(str);
+    }
+
+    generateTextField(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+
+        console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
+        var str = `
+            <div class="form-group">
+                <label class="control-label">${label}</label>
+                <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit" name="${name}" placeholder="${label}">
+            </div>
+        `;
+        $(obj).replaceWith(str);
+    }
+}
+
 class FieldConstructor {
     initFields(moduleName) {
         console.log("this.initFields called == " + moduleName);

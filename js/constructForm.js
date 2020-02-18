@@ -21,20 +21,17 @@ class ConstructMainForm {
                 $(obj).replaceWith(data);
                 var displayTabs = document.getElementsByClassName('DisplayTab');
                 if (displayTabs.length == 0) {
+                    fieldGenerator.generate();
                     constructMainForm.cacheConstruct(recordId);
                 }
             };
             var errorCallback = function(jqXHR, textStatus, errorThrown) {
-                console.log('jqXHR:');
-                console.log(jqXHR);
-                console.log('textStatus:');
-                console.log(textStatus);
                 if (errorThrown=="Not Found") {
                     $(obj).replaceWith(url + " Not Found!");
                 }
-
                 var displayTabs = document.getElementsByClassName('DisplayTab');
                 if (displayTabs.length == 0) {
+                    fieldGenerator.generate();
                     constructMainForm.cacheConstruct(recordId);
                 }
             };
