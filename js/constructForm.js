@@ -2,24 +2,47 @@ class ConstructMainForm {
     construct(moduleName, recordId) {
         this.moduleName = moduleName;
 
-        var uiHtml = uiCache.getUIHtml(constructMainForm.moduleName);
-        if (uiHtml=="" || uiHtml==null) {
-            var url = MAIN_URL+"/api/ui/"+sessionStorage.companyCode+"/module/"+constructMainForm.moduleName;
-            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
-                constructMainForm.cacheConstruct(recordId, data);
-                uiCache.setUIHtml(constructMainForm.moduleName, data);
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-        }
-        else {
-            constructMainForm.cacheConstruct(recordId, uiHtml);
-        }
+        var url = "displaytabs/"+constructMainForm.moduleName+"-MainTemplate.html";
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            $("#content-main").html(data);
+            constructMainForm.replaceDisplayTabs(recordId);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         $(".quickMainSearcherResult").empty();
     };
 
-    cacheConstruct(recordId, uiHtml) {
-        $("#content-main").html(uiHtml);
+    replaceDisplayTabs(recordId) {
+        $(".DisplayTab").each(function(index, obj) {
+            var tabUrl = $(obj).attr("tabUrl");
+            var url = `displaytabs/tabs/${tabUrl}.html`;
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+            var successCallback = function(data) {
+                $(obj).replaceWith(data);
+                var displayTabs = document.getElementsByClassName('DisplayTab');
+                if (displayTabs.length == 0) {
+                    constructMainForm.cacheConstruct(recordId);
+                }
+            };
+            var errorCallback = function(jqXHR, textStatus, errorThrown) {
+                console.log('jqXHR:');
+                console.log(jqXHR);
+                console.log('textStatus:');
+                console.log(textStatus);
+                if (errorThrown=="Not Found") {
+                    $(obj).replaceWith(url + " Not Found!");
+                }
+
+                var displayTabs = document.getElementsByClassName('DisplayTab');
+                if (displayTabs.length == 0) {
+                    constructMainForm.cacheConstruct(recordId);
+                }
+            };
+            ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
+        });
+    }
+
+    cacheConstruct(recordId) {
         $('[data-mask]').inputmask();
 
         if (recordId) {

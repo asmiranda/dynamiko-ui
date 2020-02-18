@@ -1,4 +1,20 @@
 class AjaxCaller {
+    ajaxGetErr(dto, callback, errorCallback) {
+        $.ajax({
+            type: 'GET',
+            url: dto.url,
+            data: dto.data,
+            contentType: 'application/json',
+            beforeSend: function(xhr) {
+                if (sessionStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+                }
+            },
+            error: errorCallback,
+            success: callback
+        });
+    }
     ajaxGet(dto, callback) {
         $.ajax({
             type: 'GET',

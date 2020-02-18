@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div class="box box-default myChildTab">
+    <div class="box-header with-border">
+        <h3 class="box-title">Recruitment Performance Chart</h3>
+        <a href="#" class="pull-right btn-box-tool btnChartFullScreen" chart="#recruitmentPerformanceChart"><i class="glyphicon glyphicon-fullscreen"></i></a>
+    </div>
+
+    <div class="box-body displayTabHtmlArrange" style="height:500px; overflow-y: auto; margin:5px;">
+        <div class="chartDivs margin">
+            <div class="chartDiv">
+                <canvas class="chartOnLoad" id="recruitmentPerformanceChart" style="height: 380px; width: 350px;" height="380px" width="350px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
