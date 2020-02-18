@@ -5,12 +5,28 @@
     </div>
 
     <div class="box-body displayTabHtml" module="HrRequisitionUI">
-        <field module="HrRequisitionUI" editable="false" name="requisitionTitle" label="Title" type="TextFieldGen"></field>
-        <field module="HrRequisitionUI" editable="false" name="recruiterCode" label="Recruiter" type="AutoCompleteGen" linktoBean="EmployeeUI"></field>
-        <field module="HrRequisitionUI" editable="false" name="managerCode" label="Manager" type="AutoCompleteGen" linktoBean="EmployeeUI"></field>
-        <field module="HrRequisitionUI" editable="false" name="projectCode" label="Project" type="AutoCompleteGen" linktoBean="ProjectUI"></field>
-        <field module="HrRequisitionUI" editable="false" name="status" label="Status" type="ComboGen" modelCombo="OPEN,IN PROGRESS,COMPLETED,CLOSED,CANCELLED"></field>
-        <field module="HrRequisitionUI" editable="false" name="numberOfOpening" label="# Of Opening" type="IntegerGen"></field>
+        <form role="form-horizontal" module="HrRequisitionUI" submodule="HrRequisitionUI" addInfo="JobInfo" class="addInfo">
+            <div style="display: flex;">
+                <div style="flex: 33%">
+                    <field module="HrRequisitionUI" editable="false" name="requisitionTitle" label="Title" type="TextFieldGen"></field>
+                </div>
+                <div style="flex: 33%">
+                    <field module="HrRequisitionUI" editable="false" name="recruiterCode" label="Recruiter" type="AutoCompleteGen" linktoBean="EmployeeUI"></field>
+                </div>
+                <div style="flex: 33%">
+                    <field module="HrRequisitionUI" editable="false" name="managerCode" label="Manager" type="AutoCompleteGen" linktoBean="EmployeeUI"></field>
+                </div>
+                <div style="flex: 33%">
+                    <field module="HrRequisitionUI" editable="false" name="projectCode" label="Project" type="AutoCompleteGen" linktoBean="ProjectUI"></field>
+                </div>
+                <div style="flex: 33%">
+                    <field module="HrRequisitionUI" editable="false" name="status" label="Status" type="ComboGen" modelCombo="OPEN,IN PROGRESS,COMPLETED,CLOSED,CANCELLED"></field>
+                </div>
+                <div style="flex: 33%">
+                    <field module="HrRequisitionUI" editable="false" name="numberOfOpening" label="# Of Opening" type="IntegerGen"></field>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
