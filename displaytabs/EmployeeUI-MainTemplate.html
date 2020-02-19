@@ -14,9 +14,6 @@
                         <a href="#Profile" data-toggle="tab" aria-expanded="false">Profile</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Attendance" data-toggle="tab" aria-expanded="false">Attendance</a>
-                    </li>
-                    <li class="tab-pane">
                         <a href="#Finance" data-toggle="tab" aria-expanded="false">Finance</a>
                     </li>
                     <li class="tab-pane">
@@ -26,26 +23,20 @@
                 <div class="tab-content no-padding">
                     <div class="tab-pane active" id="Dashboard">
                         <div style="display: flex; background: #ecf0f5;">
-                            <div style="flex: 30%; margin: 15px 0px;">
+                            <div style="flex: 25%; margin: 15px 0px;">
                                 <div class="DisplayTab" tabUrl="ToDoList"></div>
                                 <div class="DisplayTab" tabUrl="Leave"></div>
                                 <div class="DisplayTab" tabUrl="NewHires"></div>
 <!--DISPLAYTAB-EMPLOYEEUI-TRAINING-->
                             </div>
-                            <div style="flex: 70%; margin: 15px 0px; margin-left: 15px;">
+                            <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
                                 <div style="display: flex; flex-direction: column;">
-                                    <div style="flex: 1;">
-                                        <div class="DisplayTab" tabUrl="DashboardSearchEmployee"></div>
-                                    </div>
+                                    <div class="DisplayTab" tabUrl="TimeSheet"></div>
+                                    <div class="DisplayTab" tabUrl="TeamMember"></div>
                                 </div>
-                                <div style="display: flex;">
-                                    <div style="flex: 70%;">
-                                        <div class="DisplayTab" tabUrl="TimeSheet"></div>
-                                    </div>
-                                    <div style="flex: 30%;">
-                                        <div class="DisplayTab" tabUrl="TeamMember"></div>
-                                    </div>
-                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTab" tabUrl="DashboardSearchEmployee"></div>
                             </div>
                         </div>
                     </div>
@@ -59,40 +50,37 @@
                                 <div class="DisplayTab" tabUrl="Experience"></div>
                             </div>
                             <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabUrl="SearchEmployee"></div>
+                                <div class="DisplayTab" tabUrl="ProfileSearchEmployee"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane" id="Attendance">
-                        <div style="display: flex; background: #ecf0f5;">
-                            <div style="flex: 30%; margin: 15px 0px;">
-                                <div class="DisplayTab" tabUrl="AttendanceMonth"></div>
-                            </div>
-                            <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabUrl="Attendance"></div>
-                            </div>
-                            <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabUrl="SearchEmployee"></div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="tab-pane" id="Finance">
                         <div style="display: flex; background: #ecf0f5;">
-                            <div style="flex: 30%; margin: 15px 0px;">
-                                <div class="DisplayTab" tabUrl="AttendanceMonth"></div>
+                            <div style="flex: 25%; margin: 15px 0px;">
+                                <div class="DisplayTab" tabUrl="TaxDetail"></div>
+                                <div class="DisplayTab" tabUrl="Allowance"></div>
+                                <div class="DisplayTab" tabUrl="Loans"></div>
                             </div>
                             <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
                                 <div class="DisplayTab" tabUrl="Payroll"></div>
                             </div>
-                            <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabUrl="SearchEmployee"></div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTab" tabUrl="FinanceSearchEmployee"></div>
                             </div>
                         </div>
-
                     </div>
                     <div class="tab-pane" id="Performance">
-                        <div class="DisplayTab" tabUrl="Performance"></div>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 25%; margin: 15px 0px;">
+                                <div class="DisplayTab" tabUrl="PerformanceDetail"></div>
+                            </div>
+                            <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTab" tabUrl="Performance"></div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTab" tabUrl="PerformanceSearchEmployee"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

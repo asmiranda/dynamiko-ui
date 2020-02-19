@@ -57,7 +57,7 @@ class ConstructMainForm {
         formRule.init(constructMainForm.moduleName);
         profilePicLoader.init(constructMainForm.moduleName);
         formControlButton.initButtons(constructMainForm.moduleName);
-        searchTable.initTable(constructMainForm.moduleName);
+        // searchTable.initTable(constructMainForm.moduleName);
         fieldConstructor.initFields(constructMainForm.moduleName);
         childTabs.initTabs(constructMainForm.moduleName);
         profilePicLoader.init(constructMainForm.moduleName);
