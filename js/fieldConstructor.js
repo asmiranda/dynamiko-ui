@@ -6,6 +6,9 @@ class FieldGenerator {
             if (type=="TextFieldGen") {
                 fieldGenerator.generateTextField(obj);
             }
+            else if (type=="TextAreaGen") {
+                fieldGenerator.generateTextArea(obj);
+            }
             else if (type=="AutoCompleteGen") {
                 fieldGenerator.generateAutoComplete(obj);
             }
@@ -15,7 +18,180 @@ class FieldGenerator {
             else if (type=="IntegerGen") {
                 fieldGenerator.generateInteger(obj);
             }
+            else if (type=="DoubleGen") {
+                fieldGenerator.generateDouble(obj);
+            }
+            else if (type=="SqlComboGen") {
+                fieldGenerator.generateSqlCombo(obj);
+            }
+            else if (type=="CalendarGen") {
+                fieldGenerator.generateCalendar(obj);
+            }
+            else if (type=="CheckBoxGen") {
+                fieldGenerator.generateCheckbBox(obj);
+            }
+            else if (type=="MoneyGen") {
+                fieldGenerator.generateMoney(obj);
+            }
         });
+    }
+
+    generateMoney(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+
+        console.log(`FieldGenerator generateDouble for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+
+                    <div class="input-group" style="margin-left:2px;">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" module="${moduleName}" submodule="${moduleName}" name="${name}" class="form-control currency displayEdit text-left"
+                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'"
+                            data-mask/>   
+                    </div>
+                </div>
+            `;
+        }
+        else {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <div class="input-group" style="margin-left:2px;">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" module="${moduleName}" submodule="${moduleName}" name="${name}" disabled class="form-control currency displayEdit text-left"
+                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'"
+                            data-mask/>   
+                    </div>
+                </div>
+            `;
+        }
+        $(obj).replaceWith(str);
+    }
+
+    generateCheckbBox(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+
+        console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+            str = `
+                <div class="form-group">
+                    <input type="checkbox" module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="displayEdit">
+                    <label class="control-label">${label}</label>
+                </div>
+            `;
+        }
+        else {
+            str = `
+                <div class="form-group">
+                    <input type="checkbox" module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="displayEdit" disabled>
+                    <label class="control-label">${label}</label>
+                </div>
+            `;
+        }
+        $(obj).replaceWith(str);
+    }
+
+    generateCalendar(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+
+        console.log(`FieldGenerator generateCalendar for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+            str = `
+                <div class="form-group date">
+                    <label class="control-label">${label}</label>
+                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control calendar displayEdit" name="${name}" placeholder="${label}">
+                    <div class="input-group-addon displayEdit">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+            `;
+        }
+        else {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                </div>
+            `;
+        }
+        $(obj).replaceWith(str);
+    }
+
+    generateSqlCombo(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+        var modelCombo = $(obj).attr("modelCombo");
+
+        console.log(`FieldGenerator generateSqlCombo for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+            var txtOptions = "";
+            // var theArray = modelCombo.split(",");
+            // $(theArray).each(function(index, obj) {
+            //     txtOptions += `<option value="${obj}">${obj}</option>`;
+            // });
+            // str = `
+            //     <div class="form-group">
+            //         <label class="control-label">${label}</label>
+            //         <select module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit" name="${name}" placeholder="${label}">
+            //             ${txtOptions}
+            //         </select>
+            //     </div>
+            // `;
+        }
+        else {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                </div>
+            `;
+        }
+        $(obj).replaceWith(str);
+    }
+
+    generateDouble(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+
+        console.log(`FieldGenerator generateDouble for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <input module="${moduleName}" submodule="${moduleName}" type="number" class="form-control displayEdit" name="${name}" placeholder="${label}"
+                        min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100">
+                </div>
+            `;
+        }
+        else {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                </div>
+            `;
+        }
+        $(obj).replaceWith(str);
     }
 
     generateInteger(obj) {
@@ -137,6 +313,33 @@ class FieldGenerator {
                     <input module="${moduleName}" submodule="${moduleName}" autoName="${name}" type="hidden" class="form-control autocomplete displayEdit" placeholder="${label}">
                     <input module="${moduleName}" submodule="${moduleName}" autoNameField="${name}" class="form-control HiddenAutoComplete" name="${name}" type="hidden">
                     <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoCompleteDefault" style="margin-left: 20px; display:none"></div>
+                </div>
+            `;
+        }
+        $(obj).replaceWith(str);
+    }
+
+    generateTextArea(obj) {
+        var moduleName = $(obj).attr("module");
+        var editable = $(obj).attr("editable");
+        var name = $(obj).attr("name");
+        var label = $(obj).attr("label");
+
+        console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
+        var str = "";
+        if (editable=="true") {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <textarea module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="form-control displayEdit" rows="3"></textarea>
+                </div>
+            `;
+        }
+        else {
+            str = `
+                <div class="form-group">
+                    <label class="control-label">${label}</label>
+                    <textarea module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="form-control displayEdit" rows="3"></textarea>
                 </div>
             `;
         }
