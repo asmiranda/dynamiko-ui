@@ -61,12 +61,14 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <div class="input-group" style="margin-left:2px;">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" module="${moduleName}" submodule="${moduleName}" name="${name}" disabled class="form-control currency displayEdit text-left"
-                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'"
-                            data-mask/>   
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <div class="input-group" style="margin-left:2px;">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" module="${moduleName}" submodule="${moduleName}" name="${name}" disabled class="form-control currency displayEdit text-left"
+                                data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'"
+                                data-mask/>   
+                        </div>
                     </div>
                 </div>
             `;
@@ -93,8 +95,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <input type="checkbox" module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="displayEdit" disabled>
-                    <label class="control-label">${label}</label>
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="displayEdit" disabled>
+                    </div>
                 </div>
             `;
         }
@@ -123,8 +127,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    </div>
                 </div>
             `;
         }
@@ -158,8 +164,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    </div>
                 </div>
             `;
         }
@@ -186,8 +194,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    </div>
                 </div>
             `;
         }
@@ -214,8 +224,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    </div>
                 </div>
             `;
         }
@@ -249,8 +261,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    </div>
                 </div>
             `;
         }
@@ -307,8 +321,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="text-right">${label} :</label>
-                    <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoComplete" style="margin-left: 20px;"></div>
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <div module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" class="DivAutoComplete" style="margin-left: 20px;"></div>
+                    </div>
                 
                     <input module="${moduleName}" submodule="${moduleName}" autoName="${name}" type="hidden" class="form-control autocomplete displayEdit" placeholder="${label}">
                     <input module="${moduleName}" submodule="${moduleName}" autoNameField="${name}" class="form-control HiddenAutoComplete" name="${name}" type="hidden">
@@ -338,8 +354,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <textarea module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="form-control displayEdit" rows="3"></textarea>
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <textarea module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="form-control displayEdit" rows="3"></textarea>
+                    </div>
                 </div>
             `;
         }
@@ -365,8 +383,10 @@ class FieldGenerator {
         else {
             str = `
                 <div class="form-group">
-                    <label class="control-label">${label}</label>
-                    <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    <label class="col-sm-4 control-label">${label}</label>
+                    <div class="col-sm-8">
+                        <input module="${moduleName}" submodule="${moduleName}" type="text" class="form-control displayEdit no-border" name="${name}" placeholder="${label}">
+                    </div>
                 </div>
             `;
         }
