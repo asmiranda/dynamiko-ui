@@ -370,4 +370,7 @@ class GlobalEvents {
 $(function () {
     globalEventsHr = new GlobalEventsHr();    
     globalEventsHr.initializeGlobalEvents();
+
+    globalEventsOthers = new GlobalEventsOthers();    
+    globalEventsOthers.initializeGlobalEvents();
 })

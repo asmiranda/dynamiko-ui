@@ -43,7 +43,7 @@ class HrRequisitionUI {
     changeModule(evt) {
         employeeUI.init();
 
-        hrRequisitionUI.loadTodoList();
+        personTaskUI.loadTodoList();
         hrRequisitionUI.loadStages();
         hrRequisitionUI.loadForInterview();
         hrRequisitionUI.loadForOffer();
@@ -164,7 +164,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -215,7 +215,7 @@ class HrRequisitionUI {
                 var str = `
                     <div style="display: flex;">
                         <div class="text-center" style="flex: 10%">
-                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
                         </div>
                         <div style="flex: 50%">
                             <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 

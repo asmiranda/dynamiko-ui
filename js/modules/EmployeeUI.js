@@ -37,7 +37,7 @@ class EmployeeUI {
         // employeeUI.loadEmployeeSupervisor();
         // employeeUI.loadTeamOrgData();
 
-        employeeUI.loadToDoList();
+        personTaskUI.loadTodoList();
         employeeUI.loadOnLeaves();
         employeeUI.loadNewHires();
 
@@ -114,15 +114,11 @@ class EmployeeUI {
             
         });
     }
-
-    loadToDoList() {
-
-    }
     loadOnLeaves() {
 
     }
     loadNewHires() {
-        
+
     }
 
     removeSupervisor(obj) {
@@ -155,7 +151,7 @@ class EmployeeUI {
         console.log(quickUpdater.callbackData);
         $(`.EmployeeUI_MyTeam[name="supervisorName"]`).html(quickUpdater.callbackData.recordTitle);
         $(`.EmployeeUI_MyTeam[name="supervisorDesignation"]`).html(quickUpdater.callbackData.getPropDefault("specialization", "Not Specified"));
-        var src = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${quickUpdater.callbackData.getPropDefault("PersonId", "0")}`
+        var src = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${quickUpdater.callbackData.getPropDefault("PersonId", "0")}`
         $(`.EmployeeUI_MyTeam[name="supervisorProfile"]`).attr("src", src);        
     }
 
@@ -185,13 +181,13 @@ class EmployeeUI {
     supervisorWriter(data) {
         $(`.EmployeeUI_MyTeam[name="supervisorName"]`).html(data.getPropDefault("recordTitle", "Not Specified"));
         $(`.EmployeeUI_MyTeam[name="supervisorDesignation"]`).html(data.getPropDefault("specialization", "Not Specified"));
-        var src = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${data.getPropDefault("PersonId", "0")}`
+        var src = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${data.getPropDefault("PersonId", "0")}`
         $(`.EmployeeUI_MyTeam[name="supervisorProfile"]`).attr("src", src);        
     }
     teamMembersWriter(data) {
         $(".EmployeeUI_MyTeamMembersBox").empty();
         $(data).each(function(index, obj) {
-            var src = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${data.getPropDefault("PersonId", "0")}`
+            var src = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${data.getPropDefault("PersonId", "0")}`
 
             var str = `
                 <div class="user-block EmployeeUI_MyTeamMemberBox">

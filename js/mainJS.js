@@ -133,6 +133,9 @@ $(function () {
     purchaseOrderUI = new PurchaseOrderUI();
     salesOrderUI = new SalesOrderUI();
 
+    // #################for sub modules
+    personTaskUI = new PersonTaskUI();
+    
     // #####################Initializers
     mainInitializer = new MainInitializer();
     mainInitializer.initialize();

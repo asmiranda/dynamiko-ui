@@ -71,6 +71,8 @@ class GlobalEventsHr {
         $(document).on('click', '.HrRequisitionUI_btnDeleteTask', function() {
             hrRequisitionUI.deleteTask(this);
         });
+
+        
         $(document).on('click', '.btnAcceptApplicant', function() {
             hrRequisitionUI.acceptApplicant(this);
         });
