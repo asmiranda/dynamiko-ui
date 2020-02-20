@@ -1,6 +1,22 @@
 class GlobalEventsHr {
     initializeGlobalEvents() {
         
+
+        $(document).on('click', '.employeeSelect[module="EmployeeUI"]', function() {
+            employeeUI.selectEmployee(this);
+        });
+        $(document).on('keyup', '.searchEmployeeFilter[module="EmployeeUI"]', function() {
+            employeeUI.searchEmployeeFilter(this);
+        });
+        $(document).on('click', '.btnRemoveSupervisor', function() {
+            employeeUI.removeSupervisor(this);
+        });
+        $(document).on('click', '.btnRemoveTeamMember', function() {
+            employeeUI.removeTeamMember(this);
+        });
+
+
+
         $(document).on('change', '#selectPayrollYear', function() {
             payrollScheduleUI.changePayrollPeriod(this, "year");
         });
@@ -20,14 +36,6 @@ class GlobalEventsHr {
         $(document).on('click', '.EmployeePayrollType_CheckBox', function() {
             payrollScheduleUI.loadEmployeesForSelectedPayrollTypes();
         });
-
-        $(document).on('click', '.btnRemoveSupervisor', function() {
-            employeeUI.removeSupervisor(this);
-        });
-        $(document).on('click', '.btnRemoveTeamMember', function() {
-            employeeUI.removeTeamMember(this);
-        });
-
 
         
         
