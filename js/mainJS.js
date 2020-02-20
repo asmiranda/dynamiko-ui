@@ -136,6 +136,7 @@ $(function () {
     // #################for sub modules
     personTaskUI = new PersonTaskUI();
     employeeTimeSheetUI = new EmployeeTimeSheetUI();
+    employeeTeamMemberUI = new EmployeeTeamMemberUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

@@ -55,12 +55,8 @@ class EmployeeUI {
 
         if (tabName=="dashboard") {
             employeeTimeSheetUI.loadTimeSheet(obj);
-            employeeUI.loadTeamMembers(obj);
+            employeeTeamMemberUI.loadTeamMembers(obj);
         }
-    }
-
-    loadTeamMembers(obj) {
-        console.log("loadTeamMembers");
     }
 
     searchEmployeeFilter(obj) {

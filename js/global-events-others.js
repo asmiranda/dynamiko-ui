@@ -1,5 +1,9 @@
 class GlobalEventsOthers {
     initializeGlobalEvents() {
+        $(document).on('click', '.teamMemberSelect[module="EmployeeTeamMemberUI"]', function() {
+            employeeTeamMemberUI.selectTeamMember(this);
+        });
+
         $(document).on('click', '.PersonTaskUI_btnShowAddTask', function() {
             personTaskUI.showAddTask(this);
         });
