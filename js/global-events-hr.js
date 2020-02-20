@@ -16,7 +16,6 @@ class GlobalEventsHr {
         });
 
 
-
         $(document).on('change', '#selectPayrollYear', function() {
             payrollScheduleUI.changePayrollPeriod(this, "year");
         });
@@ -37,8 +36,7 @@ class GlobalEventsHr {
             payrollScheduleUI.loadEmployeesForSelectedPayrollTypes();
         });
 
-        
-        
+                
         $(document).on('click', '.HrRequisitionUI_btnCancelInterview', function() {
             hrRequisitionUI.cancelInterview(this);
         });
@@ -56,23 +54,6 @@ class GlobalEventsHr {
         });
 
 
-        $(document).on('click', '.HrRequisitionUI_btnShowAddTask', function() {
-            hrRequisitionUI.showAddTask(this);
-        });
-        $(document).on('click', '.HrRequisitionUI_btnShowUpdateTask', function() {
-            hrRequisitionUI.showUpdateTask(this);
-        });
-        $(document).on('click', '.HrRequisitionUI_btnAddTaskNew', function() {
-            hrRequisitionUI.saveTask(this, "NEW");
-        });
-        $(document).on('click', '.HrRequisitionUI_btnAddTaskClose', function() {
-            hrRequisitionUI.saveTask(this, "CLOSE");
-        });
-        $(document).on('click', '.HrRequisitionUI_btnDeleteTask', function() {
-            hrRequisitionUI.deleteTask(this);
-        });
-
-        
         $(document).on('click', '.btnAcceptApplicant', function() {
             hrRequisitionUI.acceptApplicant(this);
         });

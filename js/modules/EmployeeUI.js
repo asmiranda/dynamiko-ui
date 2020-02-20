@@ -49,21 +49,18 @@ class EmployeeUI {
     }
 
     selectEmployee(obj) {
-        var value = $(obj).val();
-        var tabName = $(obj).attr("tab");
-        console.log(value);
+        // var recordId = $(obj).attr("recordId");
+        var tabName = $(obj).attr("tabName");
+        console.log(tabName);
 
         if (tabName=="dashboard") {
-            employeeUI.loadTimeSheet(obj);
+            employeeTimeSheetUI.loadTimeSheet(obj);
             employeeUI.loadTeamMembers(obj);
         }
     }
 
     loadTeamMembers(obj) {
         console.log("loadTeamMembers");
-    }
-    loadTimeSheet(obj) {
-        console.log("loadTimeSheet");
     }
 
     searchEmployeeFilter(obj) {
