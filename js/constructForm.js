@@ -15,7 +15,11 @@ class ConstructMainForm {
     replaceDisplayTabs(recordId) {
         $(".DisplayTab").each(function(index, obj) {
             var tabUrl = $(obj).attr("tabUrl");
-            var url = `displaytabs/tabs/${constructMainForm.moduleName}/${tabUrl}.html`;
+            var tabModule = $(obj).attr("module");
+            if (tabModule==undefined) {
+                tabModule = constructMainForm.moduleName;
+            }
+            var url = `displaytabs/tabs/${tabModule}/${tabUrl}.html`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
                 $(obj).replaceWith(data);
