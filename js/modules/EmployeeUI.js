@@ -48,6 +48,29 @@ class EmployeeUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    loadEmployeeProfile(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeUI/getEmployeeProfile/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            var applicantName = data.getProp("firstName")+" "+data.getProp("lastName");
+            var job = data.getProp("specialization");
+            var email = data.getProp("email");
+            var contact = data.getProp("contact");
+
+            $(".EmployeeUI_EmployeeName").html(applicantName);    
+            $(".EmployeeUI_Employee_Job").html(job);    
+            $(".EmployeeUI_Employee_Email").html(email);    
+            $(".EmployeeUI_Employee_Contact").html(contact);   
+            $(".EmployeeUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${recordId}`);   
+            $(".EmployeeUI_ProfilePic").attr("recordId", recordId);   
+            $(".EmployeeUI_ProfilePic").show();
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
     selectEmployee(obj) {
         // var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");

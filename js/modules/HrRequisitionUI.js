@@ -56,6 +56,18 @@ class HrRequisitionUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    selectEmployee(obj) {
+        // var recordId = $(obj).attr("recordId");
+        var tabName = $(obj).attr("tabName");
+        console.log(tabName);
+
+        if (tabName=="RecruitersAndManagers") {
+            employeeUI.loadEmployeeProfile(obj);
+            // hrRequisitionUI.loadEmployeeRequisition(obj);
+            // hrRequisitionUI.loadEmployeeInterviewSchedule(obj);
+        }
+    }
+
     selectApplicant(obj) {
         // var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");

@@ -2,6 +2,9 @@ class GlobalEventsHr {
     initializeGlobalEvents() {
         
 
+        $(document).on('click', '.employeeSelect[module="EmployeeUI"][tabName="RecruitersAndManagers"]', function() {
+            hrRequisitionUI.selectEmployee(this);
+        });
         $(document).on('click', '.applicantSelect[module="HrRequisitionUI"]', function() {
             hrRequisitionUI.selectApplicant(this);
         });
