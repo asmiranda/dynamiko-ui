@@ -87,6 +87,37 @@ class HrRequisitionUI {
 
         var successFunction = function(data) {
             console.log(data);
+            $(".HrRequisitionUI_ApplicantExperienceList").empty();
+            $(data).each(function (index, obj) {
+                var personExperienceId = obj.getPropDefault("personExperienceId", "");
+                var startDate = obj.getPropDefault("startDate", "");
+                var endDate = obj.getPropDefault("endDate", "");
+                var company = obj.getPropDefault("company", "");
+                var title = obj.getPropDefault("title", "");
+                var experience = obj.getPropDefault("experience", "");
+                var str = `
+                    <li class="time-label">
+                        <span class="bg-red">
+                            ${startDate}
+                        </span>
+                        <div class="box-tools pull-right" data-toggle="tooltip" title="">
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-edit hand btnAddApplicantExperience" recordId="${personExperienceId}"></i></a>
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-trash-o hand btnDeleteApplicantExperience" recordId="${personExperienceId}"></i></a>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-fw fa-gear bg-blue"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> till ${endDate}</span>
+                            <h3 class="timeline-header"><a href="#">${title}</a> for ${company}</h3>
+                            <div class="timeline-body">
+                                ${experience}
+                            </div>
+                        </div>
+                    </li>
+                `;
+                $(".HrRequisitionUI_ApplicantExperienceList").append(str);
+            });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -98,29 +129,27 @@ class HrRequisitionUI {
 
         var successFunction = function(data) {
             console.log(data);
-            $(".HrRequisitionUI_ApplicantExperienceList").empty();
+            $(".HrRequisitionUI_Applicants_Reference").empty();
             $(data).each(function (index, obj) {
+                var personReferenceId = obj.getPropDefault("personReferenceId", "");
+                var firstName = obj.getPropDefault("firstName", "");
+                var lastName = obj.getPropDefault("lastName", "");
+                var company = obj.getPropDefault("company", "");
+                var email = obj.getPropDefault("email", "");
+                var contact = obj.getPropDefault("contact", "");
+                var referenceName = firstName+" "+lastName;
+                var referenceContact = email;
                 var str = `
-                    <li class="time-label">
-                        <span class="bg-red">
-                            10 Feb. 2014
-                        </span>
-                    </li>
-                    <li>
-                        <i class="fa fa-fw fa-gear bg-blue"></i>
-                        <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                            <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                            <div class="timeline-body">
-                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                quora plaxo ideeli hulu weebly balihoo...
-                            </div>
+                    <li class="list-group-item">
+                        <b class="HrRequisitionUI_Applicants_Reference_Name" recordId="${personReferenceId}">${referenceName}</b> of ${company} 
+                        <div class="box-tools pull-right" data-toggle="tooltip" title="">
+                            <a class="HrRequisitionUI_Applicants_Reference_Contact" style="padding: 2px;" recordId="${personReferenceId}">${referenceContact}</a>
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-edit hand btnAddApplicantReference" recordId="${personReferenceId}"></i></a>
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-trash-o hand btnDeleteApplicantReference" recordId="${personReferenceId}"></i></a>
                         </div>
                     </li>
                 `;
-                $(".HrRequisitionUI_ApplicantExperienceList").append(str);
+                $(".HrRequisitionUI_Applicants_Reference").append(str);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
