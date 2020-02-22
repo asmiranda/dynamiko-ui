@@ -48,15 +48,151 @@ class HrRequisitionUI {
         hrRequisitionUI.loadForInterview();
         hrRequisitionUI.loadForOffer();
 
-        hrRequisitionUI.loadTeamRequisition();
-        hrRequisitionUI.loadOpenRequisition();
-        hrRequisitionUI.loadRecruitmentPerformanceChart();
-        hrRequisitionUI.loadMyAssignedRequisition();
+        hrRequisitionUI.loadApplicants();
     }
 
 
     init() { 
         $("#dynamikoMainSearch").hide();
+    }
+
+    selectApplicant(obj) {
+        // var recordId = $(obj).attr("recordId");
+        var tabName = $(obj).attr("tabName");
+        console.log(tabName);
+
+        if (tabName=="Applicants") {
+            hrRequisitionUI.loadApplicantProfile(obj);
+            hrRequisitionUI.loadApplicantReference(obj);
+            hrRequisitionUI.loadApplicantExperience(obj);
+            hrRequisitionUI.loadApplicantInterviewSchedule(obj);
+        }
+    }
+
+    loadApplicantInterviewSchedule(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantInterviewSchedule/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadApplicantExperience(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantExperience/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadApplicantReference(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantReference/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            $(".HrRequisitionUI_ApplicantExperienceList").empty();
+            $(data).each(function (index, obj) {
+                var str = `
+                    <li class="time-label">
+                        <span class="bg-red">
+                            10 Feb. 2014
+                        </span>
+                    </li>
+                    <li>
+                        <i class="fa fa-fw fa-gear bg-blue"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                            <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                            <div class="timeline-body">
+                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                quora plaxo ideeli hulu weebly balihoo...
+                            </div>
+                        </div>
+                    </li>
+                `;
+                $(".HrRequisitionUI_ApplicantExperienceList").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadApplicantProfile(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantProfile/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            var applicantName = data.getProp("firstName")+" "+data.getProp("lastName");
+            var job = data.getProp("specialization");
+            var email = data.getProp("email");
+            var contact = data.getProp("contact");
+
+            $(".HrRequisitionUI_Applicants_ApplicantName").html(applicantName);    
+            $(".HrRequisitionApplicantUI_Applicants_ApplicantJob").html(job);    
+            $(".HrRequisitionApplicantUI_Applicants_ApplicantEmail").html(email);    
+            $(".HrRequisitionApplicantUI_Applicants_ApplicantContact").html(contact);   
+            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${recordId}`);   
+            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("recordId", recordId);   
+            $(".HrRequisitionUI_Applicants_ApplicantPic").show();
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    searchApplicantFilter(obj) {
+        var value = $(obj).val();
+        var tabName = $(obj).attr("tab");
+        console.log(value);
+
+        var recordId = $(mainId).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants/${value}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            hrRequisitionUI.arrangeSearchedApplicant(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    loadApplicants() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            hrRequisitionUI.arrangeSearchedApplicant(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangeSearchedApplicant(data) {
+        var divName = `.HrRequisitionUI_ApplicantSearchList`;
+        $(divName).empty();
+        var tabName = $(divName).attr("tabName");
+        $(data).each(function(index, obj) {
+            var applicantName = obj.getProp("firstName")+" "+obj.getProp("lastName");
+            var email = obj.getPropDefault("email", "");
+            var specialization = obj.getPropDefault("specialization", "");
+            var recordId = obj.getProp("hrApplicantId");
+            var str = `
+                <a href="#" class="applicantSelect" module="HrRequisitionUI" tabName="${tabName}" recordId="${recordId}" style="font-weight: bolder;">${applicantName}</a>
+                <span class="text-muted">
+                    ${email} - ${specialization}
+                </span>
+                <hr>
+            `;
+            $(divName).append(str);
+        });
     }
 
     cancelInterview(obj) {

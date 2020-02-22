@@ -2,6 +2,12 @@ class GlobalEventsHr {
     initializeGlobalEvents() {
         
 
+        $(document).on('click', '.applicantSelect[module="HrRequisitionUI"]', function() {
+            hrRequisitionUI.selectApplicant(this);
+        });
+        $(document).on('keyup', '.searchApplicantFilter[module="HrRequisitionUI"]', function() {
+            hrRequisitionUI.searchApplicantFilter(this);
+        });
         $(document).on('click', '.employeeSelect[module="EmployeeUI"]', function() {
             employeeUI.selectEmployee(this);
         });
