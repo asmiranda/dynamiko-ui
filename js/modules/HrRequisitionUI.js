@@ -49,6 +49,8 @@ class HrRequisitionUI {
         hrRequisitionUI.loadForOffer();
 
         hrRequisitionUI.loadApplicants();
+        employeeUI.loadTopEmployees();
+        hrRequisitionUI.loadTopJobs();
     }
 
 
@@ -56,15 +58,71 @@ class HrRequisitionUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    loadSelectedJob(obj) {
+        var tabName = $(obj).attr("tabName");
+        console.log(tabName);
+
+        if (tabName=="JobListing") {
+            utils.loadRecordToForm(obj, hrRequisitionUI);
+        }
+    }
+    
+    loadTopJobs() {
+        var recordId = $(mainId).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopJobs`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            hrRequisitionUI.arrangeSearchedJobs(data, "JobListing");            
+            hrRequisitionUI.arrangeSearchedJobs(data, "Fulfilled");            
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    arrangeSearchedJobs(data, tabName) {
+        var divSelector = `.HrRequisitionUI_SearchJobs[tabName="${tabName}"]`;
+        $(divSelector).empty();
+        $(data).each(function(index, obj) {
+            var numberOfOpening = obj.getProp("numberOfOpening");
+            var recruiterName = obj.getProp("recruiterName");
+            var managerName = obj.getProp("managerName");
+            var requisitionTitle = obj.getProp("requisitionTitle");
+            var recruiterId = obj.getProp("recruiterId");
+            var managerId = obj.getProp("managerId");
+            var targetStartDate = obj.getProp("targetStartDate");
+            var hrRequisitionId = obj.getProp("hrRequisitionId");
+            var str = `
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div style="flex: 50;">
+                        <p class="text-muted">
+                            <span><a href="#" class="HrRequisitionUI_loadSelectedJob" recordId="${hrRequisitionId}" module="HrRequisitionUI" tabName="${tabName}">${requisitionTitle}</a></span>
+                        </p>
+                    </div>
+                    <div style="flex: 25%">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ${targetStartDate}</small>
+                    </div>
+                    <div style="flex: 25%">
+                        <span class="pull-right">Opening: ${numberOfOpening}</span><br/>
+                    </div>
+                    <div style="flex: 90%">
+                        <span>Hiring Manager: ${managerName}</span><br/>
+                        <span>Partner Recruiter: ${recruiterName}</span>
+                    </div>
+                </div>
+                <hr style="margin-top: 5px; width: 98%">
+            `;
+            $(divSelector).append(str);
+        });
+    }
+
     selectEmployee(obj) {
-        // var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
         if (tabName=="RecruitersAndManagers") {
             employeeUI.loadEmployeeProfile(obj);
-            // hrRequisitionUI.loadEmployeeRequisition(obj);
-            // hrRequisitionUI.loadEmployeeInterviewSchedule(obj);
+            hrRequisitionUI.loadEmployeeRequisition(obj);
+            hrRequisitionUI.loadEmployeeInterviewSchedule(obj);
         }
     }
 
@@ -81,6 +139,78 @@ class HrRequisitionUI {
         }
     }
 
+    loadEmployeeRequisition(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getEmployeeRequisition/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            if (data.length==0) {
+                var divSelector = `.HrRequisitionUI_EmployeeJobList[tabName="RecruitersAndManagers"]`;
+                $(divSelector).empty();
+                $(divSelector).append("<b>No  Schedule Found!</b>");
+            }
+            else {
+                hrRequisitionUI.arrangeEmployeeRequisition(".HrRequisitionUI_EmployeeJobList", "RecruitersAndManagers", data);
+            }
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangeEmployeeRequisition(divName, tabName, data) {
+        var divSelector = `${divName}[tabName="${tabName}"]`;
+        $(divSelector).empty();
+        $(data).each(function(index, obj) {
+            var numberOfOpening = obj.getProp("numberOfOpening");
+            var recruiterName = obj.getProp("recruiterName");
+            var managerName = obj.getProp("managerName");
+            var requisitionTitle = obj.getProp("requisitionTitle");
+            var recruiterId = obj.getProp("recruiterId");
+            var managerId = obj.getProp("managerId");
+            var targetStartDate = obj.getProp("targetStartDate");
+            var hrRequisitionId = obj.getProp("hrRequisitionId");
+            var str = `
+                <div style="display: flex;">
+                    <div style="flex: 50;">
+                        <p class="text-muted">
+                            <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}" module="HrRequisitionUI">${requisitionTitle}</a></span>
+                        </p>
+                        <span>Hiring Manager: <a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span><br/>
+                        <span>Partner Recruiter: <a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
+                    </div>
+                    <div style="flex: 25%">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ${targetStartDate}</small>
+                    </div>
+                    <div style="flex: 25%">
+                        <span class="pull-right">Opening: ${numberOfOpening}</span><br/>
+                    </div>
+                </div>
+                <hr style="margin-top: 5px; width: 98%">
+            `;
+            $(divSelector).append(str);
+        });
+    }
+
+    loadEmployeeInterviewSchedule(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getEmployeeInterviewSchedule/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            if (data.length==0) {
+                var divSelector = `.HrRequisitionUI_ScheduleList[tabName="RecruitersAndManagers"]`;
+                $(divSelector).empty();
+                $(divSelector).append("<b>No  Schedule Found!</b>");
+            }
+            else {
+                hrRequisitionUI.arrangePersonSchedule(".HrRequisitionUI_ScheduleList", "RecruitersAndManagers", data);
+            }
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
     loadApplicantInterviewSchedule(obj) {
         var recordId = $(obj).attr("recordId");
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantInterviewSchedule/${recordId}`;
@@ -88,8 +218,62 @@ class HrRequisitionUI {
 
         var successFunction = function(data) {
             console.log(data);
+            if (data.length==0) {
+                var divSelector = `.HrRequisitionUI_ScheduleList[tabName="Applicants"]`;
+                $(divSelector).empty();
+                $(divSelector).append("<b>No  Schedule Found!</b>");
+            }
+            else {
+                hrRequisitionUI.arrangePersonSchedule(".HrRequisitionUI_ScheduleList", "Applicants", data);
+            }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangePersonSchedule(divName, tabName, data) {
+        var divSelector = `${divName}[tabName="${tabName}"]`;
+        $(divSelector).empty();
+        $(data).each(function(index, obj) {
+            var applicantName = obj.getProp("applicantName");
+            var recruiterName = obj.getProp("recruiterName");
+            var managerName = obj.getProp("managerName");
+            var interviewDate = obj.getProp("interviewDate");
+            var requisitionTitle = obj.getProp("requisitionTitle");
+            var hrApplicantId = obj.getProp("hrApplicantId");
+            var recruiterId = obj.getProp("recruiterId");
+            var managerId = obj.getProp("managerId");
+            var hrRequisitionId = obj.getProp("hrRequisitionId");
+            var hrRequisitionApplicantInterviewId = obj.getProp("hrRequisitionApplicantInterviewId");
+            var str = `
+                <div style="display: flex;">
+                    <div class="text-center" style="flex: 10%">
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                    </div>
+                    <div style="flex: 50%">
+                        <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
+                        <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
+                        <p class="text-muted">
+                            <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}" module="HrRequisitionUI">${requisitionTitle}</a></span> for 
+                            <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
+                        </p>
+                    </div>
+                    <div style="flex: 25%">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 
+                            <span>
+                                <a href="#" class="quickUpdaterTarget" updater="calendar" module="HrRequisitionUI" recordId="${hrRequisitionApplicantInterviewId}" fieldName="interviewDate">${interviewDate}</a>
+                            </span>
+                        </small>
+                    </div>
+                    <div style="flex: 15%">
+                        <div class="tools pull-right hand">
+                            <i class="fa fa-trash-o HrRequisitionUI_btnCancelInterview" recordId="${hrRequisitionApplicantInterviewId}" module="HrRequisitionUI"> Cancel</i>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin-top: 5px; width: 98%">
+            `;
+            $(divSelector).append(str);
+        });
     }
 
     loadApplicantExperience(obj) {
@@ -192,7 +376,7 @@ class HrRequisitionUI {
 
     searchApplicantFilter(obj) {
         var value = $(obj).val();
-        var tabName = $(obj).attr("tab");
+        var tabName = $(obj).attr("tabName");
         console.log(value);
 
         var recordId = $(mainId).val();
@@ -272,12 +456,14 @@ class HrRequisitionUI {
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
         $(`.nav-tabs a[href="#Applicants"]`).tab('show');
+        hrRequisitionUI.selectApplicant(obj);
     }
     gotoRecruitersAndManagersProfile(obj) {
         console.log("Called gotoRecruitersAndManagersProfile");
         var recordId = $(obj).attr("recordId");
         console.log("RecordId == "+recordId);
-        $(`.nav-tabs a[href="#RecruitersAndManages"]`).tab('show');
+        $(`.nav-tabs a[href="#RecruitersAndManagers"]`).tab('show');
+        hrRequisitionUI.selectEmployee(obj);
     }
     gotoJobListing(obj) {
         console.log("Called gotoJobListing");
@@ -345,10 +531,10 @@ class HrRequisitionUI {
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
-                        <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
+                        <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterManagerProfile" recordId="${recruiterId}" tabName="RecruitersAndManagers">${recruiterName}</a>
                         <p class="text-muted">
                             <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}" module="HrRequisitionUI">${requisitionTitle}</a></span> for 
-                            <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
+                            <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterManagerProfile" recordId="${managerId}" tabName="RecruitersAndManagers">${managerName}</a></span>
                         </p>
                     </div>
                     <div style="flex: 25%">
@@ -396,10 +582,10 @@ class HrRequisitionUI {
                         </div>
                         <div style="flex: 50%">
                             <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
-                            <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterProfile" recordId="${recruiterId}">${recruiterName}</a>
+                            <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterManagerProfile" recordId="${recruiterId}" tabName="RecruitersAndManagers">${recruiterName}</a>
                             <p class="text-muted">
                                 <span><a href="#" class="HrRequisitionUI_btnGotoJobListing" recordId="${hrRequisitionId}" module="HrRequisitionUI">${requisitionTitle}</a></span> for 
-                                <span><a href="#" class="HrRequisitionUI_btnGotoManagerProfile" recordId="${managerId}">${managerName}</a></span>
+                                <span><a href="#" class="HrRequisitionUI_btnGotoRecruiterManagerProfile" recordId="${managerId}" tabName="RecruitersAndManagers">${managerName}</a></span>
                             </p>
                         </div>
                         <div style="flex: 40%">

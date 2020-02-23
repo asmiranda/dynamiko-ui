@@ -55,11 +55,14 @@ class GlobalEventsHr {
         $(document).on('click', '.HrRequisitionUI_btnGotoApplicantProfile', function() {
             hrRequisitionUI.gotoApplicantProfile(this);
         });
-        $(document).on('click', '.HrRequisitionUI_btnGotoRecruitersAndManagersProfile', function() {
+        $(document).on('click', '.HrRequisitionUI_btnGotoRecruiterManagerProfile', function() {
             hrRequisitionUI.gotoRecruitersAndManagersProfile(this);
         });
         $(document).on('click', '.HrRequisitionUI_btnGotoJobListing', function() {
             hrRequisitionUI.gotoJobListing(this);
+        });
+        $(document).on('click', '.HrRequisitionUI_loadSelectedJob', function() {
+            hrRequisitionUI.loadSelectedJob(this);
         });
 
 

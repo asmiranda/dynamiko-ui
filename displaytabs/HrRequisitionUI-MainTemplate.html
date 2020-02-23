@@ -93,15 +93,7 @@
                                 </div>
                             </div>
                             <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="box box-default">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Search Jobs</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="myTeamRequisition" style="margin:5px; max-height: 500px; overflow-y: auto;">
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="DisplayTabCommon" tabName="JobListing" tabUrl="SearchJob"></div>
                             </div>
                         </div>
                     </div>
@@ -110,7 +102,7 @@
                             <div style="flex: 30%; margin: 15px 0px;">
                                 <div class="DisplayTab" tabUrl="ApplicantProfile"></div>
                                 <div class="DisplayTab" tabUrl="ApplicantReference"></div>
-                                <div class="DisplayTab" tabUrl="ApplicantInterviewDetail"></div>
+                                <div class="DisplayTab" tabName="Applicants" tabUrl="PersonSchedule"></div>
                             </div>
                             <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
                                 <div class="DisplayTab" tabUrl="ApplicantExperience"></div>
@@ -124,10 +116,10 @@
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 30%; margin: 15px 0px;">
                                 <div class="DisplayTabCommon" tabName="RecruitersAndManagers" tabUrl="EmployeeProfile"></div>
-                                <div class="DisplayTab" tabUrl="RecruitersAndManagersRequisition"></div>
+                                <div class="DisplayTab" tabName="RecruitersAndManagers" tabUrl="EmployeeRequisition"></div>
                             </div>
                             <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabUrl="RecruitersAndManagersInterviewDetail"></div>
+                                <div class="DisplayTab" tabName="RecruitersAndManagers" tabUrl="PersonSchedule"></div>
                             </div>
                             <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
                                 <div class="DisplayTabCommon" tabName="RecruitersAndManagers" tabUrl="SearchEmployee"></div>
@@ -135,7 +127,14 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="Fulfilled">
-                        <div class="DisplayTab" tabUrl="Fulfilled"></div>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 80%; margin: 15px 0px;">
+                                <div class="DisplayTab" tabUrl="Fulfilled"></div>
+                            </div>
+                            <div style="flex: 20%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="RecruitersAndManagers" tabUrl="SearchJob"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -84,7 +84,7 @@ class EmployeeUI {
 
     searchEmployeeFilter(obj) {
         var value = $(obj).val();
-        var tabName = $(obj).attr("tab");
+        var tabName = $(obj).attr("tabName");
         console.log(value);
 
         var recordId = $(mainId).val();
@@ -107,13 +107,14 @@ class EmployeeUI {
             employeeUI.arrangeSearchedEmployees(data, "profile");
             employeeUI.arrangeSearchedEmployees(data, "finance");
             employeeUI.arrangeSearchedEmployees(data, "performance");
+            employeeUI.arrangeSearchedEmployees(data, "RecruitersAndManagers");            
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     arrangeSearchedEmployees(data, tabName) {
         console.log(data);
-        var divName = `.searchEmployees[module="EmployeeUI"][tab="${tabName}"]`;
+        var divName = `.searchEmployees[module="EmployeeUI"][tabName="${tabName}"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
             var employeeName = obj.getProp("firstName")+" "+obj.getProp("lastName");
