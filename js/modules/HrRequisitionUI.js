@@ -2,7 +2,7 @@ class HrRequisitionUI {
     changeMainId(obj) {
         utils.loadRecordToForm(obj, hrRequisitionUI);
         hrRequisitionUI.reArrange(obj);
-        hrRequisitionUI.loadFulfilled(obj);
+        // hrRequisitionUI.loadFulfilled(obj);
     }
 
     doMainSearchData(evt) {
@@ -51,6 +51,7 @@ class HrRequisitionUI {
         hrRequisitionUI.loadApplicants();
         employeeUI.loadTopEmployees();
         hrRequisitionUI.loadTopJobs();
+        hrRequisitionUI.loadTopFulfilledJobs();
     }
 
 
@@ -65,8 +66,91 @@ class HrRequisitionUI {
         if (tabName=="JobListing") {
             utils.loadRecordToForm(obj, hrRequisitionUI);
         }
+        else if (tabName=="Fulfilled") {
+            hrRequisitionUI.loadFulfilled(obj);
+        }
     }
     
+    loadTopFulfilledJobs() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopFulfilled`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log("Arrange Top Fulfilled Requisition");
+            hrRequisitionUI.arrangeFulfilled(data, "Fulfilled");
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+    }
+
+    loadFulfilled(obj) {
+        var tabName = $(obj).attr("tabName");
+        var hrRequisitionId = $(obj).val()==""?$(obj).attr("recordId"):$(obj).val();
+        console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getFulfilled/${hrRequisitionId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
+            hrRequisitionUI.arrangeFulfilled(data, tabName);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+    }
+
+    arrangeFulfilled(data, tabName) {
+        console.log(data);
+        var divName = `.HrRequisitionUI_FulfilledList`;
+        $(divName).empty();
+        var lastIndex = data.length-1;
+        $(data).each(function(index, obj) {
+            var requisitionId = obj.getProp("hrRequisitionId");
+            var applicantId = obj.getProp("hrApplicantId");
+            var title = obj.getProp("requisitionTitle");
+            var applicant = obj.getProp("applicant");
+            var manager = obj.getProp("manager");
+            var recruiter = obj.getProp("recruiter");
+            var email = obj.getProp("email");
+            var contact = obj.getProp("contact");
+            var companyCode = obj.getProp("companyCode");
+            var personId = obj.getProp("personId");
+
+            var strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
+            var strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
+
+            var marginAdditional = null;
+            if (index==0) {
+                marginAdditional = "margin-left: 0px;";
+            }
+            else if (lastIndex==index) {
+                marginAdditional = "margin-right: 0px;";
+            }
+            var strHtml = `
+                <div style="flex: 30%; margin: 5px; ${marginAdditional}">
+                    <div class="box box-default">
+                        <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" toggleTarget=".box${applicantId}">
+                            <div>
+                                <div class="box-title">
+                                    <h3 class="box-title">
+                                        <a href="#" class="formLinker" recordId="${personId}" linkModule="EmployeeUI">${applicant}</a>
+                                    </h3><br/>
+                                    <small>${title}</small>
+                                </div>
+                                <div class="box-tools pull-right">
+                                    <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body text-left box${applicantId}" style="padding-left: 17px;">
+                            <span>${email} - ${contact}</span><br/>
+                            <span>Manager: ${manager}</span><br/>
+                            <span>Recruiter: ${recruiter}</span><br/>
+                            <span>Resume: ${strUpload} ${strDownload}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $(divName).append(strHtml);
+        });
+    }
+
     loadTopJobs() {
         var recordId = $(mainId).val();
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopJobs`;
@@ -906,81 +990,6 @@ class HrRequisitionUI {
     }
     allowDrop(ev) {
         ev.preventDefault();
-    }
-
-    loadFulfilled(obj) {
-        var hrRequisitionId = $(obj).val()==""?$(obj).attr("recordId"):$(obj).val();
-        console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
-
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadFulfilled/${hrRequisitionId}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
-            $(".hrRequisitionFulfilled").empty();
-            $(data).each(function(index, obj) {
-                var requisitionId = obj.getProp("hrRequisitionId");
-                var hrRequisitionApplicantId = obj.getProp("hrRequisitionApplicantId");            
-                var applicationStatus = obj.getProp("applicationStatus");
-                var applicantId = obj.getProp("hrApplicantId");
-                var applicant = obj.getProp("applicant");
-                var email = obj.getProp("email");
-                var contact = obj.getProp("contact");
-                var applyDate = obj.getProp("applyDate");
-                var companyCode = obj.getProp("companyCode");
-                var personId = obj.getProp("personId");
-    
-                var specialization = obj.getProp("specialization");
-                if (specialization == undefined) {
-                    specialization = "<sub>type specialization here...</sub>";
-                }
-                var nextScheduleDate = obj.getProp("nextScheduleDate");
-                if (nextScheduleDate == undefined) {
-                    nextScheduleDate = " Start Date";
-                }
-                var lookFor = obj.getProp("lookFor");
-                if (lookFor == undefined) {
-                    lookFor = "<sub>employee here...</sub>";
-                }
-
-                var strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
-                var strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
-    
-                var strHtml = `
-                    <div class="col-md-4">
-                        <div class="box" draggable="true" ondragstart="hrRequisitionUI.dragApplicant(event)" requisitionId="${requisitionId}" applicantId="${applicantId}">
-                            <div class="box-header text-left toggle-box" style="padding-bottom: 0px;" toggleTarget=".box${applicantId}">
-                                <div>
-                                    <div class="box-title">
-                                        <h3 class="box-title">
-                                            <a href="#" class="formLinker" recordId="${personId}" linkModule="EmployeeUI">${applicant}</a>
-                                        </h3><br/>
-                                        <h4 class="box-title">
-                                            <a href="#" class="quickUpdaterTarget" updater="text" module="HrApplicantUI" recordId="${applicantId}" fieldName="specialization">${specialization}</a>
-                                        </h4><br/>
-                                        <a href="#" style="padding-left: 0px;" class="btn btn-box-tool quickUpdaterTarget" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate"><i class="fa fa-calendar"></i> ${nextScheduleDate}</a>
-                                    </div>
-                                    <div class="box-tools pull-right">
-                                        <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box-body text-left box${applicantId}" style="padding-left: 17px;">
-                                <span class="info-box-text">${email} - ${contact}</span>
-                                <span class="info-box-text">Applied: <b>${applyDate}</b> - ${applicationStatus}</span>
-                                <span class="info-box-text"><i class="fa fa-user"></i> Look For : 
-                                    <b>
-                                        <a href="#" class="quickUpdaterTarget" updater="autoComplete" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="lookForEmployeeCode">${lookFor}</a>
-                                    </b>
-                                </span>
-                                <span class="info-box-text">Resume: ${strUpload} ${strDownload}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                $(".hrRequisitionFulfilled").append(strHtml);
-            });
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
     }
 
     loadTeamRequisition() {
