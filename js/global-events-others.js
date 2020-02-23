@@ -1,5 +1,9 @@
 class GlobalEventsOthers {
     initializeGlobalEvents() {
+        $(document).on('keyup', '.searchProductFilter[module="ProductUI"]', function() {
+            productUI.searchProductFilter(this);
+        });
+
         $(document).on('click', '.teamMemberSelect[module="EmployeeTeamMemberUI"]', function() {
             employeeTeamMemberUI.selectTeamMember(this);
         });

@@ -132,11 +132,13 @@ $(function () {
     payrollScheduleUI = new PayrollScheduleUI();
     purchaseOrderUI = new PurchaseOrderUI();
     salesOrderUI = new SalesOrderUI();
+    inventoryUI = new InventoryUI();
 
     // #################for sub modules
     personTaskUI = new PersonTaskUI();
     employeeTimeSheetUI = new EmployeeTimeSheetUI();
     employeeTeamMemberUI = new EmployeeTeamMemberUI();
+    productUI = new ProductUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

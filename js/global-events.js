@@ -11,6 +11,10 @@ class GlobalEvents {
         this.registeredModules.push("hrRequisitionUI");
         this.registeredModules.push("employeeUI");
         this.registeredModules.push("payrollScheduleUI");
+        this.registeredModules.push("purchaseOrderUI");
+        this.registeredModules.push("salesOrderUI");
+        this.registeredModules.push("inventoryUI");
+        this.registeredModules.push("accountingUI");
 
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);
