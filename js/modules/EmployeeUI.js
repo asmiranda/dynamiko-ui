@@ -55,12 +55,12 @@ class EmployeeUI {
 
         var successFunction = function(data) {
             console.log(data);
-            var applicantName = data.getProp("firstName")+" "+data.getProp("lastName");
+            var employeeName = data.getProp("firstName")+" "+data.getProp("lastName");
             var job = data.getProp("specialization");
             var email = data.getProp("email");
             var contact = data.getProp("contact");
 
-            $(".EmployeeUI_EmployeeName").html(applicantName);    
+            $(".EmployeeUI_EmployeeName").html(employeeName);    
             $(".EmployeeUI_Employee_Job").html(job);    
             $(".EmployeeUI_Employee_Email").html(email);    
             $(".EmployeeUI_Employee_Contact").html(contact);   
@@ -76,10 +76,92 @@ class EmployeeUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="dashboard") {
+        if (tabName=="profile") {
+            employeeUI.loadEmployeeProfile(obj);
+            employeeUI.loadEmployeeReference(obj);
+            employeeUI.loadEmployeeExperience(obj);
+        }
+        else if (tabName=="dashboard") {
             employeeTimeSheetUI.loadTimeSheet(obj);
             employeeTeamMemberUI.loadTeamMembers(obj);
         }
+    }
+
+    loadEmployeeExperience(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeUI/getEmployeeExperience/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            var divName = `.EmployeeUI_EmployeeExperienceList`;
+            $(divName).empty();
+            $(data).each(function (index, obj) {
+                var personExperienceId = obj.getPropDefault("personExperienceId", "");
+                var startDate = obj.getPropDefault("startDate", "");
+                var endDate = obj.getPropDefault("endDate", "");
+                var company = obj.getPropDefault("company", "");
+                var title = obj.getPropDefault("title", "");
+                var experience = obj.getPropDefault("experience", "");
+                var str = `
+                    <li class="time-label">
+                        <span class="bg-red">
+                            ${startDate}
+                        </span>
+                        <div class="box-tools pull-right" data-toggle="tooltip" title="">
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-edit hand btnAddEmployeeExperience" recordId="${personExperienceId}"></i></a>
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-trash-o hand btnDeleteEmployeeExperience" recordId="${personExperienceId}"></i></a>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-fw fa-gear bg-blue"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> till ${endDate}</span>
+                            <h3 class="timeline-header"><a href="#">${title}</a> for ${company}</h3>
+                            <div class="timeline-body">
+                                ${experience}
+                            </div>
+                        </div>
+                    </li>
+                `;
+                $(divName).append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadEmployeeReference(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeUI/getEmployeeReference/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            var divName = ".EmployeeUI_Employee_Reference";
+            $(divName).empty();
+            $(data).each(function (index, obj) {
+                var personReferenceId = obj.getPropDefault("personReferenceId", "");
+                var firstName = obj.getPropDefault("firstName", "");
+                var lastName = obj.getPropDefault("lastName", "");
+                var company = obj.getPropDefault("company", "");
+                var email = obj.getPropDefault("email", "");
+                var contact = obj.getPropDefault("contact", "");
+                var referenceName = firstName+" "+lastName;
+                var referenceContact = email;
+                var str = `
+                    <li class="list-group-item">
+                        <b class="EmployeeUI_Employee_Reference_Name" recordId="${personReferenceId}">${referenceName}</b> of ${company} 
+                        <div class="box-tools pull-right" data-toggle="tooltip" title="">
+                            <a class="EmployeeUI_Employee_Reference_Contact" style="padding: 2px;" recordId="${personReferenceId}">${referenceContact}</a>
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-edit hand btnAddEmployeeReference" recordId="${personReferenceId}"></i></a>
+                            <a class="btn" style="padding: 2px;"><i class="fa fa-trash-o hand btnDeleteEmployeeReference" recordId="${personReferenceId}"></i></a>
+                        </div>
+                    </li>
+                `;
+                $(divName).append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     searchEmployeeFilter(obj) {

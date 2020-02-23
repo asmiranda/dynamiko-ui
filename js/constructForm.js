@@ -70,13 +70,13 @@ class ConstructMainForm {
     cacheConstruct(recordId) {
         $('[data-mask]').inputmask();
 
-        if (recordId) {
+        if (recordId>0) {
             dynamikoCache.setLastRecordId(recordId);
             constructMainForm.loadRecord(recordId);
         }
         else {
             recordId = dynamikoCache.getLastRecordId();
-            if (recordId) {
+            if (recordId>0) {
                 constructMainForm.loadRecord(recordId);
             }
         }

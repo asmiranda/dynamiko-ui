@@ -23,6 +23,7 @@ class EmployeeTeamMemberUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         $(".employeeIdForTeamMember").attr("recordId", recordId);
+        $(`.autoCompleteQuickUpdaterInput[module="EmployeeTeamMemberUI"][autoName="teamMemberCode"]`).attr("recordId", recordId);
         var successFunction = function(data) {
             console.log(data);            
 
@@ -51,14 +52,14 @@ class EmployeeTeamMemberUI {
                     $(".EmployeeTeamMemberUI_EmployeeName").html(employeeName);
                     if (supervisorId!=undefined) {
                         $(".EmployeeTeamMemberUI_Supervisor").show();
+                        $(".EmployeeTeamMemberUI_SupervisorName").html(supervisorEmployeeName);                    
+                        $(".EmployeeTeamMemberUI_SupervisorName").attr("recordId", supervisorId);
+                        $(".EmployeeTeamMemberUI_SupervisorDesignation").html("Supervisor/Manager");
+                        $(".EmployeeTeamMemberUI_SupervisorPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${supervisorId}`);                    
                     }
                     else {
                         $(".EmployeeTeamMemberUI_Supervisor").hide();
                     }                    
-                    $(".EmployeeTeamMemberUI_SupervisorName").html(supervisorEmployeeName);                    
-                    $(".EmployeeTeamMemberUI_SupervisorName").attr("recordId", supervisorId);
-                    $(".EmployeeTeamMemberUI_SupervisorDesignation").html("Supervisor/Manager");
-                    $(".EmployeeTeamMemberUI_SupervisorPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${supervisorId}`);                    
                 }
             });
         };
