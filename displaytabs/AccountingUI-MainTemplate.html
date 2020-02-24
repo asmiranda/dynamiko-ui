@@ -12,7 +12,7 @@
                     </li>
                     <li class="tab-pane">
                         <a href="#AccountChart" data-toggle="tab" aria-expanded="false">Account Chart</a>
-                    </li>
+                    </li> 
                     <li class="tab-pane">
                         <a href="#PurchaseOrder" data-toggle="tab" aria-expanded="false">Purchase Order</a>
                     </li>
@@ -24,6 +24,15 @@
                     <div class="tab-pane active" id="Dashboard">
                     </div>
                     <div class="tab-pane" id="AccountChart">
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; flex-direction: column;">
+                                <div class="DisplayTabCommon" tabName="AcctAccountChart" tabUrl="AccountChartProfile"></div>
+                                <div class="DisplayTab" tabName="AcctAccountChart" tabUrl="AccountChartTransaction"></div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="AcctAccountChart" tabUrl="SearchAccountChart"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="PurchaseOrder">
                     </div>

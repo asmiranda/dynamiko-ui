@@ -133,6 +133,7 @@ $(function () {
     purchaseOrderUI = new PurchaseOrderUI();
     salesOrderUI = new SalesOrderUI();
     inventoryUI = new InventoryUI();
+    accountingUI = new AccountingUI();
 
     // #################for sub modules
     personTaskUI = new PersonTaskUI();
@@ -140,6 +141,7 @@ $(function () {
     employeeTeamMemberUI = new EmployeeTeamMemberUI();
     productUI = new ProductUI();
     supplierUI = new SupplierUI();
+    accountChartUI = new AccountChartUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

@@ -295,18 +295,18 @@ class GlobalEvents {
         });
 
         // ################################################# for modules
-        $(document).on('click', '.addToPayroll', function() {
-            payrollScheduleUI.addToPayroll(this);
-        });
-        $(document).on('click', 'input.payrollInput', function() {
-            payrollScheduleUI.onfocusout(this);
-        });
-        $(document).on('change', 'input[module="PurchaseOrderUI"]', function() {
-            purchaseOrderUI.onfocusout(this);
-        });
-        $(document).on('change', 'input[module="SalesOrderUI"]', function() {
-            salesOrderUI.onfocusout(this);
-        });
+        // $(document).on('click', '.addToPayroll', function() {
+        //     payrollScheduleUI.addToPayroll(this);
+        // });
+        // $(document).on('click', 'input.payrollInput', function() {
+        //     payrollScheduleUI.onfocusout(this);
+        // });
+        // $(document).on('change', 'input[module="PurchaseOrderUI"]', function() {
+        //     purchaseOrderUI.onfocusout(this);
+        // });
+        // $(document).on('change', 'input[module="SalesOrderUI"]', function() {
+        //     salesOrderUI.onfocusout(this);
+        // });
 
 
         // ###################For Reports 

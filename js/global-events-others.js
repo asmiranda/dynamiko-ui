@@ -1,5 +1,8 @@
 class GlobalEventsOthers {
     initializeGlobalEvents() {
+        $(document).on('click', '.AccountChartUI_selectAccountChart[tabName="AcctAccountChart"]', function() {
+            accountingUI.selectAccountChart(this);
+        });
         $(document).on('click', '.ProductUI_selectProduct[tabName="EquipmentsMaterials"]', function() {
             inventoryUI.selectProduct(this);
         });
@@ -11,6 +14,9 @@ class GlobalEventsOthers {
         });
 
         
+        $(document).on('keyup', '.searchPurchaseOrderFilter', function() {
+            purchaseOrderUI.searchPurchaseOrderFilter(this);
+        });
         $(document).on('keyup', '.searchProductFilter[module="ProductUI"]', function() {
             productUI.searchProductFilter(this);
         });
