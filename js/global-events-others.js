@@ -1,13 +1,15 @@
 class GlobalEventsOthers {
     initializeGlobalEvents() {
+        $(document).on('click', '.ProductUI_selectProduct[tabName="EquipmentsMaterials"]', function() {
+            inventoryUI.selectProduct(this);
+        });
+
         $(document).on('keyup', '.searchProductFilter[module="ProductUI"]', function() {
             productUI.searchProductFilter(this);
         });
-
         $(document).on('click', '.teamMemberSelect[module="EmployeeTeamMemberUI"]', function() {
             employeeTeamMemberUI.selectTeamMember(this);
         });
-
         $(document).on('click', '.PersonTaskUI_btnShowAddTask', function() {
             personTaskUI.showAddTask(this);
         });

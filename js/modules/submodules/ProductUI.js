@@ -1,4 +1,28 @@
 class ProductUI {
+    loadProductProfile(obj) {
+        var recordId = $(obj).attr("recordId");
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getProductProfile/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            var recordId = data.getProp("productId");
+            var name = data.getProp("name");
+            var type = data.getProp("type");
+            var quantity = data.getProp("quantity");
+            var unitPrice = data.getProp("unitPrice");
+
+            $(".ProductUI_ProductName").html(name);    
+            $(".ProductUI_Product_Type").html(type);    
+            $(".ProductUI_Product_UnitPrice").html(quantity);    
+            $(".ProductUI_Product_Quantity").html(unitPrice);   
+            $(".ProductUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/ProductUI/${recordId}`);   
+            $(".ProductUI_ProfilePic").attr("recordId", recordId);   
+            $(".ProductUI_ProfilePic").show();
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
     searchProductFilter(obj) {
         var value = $(obj).val();
         var tabName = $(obj).attr("tabName");
@@ -40,7 +64,7 @@ class ProductUI {
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50;">
                         <p class="text-muted">
-                            <span><a href="#" class="ProductUI_loadSelectedJob" recordId="${productId}" module="ProductUI" tabName="${tabName}">${name}</a></span>
+                            <span><a href="#" class="ProductUI_selectProduct" recordId="${productId}" module="ProductUI" tabName="${tabName}">${name}</a></span>
                         </p>
                     </div>
                     <div style="flex: 25%">
