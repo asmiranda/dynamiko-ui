@@ -1,4 +1,42 @@
 class PurchaseOrderUI {
+    changeMainId(obj) {
+    }
+
+    doMainSearchData(evt) {
+    }
+
+    changeModule(evt) {
+        personTaskUI.loadTodoList();
+        employeeUI.loadTopEmployees();
+        supplierUI.loadTopSuppliers("POSupplier");
+        productUI.loadTopProducts("POProduct");
+    }
+
+    init() {
+        $("#dynamikoMainSearch").hide();
+    }
+
+    
+    selectProduct(obj) {
+        // var recordId = $(obj).attr("recordId");
+        var tabName = $(obj).attr("tabName");
+        console.log(tabName);
+
+        if (tabName=="POProduct") {
+            productUI.loadProductProfile(obj);
+        }
+    }
+
+    selectSupplier(obj) {
+        // var recordId = $(obj).attr("recordId");
+        var tabName = $(obj).attr("tabName");
+        console.log(tabName);
+
+        if (tabName=="POSupplier") {
+            supplierUI.loadSupplierProfile(obj);
+        }
+    }
+    
     loadActivePoForProduct(obj) {
         var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");

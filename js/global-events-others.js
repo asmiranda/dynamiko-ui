@@ -3,9 +3,19 @@ class GlobalEventsOthers {
         $(document).on('click', '.ProductUI_selectProduct[tabName="EquipmentsMaterials"]', function() {
             inventoryUI.selectProduct(this);
         });
+        $(document).on('click', '.ProductUI_selectProduct[tabName="POProduct"]', function() {
+            purchaseOrderUI.selectProduct(this);
+        });
+        $(document).on('click', '.SupplierUI_selectSupplier[tabName="POSupplier"]', function() {
+            purchaseOrderUI.selectSupplier(this);
+        });
 
+        
         $(document).on('keyup', '.searchProductFilter[module="ProductUI"]', function() {
             productUI.searchProductFilter(this);
+        });
+        $(document).on('keyup', '.searchSupplierFilter[module="SupplierUI"]', function() {
+            supplierUI.searchSupplierFilter(this);
         });
         $(document).on('click', '.teamMemberSelect[module="EmployeeTeamMemberUI"]', function() {
             employeeTeamMemberUI.selectTeamMember(this);

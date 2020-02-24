@@ -139,6 +139,7 @@ $(function () {
     employeeTimeSheetUI = new EmployeeTimeSheetUI();
     employeeTeamMemberUI = new EmployeeTeamMemberUI();
     productUI = new ProductUI();
+    supplierUI = new SupplierUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();
