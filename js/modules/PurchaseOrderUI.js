@@ -11,6 +11,7 @@ class PurchaseOrderUI {
         supplierUI.loadTopSuppliers("POSupplier");
         productUI.loadTopProducts("POProduct");
         purchaseOrderUI.loadTopPO();
+        purchaseOrderUI.loadTopProductRequest();
     }
 
     init() {
@@ -52,6 +53,48 @@ class PurchaseOrderUI {
             purchaseOrderUI.arrangePO(data, "NewPO");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadTopProductRequest() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getProductRequest`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            purchaseOrderUI.arrangeProductRequest(data, "Dashboard");
+            purchaseOrderUI.arrangeProductRequest(data, "NewPO");
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangeProductRequest(data, tabName) {
+        var divSelector = `.ProductRequestUI_SearchProductRequest[tabName="${tabName}"]`;
+        $(divSelector).empty();
+        $(data).each(function(index, obj) {
+            var quantity = obj.getProp("quantity");
+            var postingDate = obj.getProp("postingDate");
+            var email = obj.getProp("email");
+            var productRequestId = obj.getProp("productRequestId");
+            var productName = obj.getProp("name");
+            var str = `
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div style="flex: 55%;">
+                        <span class="text-muted">PO # <a href="#" class="ProductRequestUI_selectProductRequest" recordId="${productRequestId}" module="ProductRequestUI" tabName="${tabName}">${productName}</a></span>
+                    </div>
+                    <div style="flex: 45%">
+                        <span class="pull-right"><i class="fa fa-calendar"></i> ${postingDate}</span>
+                    </div>
+                    <div style="flex: 50%;">
+                        <span class="pull-right"><i class="fa fa-email"></i> ${email}</span>
+                    </div>
+                    <div style="flex: 33%">
+                        <span class="pull-right">Quantity: ${quantity}</span><br/>
+                    </div>
+                </div>
+                <hr style="margin-top: 5px; width: 98%">
+            `;
+            $(divSelector).append(str);
+        });
     }
 
     loadTopPO() {
