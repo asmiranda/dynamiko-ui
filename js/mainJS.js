@@ -142,6 +142,7 @@ $(function () {
     productUI = new ProductUI();
     supplierUI = new SupplierUI();
     accountChartUI = new AccountChartUI();
+    productRequestUI = new ProductRequestUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

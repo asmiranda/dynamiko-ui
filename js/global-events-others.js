@@ -12,8 +12,10 @@ class GlobalEventsOthers {
         $(document).on('click', '.SupplierUI_selectSupplier[tabName="POSupplier"]', function() {
             purchaseOrderUI.selectSupplier(this);
         });
-
         
+        $(document).on('keyup', '.searchProductRequestFilter', function() {
+            productRequestUI.searchProductRequestFilter(this);
+        });
         $(document).on('keyup', '.searchPurchaseOrderFilter', function() {
             purchaseOrderUI.searchPurchaseOrderFilter(this);
         });
