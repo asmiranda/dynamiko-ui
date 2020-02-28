@@ -134,6 +134,8 @@ $(function () {
     salesOrderUI = new SalesOrderUI();
     inventoryUI = new InventoryUI();
     accountingUI = new AccountingUI();
+    hospitalUI = new HospitalUI();
+    governmentUI = new GovernmentUI();
 
     // #################for sub modules
     personTaskUI = new PersonTaskUI();
