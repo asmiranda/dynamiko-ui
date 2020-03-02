@@ -1,5 +1,12 @@
 class GlobalEventsOthers {
     initializeGlobalEvents() {
+        $(document).on('click', '.RealEstateUI_selectRealEstate[tabName="dashboard"]', function() {
+            realEstateUI.selectRealEstate(this);
+        });
+        $(document).on('click', '.btnUpdateRealEstateLocation', function() {
+            realEstateUI.updateRealEstateLocation(this);
+        });
+
         $(document).on('click', '.AccountChartUI_selectAccountChart[tabName="AcctAccountChart"]', function() {
             accountingUI.selectAccountChart(this);
         });

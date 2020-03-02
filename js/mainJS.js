@@ -145,6 +145,7 @@ $(function () {
     supplierUI = new SupplierUI();
     accountChartUI = new AccountChartUI();
     productRequestUI = new ProductRequestUI();
+    realEstateUI = new RealEstateUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

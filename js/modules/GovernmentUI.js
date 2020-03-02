@@ -34,6 +34,8 @@ class GovernmentUI {
         governmentUI.init();
 
         personTaskUI.loadTodoList();
+        realEstateUI.loadTopRealEstate(); 
+        realEstateUI.loadLastSelectedRealEstate(); 
     }
 
     init() {

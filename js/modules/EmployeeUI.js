@@ -41,7 +41,7 @@ class EmployeeUI {
         employeeUI.loadOnLeaves();
         employeeUI.loadNewHires();
 
-        employeeUI.loadTopEmployees();
+        employeeUI.loadTopEmployees(); 
     }
 
     init() {
