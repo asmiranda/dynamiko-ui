@@ -3,6 +3,62 @@ class RealEstateUI {
         this.lastGeoResult;
     }
 
+    loadRealEstateAssessment(recordId) {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstateAssessment/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            realEstateUI.arrangeSelectedRealEstateAssessment(data, "dashboard");
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+
+    arrangeSelectedRealEstateAssessment(data, tabName) {
+        console.log(data);
+        var divName = `.RealEstateUI_AssessmentRecords[tabName="${tabName}"]`;
+        $(divName).empty();
+        $(data).each(function(index, obj) {
+            var assessmentDate = obj.getPropDefault("assessmentDate", "--");
+            var realEstateAssessmentId = obj.getPropDefault("realEstateAssessmentId", "--");
+            var assessorName = obj.getPropDefault("assessorName", "--");
+            var assessmentAmount = obj.getPropDefault("assessmentAmount", "--");
+            var personId = obj.getPropDefault("personId", "0");
+            var contact = obj.getPropDefault("contact", "--");
+            var zonalValue = obj.getPropDefault("zonalValue", "--");
+            var marketValue = obj.getPropDefault("marketValue", "--");
+            var occupied = obj.getProp("occupied");
+            var str = `
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div style="flex: 50%;">
+                        <span>
+                            <small class="text-muted"><i class="fa fa-user"> Date: </i>
+                                <a href="#" class="RealEstateUI_selectRealEstateAssessment" recordId="${realEstateAssessmentId}" module="RealEstateUI" tabName="${tabName}">${assessmentDate}</a>
+                            </small>
+                        </span>
+                    </div>
+                    <div style="flex: 50%">
+                        <small class="text-muted pull-right"><i class="fa fa-user"> Assessor: </i> ${assessorName}</small>
+                    </div>
+                    <div style="flex: 50%">
+                        <small class="text-muted"><i class="fa fa-money"> Amount: </i> ${assessmentAmount}</small>
+                    </div>
+                    <div style="flex: 50%">
+                        <small class="text-muted pull-right"><i class="fa fa-compass"> Zonal Value: </i> ${zonalValue}</small>
+                    </div>
+                    <div style="flex: 50%">
+                        <small class="text-muted"><i class="fa fa-money"> Market Value: </i> ${marketValue}</small>
+                    </div>
+                    <div style="flex: 50%">
+                        <small class="text-muted pull-right"><i class="fa fa-money"> Contact: </i> ${contact}</small>
+                    </div>
+                </div>
+                <hr style="margin-top: 5px; width: 98%">
+            `;
+            $(divName).append(str);            
+        });
+    }
+
     loadLastSelectedRealEstate() {
         if (localStorage.latestRealEstateId>0) {
             realEstateUI.loadRealEstateProfile(localStorage.latestRealEstateId);
@@ -110,6 +166,7 @@ class RealEstateUI {
         if (tabName=="dashboard") {
             realEstateUI.loadRealEstateProfile(recordId);
             realEstateUI.loadSelectedRealEstateMap(recordId);
+            realEstateUI.loadRealEstateAssessment(recordId);
         }
     }
 
@@ -182,13 +239,6 @@ class RealEstateUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            // var str = `
-            //     <a href="#" class="RealEstateSelect" module="RealEstateUI" tabName="${tabName}" recordId="${recordId}" style="font-weight: bolder;">${RealEstateName}</a>
-            //     <span class="text-muted">
-            //         ${zipCode}
-            //     </span>
-            //     <hr>
-            // `;
             $(divName).append(str);            
         });
     }

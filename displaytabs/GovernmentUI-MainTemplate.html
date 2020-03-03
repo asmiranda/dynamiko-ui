@@ -29,15 +29,38 @@
                             <div style="flex: 75%; margin: 15px 0px;">
                                 <div style="display: flex; flex-direction: column;">
                                     <div class="DisplayTabCommon" tabName="dashboard" tabUrl="RealEstateProfile"></div>
-                                    <div style="display: flex; flex-wrap: wrap;">
-                                        <div style="flex: 50%">
-                                            <div class="DisplayTabCommon" tabName="dashboard" tabUrl="AddressMap"></div>
-                                        </div>
-                                        <div style="flex: 40%; margin-left: 15px;">
-                                            <div style="display: flex; flex-direction: column;">
+                                    <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                        <ul class="nav nav-tabs">
+                                            <li class="tab-pane active">
+                                                <a href="#DashboardMap" data-toggle="tab" aria-expanded="false">Map</a>
+                                            </li>
+                                            <li class="tab-pane">
+                                                <a href="#DashboardAssessment" data-toggle="tab" aria-expanded="true">Assessment</a>
+                                            </li>
+                                            <li class="tab-pane">
+                                                <a href="#DashboardBuildingPermit" data-toggle="tab" aria-expanded="true">Building Permit</a>
+                                            </li>
+                                            <li class="tab-pane">
+                                                <a href="#DashboardFieldInspection" data-toggle="tab" aria-expanded="true">Field Inspection</a>
+                                            </li>
+                                            <li class="tab-pane">
+                                                <a href="#DashboardTransfer" data-toggle="tab" aria-expanded="true">Transfer</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content no-padding">
+                                            <div class="tab-pane active" id="DashboardMap">
+                                                <div class="DisplayTabCommon" tabName="dashboard" tabUrl="AddressMap"></div>
+                                            </div>
+                                            <div class="tab-pane" id="DashboardAssessment">
                                                 <div class="DisplayTab" tabName="dashboard" tabUrl="RealEstateAssessmentRecords"></div>
+                                            </div>
+                                            <div class="tab-pane" id="DashboardBuildingPermit">
                                                 <div class="DisplayTab" tabName="dashboard" tabUrl="RealEstateBuildingPermitRecords"></div>
+                                            </div>
+                                            <div class="tab-pane" id="DashboardFieldInspection">
                                                 <div class="DisplayTab" tabName="dashboard" tabUrl="RealEstateFieldInspectionRecords"></div>
+                                            </div>
+                                            <div class="tab-pane" id="DashboardTransfer">
                                                 <div class="DisplayTab" tabName="dashboard" tabUrl="RealEstateTransferRecords"></div>
                                             </div>
                                         </div>
