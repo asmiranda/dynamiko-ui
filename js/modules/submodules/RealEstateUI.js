@@ -123,7 +123,7 @@ class RealEstateUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function(data) {
-            RealEstateUI.arrangeSearchedRealEstates(data, tabName);
+            realEstateUI.arrangeSearchedRealEstates(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

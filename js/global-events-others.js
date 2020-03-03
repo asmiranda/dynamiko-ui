@@ -20,6 +20,9 @@ class GlobalEventsOthers {
             purchaseOrderUI.selectSupplier(this);
         });
         
+        $(document).on('keyup', '.searchRealEstateFilter', function() {
+            realEstateUI.searchRealEstateFilter(this);
+        });
         $(document).on('keyup', '.searchProductRequestFilter', function() {
             productRequestUI.searchProductRequestFilter(this);
         });
