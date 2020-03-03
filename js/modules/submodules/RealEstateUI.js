@@ -80,18 +80,23 @@ class RealEstateUI {
 
         var successFunction = function(data) {
             console.log(data);
-            var RealEstateName = data.getProp("firstName")+" "+data.getProp("lastName");
-            var job = data.getProp("specialization");
-            var email = data.getProp("email");
-            var contact = data.getProp("contact");
+            var address = `${data.getPropDefault("streetNumber", "")} ${data.getPropDefault("streetName")} ${data.getPropDefault("zipCode")}`;
+            var zipCode = data.getPropDefault("zipCode", "--");
+            var latitude = data.getPropDefault("latitude", "--");
+            var longitude = data.getPropDefault("longitude", "--");
+            var residingCompany = data.getPropDefault("companyName", "--");
+            var hqAddress = data.getPropDefault("hqAddress", "--");
+            var contact = data.getPropDefault("contact", "--");
+            var email = data.getPropDefault("email", "--");
 
-            $(".RealEstateUI_RealEstateName").html(RealEstateName);    
-            $(".RealEstateUI_RealEstate_Job").html(job);    
-            $(".RealEstateUI_RealEstate_Email").html(email);    
-            $(".RealEstateUI_RealEstate_Contact").html(contact);   
-            $(".RealEstateUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/RealEstateUI/${recordId}`);   
-            $(".RealEstateUI_ProfilePic").attr("recordId", recordId);   
-            $(".RealEstateUI_ProfilePic").show();
+            $(".RealEstateUI_RealEstateAddress").html(address);    
+            $(".RealEstateUI_RealEstateZipCode").html(zipCode);    
+            $(".RealEstateUI_RealEstateLatitude").html(latitude);    
+            $(".RealEstateUI_RealEstateLongitude").html(longitude); 
+            $(".RealEstateUI_RealEstateResidingCompany").html(residingCompany);  
+            $(".RealEstateUI_RealEstateHQAddress").html(hqAddress);  
+            $(".RealEstateUI_RealEstateContact").html(contact);  
+            $(".RealEstateUI_RealEstateEmail").html(email);  
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
