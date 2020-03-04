@@ -5,67 +5,59 @@
         <i class="fa fa-comments-o"></i>
         <h3 class="box-title">Assessment Records</h3>
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-            <button type="button" class="btn btn-default pull-right RealEstateUI_btnAddInterviewSchedule" data-toggle="modal" data-target="#RealEstateUI_AddInterviewScheduleDialog"><i class="fa fa-plus"></i> New Assessment</button>
+            <button type="button" class="btn btn-default pull-right RealEstateUI_btnAddRealEstateAssessment" data-toggle="modal" data-target="#RealEstateUI_AddRealEstateAssessmentDialog"><i class="fa fa-plus"></i> New Assessment</button>
         </div>
     </div>
     <div class="box-body box-profile RealEstateUI_AssessmentRecords" tabName="_TABNAME_">
         <b>No Assessment Record Found!</b>
     </div>
-    <div class="modal fade" id="RealEstateUI_AddInterviewScheduleDialog" style="display: none;">
+    <div class="modal fade" id="RealEstateUI_AddRealEstateAssessmentDialog" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title">New Interview Schedule</h3>
+                    <h3 class="modal-title">New Assessment</h3>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label">Job Posting</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control autocomplete displayEdit RealEstateUI_NewInterviewSchedule" name="RealEstateUI_NewInterviewScheduleJobCode" placeholder="Job Posting" module="RealEstateUI" mainmodule="RealEstateUI" autoname="jobCode" helptitle="JobCode">
-                            <input class="form-control HiddenAutoComplete" name="RealEstateUI_NewInterviewScheduleJobCode" type="hidden" module="RealEstateUI" mainmodule="RealEstateUI" autonamefield="jobCode" value="">
-                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
-                            <div class="autocomplete-items" module="RealEstateUI" mainmodule="RealEstateUI" autoname="jobCode">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Applicant</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control autocomplete displayEdit RealEstateUI_NewInterviewSchedule" name="RealEstateUI_NewInterviewScheduleApplicantCode" placeholder="Applicant" module="RealEstateUI" mainmodule="RealEstateUI" autoname="applicantCode" helptitle="applicantCode">
-                            <input class="form-control HiddenAutoComplete" name="RealEstateUI_NewInterviewScheduleApplicantCode" type="hidden" module="RealEstateUI" mainmodule="RealEstateUI" autoNameField="applicantCode" value="">
-                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
-                            <div class="autocomplete-items" module="RealEstateUI" mainmodule="RealEstateUI" autoname="applicantCode">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Look For</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control autocomplete displayEdit RealEstateUI_NewInterviewSchedule" name="RealEstateUI_NewInterviewScheduleLookForCode" placeholder="Look For" module="RealEstateUI" mainmodule="RealEstateUI" autoname="lookForCode" helptitle="lookForCode">
-                            <input class="form-control HiddenAutoComplete" name="RealEstateUI_NewInterviewScheduleLookForCode" type="hidden" module="RealEstateUI" mainmodule="RealEstateUI" autonamefield="lookForCode" value="">
-                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
-                            <div class="autocomplete-items" module="RealEstateUI" mainmodule="RealEstateUI" autoname="lookForCode">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label">Date</label>
                         <div class="input-group date">
-                            <input type="text" name="RealEstateUI_NewInterviewScheduleInterviewDate" placeholder="Interview Date" class="form-control calendar displayEdit RealEstateUI_NewInterviewSchedule" module="RealEstateUI" mainmodule="HrRequisition">
+                            <input type="text" name="RealEstateUI_NewRealEstateAssessmentDate" placeholder="Assessment Date" class="form-control calendar displayEdit RealEstateUI_NewRealEstateAssessment" module="RealEstateUI" mainmodule="RealEstateUI">
                             <div class="input-group-addon displayEdit">
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Assessor</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete displayEdit RealEstateUI_NewRealEstateAssessment" name="RealEstateUI_NewRealEstateAssessmentAssessorCode" placeholder="Assessor" module="RealEstateUI" mainmodule="RealEstateUI" autoname="assessorCode" helptitle="AssessorCode">
+                            <input class="form-control HiddenAutoComplete" name="RealEstateUI_NewRealEstateAssessmentAssessorCode" type="hidden" module="RealEstateUI" mainmodule="RealEstateUI" autonamefield="assessorCode" value="">
+                            <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                            <div class="autocomplete-items" module="RealEstateUI" mainmodule="RealEstateUI" autoname="assessorCode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Amount Paid</label>
+                        <input type="text" name="RealEstateUI_NewRealEstateAssessmentAmountPaid" placeholder="Amount Paid" class="form-control displayEdit RealEstateUI_NewRealEstateAssessment" module="RealEstateUI" mainmodule="RealEstateUI">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Zonal Value</label>
+                        <input type="text" name="RealEstateUI_NewRealEstateAssessmentZonalValue" placeholder="Zonal Value" class="form-control displayEdit RealEstateUI_NewRealEstateAssessment" module="RealEstateUI" mainmodule="RealEstateUI">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Market Value</label>
+                        <input type="text" name="RealEstateUI_NewRealEstateAssessmentMarketValue" placeholder="Market Value" class="form-control displayEdit RealEstateUI_NewRealEstateAssessment" module="RealEstateUI" mainmodule="RealEstateUI">
+                    </div>
+                    <div class="form-group">
                         <label class="control-label">Remarks</label>
-                        <input type="text" name="RealEstateUI_NewInterviewScheduleInterviewRemarks" placeholder="Remarks" class="form-control displayEdit RealEstateUI_NewInterviewSchedule" module="RealEstateUI" mainmodule="HrRequisition">
+                        <input type="text" name="RealEstateUI_NewRealEstateAssessmentRemarks" placeholder="Remarks" class="form-control displayEdit RealEstateUI_NewRealEstateAssessment" module="RealEstateUI" mainmodule="RealEstateUI">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary RealEstateUI_btnAddInterviewScheduleClose">Save And Close</button>
+                    <button type="button" class="btn btn-primary RealEstateUI_btnAddRealEstateAssessmentClose">Save And Close</button>
                 </div>
             </div>
         </div>
