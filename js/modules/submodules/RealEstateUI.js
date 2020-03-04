@@ -18,35 +18,26 @@ class RealEstateUI {
         var divName = `.RealEstateUI_TransferRecords[tabName="${tabName}"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
-            var TransferDate = obj.getPropDefault("TransferDate", "--");
+            var transferDate = obj.getPropDefault("transferDate", "--");
             var realEstateTransferId = obj.getPropDefault("realEstateTransferId", "--");
-            var assessorName = obj.getPropDefault("assessorName", "--");
-            var TransferAmount = obj.getPropDefault("TransferAmount", "--");
+            var transferIssuerName = obj.getPropDefault("transferIssuerName", "--");
+            var amountPaid = obj.getPropDefault("amountPaid", "--");
             var personId = obj.getPropDefault("personId", "0");
-            var contact = obj.getPropDefault("contact", "--");
-            var zonalValue = obj.getPropDefault("zonalValue", "--");
-            var marketValue = obj.getPropDefault("marketValue", "--");
-            var occupied = obj.getProp("occupied");
+            var contact = obj.getPropDefault("email", "--");
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50%;">
                         <span>
                             <small class="text-muted"><i class="fa fa-user"> Date: </i>
-                                <a href="#" class="RealEstateUI_selectRealEstateTransfer" recordId="${realEstateTransferId}" module="RealEstateUI" tabName="${tabName}">${TransferDate}</a>
+                                <a href="#" class="RealEstateUI_selectRealEstateTransfer" recordId="${realEstateTransferId}" module="RealEstateUI" tabName="${tabName}">${transferDate}</a>
                             </small>
                         </span>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-user"> Assessor: </i> ${assessorName}</small>
+                        <small class="text-muted pull-right"><i class="fa fa-user"> Issuer: </i> ${transferIssuerName}</small>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-money"> Amount: </i> ${TransferAmount}</small>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-compass"> Zonal Value: </i> ${zonalValue}</small>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-money"> Market Value: </i> ${marketValue}</small>
+                        <small class="text-muted"><i class="fa fa-money"> Amount Paid: </i> ${amountPaid}</small>
                     </div>
                     <div style="flex: 50%">
                         <small class="text-muted pull-right"><i class="fa fa-money"> Contact: </i> ${contact}</small>
@@ -73,35 +64,26 @@ class RealEstateUI {
         var divName = `.RealEstateUI_FieldInspectionRecords[tabName="${tabName}"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
-            var FieldInspectionDate = obj.getPropDefault("FieldInspectionDate", "--");
+            var inspectionDate = obj.getPropDefault("inspectionDate", "--");
             var realEstateFieldInspectionId = obj.getPropDefault("realEstateFieldInspectionId", "--");
-            var assessorName = obj.getPropDefault("assessorName", "--");
-            var FieldInspectionAmount = obj.getPropDefault("FieldInspectionAmount", "--");
+            var inspectorName = obj.getPropDefault("inspectorName", "--");
+            var amountPaid = obj.getPropDefault("amountPaid", "--");
             var personId = obj.getPropDefault("personId", "0");
-            var contact = obj.getPropDefault("contact", "--");
-            var zonalValue = obj.getPropDefault("zonalValue", "--");
-            var marketValue = obj.getPropDefault("marketValue", "--");
-            var occupied = obj.getProp("occupied");
+            var contact = obj.getPropDefault("email", "--");
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50%;">
                         <span>
                             <small class="text-muted"><i class="fa fa-user"> Date: </i>
-                                <a href="#" class="RealEstateUI_selectRealEstateFieldInspection" recordId="${realEstateFieldInspectionId}" module="RealEstateUI" tabName="${tabName}">${FieldInspectionDate}</a>
+                                <a href="#" class="RealEstateUI_selectRealEstateFieldInspection" recordId="${realEstateFieldInspectionId}" module="RealEstateUI" tabName="${tabName}">${inspectionDate}</a>
                             </small>
                         </span>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-user"> Assessor: </i> ${assessorName}</small>
+                        <small class="text-muted pull-right"><i class="fa fa-user"> Inspector: </i> ${inspectorName}</small>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-money"> Amount: </i> ${FieldInspectionAmount}</small>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-compass"> Zonal Value: </i> ${zonalValue}</small>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-money"> Market Value: </i> ${marketValue}</small>
+                        <small class="text-muted"><i class="fa fa-money"> Amount Paid: </i> ${amountPaid}</small>
                     </div>
                     <div style="flex: 50%">
                         <small class="text-muted pull-right"><i class="fa fa-money"> Contact: </i> ${contact}</small>
@@ -128,35 +110,35 @@ class RealEstateUI {
         var divName = `.RealEstateUI_BuildingPermitRecords[tabName="${tabName}"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
-            var BuildingPermitDate = obj.getPropDefault("BuildingPermitDate", "--");
+            var permitDate = obj.getPropDefault("PermitDate", "--");
             var realEstateBuildingPermitId = obj.getPropDefault("realEstateBuildingPermitId", "--");
-            var assessorName = obj.getPropDefault("assessorName", "--");
-            var BuildingPermitAmount = obj.getPropDefault("BuildingPermitAmount", "--");
+            var permitIssuerName = obj.getPropDefault("permitIssuerName", "--");
+            var amountPaid = obj.getPropDefault("amountPaid", "--");
             var personId = obj.getPropDefault("personId", "0");
-            var contact = obj.getPropDefault("contact", "--");
-            var zonalValue = obj.getPropDefault("zonalValue", "--");
-            var marketValue = obj.getPropDefault("marketValue", "--");
+            var contact = obj.getPropDefault("email", "--");
+            var floorArea = obj.getPropDefault("floorArea", "--");
+            var storeyCount = obj.getPropDefault("storeyCount", "--");
             var occupied = obj.getProp("occupied");
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50%;">
                         <span>
                             <small class="text-muted"><i class="fa fa-user"> Date: </i>
-                                <a href="#" class="RealEstateUI_selectRealEstateBuildingPermit" recordId="${realEstateBuildingPermitId}" module="RealEstateUI" tabName="${tabName}">${BuildingPermitDate}</a>
+                                <a href="#" class="RealEstateUI_selectRealEstateBuildingPermit" recordId="${realEstateBuildingPermitId}" module="RealEstateUI" tabName="${tabName}">${permitDate}</a>
                             </small>
                         </span>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-user"> Assessor: </i> ${assessorName}</small>
+                        <small class="text-muted pull-right"><i class="fa fa-user"> Issuer: </i> ${permitIssuerName}</small>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-money"> Amount: </i> ${BuildingPermitAmount}</small>
+                        <small class="text-muted"><i class="fa fa-money"> Amount Paid: </i> ${amountPaid}</small>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-compass"> Zonal Value: </i> ${zonalValue}</small>
+                        <small class="text-muted pull-right"><i class="fa fa-compass"> Floor Area: </i> ${floorArea}</small>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-money"> Market Value: </i> ${marketValue}</small>
+                        <small class="text-muted"><i class="fa fa-money"> Storey: </i> ${storeyCount}</small>
                     </div>
                     <div style="flex: 50%">
                         <small class="text-muted pull-right"><i class="fa fa-money"> Contact: </i> ${contact}</small>
