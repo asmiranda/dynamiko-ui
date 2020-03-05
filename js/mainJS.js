@@ -146,6 +146,12 @@ $(function () {
     accountChartUI = new AccountChartUI();
     productRequestUI = new ProductRequestUI();
     realEstateUI = new RealEstateUI();
+    citizenUI = new CitizenUI();
+    communityTaxCertificateUI = new CommunityTaxCertificateUI();
+    businessPermitUI = new BusinessPermitUI();
+    governmentCashierUI = new GovernmentCashierUI();
+    governmentAccountingUI = new GovernmentAccountingUI();
+    governmentReportsUI = new GovernmentReportsUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

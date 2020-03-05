@@ -1,5 +1,15 @@
 class GlobalEventsOthers {
     initializeGlobalEvents() {
+        $(document).on('click', '.CitizenSelect[tabName="Cedula"]', function() {
+            governmentUI.selectCedula(this);
+        });
+        $(document).on('click', '.CitizenSelect[tabName="BusinessPermit"]', function() {
+            governmentUI.selectBusinessPermit(this);
+        });
+        $(document).on('click', '.CitizenSelect[tabName="GovernmentCashier"]', function() {
+            governmentUI.selectGovernmentCashier(this);
+        });
+
         $(document).on('click', '.RealEstateUI_selectRealEstate[tabName="dashboard"]', function() {
             realEstateUI.selectRealEstate(this);
         });
