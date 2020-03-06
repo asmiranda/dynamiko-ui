@@ -1,5 +1,16 @@
 class BusinessPermitUI { 
 
+    loadTopBusinessPermit() {
+        var recordId = $(mainId).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BusinessPermitUI/getTopBusinessPermits`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            businessPermitUI.arrangeSearchedBusinessPermits(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
     loadBusinessPermitProfile(obj, tabName) {
         var recordId = $(obj).attr("recordId");
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BusinessPermitUI/getBusinessPermitProfile/${recordId}`;

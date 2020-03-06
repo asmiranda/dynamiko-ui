@@ -1,5 +1,16 @@
 class CommunityTaxCertificateUI { 
 
+    loadTopCommunityTaxCertificate() {
+        var recordId = $(mainId).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/getTopCommunityTaxCertificates`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successCallback = function(data) {
+            communityTaxCertificateUI.arrangeSearchedCommunityTaxCertificates(data, "CommunityTaxCertificate");
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
     loadCommunityTaxCertificateProfile(obj, tabName) {
         var recordId = $(obj).attr("recordId");
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/getCommunityTaxCertificateProfile/${recordId}`;

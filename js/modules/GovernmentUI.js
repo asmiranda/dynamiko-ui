@@ -36,7 +36,9 @@ class GovernmentUI {
         personTaskUI.loadTodoList();
         realEstateUI.loadTopRealEstate(); 
         realEstateUI.loadLastSelectedRealEstate(); 
-        governmentUI.loadTopCitizens(); 
+
+        communityTaxCertificateUI.loadTopCommunityTaxCertificate(); 
+        // businessPermitUI.loadTopBusinessPermit(); 
     }
 
     init() {
@@ -59,19 +61,6 @@ class GovernmentUI {
         console.log("selectGovernmentCashier");
         console.log("Record ID == "+$(obj).attr("recordId"));
         citizenUI.loadCitizenProfile(obj, "GovernmentCashier");
-    }
-
-    loadTopCitizens() {
-        var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CitizenUI/getTopCitizens`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-
-        var successCallback = function(data) {
-            citizenUI.arrangeSearchedCitizens(data, "Cedula");
-            citizenUI.arrangeSearchedCitizens(data, "BusinessPermit");
-            citizenUI.arrangeSearchedCitizens(data, "GovernmentCashier");
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
 }
