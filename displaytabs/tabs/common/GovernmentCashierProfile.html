@@ -23,13 +23,17 @@
             </div>
         </div>
         <div style="display: flex; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 100%; margin-left: 15px;">
+                <label>Title</label>
+                <input type="text" class="form-control" module="GovernmentCashierUI" name="title" disabled="">
+            </div>
             <div class="form-group" style="flex: 30%; margin-left: 15px;">
                 <label>Invoiced Number</label>
                 <input type="text" class="form-control" module="GovernmentCashierUI" name="invoiceNumber" disabled="">
             </div>
             <div class="form-group" style="flex: 30%; margin-left: 15px;">
                 <label>Issuer</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="issuerCode" disabled="">
+                <input type="text" class="form-control" module="GovernmentCashierUI" name="issuerName" disabled="">
             </div>
             <div class="form-group" style="flex: 30%; margin-left: 15px;">
                 <label>Total Amount</label>
@@ -42,7 +46,23 @@
     <!-- /.box-body -->
     <div class="box-footer">
         <button type="button" class="btn btn-default">Cancel</button>
-        <button type="button" class="btn btn-info pull-right btnPrintReciept">Print Receipt</button>
-        <button type="button" class="btn btn-info pull-right btnAcceptPayment" style="margin-right: 15px;">Accept Payment</button>
+        <button type="button" class="btn btn-default pull-right btnCashierAcceptPayment" data-toggle="modal" data-target="#GovernmentCashierUI_PrintDialog"><i class="fa fa-money"></i> Accept Payment</button>
+    </div>
+
+    <div class="modal fade in" id="GovernmentCashierUI_PrintDialog" style="display: none; padding-right: 3px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3 class="modal-title">Print Receipt</h3>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btnCashierPrintReceipt">Print Receipt</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

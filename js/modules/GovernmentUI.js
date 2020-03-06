@@ -39,6 +39,7 @@ class GovernmentUI {
 
         communityTaxCertificateUI.loadTopCommunityTaxCertificate(); 
         // businessPermitUI.loadTopBusinessPermit(); 
+        governmentCashierUI.loadToCashierQueue();
     }
 
     init() {

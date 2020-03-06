@@ -1,4 +1,39 @@
 class CommunityTaxCertificateUI { 
+    changeCTCValues(obj) {
+        var name = $(obj).attr("name");
+        if (name=="amountA"||name=="amountB1"||name=="amountB2"||name=="amountB3") {
+            var totalAmount = utils.parseFloatOrZero($(`.editCtc[name="amountA"]`).val());
+            totalAmount += utils.parseFloatOrZero($(`.editCtc[name="amountB1"]`).val());
+            totalAmount += utils.parseFloatOrZero($(`.editCtc[name="amountB2"]`).val());
+            totalAmount += utils.parseFloatOrZero($(`.editCtc[name="amountB3"]`).val());
+            $(`.editCtc[name="totalAmount"]`).val(totalAmount);
+        }
+    }
+
+    saveCTCForCashier(obj) {
+        console.log("saveCTCForCashier called");
+        var tmp = {};
+        $(`.editCtc[module="CommunityTaxCertificateUI"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/post/saveCTCForCashier`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            showModalAny.show("Save CTC Message", data.value);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
+    newCTC(obj) {
+        console.log("newCTC called");
+    }
 
     loadTopCommunityTaxCertificate() {
         var recordId = $(mainId).val();
@@ -23,13 +58,13 @@ class CommunityTaxCertificateUI {
             var email = data.getProp("email");
             var contact = data.getProp("contact");
 
-            $(".CommunityTaxCertificateUI_CommunityTaxCertificateName").html(CommunityTaxCertificateName);    
-            $(".CommunityTaxCertificateUI_CommunityTaxCertificate_Job").html(job);    
-            $(".CommunityTaxCertificateUI_CommunityTaxCertificate_Email").html(email);    
-            $(".CommunityTaxCertificateUI_CommunityTaxCertificate_Contact").html(contact);   
-            $(".CommunityTaxCertificateUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/CommunityTaxCertificateUI/${recordId}`);   
-            $(".CommunityTaxCertificateUI_ProfilePic").attr("recordId", recordId);   
-            $(".CommunityTaxCertificateUI_ProfilePic").show();
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_CommunityTaxCertificateName").html(CommunityTaxCertificateName);    
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_CommunityTaxCertificate_Job").html(job);    
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_CommunityTaxCertificate_Email").html(email);    
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_CommunityTaxCertificate_Contact").html(contact);   
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/CommunityTaxCertificateUI/${recordId}`);   
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_ProfilePic").attr("recordId", recordId);   
+            // $(".editCtc[module="CommunityTaxCertificateUI"]_ProfilePic").show();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }

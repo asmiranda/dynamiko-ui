@@ -1,4 +1,13 @@
 class Utils {
+    parseFloatOrZero(value) {
+        var retVal = 0;
+        var val = parseFloat(value);
+        if (val > 0) {
+            retVal = val;
+        }
+        return retVal;
+    }
+
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     }     

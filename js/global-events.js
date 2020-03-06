@@ -377,6 +377,9 @@ $(function () {
     globalEventsHr = new GlobalEventsHr();    
     globalEventsHr.initializeGlobalEvents();
 
+    globalEventsGovernment = new GlobalEventsGovernment();    
+    globalEventsGovernment.initializeGlobalEvents();
+    
     globalEventsOthers = new GlobalEventsOthers();    
     globalEventsOthers.initializeGlobalEvents();
 })
