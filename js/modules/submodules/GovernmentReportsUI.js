@@ -1,61 +1,60 @@
 class GovernmentReportsUI { 
+    showGovernmentReport(obj) {
+        console.log("called showGovernmentReport");
+        var reportName = $(`.chooseGovernmentReport`).val();
+        var startDate = $(`[name="chooseStartDate"]`).val();
+        var endDate = $(`[name="chooseStartDate"]`).val();
 
-    loadGovernmentReportsProfile(obj, tabName) {
-        var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentReportsUI/getGovernmentReportsProfile/${recordId}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        console.log(reportName);
+        console.log(startDate);
+        console.log(endDate);
 
-        var successFunction = function(data) {
-            console.log(data);
-            var GovernmentReportsName = data.getProp("firstName")+" "+data.getProp("lastName");
-            var job = data.getProp("specialization");
-            var email = data.getProp("email");
-            var contact = data.getProp("contact");
-
-            $(".GovernmentReportsUI_GovernmentReportsName").html(GovernmentReportsName);    
-            $(".GovernmentReportsUI_GovernmentReports_Job").html(job);    
-            $(".GovernmentReportsUI_GovernmentReports_Email").html(email);    
-            $(".GovernmentReportsUI_GovernmentReports_Contact").html(contact);   
-            $(".GovernmentReportsUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/GovernmentReportsUI/${recordId}`);   
-            $(".GovernmentReportsUI_ProfilePic").attr("recordId", recordId);   
-            $(".GovernmentReportsUI_ProfilePic").show();
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/GovernmentReportsUI/displayGovernmentReport/${reportName}/${startDate}/${endDate}`;
+        $(`iframe[report="ForGovernmentReport"]`).attr("src", url);
     }
 
-    searchGovernmentReportsFilter(obj) {
-        var value = $(obj).val();
-        var tabName = $(obj).attr("tabName");
-        console.log(value);
+    autoChooseDate(obj) {
+        console.log("called autoChooseDate");
+        var thisDay = $(obj).hasClass("btnChooseThisDay");
+        var thisWeek = $(obj).hasClass("btnChooseThisWeek");
+        var thisMonth = $(obj).hasClass("btnChooseThisMonth");
+        var thisYear = $(obj).hasClass("btnChooseThisYear");
 
-        var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentReportsUI/filterGovernmentReports/${value}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var startDate = "";
+        var endDate = "";
+        if (thisDay) {
+            var today = new Date();
+            startDate = moment(today).format('YYYY-MM-DD');
+            endDate = moment(today).format('YYYY-MM-DD');
+        }
+        else if (thisWeek) {
+            var today = new Date();
+            var currentWeekDay = today.getDay();
+            var lessDays = currentWeekDay == 0 ? 6 : currentWeekDay - 1;
+            var wkStart = new Date(new Date(today).setDate(today.getDate() - lessDays));
+            var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
 
-        var successCallback = function(data) {
-            GovernmentReportsUI.arrangeSearchedGovernmentReportss(data, tabName);
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-    }
+            startDate = moment(wkStart).format('YYYY-MM-DD');
+            endDate = moment(wkEnd).format('YYYY-MM-DD');
+        }
+        else if (thisMonth) {
+            var today = new Date();
+            var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    arrangeSearchedGovernmentReportss(data, tabName) {
-        console.log(data);
-        var divName = `.searchGovernmentReportss[module="GovernmentReportsUI"][tabName="${tabName}"]`;
-        $(divName).empty();
-        $(data).each(function(index, obj) {
-            var GovernmentReportsName = obj.getProp("firstName")+" "+obj.getProp("lastName");
-            var email = obj.getPropDefault("email", "");
-            var recordId = obj.getProp("GovernmentReportsId");
-            var str = `
-                <a href="#" class="GovernmentReportsSelect" module="GovernmentReportsUI" tabName="${tabName}" recordId="${recordId}" style="font-weight: bolder;">${GovernmentReportsName}</a>
-                <span class="text-muted">
-                    ${email}
-                </span>
-                <hr>
-            `;
-            $(divName).append(str);
-            
-        });
+            startDate = moment(firstDayOfMonth).format('YYYY-MM-DD');
+            endDate = moment(lastDayOfMonth).format('YYYY-MM-DD');
+        }
+        else if (thisYear) {
+            var today = new Date();
+            var firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+            var lastDayOfYear = new Date(today.getFullYear(), 11, 31);
+
+            startDate = moment(firstDayOfYear).format('YYYY-MM-DD');
+            endDate = moment(lastDayOfYear).format('YYYY-MM-DD');
+        }
+        $(`[name="chooseStartDate"]`).val(startDate);
+        $(`[name="chooseEndDate"]`).val(endDate);
     }
 }
 

@@ -1,6 +1,13 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
-                
+
+        $(document).on('click', '.btnShowGovernmentReport', function() {
+            governmentReportsUI.showGovernmentReport(this);
+        });
+        $(document).on('click', 'a[module="GovernmentReportsUI"]', function() {
+            governmentReportsUI.autoChooseDate(this);
+        });
+
         $(document).on('click', '.selectPrintingQueue', function() {
             governmentPrintingUI.selectPrintingQueue(this);
         });
