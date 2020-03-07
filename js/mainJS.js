@@ -152,6 +152,7 @@ $(function () {
     governmentCashierUI = new GovernmentCashierUI();
     governmentAccountingUI = new GovernmentAccountingUI();
     governmentReportsUI = new GovernmentReportsUI();
+    governmentPrintingUI = new GovernmentPrintingUI();
     
     // #####################Initializers
     mainInitializer = new MainInitializer();

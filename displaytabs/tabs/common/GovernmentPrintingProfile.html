@@ -6,43 +6,38 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <div style="display: flex; flex-wrap: wrap;">
-            <div class="form-group" style="flex: 50%; margin-left: 15px;">
+        <div style="display: flex;">
+            <div style="flex: 45%">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div class="form-group" style="flex: 15%; margin-left: 15px;">
+                        <label>Date</label>
+                        <input type="text" class="form-control" module="GovernmentPrintingUI" name="queueDate" disabled="">
+                    </div>
+                    <div class="form-group" style="flex: 15%; margin-left: 15px;">
+                        <label>Queue Number</label>
+                        <input type="text" class="form-control" module="GovernmentPrintingUI" name="queueNumber" disabled="">
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div class="form-group" style="flex: 100%; margin-left: 15px;">
+                        <label>Title</label>
+                        <input type="text" class="form-control" module="GovernmentPrintingUI" name="title" disabled="">
+                    </div>
+                    <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                        <label>Invoiced Number</label>
+                        <input type="text" class="form-control" module="GovernmentPrintingUI" name="invoiceNumber" disabled="">
+                    </div>
+                    <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                        <label>Issuer</label>
+                        <input type="text" class="form-control" module="GovernmentPrintingUI" name="issuerName" disabled="">
+                    </div>
+                </div>
             </div>
-            <div class="form-group" style="flex: 15%; margin-left: 15px;">
-                <label>Cashier</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="cashierTakerCode" disabled="">
-            </div>
-            <div class="form-group" style="flex: 15%; margin-left: 15px;">
-                <label>Date</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="queueDate" disabled="">
-            </div>
-            <div class="form-group" style="flex: 15%; margin-left: 15px;">
-                <label>Queue Number</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="queueNumber" disabled="">
+            <div style="flex: 55%; margin-left: 15px;">
+                <iframe class="customReportViewerFrame" style="width: 100%; height:470px;" report="ForGovernmentPrintingReport" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
             </div>
         </div>
-        <div style="display: flex; flex-wrap: wrap;">
-            <div class="form-group" style="flex: 30%; margin-left: 15px;">
-                <label>Invoiced Number</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="invoiceNumber" disabled="">
-            </div>
-            <div class="form-group" style="flex: 30%; margin-left: 15px;">
-                <label>Issuer</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="issuerCode" disabled="">
-            </div>
-            <div class="form-group" style="flex: 30%; margin-left: 15px;">
-                <label>Total Amount</label>
-                <input type="text" class="form-control" module="GovernmentCashierUI" name="totalAmount" disabled="">
-            </div>
-        </div>
-        <input type="hidden" class="form-control" module="GovernmentCashierUI" name="recordId" disabled="">
-        <input type="hidden" class="form-control" module="GovernmentCashierUI" name="moduleName" disabled="">
-    </div>
-    <!-- /.box-body -->
-    <div class="box-footer">
-        <button type="button" class="btn btn-default">Cancel</button>
-        <button type="button" class="btn btn-info pull-right btnPrintReciept">Print Receipt</button>
-        <button type="button" class="btn btn-info pull-right btnAcceptPayment" style="margin-right: 15px;">Accept Payment</button>
+        <input type="hidden" class="form-control" module="GovernmentPrintingUI" name="PritingQueueId" disabled="">
+        <input type="hidden" class="form-control" module="GovernmentPrintingUI" name="moduleName" disabled="">
     </div>
 </div>

@@ -1,7 +1,12 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
-
                 
+        $(document).on('click', '.selectPrintingQueue', function() {
+            governmentPrintingUI.selectPrintingQueue(this);
+        });
+        $(document).on('click', '.btnCashierAcceptPayment', function() {
+            governmentCashierUI.acceptPayment(this);
+        });
         $(document).on('click', '.selectGovernmentCashier', function() {
             governmentCashierUI.selectGovernmentCashier(this);
         });
