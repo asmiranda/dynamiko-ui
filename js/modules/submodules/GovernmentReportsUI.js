@@ -3,7 +3,7 @@ class GovernmentReportsUI {
         console.log("called showGovernmentReport");
         var reportName = $(`.chooseGovernmentReport`).val();
         var startDate = $(`[name="chooseStartDate"]`).val();
-        var endDate = $(`[name="chooseStartDate"]`).val();
+        var endDate = $(`[name="chooseEndDate"]`).val();
 
         console.log(reportName);
         console.log(startDate);

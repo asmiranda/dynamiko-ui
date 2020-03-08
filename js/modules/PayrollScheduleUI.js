@@ -160,15 +160,16 @@ class PayrollScheduleUI {
                 var attendanceType = obj.getPropDefault("attendanceType", "GENERATED");
                 var dayName = obj.getPropDefault("attendanceType", "GENERATED");
 
+                var background = "bg-aqua";
                 var isWeekend = ([0,6].indexOf(workD.getDay()) != -1);
                 if (isWeekend) {
-                    attendanceType = "WEEKEND";
-                }
-
-                var background = "bg-aqua";
-                if (attendanceType=="WEEKEND") {
+                    attendanceType = moment(workD).format("ddd");
                     background = "bg-yellow";
                 }
+                else {
+                    attendanceType = moment(workD).format("ddd");
+                }
+
                 var colorHours = "gray";
                 if (totalHours==8 || totalHours==0) {
                     colorHours = "white";
@@ -178,7 +179,7 @@ class PayrollScheduleUI {
                     colorOTHours = "white";
                 }
                 var str = `  
-                    <div class="" style="flex: 50%; padding: 2px;">
+                    <div class="" style="flex: 25%; padding: 2px;">
                         <div class="info-box ${background}" style="padding: 5px;">
                             <span class="info-box-text">${workDate} <span>[${attendanceType}]</span></span>
                             <span class="info-box-number hand" style="color: ${colorHours};">

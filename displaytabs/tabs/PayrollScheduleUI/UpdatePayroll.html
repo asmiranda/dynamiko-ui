@@ -3,19 +3,18 @@
 <div class="box box-default myChildTab" style="background: #ecf0f5;">
     <div style="display: flex; flex-direction: column;">
         <div style="flex: 1;">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h3 class="box-title">I. Choose From Created Payroll <span class="chosenPayroll text-center" style="color: blue;"></span></h3>
-                    <a href="#" class="pull-right btn-box-tool toggle-box" toggleTarget=".PayrollScheduleUI-ChoosePayrollList2">Toggle Payroll List</a>
-                </div>
-                <div class="box-body">
-                    <div class="PayrollScheduleUI-ChoosePayrollList2" style="display: flex; flex-wrap: nowrap; overflow-x: auto;"></div>
-                </div>
-            </div>
-        </div>
-        <div style="flex: 1;">
             <div style="display: flex;">
-                <div style="flex: 25%;">
+                <div style="flex: 15%;">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">I. Choose Payroll <span class="chosenPayroll text-center" style="color: blue;"></span></h3>
+                        </div>
+                        <div class="box-body" style="overflow-y: auto; overflow-x: hidden; height: 500px;">
+                            <div class="PayrollScheduleUI-ChoosePayrollList2" style="display: flex; flex-direction: column; overflow-y: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 25%; margin: 0px 5px;">
                     <div class="box box-default">
                         <div class="box-header with-border">
                             <h3 class="box-title">II. Validate <span class="chosenEmployeePayroll" style="color: blue;"></span></h3>
@@ -25,37 +24,35 @@
                         </div>
                     </div>
                 </div>
-                <div style="flex: 25%; margin: 0px 5px;">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">III. Work Hours <span class="chosenEmployeePayroll" style="color: blue;"></span></h3>
-                        </div>
-                        <div class="box-body" style="overflow-y: auto; overflow-x: hidden; height: 500px;">
-                            <div class="PayrollScheduleUI-ListEmployeePayrollDetail" style="display: flex; flex-wrap: wrap;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 25%; margin: 0px 5px;">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">IV. Benefit/Deduction & Loan <span class="chosenEmployeePayroll" style="color: blue;"></span></h3>
-                        </div>
-                        <div class="box-body" style="overflow-y: auto; overflow-x: hidden; height: 500px;">
-                            <div class="PayrollScheduleUI-ListEmployeePayrollBenefit" style="display: flex; flex-wrap: wrap;"></div>
-                            <div class="PayrollScheduleUI-ListEmployeePayrollDeduction" style="display: flex; flex-wrap: wrap;"></div>
-                            <div class="PayrollScheduleUI-ListEmployeePayrollLoan" style="display: flex; flex-wrap: wrap;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 25%;">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">V. Payslip Preview <span class="chosenEmployeePayroll" style="color: blue;"></span></h3>
-                            <a href="#" class="pull-right btn-box-tool btnFullScreenAny" forFullScreen=".customReportViewerFrame"><i class="glyphicon glyphicon-fullscreen"></i></a>
-                        </div>
-                        <div class="box-body" style="overflow-y: auto; overflow-x: hidden; max-height: 500px;">
-                            <div class="PayrollScheduleUI-PayslipPreview">
-                                <iframe class="customReportViewerFrame" style="width: 100%; height:470px;" report="EmployeePayslipPreview" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
+                <div style="flex: 60%; margin: 0px 5px;">
+                    <div class="nav-tabs-custom" style="margin-top: 5px;">
+                        <ul class="nav nav-tabs">
+                            <li class="tab-pane disabled">
+                                <a href="#EmployeeTab" data-toggle="tab" aria-expanded="false"><span class="chosenEmployeePayroll" style="color: blue;">#Employee#</span></a>
+                            </li>
+                            <li class="tab-pane active">
+                                <a href="#WorkHours" data-toggle="tab" aria-expanded="false">III. Work Hours</a>
+                            </li>
+                            <li class="tab-pane">
+                                <a href="#Details" data-toggle="tab" aria-expanded="true">IV. Details</a>
+                            </li>
+                            <li class="tab-pane">
+                                <a href="#Payslip" data-toggle="tab" aria-expanded="true">V. Payslip</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content no-padding">
+                            <div class="tab-pane active" id="WorkHours">
+                                <div class="PayrollScheduleUI-ListEmployeePayrollDetail" style="display: flex; flex-wrap: wrap;"></div>
+                            </div>
+                            <div class="tab-pane" id="Details">
+                                <div style="display: flex; flex-direction: column;">
+                                    <div class="PayrollScheduleUI-ListEmployeePayrollBenefit" style="display: flex; flex-wrap: wrap;"></div>
+                                    <div class="PayrollScheduleUI-ListEmployeePayrollDeduction" style="display: flex; flex-wrap: wrap;"></div>
+                                    <div class="PayrollScheduleUI-ListEmployeePayrollLoan" style="display: flex; flex-wrap: wrap;"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="Payslip">
+                                <iframe class="customReportViewerFrame" style="width: 100%; height:700px;" report="EmployeePayslipPreview" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
