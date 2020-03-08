@@ -139,8 +139,8 @@ class PayrollScheduleUI {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
-    loadEmployeePayrollDetail() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${localStorage.lastEmployeePayrollId}`;
+    loadEmployeePayrollWorkHours() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollWorkHours/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
@@ -219,11 +219,88 @@ class PayrollScheduleUI {
         }
         localStorage.lastEmployeePayrollId = recordId;
         localStorage.lastEmployeePayrollTitle = recordTitle;
-        payrollScheduleUI.loadEmployeePayrollDetail();
-        payrollScheduleUI.loadEmployeePayrollBenefit();
-        payrollScheduleUI.loadEmployeePayrollDeduction();
-        payrollScheduleUI.loadEmployeePayrollLoan();
+        payrollScheduleUI.loadEmployeePayrollWorkHours();
+        payrollScheduleUI.loadEmployeePayrollDetails();
+        // payrollScheduleUI.loadEmployeePayrollDeduction();
+        // payrollScheduleUI.loadEmployeePayrollLoan();
         payrollScheduleUI.displayEmployeePayslipPreview();
+    }
+
+    saveEmployeePayrollDetail() {
+        console.log("saveEmployeePayrollDetail called");
+        var tmp = {};
+        $(`.editEmployeePayrollDetail[module="EmployeePayrollUI"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp);
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/post/saveEmployeePayrollDetail`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            payrollScheduleUI.arrangeEmployeePayrollDetails(data);
+            showModalAny.show("Save Employee Payroll", "Saved Employee Payroll Detail!");
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
+    updateEmployeePayrolDetailAmount(obj) {
+        var basicPay = $(`.editEmployeePayrollDetail[name="basicPay"]`).val();
+        var totalOtAmount = $(`.editEmployeePayrollDetail[name="totalOtAmount"]`).val();
+
+        var totalSSSAmount = $(`.editEmployeePayrollDetail[name="totalSSSAmount"]`).val();
+        var totalAdjustmentAmount = $(`.editEmployeePayrollDetail[name="totalAdjustmentAmount"]`).val();
+        var totalTaxAmount = $(`.editEmployeePayrollDetail[name="totalTaxAmount"]`).val();
+
+        var totalGrossAmount = utils.parseFloatOrZero(basicPay)+utils.parseFloatOrZero(totalOtAmount);
+        var totalDeductionAmount = utils.parseFloatOrZero(totalSSSAmount)+utils.parseFloatOrZero(totalAdjustmentAmount)+utils.parseFloatOrZero(totalTaxAmount);
+        var totalNetAmount = totalGrossAmount-totalDeductionAmount;
+
+        $(`.editEmployeePayrollDetail[name="totalGrossAmount"]`).val(totalGrossAmount);
+        $(`.editEmployeePayrollDetail[name="totalDeductionAmount"]`).val(totalDeductionAmount);
+        $(`.editEmployeePayrollDetail[name="totalNetAmount"]`).val(totalNetAmount);
+    }
+
+    loadEmployeePayrollDetails() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${localStorage.lastEmployeePayrollId}`;
+        console.log(url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            console.log(data);
+            payrollScheduleUI.arrangeEmployeePayrollDetails(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    arrangeEmployeePayrollDetails(data) {
+        var employeePayrollId = data.getProp("employeePayrollId");
+        var basicPay = data.getProp("basicPay");
+        var totalOtAmount = data.getProp("totalOtAmount");
+
+        var totalSSSAmount = data.getProp("totalSSSAmount");
+        var totalAdjustmentAmount = data.getProp("totalAdjustmentAmount");
+        var totalTaxAmount = data.getProp("totalTaxAmount");
+
+        var totalGrossAmount = utils.parseFloatOrZero(basicPay)+utils.parseFloatOrZero(totalOtAmount);
+        var totalDeductionAmount = utils.parseFloatOrZero(totalSSSAmount)+utils.parseFloatOrZero(totalAdjustmentAmount)+utils.parseFloatOrZero(totalTaxAmount);
+        var totalNetAmount = totalGrossAmount-totalDeductionAmount;
+
+        $(`.editEmployeePayrollDetail[name="employeePayrollId"]`).val(employeePayrollId);
+
+        $(`.editEmployeePayrollDetail[name="basicPay"]`).val(basicPay);
+        $(`.editEmployeePayrollDetail[name="totalOtAmount"]`).val(totalOtAmount);
+
+        $(`.editEmployeePayrollDetail[name="totalSSSAmount"]`).val(totalSSSAmount);
+        $(`.editEmployeePayrollDetail[name="totalAdjustmentAmount"]`).val(totalAdjustmentAmount);
+        $(`.editEmployeePayrollDetail[name="totalTaxAmount"]`).val(totalTaxAmount);
+
+        $(`.editEmployeePayrollDetail[name="totalGrossAmount"]`).val(totalGrossAmount);
+        $(`.editEmployeePayrollDetail[name="totalDeductionAmount"]`).val(totalDeductionAmount);
+        $(`.editEmployeePayrollDetail[name="totalNetAmount"]`).val(totalNetAmount);
     }
 
     choosePayrollSchedule(obj) {
@@ -286,34 +363,6 @@ class PayrollScheduleUI {
                     </div>
                 `;
                 $(".PayrollScheduleUI-ChoosePayrollList2").append(str);
-            });
-            $(".chosenYearAndMonth").html(payrollScheduleUI.chosenYear+"-"+payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-    }
-
-    loadChoosePayrollList_old() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
-        console.log(url);
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log(data);
-            $(".PayrollScheduleUI-ChoosePayrollList").empty();
-            $(data).each(function(index, obj) {
-                var name = obj.getProp("name");
-                var startDate = obj.getProp("cutOffStartDate");
-                var endDate = obj.getProp("cutOffEndDate");
-                var payrollTypes = obj.getProp("payrollTypes");
-                var recordId = obj.getProp("PayrollScheduleId");
-                var str = `
-                    <div class="btn btn-primary text-center" style="width: 150px; height: 100px; margin-bottom: 5px;">
-                        <span class="info-box-text btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${name}</span>
-                        <span class="info-box-number btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${startDate}</span>
-                        <span class="info-box-number btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${endDate}</span>
-                        <span class="info-box-text btnChoosePayrollSchedule hand" recordId="${recordId}" title="${name}">${payrollTypes}</span>
-                    </div>
-                `;
-                $(".PayrollScheduleUI-ChoosePayrollList").append(str);
             });
             $(".chosenYearAndMonth").html(payrollScheduleUI.chosenYear+"-"+payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
         };

@@ -45,11 +45,68 @@
                                 <div class="PayrollScheduleUI-ListEmployeePayrollDetail" style="display: flex; flex-wrap: wrap;"></div>
                             </div>
                             <div class="tab-pane" id="Details">
-                                <div style="display: flex; flex-direction: column;">
-                                    <div class="PayrollScheduleUI-ListEmployeePayrollBenefit" style="display: flex; flex-wrap: wrap;"></div>
-                                    <div class="PayrollScheduleUI-ListEmployeePayrollDeduction" style="display: flex; flex-wrap: wrap;"></div>
-                                    <div class="PayrollScheduleUI-ListEmployeePayrollLoan" style="display: flex; flex-wrap: wrap;"></div>
+
+
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Employee Payroll Detail</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-default pull-right EmployeePayrollUI_btnNewCommunityTaxCertificate"><i class="fa fa-plus"></i> New CTC</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <form role="form">
+                                            <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="employeePayrollId">
+                                            <div style="display: flex;">
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>Basic Pay</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="basicPay">
+                                                </div>
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>Tax</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalTaxAmount">
+                                                </div>
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>Adjustment</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalAdjustmentAmount">
+                                                </div>
+                                            </div>
+                                            <div style="display: flex;">
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>OT Pay</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalOtAmount">
+                                                </div>
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>SSS</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalSSSAmount">
+                                                </div>
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                </div>
+                                            </div>
+                                            <div style="display: flex;">
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>Gross</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalGrossAmount" disabled="">
+                                                </div>
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>Total Deductions + Adjustment</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalDeductionAmount" disabled="">
+                                                </div>
+                                                <div class="form-group" style="flex: 30%; margin-left: 15px;">
+                                                    <label>Net Pay</label>
+                                                    <input type="text" class="form-control editEmployeePayrollDetail" module="EmployeePayrollUI" name="totalNetAmount" disabled="">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <button type="button" class="btn btn-info pull-right btnSaveEmployeePayrollDetail">Save Employee Payroll Detail</button>
+                                    </div>
                                 </div>
+
+
                             </div>
                             <div class="tab-pane" id="Payslip">
                                 <iframe class="customReportViewerFrame" style="width: 100%; height:700px;" report="EmployeePayslipPreview" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
