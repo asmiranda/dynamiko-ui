@@ -40,7 +40,7 @@ class EmployeeTeamMemberUI {
 
                 var str = `
                     <li>
-                        <img class="profile-user-img img-responsive img-circle" module="EmployeeUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${teamMemberId}">
+                        <img class="profile-user-img img-responsive img-circle" module="EmployeeUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${teamMemberId}/${utils.nowString()}">
                         <a class="teamMemberSelect" href="#" module="EmployeeTeamMemberUI" recordId="${teamMemberId}">${teamMemberName}</a>
                         <span class="users-list-date">${teamMemberDesignation}</span>
                     </li>
@@ -55,7 +55,7 @@ class EmployeeTeamMemberUI {
                         $(".EmployeeTeamMemberUI_SupervisorName").html(supervisorEmployeeName);                    
                         $(".EmployeeTeamMemberUI_SupervisorName").attr("recordId", supervisorId);
                         $(".EmployeeTeamMemberUI_SupervisorDesignation").html("Supervisor/Manager");
-                        $(".EmployeeTeamMemberUI_SupervisorPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${supervisorId}`);                    
+                        $(".EmployeeTeamMemberUI_SupervisorPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${supervisorId}/${utils.nowString()}`);                    
                     }
                     else {
                         $(".EmployeeTeamMemberUI_Supervisor").hide();

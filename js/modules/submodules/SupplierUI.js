@@ -14,7 +14,7 @@ class SupplierUI {
             $(".SupplierUI_SupplierName").html(name);    
             $(".SupplierUI_Supplier_Email").html(email);    
             $(".SupplierUI_Supplier_Contact").html(contact);   
-            $(".SupplierUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SupplierUI/${recordId}`);   
+            $(".SupplierUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SupplierUI/${recordId}/${utils.nowString()}`);   
             $(".SupplierUI_ProfilePic").attr("recordId", recordId);   
             $(".SupplierUI_ProfilePic").show();
         };

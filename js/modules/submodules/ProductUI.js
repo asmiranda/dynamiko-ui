@@ -16,7 +16,7 @@ class ProductUI {
             $(".ProductUI_Product_Type").html(type);    
             $(".ProductUI_Product_UnitPrice").html(quantity);    
             $(".ProductUI_Product_Quantity").html(unitPrice);   
-            $(".ProductUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/ProductUI/${recordId}`);   
+            $(".ProductUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/ProductUI/${recordId}/${utils.nowString()}`);   
             $(".ProductUI_ProfilePic").attr("recordId", recordId);   
             $(".ProductUI_ProfilePic").show();
         };

@@ -1,4 +1,9 @@
 class Utils {
+    nowString() {
+        var str = moment(new Date()).format('YYYYMMDD');
+        return str;
+    }
+
     parseFloatOrZero(value) {
         var retVal = 0;
         var val = parseFloat(value);

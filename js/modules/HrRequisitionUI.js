@@ -134,7 +134,7 @@ class HrRequisitionUI {
                                     <small>${title}</small>
                                 </div>
                                 <div class="box-tools pull-right">
-                                    <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                                    <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}/${utils.nowString()}" requisitionId="${requisitionId}" applicantId="${applicantId}">
                                 </div>
                             </div>
                         </div>
@@ -331,7 +331,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -451,7 +451,7 @@ class HrRequisitionUI {
             $(".HrRequisitionApplicantUI_Applicants_ApplicantJob").html(job);    
             $(".HrRequisitionApplicantUI_Applicants_ApplicantEmail").html(email);    
             $(".HrRequisitionApplicantUI_Applicants_ApplicantContact").html(contact);   
-            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${recordId}`);   
+            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${recordId}/${utils.nowString()}`);   
             $(".HrRequisitionUI_Applicants_ApplicantPic").attr("recordId", recordId);   
             $(".HrRequisitionUI_Applicants_ApplicantPic").show();
         };
@@ -611,7 +611,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -662,7 +662,7 @@ class HrRequisitionUI {
                 var str = `
                     <div style="display: flex;">
                         <div class="text-center" style="flex: 10%">
-                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}" alt="user image" style="width: 40px; height: 40px;"/>
+                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                         </div>
                         <div style="flex: 50%">
                             <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -944,7 +944,7 @@ class HrRequisitionUI {
                                 <a href="#" style="padding-left: 0px;" class="btn btn-box-tool quickUpdaterTarget" updater="calendar" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" fieldName="applyDate"><i class="fa fa-calendar"></i> ${nextScheduleDate}</a>
                             </div>
                             <div class="box-tools pull-right">
-                                <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}" requisitionId="${requisitionId}" applicantId="${applicantId}">
+                                <img class="img-responsive formLinker img-circle img-bordered-sm profilePic" style="height:57px;" linkModule="HrApplicantUI" recordId="${applicantId}" src="${MAIN_URL}/api/generic/${companyCode}/profilePic/HrApplicantUI/${applicantId}/${utils.nowString()}" requisitionId="${requisitionId}" applicantId="${applicantId}">
                             </div>
                         </div>
                     </div>

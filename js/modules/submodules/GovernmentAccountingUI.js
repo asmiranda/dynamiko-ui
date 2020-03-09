@@ -16,7 +16,7 @@ class GovernmentAccountingUI {
             $(".GovernmentAccountingUI_GovernmentAccounting_Job").html(job);    
             $(".GovernmentAccountingUI_GovernmentAccounting_Email").html(email);    
             $(".GovernmentAccountingUI_GovernmentAccounting_Contact").html(contact);   
-            $(".GovernmentAccountingUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/GovernmentAccountingUI/${recordId}`);   
+            $(".GovernmentAccountingUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/GovernmentAccountingUI/${recordId}/${utils.nowString()}`);   
             $(".GovernmentAccountingUI_ProfilePic").attr("recordId", recordId);   
             $(".GovernmentAccountingUI_ProfilePic").show();
         };

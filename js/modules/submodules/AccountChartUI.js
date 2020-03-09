@@ -14,7 +14,7 @@ class AccountChartUI {
             $(".AccountChartUI_AccountName").html(name);    
             $(".AccountChartUI_AccountClass").html(accountClass);    
             $(".AccountChartUI_AccountNumber").html(accountNumber);    
-            $(".AccountChartUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/AccountChartUI/${recordId}`);   
+            $(".AccountChartUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/AccountChartUI/${recordId}/${utils.nowString()}`);   
             $(".AccountChartUI_ProfilePic").attr("recordId", recordId);   
             $(".AccountChartUI_ProfilePic").show();
         };

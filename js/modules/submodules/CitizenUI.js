@@ -16,7 +16,7 @@ class CitizenUI {
             $(".CitizenUI_Citizen_Job").html(job);    
             $(".CitizenUI_Citizen_Email").html(email);    
             $(".CitizenUI_Citizen_Contact").html(contact);   
-            $(".CitizenUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/CitizenUI/${recordId}`);   
+            $(".CitizenUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/CitizenUI/${recordId}/${utils.nowString()}`);   
             $(".CitizenUI_ProfilePic").attr("recordId", recordId);   
             $(".CitizenUI_ProfilePic").show();
         };
