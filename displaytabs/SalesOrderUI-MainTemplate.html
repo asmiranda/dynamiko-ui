@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <section class="content-header">
-    <div class="DisplayTab" tabUrl="Header"></div>
+    <div class="DisplayTab" tabUrl="Header">Sales</div>
 </section>
 <section class="content">
     <div style="display: flex;">
@@ -11,10 +11,13 @@
                         <a href="#Dashboard" data-toggle="tab" aria-expanded="true">Dashboard</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#NewPO" data-toggle="tab" aria-expanded="true">New PO</a>
+                        <a href="#Estimates" data-toggle="tab" aria-expanded="true">Estimates</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Suppliers" data-toggle="tab" aria-expanded="false">Suppliers</a>
+                        <a href="#Invoices" data-toggle="tab" aria-expanded="false">Invoices</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#Customers" data-toggle="tab" aria-expanded="false">Customers</a>
                     </li>
                     <li class="tab-pane">
                         <a href="#Products" data-toggle="tab" aria-expanded="false">Products</a>
@@ -24,43 +27,53 @@
                     <div class="tab-pane active" id="Dashboard">
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 25%; margin: 15px 0px;">
-                                <div class="DisplayTabCommon" tabName="Dashboard" tabUrl="RequestForProduct"></div>
+                                <div class="DisplayTab" tabName="Dashboard" tabUrl="SalesEstimates"></div>
                             </div>
                             <div style="flex: 50%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="Dashboard" tabUrl="ActivePurchaseOrder"></div>
+                                <div class="DisplayTab" tabName="Dashboard" tabUrl="SalesInvoices"></div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="Dashboard" tabUrl="SearchPurchaseOrder"></div>
+                                <div class="DisplayTab" tabName="Dashboard" tabUrl="TopSoldProduct"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="NewPO">
+                    <div class="tab-pane" id="Estimates">
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 75%; margin: 15px 0px;">
-                                <div class="DisplayTabCommon" tabName="NewPO" tabUrl="ActivePurchaseOrder"></div>
+                                <div class="DisplayTabCommon" tabName="Estimates" tabUrl="SalesEstimateProfile"></div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="NewPO" tabUrl="SearchPurchaseOrder"></div>
+                                <div class="DisplayTabCommon" tabName="Estimates" tabUrl="SearchSalesEstimates"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="Suppliers">
+                    <div class="tab-pane" id="Invoices">
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 75%; margin: 15px 0px;">
-                                <div class="DisplayTabCommon" tabName="POSupplier" tabUrl="SupplierProfile"></div>
+                                <div class="DisplayTabCommon" tabName="Invoices" tabUrl="SalesInvoiceProfile"></div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="POSupplier" tabUrl="SearchSupplier"></div>
+                                <div class="DisplayTabCommon" tabName="Invoices" tabUrl="SearchSalesInvoices"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="Customers">
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="DisplayTabCommon" tabName="Customers" tabUrl="CustomerProfile"></div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="Customers" tabUrl="SearchCustomers"></div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="Products">
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 75%; margin: 15px 0px;">
-                                <div class="DisplayTabCommon" tabName="POProduct" tabUrl="ProductProfile"></div>
+                                <div class="DisplayTabCommon" tabName="Products" tabUrl="ProductProfile"></div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="POProduct" tabUrl="SearchProduct"></div>
+                                <div class="DisplayTabCommon" tabName="Products" tabUrl="SearchProducts"></div>
                             </div>
                         </div>
                     </div>
