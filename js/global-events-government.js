@@ -1,13 +1,19 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
         
-        $(document).on('click', '.btnSaveEmployeePayrollDetail', function() {
-            payrollScheduleUI.saveEmployeePayrollDetail(this);
+        $(document).on('click', '.btnSaveBusinessPermitForCashier', function() {
+            businessPermitUI.saveBusinessPermitForCashier(this);
         });
-        $(document).on('keyup', 'input.editEmployeePayrollDetail', function() {
-            payrollScheduleUI.updateEmployeePayrolDetailAmount(this);
+        $(document).on('keyup', 'input.editBusinessPermit', function() {
+            businessPermitUI.changeBusinessPermitTValues(this);
+        });
+        $(document).on('click', '.BusinessPermitSelect', function() {
+            businessPermitUI.loadBusinessPermitProfile(this);
         });
 
+        $(document).on('click', '.CommunityTaxCertificateSelect', function() {
+            communityTaxCertificateUI.selectCommunityTaxCertificate(this);
+        });
         $(document).on('click', '.btnShowGovernmentReport', function() {
             governmentReportsUI.showGovernmentReport(this);
         });

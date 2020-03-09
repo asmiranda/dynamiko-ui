@@ -38,7 +38,7 @@ class GovernmentUI {
         realEstateUI.loadLastSelectedRealEstate(); 
 
         communityTaxCertificateUI.loadTopCommunityTaxCertificate(); 
-        // businessPermitUI.loadTopBusinessPermit(); 
+        businessPermitUI.loadTopBusinessPermit(); 
         governmentCashierUI.loadTopCashierQueue();
         governmentPrintingUI.loadTopPrintingQueue()
     }

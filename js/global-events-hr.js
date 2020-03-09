@@ -25,6 +25,12 @@ class GlobalEventsHr {
         });
 
 
+        $(document).on('click', '.btnSaveEmployeePayrollDetail', function() {
+            payrollScheduleUI.saveEmployeePayrollDetail(this);
+        });
+        $(document).on('keyup', 'input.editEmployeePayrollDetail', function() {
+            payrollScheduleUI.updateEmployeePayrolDetailAmount(this);
+        });
         $(document).on('change', '#selectPayrollYear', function() {
             payrollScheduleUI.changePayrollPeriod(this, "year");
         });
