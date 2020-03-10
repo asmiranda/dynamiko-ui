@@ -4,80 +4,146 @@
     <div class="box-header with-border">
         <h3 class="box-title">Estimate</h3>
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-            <button type="button" class="btn btn-default pull-right SalesOrderUI_btnNewSalesOrder"><i class="fa fa-plus"></i> New Estimate</button>
+            <button type="button" class="btn btn-default pull-right SalesOrderUI_btnNewSalesOrder"><i
+                    class="fa fa-plus"></i> New Estimate</button>
         </div>
     </div>
     <!-- /.box-header -->
-    <div class="box-body"> 
+    <div class="box-body">
         <form role="form">
-            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="SalesOrderId" disabled="">
+            <input type="hidden" class="form-control editEstimate" module="SalesOrderUI" name="documentType"
+                value="Quotation">
+            <input type="hidden" class="form-control editEstimate" module="SalesOrderUI" name="SalesOrderId">
             <div style="display: flex; flex-wrap: wrap;">
-                <div class="form-group" style="flex: 18%; margin-left: 15px;">
-                    <label>CTC Number</label>
-                    <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="ctcNumber" disabled="">
-                </div>
-                <div class="form-group" style="flex: 18%; margin-left: 15px;">
-                    <label>Invoiced Number</label>
-                    <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="invoiceNumber" disabled="">
-                </div>
-                <div class="form-group" style="flex: 18%; margin-left: 15px;">
-                    <label>Issuer</label>
-                    <div>
-                        <input type="text" class="form-control autocomplete displayEdit editEstimate" name="issuerCode" placeholder="Issuer" module="SalesOrderUI" mainmodule="SalesOrderUI" autoname="issuerCode" helptitle="issuerCode" disabled="">
-                        <input class="form-control HiddenAutoComplete" name="issuerCode" type="hidden" module="SalesOrderUI" mainmodule="SalesOrderUI" autonamefield="issuerCode" value="">
-                        <div class="autocomplete-items" module="SalesOrderUI" mainmodule="SalesOrderUI" autoname="issuerCode">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" style="flex: 18%; margin-left: 15px;">
-                    <label>Date</label>
-                    <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="ctcDate" disabled="">
-                </div>
-
                 <div style="flex: 100%; display: flex;">
-                    <div style="flex: 1; display: flex; flex-direction: column;">
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Purpose</label>
-                            <select class="form-control editEstimate" module="SalesOrderUI" name="ctcPurpose">
-                                <option value="Identification Card">Identification Card</option>
-                                <option value="Notary Public Document">Notary Public Document</option>
-                                <option value="Government Employee">Government Employee</option>
-                                <option value="License or Permit">License or Permit</option>
-                                <option value="Payment to Gevernment">Payment to Gevernment</option>
-                                <option value="Receives Money from Public Fund">Receives Money from Public Fund</option>
-                                <option value="Business Transaction">Business Transaction</option>
-                                <option value="Salaries and Wages">Salaries and Wages</option>
-                            </select>
+                    <div style="flex: 1; display: flex; flex-wrap: wrap;">
+                        <div class="form-group" style="margin-left: 50px;">
+                            <label class="control-label">Customer</label>
+                            <div class="input-group">
+                                <input type="text" style="width: 300px;" class="form-control autocomplete displayEdit" name="SalesOrderUI_CustomerCode" placeholder="Customer" module="SalesOrderUI" mainmodule="SalesOrderUI" autoname="customerCode" helptitle="customerCode">
+                                <input class="form-control HiddenAutoComplete" name="SalesOrderUI_CustomerCode" type="hidden" module="SalesOrderUI" mainmodule="SalesOrderUI" autonamefield="customerCode" value="">
+                                <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                                <div class="autocomplete-items" module="SalesOrderUI" mainmodule="SalesOrderUI" autoname="customerCode">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Citizen</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="citizen" placeholder="Enter ...">
+                        <div class="form-group" style="flex: 20%; margin-left: 15px;">
+                            <label>Contact</label>
+                            <input type="text" class="form-control editEstimate" module="SalesOrderUI"
+                                name="contactPerson">
                         </div>
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Address</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="address" placeholder="Enter ...">
+                        <div class="form-group" style="flex: 15%; margin-left: 15px; margin-right: 50px;">
+                            <label>Estimate Date</label>
+                            <input type="text" class="form-control calendar editEstimate" module="SalesOrderUI"
+                                name="estimateDate">
                         </div>
-                    </div>
-                    <div style="flex: 1; display: flex; flex-direction: column;">
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Amount A</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="amountA" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Amount B1</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="amountB1" placeholder="Enter ..."">
-                        </div>
-                        <div class=" form-group" style="margin-left: 15px;">
-                            <label>Amount B2</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="amountB2" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Amount B3</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="amountB3" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group" style="margin-left: 15px;">
-                            <label>Total Amount</label>
-                            <input type="text" class="form-control editEstimate" module="SalesOrderUI" name="totalAmount" disabled="">
+
+                        <div class="box box-info" style="margin-left: 50px; margin-right: 50px;">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Items</h3>
+                                <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                    <button type="button" class="btn btn-default pull-right SalesOrderUI_btnNewSalesOrder"><i class="fa fa-plus"></i> New Item</button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div style="display: flex; flex-direction: column;">
+                                    <div style="display: flex;" class="salesOrderItemRecord">
+                                        <div style="flex: 50%;">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control autocomplete displayEdit" name="SalesOrderUI_ProductCode" placeholder="Product Item" module="SalesOrderUI" mainmodule="SalesOrderUI" autoname="productCode" helptitle="productCode">
+                                                <input class="form-control HiddenAutoComplete" name="SalesOrderUI_ProductCode" type="hidden" module="SalesOrderUI" mainmodule="SalesOrderUI" autonamefield="productCode" value="">
+                                                <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+                                                <div class="autocomplete-items" module="SalesOrderUI" mainmodule="SalesOrderUI" autoname="productCode">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <input type="text" class="form-control" placeholder="Unit Amount">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <input type="text" class="form-control" placeholder="Quantity">
+                                        </div>
+                                        <div style="flex: 20%; margin-left: 10px;">
+                                            <input style="width: 200px;" type="text" class="form-control" placeholder="Total" disabled="">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <i class="fa fa-trash-o SalesOrderItemUI_btnDelete" style="padding-top: 5px;" module="SalesOrderItemUI"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; margin-top: 10px;">
+                                    <div style="display: flex; margin-top: 10px;">
+                                        <div style="flex: 50%;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <label class="pull-right">Items Amount</label>
+                                        </div>
+                                        <div style="flex: 20%; margin-left: 10px;">
+                                            <input style="width: 200px;" type="text" class="form-control" placeholder="Items Total" disabled="">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; margin-top: 10px;">
+                                        <div style="flex: 50%;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <label class="pull-right">Discount</label>
+                                        </div>
+                                        <div style="flex: 20%; margin-left: 10px;">
+                                            <input style="width: 200px;" type="text" class="form-control" placeholder="Discount">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; margin-top: 10px;">
+                                        <div style="flex: 50%;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <label class="pull-right">Freight</label>
+                                        </div>
+                                        <div style="flex: 20%; margin-left: 10px;">
+                                            <input style="width: 200px;" type="text" class="form-control" placeholder="Freight">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; margin-top: 10px;">
+                                        <div style="flex: 50%;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <label class="pull-right">Tax</label>
+                                        </div>
+                                        <div style="flex: 20%; margin-left: 10px;">
+                                            <input style="width: 200px;" type="text" class="form-control" placeholder="Tax">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; margin-top: 10px;">
+                                        <div style="flex: 50%;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                            <label class="pull-right">Total Amount</label>
+                                        </div>
+                                        <div style="flex: 20%; margin-left: 10px;">
+                                            <input style="width: 200px;" type="text" class="form-control" placeholder="Total Amount" disabled="">
+                                        </div>
+                                        <div style="flex: 10%; margin-left: 10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
