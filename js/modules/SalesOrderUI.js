@@ -108,12 +108,7 @@ class SalesOrderUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
-            if (tabName=="Estimates") {
-                salesOrderUI.arrangeSalesOrderProfile(data, "Estimate");
-            }
-            else {
-                salesOrderUI.arrangeSalesOrderProfile(data, "SalesOrder");
-            }
+            salesOrderUI.arrangeSalesOrderProfile(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -121,21 +116,71 @@ class SalesOrderUI {
     arrangeSalesOrderProfile(data, clsName) {
         $(`.edit${clsName}`).each(function(index, obj) {
             var key = $(obj).attr("name");
-            var value = data.getProp(key);
-            console.log(key + " -> " + value);
-            $(`.edit${clsName}[name="${key}"]`).val(value);    
+            if (key) {
+                var value = data.getProp(key);
+                console.log(key + " -> " + value);
+                $(`.edit${clsName}[name="${key}"]`).val(value);    
+            }
         });
+        salesOrderUI.loadAutoCompleteRowLabel("customerCode", 1);
+
+        var recordId = $(`.edit${clsName}[name="SalesOrderId"]`).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/SalesOrderUI/getSalesOrderItems/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            $(data).each(function(index, obj) {
+                salesOrderUI.arrangeSalesOrderItem(index+100, obj, clsName);
+            })
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
+
+    arrangeSalesOrderItem(rowIndex, data, clsName) {
+        console.log(rowIndex, data, clsName);
+        var productCode = data.getProp("productCode");
+        var unitPrice = data.getProp("unitPrice");
+        var quantity = data.getProp("quantity");
+        var totalAmount = data.getProp("totalAmount");
+
+        $(`.edit${clsName}[module="SalesOrderItemUI"][rowIndex="${rowIndex}"][name="productCode"]`).val(productCode);    
+        $(`.edit${clsName}[module="SalesOrderItemUI"][rowIndex="${rowIndex}"][name="unitPrice"]`).val(unitPrice);    
+        $(`.edit${clsName}[module="SalesOrderItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);    
+        $(`.edit${clsName}[module="SalesOrderItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);    
+    }
+
+    loadAutoCompleteRowLabel(field, rowIndex) {
+        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == `);
+        var tmpLabel = $(`[class~='autocomplete'][autoname='${field}'][rowIndex='${rowIndex}']`);
+        tmpLabel.val("");
+
+        var hiddenAutoComplete = `.HiddenAutoComplete[name="${field}"][rowIndex='${rowIndex}']`;
+        var moduleName = $(hiddenAutoComplete).attr("module");
+        var value = $(hiddenAutoComplete).val();
+
+        if (value!=null && value!="") {
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+            var successCallback = function(data) {
+                console.log(data);
+                var divDescAutoComplete = $(`[class~='DivAutoComplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
+                divDescAutoComplete.html(data.getProp("value"));
+                var fieldAutoComplete = $(`[class~='autocomplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
+                fieldAutoComplete.val(data.getProp("value"));
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        }
+    };
 
     selectEstimate(obj) {
         console.log("selectEstimate");
         console.log("Record ID == "+$(obj).attr("recordId"));
-        salesOrderUI.loadSalesOrderProfile(obj, "Estimates");
+        salesOrderUI.loadSalesOrderProfile(obj, "Estimate");
     }
 
     selectSalesOrder(obj) {
         console.log("selectSalesOrder");
         console.log("Record ID == "+$(obj).attr("recordId"));
-        salesOrderUI.loadSalesOrderProfile(obj, "Sales");
+        salesOrderUI.loadSalesOrderProfile(obj, "Sale");
     }
 }
