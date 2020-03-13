@@ -1,17 +1,6 @@
-public String documentType; //can be quote, invoice
-
-public String customerCode;
-
-public String invoiceNumber; //note, for estimate and recurring
-public String contactPerson;
-public String currencyCode;
-public String accountNumber;
-
-public Double totalBeforeDiscount;
-public Double discountPercentage;
-public Double discountAmount;
-public Double freightAmount;
+public String taxYear;
+public Double basicAmount;
+public Double sefTax;
+public Double discount;
+public Double interest;
 public Double totalAmount;
-public Double taxAmount;
-public Double overallAmount;
-

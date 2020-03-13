@@ -1,3 +1,12 @@
+.datepicker-switch {
+    text-align: center;
+}
+.next {
+    float: right!important;
+}
+.year {
+    margin: 10px;
+}
 .popover-title {
     color: black;
 }

@@ -406,6 +406,13 @@ class FieldConstructor {
             autoclose: true,
             format: config.getDateFormat()
         });
+        $('.calendarYear').datepicker({
+            autoclose: true,
+            format: "yyyy",
+            startView: 2,
+            minViewMode: 2,
+            maxViewMode: 2
+        });
     }
 }
 

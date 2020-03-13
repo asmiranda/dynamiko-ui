@@ -153,7 +153,12 @@ $(function () {
     governmentAccountingUI = new GovernmentAccountingUI();
     governmentReportsUI = new GovernmentReportsUI();
     governmentPrintingUI = new GovernmentPrintingUI();
-    
+    realEstateTaxUI = new RealEstateTaxUI();
+    realEstateTransferUI = new RealEstateTransferUI();
+    buildingPermitUI = new BuildingPermitUI();
+    electricalPermitUI = new ElectricalPermitUI();
+    plumbingPermitUI = new PlumbingPermitUI();
+
     // #####################Initializers
     mainInitializer = new MainInitializer();
     mainInitializer.initialize();
