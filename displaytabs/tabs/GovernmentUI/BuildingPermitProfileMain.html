@@ -1,0 +1,38 @@
+<div style="display: flex; flex: 100%;">
+    <div class="form-group" style="flex: 1; margin-left: 15px;">
+        <label>Permit Type</label>
+        <select class="form-control">
+          <option>New</option>
+          <option>Renewal</option>
+        </select>
+    </div>
+    <div class="form-group" style="flex: 2; margin-left: 15px;">
+        <label>Permit Code</label>
+        <input type="text" class="form-control editRealEstateBuildingPermit" module="RealEstateBuildingPermitUI"
+            name="adValoremTaxOnIdleLand">
+    </div>
+    <div class="form-group" style="flex: 2; margin-left: 15px;">
+        <label>Application No.</label>
+        <input type="text" class="form-control editRealEstateBuildingPermit" module="RealEstateBuildingPermitUI"
+            name="assessedAmount">
+    </div>
+    <div class="form-group" style="flex: 1; margin-left: 15px; margin-right: 15px;">
+        <label>Application Date</label>
+        <input type="text" class="form-control calendar editRealEstateBuildingPermit" module="RealEstateBuildingPermitUI"
+            name="paymentDate" disabled="">
+    </div>
+    <div class="form-group" style="flex: 1; margin-left: 15px; margin-right: 15px;">
+        <label>Issued Date</label>
+        <input type="text" class="form-control calendar editRealEstateBuildingPermit" module="RealEstateBuildingPermitUI"
+            name="paymentDate" disabled="">
+    </div>
+    <div class="form-group pull-right" style="flex: 1; margin-right: 15px; margin-left: 15px;">
+        <label class="control-label">Issuer</label>
+        <div class="input-group" style="display: block;">
+            <input rowIndex="1" type="text" style="width: 100%;" class="form-control pull-right autocomplete displayEdit" name="issuerCode" placeholder="Issuer" module="RealEstateBuildingPermitUI" mainmodule="RealEstateBuildingPermitUI" autoname="issuerCode" helptitle="issuerCode" disabled="">
+            <input rowIndex="1" class="form-control editRealEstateBuildingPermit HiddenAutoComplete" name="issuerCode" type="hidden" module="RealEstateBuildingPermitUI" mainmodule="RealEstateBuildingPermitUI" autonamefield="issuerCode" value="">
+            <div class="autocomplete-items" module="RealEstateBuildingPermitUI" mainmodule="RealEstateBuildingPermitUI" autoname="issuerCode">
+            </div>
+        </div>
+    </div>
+</div>
