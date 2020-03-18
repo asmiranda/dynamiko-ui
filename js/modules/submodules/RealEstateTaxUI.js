@@ -46,36 +46,10 @@ class RealEstateTaxUI {
         });
     }
 
-    arrangeSearchedRealEstateTaxs(data) {
-        console.log(data);
-        var divName = `.searchRealEstateTax[module="realEstateTaxUI"]`;
-        $(divName).empty();
-        $(data).each(function(index, obj) {
-            var customerName = obj.getProp("customerName");
-            var customerEmail = obj.getProp("customerEmail");
-            var customerId = obj.getProp("customerId");
-
-            var employeeName = obj.getPropDefault("employeeName", "");
-            var totalAmount = obj.getPropDefault("totalAmount", "");
-            var str = `
-                <div style="display: flex; flex-wrap: wrap;">
-                    <div style="flex: 50%;">
-                        <span><a href="#" class="selectRealEstateTax" recordId="${customerId}" module="realEstateTaxUI">${customerName}</a></span>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-mail"></i> ${customerEmail}</small>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted"><i class="fa fa-compass"> Employee: </i> ${employeeName}</small>
-                    </div>
-                    <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-compass"> Total: </i> ${totalAmount}</small>
-                    </div>
-                </div>
-                <hr style="margin-top: 5px; width: 98%">
-            `;
-            $(divName).append(str);            
-        });
+    loadLastSelectedRealEstate() {
+        if (localStorage.latestRealEstateTaxId>0) {
+            realEstateTaxUI.loadRealEstateTaxProfile(localStorage.latestRealEstateTaxId);
+        }
     }
 
     loadRealEstateTaxProfile(obj, tabName) {
