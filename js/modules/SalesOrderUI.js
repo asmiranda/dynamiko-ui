@@ -122,7 +122,7 @@ class SalesOrderUI {
                 $(`.edit${clsName}[name="${key}"]`).val(value);    
             }
         });
-        salesOrderUI.loadAutoCompleteRowLabel("customerCode", 1);
+        utils.loadAutoCompleteRowLabel("customerCode", 1);
 
         var recordId = $(`.edit${clsName}[name="SalesOrderId"]`).val();
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/SalesOrderUI/getSalesOrderItems/${recordId}`;
@@ -148,29 +148,6 @@ class SalesOrderUI {
         $(`.edit${clsName}[module="SalesOrderItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);    
         $(`.edit${clsName}[module="SalesOrderItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);    
     }
-
-    loadAutoCompleteRowLabel(field, rowIndex) {
-        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == `);
-        var tmpLabel = $(`[class~='autocomplete'][autoname='${field}'][rowIndex='${rowIndex}']`);
-        tmpLabel.val("");
-
-        var hiddenAutoComplete = `.HiddenAutoComplete[name="${field}"][rowIndex='${rowIndex}']`;
-        var moduleName = $(hiddenAutoComplete).attr("module");
-        var value = $(hiddenAutoComplete).val();
-
-        if (value!=null && value!="") {
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
-            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
-                console.log(data);
-                var divDescAutoComplete = $(`[class~='DivAutoComplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
-                divDescAutoComplete.html(data.getProp("value"));
-                var fieldAutoComplete = $(`[class~='autocomplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
-                fieldAutoComplete.val(data.getProp("value"));
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-        }
-    };
 
     selectEstimate(obj) {
         console.log("selectEstimate");

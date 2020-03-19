@@ -173,6 +173,49 @@ class Utils {
         }
     };
 
+    loadDataAndAutoComplete(clsName, data, dRowIndex, dModuleName) {
+        $(`.${clsName}`).each(function(index, obj) {
+            var key = $(obj).attr("name");
+            if (key) {
+                var value = data.getProp(key);
+                console.log(key + " -> " + value);
+                $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
+            }
+        });
+
+        $(".HiddenAutoComplete").each(function(obj, index) {
+            var field = $(this).attr("autoNameField");
+            var rowIndex = $(this).attr("rowIndex");
+            var moduleName = $(this).attr("module");
+            if (field && rowIndex==dRowIndex && moduleName==dModuleName) {
+                utils.loadAutoCompleteRowLabel(field, rowIndex);
+            }
+        });
+    }
+
+    loadAutoCompleteRowLabel(field, rowIndex) {
+        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == `);
+        var tmpLabel = $(`[class~='autocomplete'][autoname='${field}'][rowIndex='${rowIndex}']`);
+        tmpLabel.val("");
+
+        var hiddenAutoComplete = `.HiddenAutoComplete[name="${field}"][rowIndex='${rowIndex}']`;
+        var moduleName = $(hiddenAutoComplete).attr("module");
+        var value = $(hiddenAutoComplete).val();
+
+        if (value!=null && value!="") {
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+            var successCallback = function(data) {
+                console.log(data);
+                var divDescAutoComplete = $(`[class~='DivAutoComplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
+                divDescAutoComplete.html(data.getProp("value"));
+                var fieldAutoComplete = $(`[class~='autocomplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
+                fieldAutoComplete.val(data.getProp("value"));
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        }
+    };
+
     loadPopSearchLabel(form, field, name) {
         console.log("loadPopSearchLabel == " + this.form + " [tmpname='"+this.name+"'] == ");
         var tmpLabel = $(this.form + " [class~='labelPopSearch'][tmpname='"+this.name+"']");

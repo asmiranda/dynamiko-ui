@@ -4,7 +4,7 @@ class RealEstateTaxUI {
     }
 
     loadTopRealEstateTaxes() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/realEstateTaxUI/getTopRealEstateTaxes`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getTopRealEstateTaxes`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function(data) {
@@ -15,23 +15,23 @@ class RealEstateTaxUI {
 
     arrangeSearchedRealEstateTaxes(data) {
         console.log(data);
-        var divName = `.searchRealEstateTaxes[module="realEstateTaxUI"]`;
+        var divName = `.searchRealEstateTaxes[module="RealEstateTaxUI"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
             var RealEstateTaxId = obj.getProp("RealEstateTaxId");
 
-            var customerName = obj.getProp("customerName");
-            var customerEmail = obj.getProp("customerEmail");
+            var customerName = obj.getProp("citizenName");
+            var years = obj.getProp("startYear")+"-"+obj.getProp("endYear");
 
-            var employeeName = obj.getPropDefault("employeeName", "");
-            var totalAmount = obj.getPropDefault("totalAmount", "");
+            var employeeName = obj.getPropDefault("firstName", "")+" "+obj.getPropDefault("lastName", "");
+            var totalAmount = obj.getPropDefault("totalAmount", ""); 
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50%;">
-                        <span><a href="#" class="selectRealEstateTax" recordId="${RealEstateTaxId}" module="realEstateTaxUI">${customerName}</a></span>
+                        <span><a href="#" class="selectRealEstateTax" recordId="${RealEstateTaxId}" module="RealEstateTaxUI">${customerName}</a></span>
                     </div>
                     <div style="flex: 50%">
-                        <small class="text-muted pull-right"><i class="fa fa-mail"></i> ${customerEmail}</small>
+                        <small class="text-muted pull-right"><i class="fa fa-calendar"></i> ${years}</small>
                     </div>
                     <div style="flex: 50%">
                         <small class="text-muted"><i class="fa fa-compass"> Employee: </i> ${employeeName}</small>
@@ -46,82 +46,44 @@ class RealEstateTaxUI {
         });
     }
 
-    loadLastSelectedRealEstate() {
+    loadLastSelectedRealEstateTax() {
         if (localStorage.latestRealEstateTaxId>0) {
             realEstateTaxUI.loadRealEstateTaxProfile(localStorage.latestRealEstateTaxId);
         }
     }
 
-    loadRealEstateTaxProfile(obj, tabName) {
-        console.log(`loadRealEstateTaxProfile for ${tabName}`);
+    loadRealEstateTaxProfile(obj) {
+        console.log(`loadRealEstateTaxProfile`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/realEstateTaxUI/getRealEstateTaxProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getRealEstateTaxProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
-            realEstateTaxUI.arrangeRealEstateTaxProfile(data, tabName);
+            realEstateTaxUI.arrangeRealEstateTaxProfile(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    arrangeRealEstateTaxProfile(data, clsName) {
-        $(`.edit${clsName}`).each(function(index, obj) {
-            var key = $(obj).attr("name");
-            if (key) {
-                var value = data.getProp(key);
-                console.log(key + " -> " + value);
-                $(`.edit${clsName}[name="${key}"]`).val(value);    
-            }
-        });
-        realEstateTaxUI.loadAutoCompleteRowLabel("customerCode", 1);
+    arrangeRealEstateTaxProfile(data) {
+        var clsName = "editRealEstateTax";
+        utils.loadDataAndAutoComplete(clsName, data, 0, "RealEstateTaxUI");
 
-        var recordId = $(`.edit${clsName}[name="RealEstateTaxId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/realEstateTaxUI/getRealEstateTaxItems/${recordId}`;
+        var recordId = $(`.${clsName}[name="RealEstateTaxId"]`).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getRealEstateTaxItems/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
+            console.log("Real Estate Tax Items --->", data);
             $(data).each(function(index, obj) {
-                realEstateTaxUI.arrangeRealEstateTaxItem(index+100, obj, clsName);
+                realEstateTaxUI.arrangeRealEstateTaxItem(clsName, obj, index+1, "RealEstateTaxItemUI");
             })
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    arrangeRealEstateTaxItem(rowIndex, data, clsName) {
-        console.log(rowIndex, data, clsName);
-        var productCode = data.getProp("productCode");
-        var unitPrice = data.getProp("unitPrice");
-        var quantity = data.getProp("quantity");
-        var totalAmount = data.getProp("totalAmount");
-
-        $(`.edit${clsName}[module="RealEstateTaxItemUI"][rowIndex="${rowIndex}"][name="productCode"]`).val(productCode);    
-        $(`.edit${clsName}[module="RealEstateTaxItemUI"][rowIndex="${rowIndex}"][name="unitPrice"]`).val(unitPrice);    
-        $(`.edit${clsName}[module="RealEstateTaxItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);    
-        $(`.edit${clsName}[module="RealEstateTaxItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);    
+    arrangeRealEstateTaxItem(clsName, data, rowIndex, moduleName) {
+        utils.loadDataAndAutoComplete(clsName, data, rowIndex, moduleName);
     }
-
-    loadAutoCompleteRowLabel(field, rowIndex) {
-        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == `);
-        var tmpLabel = $(`[class~='autocomplete'][autoname='${field}'][rowIndex='${rowIndex}']`);
-        tmpLabel.val("");
-
-        var hiddenAutoComplete = `.HiddenAutoComplete[name="${field}"][rowIndex='${rowIndex}']`;
-        var moduleName = $(hiddenAutoComplete).attr("module");
-        var value = $(hiddenAutoComplete).val();
-
-        if (value!=null && value!="") {
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
-            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
-                console.log(data);
-                var divDescAutoComplete = $(`[class~='DivAutoComplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
-                divDescAutoComplete.html(data.getProp("value"));
-                var fieldAutoComplete = $(`[class~='autocomplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
-                fieldAutoComplete.val(data.getProp("value"));
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
-        }
-    };
 
     selectRealEstateTax(obj) {
         console.log("selectRealEstateTax");

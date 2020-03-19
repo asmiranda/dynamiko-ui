@@ -1,6 +1,10 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
         
+        $(document).on('click', '.selectRealEstateTax', function() {
+            realEstateTaxUI.loadRealEstateTaxProfile(this);
+        });
+
         $(document).on('click', '.btnSaveBusinessPermitForCashier', function() {
             businessPermitUI.saveBusinessPermitForCashier(this);
         });
