@@ -1,6 +1,9 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
         
+        $(document).on('click', '.btnSaveRealEstateTax', function() {
+            realEstateTaxUI.saveRealEstateTaxForCashier(this);
+        });
         $(document).on('click', '.selectRealEstateTax', function() {
             realEstateTaxUI.loadRealEstateTaxProfile(this);
         });

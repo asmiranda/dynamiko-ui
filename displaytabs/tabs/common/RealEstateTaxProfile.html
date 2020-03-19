@@ -12,6 +12,7 @@
     <div class="box-body">
         <form role="form">
             <input rowIndex="0" type="hidden" class="form-control editRealEstateTax" module="RealEstateTaxUI" name="RealEstateTaxId">
+            <input rowIndex="0" type="hidden" class="form-control editRealEstateTax" module="RealEstateTaxUI" name="code">
             <div style="display: flex; flex-direction: column;">
                 <div style="flex: 1; display: flex; flex-wrap: wrap;">
                     <div class="form-group" style="flex: 10%; margin-left: 10px;">
@@ -23,22 +24,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" style="flex: 15%; margin-left: 10px;">
+                    <div class="form-group" style="flex: 10%; margin-left: 10px;">
                         <label>Payer</label>
                         <input rowIndex="0" type="text" class="form-control editRealEstateTax" module="RealEstateTaxUI"
                             name="citizenName">
                     </div>
-                    <div class="form-group" style="flex: 8%; margin-left: 10px;">
+                    <div class="form-group" style="flex: 5%; margin-left: 10px;">
                         <label>Assessed Amount</label>
                         <input rowIndex="0" type="text" class="form-control editRealEstateTax" module="RealEstateTaxUI"
                             name="assessedAmount">
                     </div>
-                    <div class="form-group" style="flex: 8%; margin-left: 10px;">
+                    <div class="form-group" style="flex: 5%; margin-left: 10px;">
                         <label>Ad Valorem</label>
                         <input rowIndex="0" type="text" class="form-control editRealEstateTax" module="RealEstateTaxUI"
                             name="adValoremTaxOnIdleLand">
                     </div>
-                    <div class="form-group" style="flex: 15%; margin-left: 10px;">
+                    <div class="form-group" style="flex: 8%; margin-left: 10px;">
                         <label>Years:</label>
                         <div style="display: flex;">
                             <div style="flex: 1">
@@ -60,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" style="flex: 8%; margin-left: 10px; margin-right: 10px;">
+                    <div class="form-group" style="flex: 4%; margin-left: 10px; margin-right: 10px;">
                         <label>Payment Date</label>
                         <input rowIndex="0" type="text" class="form-control calendar editRealEstateTax" module="RealEstateTaxUI"
                             name="paymentDate" disabled="">
@@ -72,6 +73,26 @@
                     </div>
                     <div class="box-body">
                         <div style="display: flex; flex-direction: column;">
+                            <div style="display: flex;" class="RealEstateTaxItemRecord">
+                                <div class="text-center" style="flex: 10%; margin-left: 10px;">
+                                    <b>Year</b>
+                                </div>
+                                <div class="text-center" style="flex: 10%; margin-left: 10px;">
+                                    <b>Amount</b>
+                                </div>
+                                <div class="text-center" style="flex: 10%; margin-left: 10px;">
+                                    <b>SEF Tax</b>
+                                </div>
+                                <div class="text-center" style="flex: 10%; margin-left: 10px;">
+                                    <b>Discount</b>
+                                </div>
+                                <div class="text-center" style="flex: 10%; margin-left: 10px;">
+                                    <b>Interest</b>
+                                </div>
+                                <div class="text-center" style="flex: 20%; margin-left: 10px;">
+                                    <b>Total</b>
+                                </div>
+                            </div>
                             <div style="display: flex;" class="RealEstateTaxItemRecord">
                                 <div style="flex: 10%; margin-left: 10px;">
                                     <input rowIndex="1" name="taxYear" module="RealEstateTaxItemUI" type="text" class="form-control calendarYear editRealEstateTax" placeholder="Year">
@@ -287,7 +308,7 @@
                                     <label>Overall Total</label>
                                 </div>
                                 <div style="flex: 20%; margin-left: 10px;">
-                                    <input rowIndex="1" name="totalAmount" module="RealEstateTaxItemUI" style="width: 200px;" type="text" class="form-control editRealEstateTax" placeholder="Total" disabled="">
+                                    <input rowIndex="0" name="totalAmount" module="RealEstateTaxUI" style="width: 200px;" type="text" class="form-control editRealEstateTax" placeholder="Total" disabled="">
                                 </div>
                             </div>
                         </div>

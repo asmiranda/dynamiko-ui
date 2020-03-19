@@ -3,6 +3,43 @@ class RealEstateTaxUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    saveRealEstateTaxForCashier(obj) {
+        console.log("saveRealEstateTaxForCashier called");
+        var tmp = realEstateTaxUI.collectDataForSaving("editRealEstateTax", "RealEstateTaxUI", "0");
+        tmp["taxItems"] = realEstateTaxUI.collectSubRecordDataForSaving("editRealEstateTax", "RealEstateTaxItemUI");
+
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/post/saveRealEstateTaxForCashier`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            showModalAny.show("Save Real Estate Tax Message", data.value);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
+    collectDataForSaving(clsName, moduleName, rowIndex) {
+        var tmp = {};
+        $(`.${clsName}[module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        return tmp;
+    }
+
+    collectSubRecordDataForSaving(clsName, moduleName) {
+        var tmp = [];
+        for (var i=1; i<=10; i++) {
+            var rec = realEstateTaxUI.collectDataForSaving(clsName, moduleName, i);
+            tmp.push(rec);
+        }
+        return tmp;
+    }
+
     loadTopRealEstateTaxes() {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getTopRealEstateTaxes`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
