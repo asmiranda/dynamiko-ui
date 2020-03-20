@@ -13,6 +13,8 @@ class DynaAutoComplete {
         $(`.HiddenAutoComplete[module="${moduleName}"][autoNameField="${fieldName}"][name="${fieldName}"]`).val(value);
         $(`.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"]`).val(value);
         $(`.HiddenAutoComplete[module="${moduleName}"][autoNameField="${fieldName}"]`).val(value);
+
+        document.dispatchEvent(new CustomEvent(`changeAutoComplete[${fieldName}][${moduleName}]`, { bubbles: true, detail: { text: () => value } }))
     }
 
     doAutoComplete(obj) {

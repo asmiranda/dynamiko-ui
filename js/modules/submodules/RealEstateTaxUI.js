@@ -3,6 +3,22 @@ class RealEstateTaxUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    changeRealEstate(evt) {
+        console.log(evt);
+        var realEstateCode = $(`.HiddenAutoComplete[name="realEstateCode"]`).val();
+        if (realEstateCode!="") {
+            console.log("changeRealEstateTaxValues - realEstateCode",realEstateCode);
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getUpdateForRealEstateTax/${realEstateCode}`;
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+    
+            var successCallback = function(data) {
+                console.log(data);
+                realEstateTaxUI.arrangeRealEstateTaxProfile(data);
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        }
+    }
+
     saveRealEstateTaxForCashier(obj) {
         console.log("saveRealEstateTaxForCashier called");
         var tmp = realEstateTaxUI.collectDataForSaving("editRealEstateTax", "RealEstateTaxUI", "0");
@@ -57,6 +73,7 @@ class RealEstateTaxUI {
         $(data).each(function(index, obj) {
             var RealEstateTaxId = obj.getProp("RealEstateTaxId");
 
+            var realEstateName = obj.getProp("realEstateName");
             var customerName = obj.getProp("citizenName");
             var years = obj.getProp("startYear")+"-"+obj.getProp("endYear");
 
@@ -64,6 +81,9 @@ class RealEstateTaxUI {
             var totalAmount = obj.getPropDefault("totalAmount", ""); 
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
+                    <div style="flex: 90%;">
+                        <span><a href="#" class="selectRealEstateTax" recordId="${RealEstateTaxId}" module="RealEstateTaxUI">${realEstateName}</a></span>
+                    </div>
                     <div style="flex: 50%;">
                         <span><a href="#" class="selectRealEstateTax" recordId="${RealEstateTaxId}" module="RealEstateTaxUI">${customerName}</a></span>
                     </div>

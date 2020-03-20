@@ -21,7 +21,7 @@ class GlobalEvents {
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);
         });
-        $(document).on('doMainSearchData', function(evt) {
+        $(document).on('doMainSearchData', function(evt) { 
             globalEvents.triggerMainSearch(evt);
         });
         $(document).on('click', '.loadRecordToForm', function() {

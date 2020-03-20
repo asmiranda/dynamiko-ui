@@ -21,7 +21,7 @@ class BusinessPermitUI {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
-    changeBusinessPermitTValues(obj) {
+    changeBusinessPermitValues(obj) {
         var totalAmount = utils.parseFloatOrZero($(`.editBusinessPermit[name="sanitaryPermitFee"]`).val());
         totalAmount += utils.parseFloatOrZero($(`.editBusinessPermit[name="fireInspectionFee"]`).val());
         totalAmount += utils.parseFloatOrZero($(`.editBusinessPermit[name="medicalCertificateFee"]`).val());

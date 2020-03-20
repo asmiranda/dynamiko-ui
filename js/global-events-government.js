@@ -1,6 +1,8 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
-        
+        $(document).on('changeAutoComplete[realEstateCode][RealEstateTaxUI]', function(evt) {
+            realEstateTaxUI.changeRealEstate(evt);
+        });
         $(document).on('click', '.btnSaveRealEstateTax', function() {
             realEstateTaxUI.saveRealEstateTaxForCashier(this);
         });
@@ -12,7 +14,7 @@ class GlobalEventsGovernment {
             businessPermitUI.saveBusinessPermitForCashier(this);
         });
         $(document).on('keyup', 'input.editBusinessPermit', function() {
-            businessPermitUI.changeBusinessPermitTValues(this);
+            businessPermitUI.changeBusinessPermitValues(this);
         });
         $(document).on('click', '.BusinessPermitSelect', function() {
             businessPermitUI.loadBusinessPermitProfile(this);
