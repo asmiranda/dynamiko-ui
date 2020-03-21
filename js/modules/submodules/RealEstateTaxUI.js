@@ -125,17 +125,11 @@ class RealEstateTaxUI {
         var clsName = "editRealEstateTax";
         utils.loadDataAndAutoComplete(clsName, data, 0, "RealEstateTaxUI");
 
-        var recordId = $(`.${clsName}[name="RealEstateTaxId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getRealEstateTaxItems/${recordId}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-
-        var successFunction = function(data) {
-            console.log("Real Estate Tax Items --->", data);
-            $(data).each(function(index, obj) {
-                realEstateTaxUI.arrangeRealEstateTaxItem(clsName, obj, index+1, "RealEstateTaxItemUI");
-            })
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        $(`.editRealEstateTax[module="RealEstateTaxItemUI"]`).val("");
+        var items = data.getProp("taxItems");
+        $(items).each(function(index, obj) {
+            realEstateTaxUI.arrangeRealEstateTaxItem(clsName, obj, index+1, "RealEstateTaxItemUI");
+        })
     }
 
     arrangeRealEstateTaxItem(clsName, data, rowIndex, moduleName) {
