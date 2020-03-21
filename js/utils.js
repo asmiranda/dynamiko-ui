@@ -178,7 +178,7 @@ class Utils {
             var key = $(obj).attr("name");
             if (key) {
                 var value = data.getProp(key);
-                console.log(key + " -> " + value);
+                // console.log(key + " -> " + value);
                 $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
             }
         });

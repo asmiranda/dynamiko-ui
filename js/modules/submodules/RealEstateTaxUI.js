@@ -3,7 +3,43 @@ class RealEstateTaxUI {
         $("#dynamikoMainSearch").hide();
     }
 
-    changeRealEstate(evt) {
+    changeRealEstateTaxTotals(obj) {
+        var overAllAmount = 0;
+        for (var rowIndex=1; rowIndex<=10; rowIndex++) {
+            var basicAmount = utils.parseFloatOrZero($(`input.editRealEstateTax[module="RealEstateTaxItemUI"][rowIndex=${rowIndex}][name="basicAmount"]`).val());
+            var sefTax = utils.parseFloatOrZero($(`input.editRealEstateTax[module="RealEstateTaxItemUI"][rowIndex=${rowIndex}][name="sefTax"]`).val());
+            var discount = utils.parseFloatOrZero($(`input.editRealEstateTax[module="RealEstateTaxItemUI"][rowIndex=${rowIndex}][name="discount"]`).val());
+            var interest = utils.parseFloatOrZero($(`input.editRealEstateTax[module="RealEstateTaxItemUI"][rowIndex=${rowIndex}][name="interest"]`).val());
+
+            if (basicAmount > 0) {
+                var totalAmount = (basicAmount * ((100 + interest)/100)) + sefTax - discount;
+                $(`input.editRealEstateTax[module="RealEstateTaxItemUI"][rowIndex=${rowIndex}][name="totalAmount"]`).val(totalAmount);
+
+                overAllAmount += totalAmount;
+            }
+        }
+        $(`input.editRealEstateTax[module="RealEstateTaxUI"][rowIndex=${rowIndex}][name="totalAmount"]`).val(overAllAmount);
+    }
+
+    changeRealEstateTaxYears(evt) {
+        console.log(evt);
+        var realEstateCode = $(`.HiddenAutoComplete[name="realEstateCode"]`).val();
+        if (realEstateCode!="") {
+            var startYear = $(`.editRealEstateTax[name="startYear"]`).val();
+            var endYear = $(`.editRealEstateTax[name="endYear"]`).val();
+            console.log("changeRealEstateTaxValues - realEstateCode",realEstateCode,startYear,endYear);
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTaxUI/getUpdateForRealEstateTax/${realEstateCode}/${startYear}/${endYear}`;
+            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+    
+            var successCallback = function(data) {
+                console.log(data);
+                realEstateTaxUI.arrangeRealEstateTaxProfile(data);
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        }
+    }
+
+    changeRealEstateTax(evt) {
         console.log(evt);
         var realEstateCode = $(`.HiddenAutoComplete[name="realEstateCode"]`).val();
         if (realEstateCode!="") {

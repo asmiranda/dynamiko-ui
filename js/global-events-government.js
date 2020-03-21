@@ -1,7 +1,13 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
+        $(document).on('keyup', 'input.editRealEstateTax[module="RealEstateTaxItemUI"]', function() {
+            realEstateTaxUI.changeRealEstateTaxTotals(this);
+        });
+        $(document).on('change', '.calendarYear[module="RealEstateTaxUI"]', function(evt) {
+            realEstateTaxUI.changeRealEstateTaxYears(evt);
+        });
         $(document).on('changeAutoComplete[realEstateCode][RealEstateTaxUI]', function(evt) {
-            realEstateTaxUI.changeRealEstate(evt);
+            realEstateTaxUI.changeRealEstateTax(evt);
         });
         $(document).on('click', '.btnSaveRealEstateTax', function() {
             realEstateTaxUI.saveRealEstateTaxForCashier(this);
