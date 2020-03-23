@@ -1,24 +1,24 @@
-class ElectricalPermitUI {
+class RealEstatePlumbingPermitUI {
     init() {
         $("#dynamikoMainSearch").hide();
     }
 
-    loadTopElectricalPermits() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ElectricalPermitUI/getTopElectricalPermits`;
+    loadTopRealEstatePlumbingPermits() {
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstatePlumbingPermitUI/getTopRealEstatePlumbingPermits`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function(data) {
-            electricalPermitUI.arrangeSearchedElectricalPermits(data);
+            RealEstatePlumbingPermitUI.arrangeSearchedRealEstatePlumbingPermits(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
-    arrangeSearchedElectricalPermits(data) {
+    arrangeSearchedRealEstatePlumbingPermits(data) {
         console.log(data);
-        var divName = `.searchElectricalPermits[module="ElectricalPermitUI"]`;
+        var divName = `.searchRealEstatePlumbingPermits[module="RealEstatePlumbingPermitUI"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
-            var ElectricalPermitId = obj.getProp("ElectricalPermitId");
+            var RealEstatePlumbingPermitId = obj.getProp("RealEstatePlumbingPermitId");
 
             var customerName = obj.getProp("customerName");
             var customerEmail = obj.getProp("customerEmail");
@@ -28,7 +28,7 @@ class ElectricalPermitUI {
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50%;">
-                        <span><a href="#" class="selectElectricalPermit" recordId="${ElectricalPermitId}" module="ElectricalPermitUI">${customerName}</a></span>
+                        <span><a href="#" class="selectRealEstatePlumbingPermit" recordId="${RealEstatePlumbingPermitId}" module="RealEstatePlumbingPermitUI">${customerName}</a></span>
                     </div>
                     <div style="flex: 50%">
                         <small class="text-muted pull-right"><i class="fa fa-mail"></i> ${customerEmail}</small>
@@ -46,9 +46,9 @@ class ElectricalPermitUI {
         });
     }
 
-    arrangeSearchedElectricalPermits(data) {
+    arrangeSearchedRealEstatePlumbingPermits(data) {
         console.log(data);
-        var divName = `.searchElectricalPermit[module="ElectricalPermitUI"]`;
+        var divName = `.searchRealEstatePlumbingPermit[module="RealEstatePlumbingPermitUI"]`;
         $(divName).empty();
         $(data).each(function(index, obj) {
             var customerName = obj.getProp("customerName");
@@ -60,7 +60,7 @@ class ElectricalPermitUI {
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 50%;">
-                        <span><a href="#" class="selectElectricalPermit" recordId="${customerId}" module="ElectricalPermitUI">${customerName}</a></span>
+                        <span><a href="#" class="selectRealEstatePlumbingPermit" recordId="${customerId}" module="RealEstatePlumbingPermitUI">${customerName}</a></span>
                     </div>
                     <div style="flex: 50%">
                         <small class="text-muted pull-right"><i class="fa fa-mail"></i> ${customerEmail}</small>
@@ -78,19 +78,19 @@ class ElectricalPermitUI {
         });
     }
 
-    loadElectricalPermitProfile(obj, tabName) {
-        console.log(`loadElectricalPermitProfile for ${tabName}`);
+    loadRealEstatePlumbingPermitProfile(obj, tabName) {
+        console.log(`loadRealEstatePlumbingPermitProfile for ${tabName}`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ElectricalPermitUI/getElectricalPermitProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstatePlumbingPermitUI/getRealEstatePlumbingPermitProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
-            electricalPermitUI.arrangeElectricalPermitProfile(data, tabName);
+            RealEstatePlumbingPermitUI.arrangeRealEstatePlumbingPermitProfile(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    arrangeElectricalPermitProfile(data, clsName) {
+    arrangeRealEstatePlumbingPermitProfile(data, clsName) {
         $(`.edit${clsName}`).each(function(index, obj) {
             var key = $(obj).attr("name");
             if (key) {
@@ -99,31 +99,31 @@ class ElectricalPermitUI {
                 $(`.edit${clsName}[name="${key}"]`).val(value);    
             }
         });
-        electricalPermitUI.loadAutoCompleteRowLabel("customerCode", 1);
+        RealEstatePlumbingPermitUI.loadAutoCompleteRowLabel("customerCode", 1);
 
-        var recordId = $(`.edit${clsName}[name="ElectricalPermitId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ElectricalPermitUI/getElectricalPermitItems/${recordId}`;
+        var recordId = $(`.edit${clsName}[name="RealEstatePlumbingPermitId"]`).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstatePlumbingPermitUI/getRealEstatePlumbingPermitItems/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
             $(data).each(function(index, obj) {
-                electricalPermitUI.arrangeElectricalPermitItem(index+100, obj, clsName);
+                RealEstatePlumbingPermitUI.arrangeRealEstatePlumbingPermitItem(index+100, obj, clsName);
             })
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    arrangeElectricalPermitItem(rowIndex, data, clsName) {
+    arrangeRealEstatePlumbingPermitItem(rowIndex, data, clsName) {
         console.log(rowIndex, data, clsName);
         var productCode = data.getProp("productCode");
         var unitPrice = data.getProp("unitPrice");
         var quantity = data.getProp("quantity");
         var totalAmount = data.getProp("totalAmount");
 
-        $(`.edit${clsName}[module="ElectricalPermitItemUI"][rowIndex="${rowIndex}"][name="productCode"]`).val(productCode);    
-        $(`.edit${clsName}[module="ElectricalPermitItemUI"][rowIndex="${rowIndex}"][name="unitPrice"]`).val(unitPrice);    
-        $(`.edit${clsName}[module="ElectricalPermitItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);    
-        $(`.edit${clsName}[module="ElectricalPermitItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);    
+        $(`.edit${clsName}[module="RealEstatePlumbingPermitItemUI"][rowIndex="${rowIndex}"][name="productCode"]`).val(productCode);    
+        $(`.edit${clsName}[module="RealEstatePlumbingPermitItemUI"][rowIndex="${rowIndex}"][name="unitPrice"]`).val(unitPrice);    
+        $(`.edit${clsName}[module="RealEstatePlumbingPermitItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);    
+        $(`.edit${clsName}[module="RealEstatePlumbingPermitItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);    
     }
 
     loadAutoCompleteRowLabel(field, rowIndex) {
@@ -149,15 +149,15 @@ class ElectricalPermitUI {
         }
     };
 
-    selectElectricalPermit(obj) {
-        console.log("selectElectricalPermit");
+    selectRealEstatePlumbingPermit(obj) {
+        console.log("selectRealEstatePlumbingPermit");
         console.log("Record ID == "+$(obj).attr("recordId"));
-        electricalPermitUI.loadElectricalPermitProfile(obj, "ElectricalPermit");
+        RealEstatePlumbingPermitUI.loadRealEstatePlumbingPermitProfile(obj, "RealEstatePlumbingPermit");
     }
 
-    selectElectricalPermit(obj) {
-        console.log("selectElectricalPermit");
+    selectRealEstatePlumbingPermit(obj) {
+        console.log("selectRealEstatePlumbingPermit");
         console.log("Record ID == "+$(obj).attr("recordId"));
-        electricalPermitUI.loadElectricalPermitProfile(obj, "Sale");
+        RealEstatePlumbingPermitUI.loadRealEstatePlumbingPermitProfile(obj, "Sale");
     }
 }

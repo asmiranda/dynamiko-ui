@@ -33,6 +33,8 @@ class GovernmentUI {
     changeModule(evt) {
         governmentUI.init();
 
+        realEstateBuildingPermitUI.loadTopRealEstateBuildingPermits(); 
+
         personTaskUI.loadTodoList();
         realEstateUI.loadTopRealEstate(); 
         realEstateUI.loadLastSelectedRealEstate(); 

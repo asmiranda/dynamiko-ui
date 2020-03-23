@@ -1,5 +1,9 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
+        $(document).on('click', '.selectRealEstateBuildingPermit', function() {
+            realEstateBuildingPermitUI.loadRealEstateBuildingPermitProfile(this);
+        });
+
         $(document).on('keyup', 'input.editRealEstateTax[module="RealEstateTaxItemUI"]', function() {
             realEstateTaxUI.changeRealEstateTaxTotals(this);
         });

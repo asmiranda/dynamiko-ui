@@ -155,9 +155,9 @@ $(function () {
     governmentPrintingUI = new GovernmentPrintingUI();
     realEstateTaxUI = new RealEstateTaxUI();
     realEstateTransferUI = new RealEstateTransferUI();
-    buildingPermitUI = new BuildingPermitUI();
-    electricalPermitUI = new ElectricalPermitUI();
-    plumbingPermitUI = new PlumbingPermitUI();
+    realEstateBuildingPermitUI = new RealEstateBuildingPermitUI();
+    realEstateElectricalPermitUI = new RealEstateElectricalPermitUI();
+    realEstatePlumbingPermitUI = new RealEstatePlumbingPermitUI();
 
     // #####################Initializers
     mainInitializer = new MainInitializer();
