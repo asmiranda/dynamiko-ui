@@ -36,8 +36,6 @@ class GovernmentUI {
         realEstateBuildingPermitUI.loadTopRealEstateBuildingPermits(); 
 
         personTaskUI.loadTodoList();
-        realEstateUI.loadTopRealEstate(); 
-        realEstateUI.loadLastSelectedRealEstate(); 
 
         realEstateTaxUI.loadTopRealEstateTaxes(); 
         realEstateTaxUI.loadLastSelectedRealEstateTax(); 
@@ -46,6 +44,9 @@ class GovernmentUI {
         businessPermitUI.loadTopBusinessPermit(); 
         governmentCashierUI.loadTopCashierQueue();
         governmentPrintingUI.loadTopPrintingQueue()
+
+        realEstateUI.loadTopRealEstate(); 
+        realEstateUI.loadLastSelectedRealEstate(); 
     }
 
     init() {

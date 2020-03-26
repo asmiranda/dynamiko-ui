@@ -3,6 +3,23 @@ class RealEstateBuildingPermitUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    changeValue(obj) {
+        var name = $(obj).attr("name");
+        var type = $(obj).attr("type");
+        var value = $(obj).val();
+        if (type=="checkbox") {
+            if($(obj).prop("checked") == true){
+                $(`input.editRealEstateBuildingPermit[type="text"][name="${name}"]`).val(value);
+            }
+            else {
+                $(`input.editRealEstateBuildingPermit[type="text"][name="${name}"]`).val("");
+            }
+        }
+        else {
+            $(`input.editRealEstateBuildingPermit[type="checkbox"][name="${name}"]`).val(value);
+        }
+    }
+
     loadTopRealEstateBuildingPermits() {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateBuildingPermitUI/getTopRealEstateBuildingPermits`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");

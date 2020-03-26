@@ -1,75 +1,67 @@
-<div class="tab-pane" id="PlumbingPermit">
-    <div style="display: flex; background: #ecf0f5;">
-        <div style="flex: 75%; margin: 15px 0px;">
-            <div class="box box-warning">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Plumbing Permit</h3>
-                    <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                        <button type="button" class="btn btn-default pull-right RealEstatePlumbingPermitUI_btnNewRealEstate"><i
-                                class="fa fa-plus"></i> New Plumbing Permit</button>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileMain"></div>
-                    <div class="nav-tabs-custom" style="margin-top: 5px;">
-                        <ul class="nav nav-tabs">
-                            <li class="tab-pane active">
-                                <a href="#PlumbingPermitBox1" data-toggle="tab" aria-expanded="false">Box 1 (Engr)</a>
-                            </li>
-                            <li class="tab-pane">
-                                <a href="#PlumbingPermitBox2" data-toggle="tab" aria-expanded="true">Box 2 (Recording)</a>
-                            </li>
-                            <li class="tab-pane">
-                                <a href="#PlumbingPermitBox3" data-toggle="tab" aria-expanded="true">Box 3 (Engr/Section)</a>
-                            </li>
-                            <li class="tab-pane">
-                                <a href="#PlumbingPermitBox4" data-toggle="tab" aria-expanded="true">Box 4 (Section)</a>
-                            </li>
-                            <li class="tab-pane">
-                                <a href="#PlumbingPermitBox5" data-toggle="tab" aria-expanded="true">Box 5 (Section)</a>
-                            </li>
-                            <li class="tab-pane">
-                                <a href="#PlumbingPermitBox6" data-toggle="tab" aria-expanded="true">Box 6 (Architect/Civil/Applicant/Owner)</a>
-                            </li>
-                            <li class="tab-pane">
-                                <a href="#PlumbingPermitBoxAttachment" data-toggle="tab" aria-expanded="true">Attachment</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content no-padding">
-                            <div class="tab-pane active" id="PlumbingPermitBox1">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBox1"></div>
-                            </div>
-                            <div class="tab-pane" id="PlumbingPermitBox2">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBox2"></div>
-                            </div>
-                            <div class="tab-pane" id="PlumbingPermitBox3">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBox3"></div>
-                            </div>
-                            <div class="tab-pane" id="PlumbingPermitBox4">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBox4"></div>
-                            </div>
-                            <div class="tab-pane" id="PlumbingPermitBox5">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBox5"></div>
-                            </div>
-                            <div class="tab-pane" id="PlumbingPermitBox6">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBox6"></div>
-                            </div>
-                            <div class="tab-pane" id="PlumbingPermitBoxAttachment">
-                                <div class="DisplayTab" tabName="PlumbingPermit" tabUrl="PlumbingPermitProfileBoxAttachment"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    <button type="button" class="btn btn-default">Cancel</button>
-                    <button type="button" class="btn btn-info pull-right btnSaveRealEstatePlumbingPermit">Save Plumbing Permit</button>
-                </div>
-            </div>
-        </div>
-        <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-            <div class="DisplayTabCommon" tabName="PlumbingPermit" tabUrl="SearchPlumbingPermit"></div>
-        </div>
-    </div>
-</div>
+public String realEstateCode;
+public String permitType;
+public String permitCode;
+public String applicationNumber;
+public LocalDate applicationDate;
+public String issuerCode;
+public LocalDate issueDate;
+
+public String ownerFirstName;
+public String ownerLastName;
+public String ownerMI;
+public String taxAccountNo;
+public String forEnterprise;
+public String formOfOwnership;
+public String businessType;
+public String address;
+public String telNo;
+public String locationOfConstructionAddress;
+
+public Boolean scopeOfWorkNew;
+public String scopeOfWorkInAddition;
+public String scopeOfWorkRepair;
+public String scopeOfWorkRenovation;
+public String scopeOfWorkDemolition;
+public String scopeOfOther1;
+public String scopeOfOther2;
+
+public Boolean occupancyTypeResidentialSingle;
+public Boolean occupancyTypeResidentialDuplex;
+public Boolean occupancyTypeResidentialRowHouse;
+public String occupancyTypeResidentialOther;
+
+public Boolean occupancyTypeCommercialBank;
+public Boolean occupancyTypeCommercialStore;
+public Boolean occupancyTypeCommercialHotel;
+public Boolean occupancyTypeCommercialOffice;
+public Boolean occupancyTypeCommercialRestaurant;
+public Boolean occupancyTypeCommercialShop;
+public Boolean occupancyTypeCommercialGasolineStation;
+public Boolean occupancyTypeCommercialMarket;
+public Boolean occupancyTypeCommercialDormitory;
+public String occupancyTypeCommercialOther;
+
+public Boolean occupancyTypeIndustrialFactory;
+public Boolean occupancyTypeIndustrialRepairShop;
+public Boolean occupancyTypeIndustrialRefinery;
+public Boolean occupancyTypeIndustrialPrintingPress;
+public Boolean occupancyTypeIndustrialWarehouse;
+public String occupancyTypeIndustrialOther;
+
+public Boolean occupancyTypeInstitutionSchool;
+public Boolean occupancyTypeInstitutionChurch;
+public Boolean occupancyTypeInstitutionHospital;
+public Boolean occupancyTypeInstitutionWelfare;
+public Boolean occupancyTypeInstitutionTheater;
+public String occupancyTypeInstitutionOther;
+
+public Boolean occupancyTypeAgriculturalBarn;
+public Boolean occupancyTypeAgriculturalMill;
+public String occupancyTypeAgriculturalOther;
+
+public String occupancyTypeOtherConstruction;
+
+public Boolean occupancyTypeStreetFurniturePark;
+public Boolean occupancyTypeStreetFurnitureSidewalk;
+public Boolean occupancyTypeStreetFurnitureOutdoorAds;
+public String occupancyTypeStreetFurnitureOther;

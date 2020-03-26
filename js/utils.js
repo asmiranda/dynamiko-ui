@@ -176,30 +176,43 @@ class Utils {
     loadDataAndAutoComplete(clsName, data, dRowIndex, dModuleName) {
         $(`.${clsName}`).each(function(index, obj) {
             var key = $(obj).attr("name");
+            var inputType = $(obj).attr("type");
             if (key) {
                 var value = data.getProp(key);
                 // console.log(key + " -> " + value);
-                $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
+                if (inputType=="checkbox") {
+                    if (value==null || value==undefined || value=="" || value==false) {
+                        $(obj).attr("checked", false);
+                        $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val("");
+                    }
+                    else {
+                        $(obj).attr("checked", true);
+                        $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
+                    }
+                }
+                else {
+                    $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
+                }
             }
         });
 
-        $(".HiddenAutoComplete").each(function(obj, index) {
+        $(`.${clsName}.HiddenAutoComplete`).each(function(index, obj) {
             var field = $(this).attr("autoNameField");
             var rowIndex = $(this).attr("rowIndex");
             var moduleName = $(this).attr("module");
             if (field && rowIndex==dRowIndex && moduleName==dModuleName) {
-                utils.loadAutoCompleteRowLabel(field, rowIndex);
+                utils.loadAutoCompleteRowLabel(field, rowIndex, obj);
             }
         });
     }
 
-    loadAutoCompleteRowLabel(field, rowIndex) {
+    loadAutoCompleteRowLabel(field, rowIndex, obj) {
         console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == `);
-        var tmpLabel = $(`[class~='autocomplete'][autoname='${field}'][rowIndex='${rowIndex}']`);
+        var moduleName = $(obj).attr("module");
+        var tmpLabel = $(`[class~='autocomplete'][module='${moduleName}'][autoname='${field}'][rowIndex='${rowIndex}']`);
         tmpLabel.val("");
 
-        var hiddenAutoComplete = `.HiddenAutoComplete[name="${field}"][rowIndex='${rowIndex}']`;
-        var moduleName = $(hiddenAutoComplete).attr("module");
+        var hiddenAutoComplete = `.HiddenAutoComplete[module='${moduleName}'][name="${field}"][rowIndex='${rowIndex}']`;
         var value = $(hiddenAutoComplete).val();
 
         if (value!=null && value!="") {
@@ -207,9 +220,9 @@ class Utils {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function(data) {
                 console.log(data);
-                var divDescAutoComplete = $(`[class~='DivAutoComplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
+                var divDescAutoComplete = $(`.DivAutoComplete[module='${moduleName}'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
                 divDescAutoComplete.html(data.getProp("value"));
-                var fieldAutoComplete = $(`[class~='autocomplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
+                var fieldAutoComplete = $(`.autocomplete[module='${moduleName}'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
                 fieldAutoComplete.val(data.getProp("value"));
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

@@ -1,5 +1,8 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
+        $(document).on('change', 'input.editRealEstateBuildingPermit', function() {
+            realEstateBuildingPermitUI.changeValue(this);
+        });
         $(document).on('click', '.selectRealEstateBuildingPermit', function() {
             realEstateBuildingPermitUI.loadRealEstateBuildingPermitProfile(this);
         });
