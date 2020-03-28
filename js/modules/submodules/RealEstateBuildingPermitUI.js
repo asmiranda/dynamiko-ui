@@ -3,6 +3,55 @@ class RealEstateBuildingPermitUI {
         $("#dynamikoMainSearch").hide();
     }
 
+    saveBuildingPermitForCashier(obj) {
+        console.log("saveBuildingPermitForCashier called");
+        var tmp = realEstateBuildingPermitUI.collectDataForSaving("editRealEstateBuildingPermit", "RealEstateBuildingPermitUI", "0");
+
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateBuildingPermitUI/post/saveBuildingPermitForCashier`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            showModalAny.show("Save Building Permit Message", data.value);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
+    collectDataForSaving(clsName, moduleName, rowIndex) {
+        var tmp = {};
+        $(`select[module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        $(`.${clsName}[type="hidden"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        $(`.${clsName}[type="text"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        $(`.${clsName}[type="checkbox"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+            if ($(myObj).is(':checked')) {
+                tmp[name] = value;
+            }
+            else {
+                tmp[name] = "";
+            }
+        });
+        return tmp;
+    }
+
     changeValue(obj) {
         var name = $(obj).attr("name");
         var type = $(obj).attr("type");

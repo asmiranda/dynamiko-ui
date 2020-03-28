@@ -1,5 +1,8 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
+        $(document).on('click', '.btnSaveRealEstateBuildingPermit', function() {
+            realEstateBuildingPermitUI.saveBuildingPermitForCashier(this);
+        });
         $(document).on('change', 'input.editRealEstateBuildingPermit', function() {
             realEstateBuildingPermitUI.changeValue(this);
         });
