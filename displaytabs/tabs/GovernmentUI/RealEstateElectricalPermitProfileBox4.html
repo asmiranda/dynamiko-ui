@@ -7,30 +7,30 @@
             <label style="font-size: 15px;">Electrical Documents (Five Sets Each)</label>
             <div style="display: flex; flex-wrap: wrap;">
                 <div style="flex: 45%; display: flex;">
-                    <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount"> Electrical Plan and Specifications
+                    <input type="checkbox" style="margin: 5px;" class="editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                    name="withElectricalPlanAndSpecs"> Electrical Plan and Specifications
                 </div>
                 <div style="flex: 45%; display: flex;">
-                    <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount"> Special Fixtures and Equipment
+                    <input type="checkbox" style="margin: 5px;" class="editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                    name="withSpecialFixturesAndEquipment"> Special Fixtures and Equipment
                 </div>
                 <div style="flex: 45%; display: flex;">
-                    <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount"> Proposed Starting Date of Installation/Construction
-                    <input type="text" style="margin: 5px; margin-top: 0px; width: 150px;" rowIndex="0" class="form-control editRealEstateElectricalPermit" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount">
+                    <input type="checkbox" style="margin: 5px;" class="editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                    name="proposedDateOfInstallation"> Proposed Starting Date of Installation/Construction
+                    <input type="text" style="margin: 5px; margin-top: 0px; width: 150px;" rowIndex="0" class="form-control calendar editRealEstateElectricalPermit" module="RealEstateElectricalPermitUI" 
+                    name="proposedDateOfInstallation">
                 </div>
                 <div style="flex: 45%; display: flex;">
-                    <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount"> Expected Date of Completion/Installation/Construction
-                    <input type="text" style="margin: 5px; margin-top: 0px; width: 150px;" rowIndex="0" class="form-control editRealEstateElectricalPermit" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount">
+                    <input type="checkbox" style="margin: 5px;" class="editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                    name="expectedDateOfCompletion"> Expected Date of Completion/Installation/Construction
+                    <input type="text" style="margin: 5px; margin-top: 0px; width: 150px;" rowIndex="0" class="form-control calendar editRealEstateElectricalPermit" module="RealEstateElectricalPermitUI" 
+                    name="expectedDateOfCompletion">
                 </div>
                 <div style="flex: 45%; display: flex;">
-                    <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount"> Others&nbsp;(Specify)
+                    <input type="checkbox" style="margin: 5px;" class="editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                    name="withOtherDocuments"> Others&nbsp;(Specify)
                     <input type="text" style="margin: 5px; margin-top: 0px;" rowIndex="0" class="form-control editRealEstateElectricalPermit" module="RealEstateElectricalPermitUI" 
-                    name="assessedAmount">
+                    name="withOtherDocuments">
                 </div>
             </div>
         </div>
@@ -55,25 +55,33 @@
                     </div>
                     <div style="display: flex;">
                         <label style="flex: 2; margin: 2px;">ELECTRICAL</label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="electricalInTimeProgress"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control calendar editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="electricalInDateProgress"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="electricalOutTimeProgress"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control calendar editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="electricalOutDateProgress"/></label>
                     </div>
                     <div style="display: flex;">
                         <label style="flex: 2; margin: 2px;">OTHERS (Specify)</label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
-                        <label class="text-center" style="flex: 1; margin: 2px;"><input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                        name="assessedAmount"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="otherInTimeProgress"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control calendar editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="otherInDateProgress"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="otherOutTimeProgress"/></label>
+                        <label class="text-center" style="flex: 1; margin: 2px;">
+                            <input type="text" style="margin: 5px;" class="form-control calendar editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="otherOutDateProgress"/></label>
                     </div>
                 </div>
                 <div style="flex: 40%; display: flex; flex-direction: column;" >
@@ -85,23 +93,23 @@
                     <div class="box-body" style="display: flex;flex-wrap: wrap;">
                         <div style="flex: 90%; margin: 5px;">
                             <label>Name</label>
-                            <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                            name="assessedAmount"/>
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="processedByName"/>
                         </div>
                         <div style="flex: 90%; margin: 5px;">
                             <label>Address</label>
-                            <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                            name="assessedAmount"/>
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="processedByAddress"/>
                         </div>
                         <div style="flex: 40%; margin: 5px;">
                             <label>PRC #</label>
-                            <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                            name="assessedAmount"/>
+                            <input type="text" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="processedByPRC"/>
                         </div>
                         <div style="flex: 40%; margin: 5px;">
                             <label>Validity Date</label>
-                            <input type="checkbox" style="margin: 5px;" class="form-control editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
-                            name="assessedAmount"/>
+                            <input type="text" style="margin: 5px;" class="form-control calendar editRealEstateElectricalPermit" rowIndex="0" module="RealEstateElectricalPermitUI" 
+                            name="processedByPRCValidityDate"/>
                         </div>
                     </div>    
                 </div>

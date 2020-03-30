@@ -1,5 +1,25 @@
 class GlobalEventsGovernment {
     initializeGlobalEvents() {
+        $(document).on('click', '.btnSaveRealEstatePlumbingPermit', function() {
+            realEstatePlumbingPermitUI.savePlumbingPermitForCashier(this);
+        });
+        $(document).on('change', 'input.editRealEstatePlumbingPermit', function() {
+            realEstatePlumbingPermitUI.changeValue(this);
+        });
+        $(document).on('click', '.selectRealEstatePlumbingPermit', function() {
+            realEstatePlumbingPermitUI.loadRealEstatePlumbingPermitProfile(this);
+        });
+
+        $(document).on('click', '.btnSaveRealEstateElectricalPermit', function() {
+            realEstateElectricalPermitUI.saveElectricalPermitForCashier(this);
+        });
+        $(document).on('change', 'input.editRealEstateElectricalPermit', function() {
+            realEstateElectricalPermitUI.changeValue(this);
+        });
+        $(document).on('click', '.selectRealEstateElectricalPermit', function() {
+            realEstateElectricalPermitUI.loadRealEstateElectricalPermitProfile(this);
+        });
+
         $(document).on('click', '.btnSaveRealEstateBuildingPermit', function() {
             realEstateBuildingPermitUI.saveBuildingPermitForCashier(this);
         });

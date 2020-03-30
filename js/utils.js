@@ -1,4 +1,38 @@
 class Utils {
+
+    collectDataForSaving(clsName, moduleName, rowIndex) { 
+        var tmp = {};
+        $(`select[module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        $(`.${clsName}[type="hidden"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        $(`.${clsName}[type="text"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+
+            tmp[name] = value;
+        });
+        $(`.${clsName}[type="checkbox"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
+            var name = $(myObj).attr("name");
+            var value = $(myObj).val();
+            if ($(myObj).is(':checked')) {
+                tmp[name] = value;
+            }
+            else {
+                tmp[name] = "";
+            }
+        });
+        return tmp;
+    }
+
     nowString() {
         var str = moment(new Date()).format('YYYYMMDD');
         return str;
@@ -249,7 +283,7 @@ class Utils {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 
-    extractArray(arr, columnName) {
+    extractArray(arr, columnName) { 
         var retArr = [];
         $(arr).each(function(i, obj) {
             retArr.push(obj[columnName]);

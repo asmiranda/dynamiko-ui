@@ -4,70 +4,64 @@
           <h3 class="box-title">Box 1 (For Owner/Applicant)</h3>
         </div>
         <div class="box-body" style="display: flex; flex-wrap: wrap;">
-            <div class="form-group" style="flex: 1; margin-left: 15px;">
-                <label>Name of Owner / Applicant</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+            <div class="form-group" style="flex: 4; margin-left: 15px;">
+                <label>Owner / Applicant First Name</label>
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="ownerFirstName">
             </div>
             <div class="form-group" style="flex: 1; margin-left: 15px;">
-                <label>Last Name, First Name, M.I.</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+                <label>M.I.</label>
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="ownerMI">
             </div>
-            <div class="form-group" style="flex: 1; margin-right: 15px; margin-left: 15px;">
+            <div class="form-group" style="flex: 4; margin-left: 15px;">
+                <label>Last Name</label>
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="ownerLastName">
+            </div>
+            <div class="form-group" style="flex: 4; margin-right: 15px; margin-left: 15px;">
                 <label>Tax Acct. No.</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="taxAccountNo">
             </div>
         </div>
         <div class="box-body" style="display: flex; flex-wrap: wrap;">
             <div class="form-group" style="flex: 1; margin-left: 15px;">
                 <label>Owned By An Enterprise</label>
-                <select class="form-control">
+                <select class="form-control" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                name="forEnterprise">
                     <option>Yes</option>
                     <option>No</option>
                   </select>
             </div>
             <div class="form-group" style="flex: 1; margin-left: 15px;">
                 <label>Form of Ownership</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="formOfOwnership">
             </div>
             <div class="form-group" style="flex: 1; margin-right: 15px; margin-left: 15px;">
                 <label>Main Economic Activity / Kind of Business</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="businessType">
             </div>
         </div>
         <div class="box-body" style="display: flex; flex-wrap: wrap;">
-            <div class="form-group" style="flex: 1; margin-left: 15px;">
-                <label>Address</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
-            </div>
-            <div class="form-group" style="flex: 1; margin-left: 15px;">
-                <label>No. Street, Barangay, City / Municipality</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+            <div class="form-group" style="flex: 2; margin-left: 15px;">
+                <label>Address (No. Street, Barangay, City / Municipality)</label>
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="address">
             </div>
             <div class="form-group" style="flex: 1; margin-right: 15px; margin-left: 15px;">
                 <label>Telephone No.</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="telNo">
             </div>
         </div>
         <div class="box-body" style="display: flex; flex-wrap: wrap;">
             <div class="form-group" style="flex: 1; margin-left: 15px;">
-                <label>Location of Construction</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
-            </div>
-            <div class="form-group" style="flex: 1; margin-left: 15px;">
-                <label>No. Street, Barangay, City / Municipality</label>
-                <input type="text" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI"
-                    name="assessedAmount">
-            </div>
-            <div class="form-group" style="flex: 1; margin-right: 15px; margin-left: 15px;">
+                <label>Location of Construction (No. Street, Barangay, City / Municipality)</label>
+                <input type="text" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                    name="locationOfConstructionAddress">
             </div>
         </div>
         <div class="box-body" style="display: flex; flex-wrap: wrap;">
@@ -79,52 +73,72 @@
                     <div style="display: flex; flex-wrap: wrap;">
                         <div class="form-group" style="flex: 15%; margin-left: 15px;">
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> New Construction
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkNewConstruction"> New Construction
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Erection
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkErection"> Erection
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Addition
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkAddition"> Addition
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Alteration
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkAlteration"> Alteration
                             </div>
                         </div>
                         <div class="form-group" style="flex: 30%; margin-left: 15px;">
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Renovation
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkRenovation"> Renovation
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkRenovation">
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Conversion
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkConversion"> Conversion
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkConversion">
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Repair
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkRepair"> Repair
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkRepair">
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Moving
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkMoving"> Moving
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkMoving">
                             </div>
                         </div>
                         <div class="form-group" style="flex: 50%; margin-left: 15px;">
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Raising
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkRaising"> Raising
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkRaising">
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Demolition
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkDemolition"> Demolition
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkDemolition">
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Accessory&nbsp;Plumbing/Structure
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkAccessory"> Accessory&nbsp;Plumbing/Structure
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkAccessory">
                             </div>
                             <div style="display: flex; margin: 5px;">
-                                <input type="checkbox" style="margin: 5px;"> Others&nbsp;(Specify)
-                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" module="RealEstatePlumbingPermitUI" name="assessedAmount">
+                                <input type="checkbox" style="margin: 5px;" class="editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI"
+                                name="scopeOfWorkOther"> Others&nbsp;(Specify)
+                                <input type="text" style="margin: 5px; margin-top: -5px;" class="form-control editRealEstatePlumbingPermit" rowIndex="0" module="RealEstatePlumbingPermitUI" 
+                                name="scopeOfWorkOther">
                             </div>
                         </div>
                     </div>

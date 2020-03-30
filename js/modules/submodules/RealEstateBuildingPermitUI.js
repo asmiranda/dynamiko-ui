@@ -5,7 +5,7 @@ class RealEstateBuildingPermitUI {
 
     saveBuildingPermitForCashier(obj) {
         console.log("saveBuildingPermitForCashier called");
-        var tmp = realEstateBuildingPermitUI.collectDataForSaving("editRealEstateBuildingPermit", "RealEstateBuildingPermitUI", "0");
+        var tmp = utils.collectDataForSaving("editRealEstateBuildingPermit", "RealEstateBuildingPermitUI", "0");
 
         console.log(tmp);
         var vdata = JSON.stringify(tmp); 
@@ -17,39 +17,6 @@ class RealEstateBuildingPermitUI {
             showModalAny.show("Save Building Permit Message", data.value);
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
-    }
-
-    collectDataForSaving(clsName, moduleName, rowIndex) {
-        var tmp = {};
-        $(`select[module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
-            var name = $(myObj).attr("name");
-            var value = $(myObj).val();
-
-            tmp[name] = value;
-        });
-        $(`.${clsName}[type="hidden"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
-            var name = $(myObj).attr("name");
-            var value = $(myObj).val();
-
-            tmp[name] = value;
-        });
-        $(`.${clsName}[type="text"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
-            var name = $(myObj).attr("name");
-            var value = $(myObj).val();
-
-            tmp[name] = value;
-        });
-        $(`.${clsName}[type="checkbox"][module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
-            var name = $(myObj).attr("name");
-            var value = $(myObj).val();
-            if ($(myObj).is(':checked')) {
-                tmp[name] = value;
-            }
-            else {
-                tmp[name] = "";
-            }
-        });
-        return tmp;
     }
 
     changeValue(obj) {
