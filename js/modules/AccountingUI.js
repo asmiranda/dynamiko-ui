@@ -8,7 +8,7 @@ class AccountingUI {
     changeModule(evt) {
         personTaskUI.loadTodoList();
         employeeUI.loadTopEmployees();
-        accountChartUI.loadTopAccountCharts("AcctAccountChart");
+        accountChartUI.loadTopAccountCharts("AccountChart");
         // productUI.loadTopProducts("EquipmentsMaterials");
     }
 
@@ -21,7 +21,7 @@ class AccountingUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="AcctAccountChart") {
+        if (tabName=="AccountChart") {
             accountChartUI.loadAccountChartProfile(obj);
             // purchaseOrderUI.loadActivePoForProduct(obj);
         }

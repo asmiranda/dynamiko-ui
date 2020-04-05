@@ -11,47 +11,143 @@
                         <a href="#Dashboard" data-toggle="tab" aria-expanded="true">Dashboard</a>
                     </li>
                     <li class="tab-pane">
+                        <a href="#Banking" data-toggle="tab" aria-expanded="false">Banking</a>
+                    </li>
+                    <li class="tab-pane">
                         <a href="#Sales" data-toggle="tab" aria-expanded="false">Sales</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Purchases" data-toggle="tab" aria-expanded="false">Purchases</a>
+                        <a href="#Expenses" data-toggle="tab" aria-expanded="false">Expenses</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Payroll" data-toggle="tab" aria-expanded="false">Payroll</a>
+                        <a href="#Employees" data-toggle="tab" aria-expanded="false">Employees</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Transactions" data-toggle="tab" aria-expanded="false">Transactions</a>
+                        <a href="#Taxes" data-toggle="tab" aria-expanded="false">Taxes</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Reconcillation" data-toggle="tab" aria-expanded="false">Reconcillation</a>
-                    </li>
-                    <li class="tab-pane">
-                        <a href="#AccountChart" data-toggle="tab" aria-expanded="false">Account Chart</a>
+                        <a href="#Reports" data-toggle="tab" aria-expanded="false">Reports</a>
                     </li> 
+                    <li class="tab-pane">
+                        <a href="#ChartOfAccounts" data-toggle="tab" aria-expanded="false">Chart of Accounts</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#Reconcile" data-toggle="tab" aria-expanded="false">Reconcile</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#Customer" data-toggle="tab" aria-expanded="false">Customers</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#Supplier" data-toggle="tab" aria-expanded="false">Suppliers</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#ProductsAndServices" data-toggle="tab" aria-expanded="false">Products and Services</a>
+                    </li>
                 </ul>
                 <div class="tab-content no-padding">
                     <div class="tab-pane active" id="Dashboard">
+                        <pre>
+                            Charts and Others
+                            -- Invoices
+                            -- Expenses
+                            -- Profit and Loss
+                            -- Bank Accounts
+                            -- Sales
+                            <a href="https://www.youtube.com/watch?v=yOa8dYEjcJQ&feature=youtu.be" target="_blank">Video</a>                            
+                        </pre>
+                    </div>
+                    <div class="tab-pane" id="Banking">
+                        <pre>
+                            This needs to connect to banks
+                            -- Bank Rule
+                            <a href="https://youtu.be/L2Iy2FuzTRo" target="_blank">Video</a>                                                        
+                        </pre>
                     </div>
                     <div class="tab-pane" id="Sales">
+                        <pre>
+                            Sales
+                            Invoices
+                            Customers
+                            Products and Services
+                            <a href="https://youtu.be/pNRk_U-Ih8g" target="_blank">Video</a>                            
+                        </pre>
                     </div>
-                    <div class="tab-pane" id="Purchases">
+                    <div class="tab-pane" id="Expenses">
+                        <pre>
+                            Expenses
+                            <a href="https://youtu.be/mwuRKQadjHc" target="_blank">Video</a>                            
+                            Suppliers
+                            <a href="https://youtu.be/6KIl7TGN-ak" target="_blank">Video</a>                            
+                        </pre>
                     </div>
-                    <div class="tab-pane" id="Payroll">
+                    <div class="tab-pane" id="Employees">
                     </div>
-                    <div class="tab-pane" id="Transactions">
+                    <div class="tab-pane" id="Taxes">
+                        <pre>
+                            --Tax Creation
+                            <a href="https://www.youtube.com/watch?v=yOa8dYEjcJQ&feature=youtu.be" target="_blank">Video</a>                            
+                        </pre>
                     </div>
-                    <div class="tab-pane" id="Reconcillation">
-                    </div>
-                    <div class="tab-pane" id="AccountChart">
+                    <div class="tab-pane" id="ChartOfAccounts">
+                        <pre>
+                            --Chart of Accounts
+                            <a href="https://youtu.be/GVc-xKLhx80" target="_blank">Video</a>                            
+                            --Reconcile
+                            <a href="https://youtu.be/jezAtbPt7g4" target="_blank">Video</a>                            
+                        </pre>
                         <div style="display: flex; background: #ecf0f5;">
-                            <div style="flex: 75%; flex-direction: column;">
-                                <div class="DisplayTabCommon" tabName="AcctAccountChart" tabUrl="AccountChartProfile"></div>
-                                <div class="DisplayTab" tabName="AcctAccountChart" tabUrl="AccountChartTransaction"></div>
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Account Chart</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#AccountChartTodayEntries" data-toggle="tab" aria-expanded="false">Today's Entries</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#AccountChartWeekEntries" data-toggle="tab" aria-expanded="true">This Week's Entries</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#AccountChartMonthEntries" data-toggle="tab" aria-expanded="true">This Month's Entries</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#AccountChartReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="AccountChartTodayEntries">
+                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartTodayEntries"></div>
+                                                </div>
+                                                <div class="tab-pane" id="AccountChartWeekEntries">
+                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartWeekEntries"></div>
+                                                </div>
+                                                <div class="tab-pane" id="AccountChartMonthEntries">
+                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartMonthEntries"></div>
+                                                </div>
+                                                <div class="tab-pane" id="AccountChartReport">
+                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="AcctAccountChart" tabUrl="SearchAccountChart"></div>
+                                <div class="DisplayTabCommon" tabName="AccountChart" tabUrl="SearchAccountChart"></div>
                             </div>
                         </div>
+                    </div>
+                    <div class="tab-pane" id="Reports">
+                        <pre>
+                            --Standard Reports
+                            --Customised Reports
+                            --Management Reports
+                        </pre>
                     </div>
                 </div>
             </div>
