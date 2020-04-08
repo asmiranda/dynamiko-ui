@@ -144,6 +144,7 @@ $(function () {
     productUI = new ProductUI();
     supplierUI = new SupplierUI();
     accountChartUI = new AccountChartUI();
+    expenseUI = new ExpenseUI();
     productRequestUI = new ProductRequestUI();
     realEstateUI = new RealEstateUI();
     citizenUI = new CitizenUI();

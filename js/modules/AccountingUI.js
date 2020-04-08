@@ -9,7 +9,7 @@ class AccountingUI {
         personTaskUI.loadTodoList();
         employeeUI.loadTopEmployees();
         accountChartUI.loadTopAccountCharts("AccountChart");
-        // productUI.loadTopProducts("EquipmentsMaterials");
+        expenseUI.loadTopExpenses("Expense");
     }
 
     init() {

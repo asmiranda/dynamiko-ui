@@ -6,19 +6,13 @@ class AccountChartUI {
 
         var successFunction = function(data) {
             console.log(data);
-            var recordId = data.getProp("AccountChartId");
-            var name = data.getProp("accountName");
-            var accountClass = data.getProp("accountClass");
-            var accountNumber = data.getProp("accountNumber");
-
-            $(".AccountChartUI_AccountName").html(name);    
-            $(".AccountChartUI_AccountClass").html(accountClass);    
-            $(".AccountChartUI_AccountNumber").html(accountNumber);    
-            $(".AccountChartUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/AccountChartUI/${recordId}/${utils.nowString()}`);   
-            $(".AccountChartUI_ProfilePic").attr("recordId", recordId);   
-            $(".AccountChartUI_ProfilePic").show();
+            accountChartUI.arrangeAccountChartProfile(data, "editAccountChart");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangeAccountChartProfile(data, clsName) {
+        utils.loadDataAndAutoComplete(clsName, data, 0, "AccountChartUI");
     }
 
     searchAccountChartFilter(obj) {
