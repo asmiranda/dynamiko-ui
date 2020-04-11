@@ -1,5 +1,14 @@
 class Utils {
 
+    collectSubRecordDataForSaving(clsName, moduleName) {
+        var tmp = [];
+        for (var i=1; i<=10; i++) {
+            var rec = utils.collectDataForSaving(clsName, moduleName, i);
+            tmp.push(rec);
+        }
+        return tmp;
+    }
+
     collectDataForSaving(clsName, moduleName, rowIndex) { 
         var tmp = {};
         $(`select[module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {

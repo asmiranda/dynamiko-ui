@@ -1,9 +1,13 @@
 class GlobalEventsAccounting {
     initializeGlobalEvents() {
 
+        $(document).on('click', '.btnSaveExpense', function() {
+            expenseUI.saveExpense(this);
+        });
         $(document).on('click', '.ExpenseUI_selectExpense', function() {
             expenseUI.loadExpenseProfile(this);
         });
+
         $(document).on('click', '.AccountChartUI_selectAccountChart', function() {
             accountChartUI.loadAccountChartProfile(this);
         });

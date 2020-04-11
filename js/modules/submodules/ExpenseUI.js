@@ -1,4 +1,22 @@
 class ExpenseUI {
+    saveExpense(obj) {
+        console.log("saveExpense called");
+        var tmp = utils.collectDataForSaving("editExpense", "ExpenseUI", "0");
+        tmp["expenseItems"] = utils.collectSubRecordDataForSaving("editExpense", "ExpenseItemUI");
+        tmp["expenseCategoryItems"] = utils.collectSubRecordDataForSaving("editExpense", "ExpenseCategoryItemUI");
+
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ExpenseUI/post/saveExpense`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            showModalAny.show("Save Expense Message", data.value);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
     loadExpenseProfile(obj) {
         var recordId = $(obj).attr("recordId");
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ExpenseUI/getExpenseProfile/${recordId}`;
@@ -13,6 +31,18 @@ class ExpenseUI {
 
     arrangeExpenseProfile(data, clsName) {
         utils.loadDataAndAutoComplete(clsName, data, 0, "ExpenseUI");
+
+        $(`.editExpense[module="ExpenseCategoryItemUI"]`).val("");
+        var items = data.getProp("expenseCategoryItems");
+        $(items).each(function(index, obj) {
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ExpenseCategoryItemUI");
+        })
+
+        $(`.editExpense[module="ExpenseItemUI"]`).val("");
+        var items = data.getProp("expenseItems");
+        $(items).each(function(index, obj) {
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ExpenseItemUI");
+        })
     }
 
     searchExpenseFilter(obj) {
