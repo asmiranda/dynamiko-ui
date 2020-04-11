@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Transaction Details</h3>
+    </div>
+    <div class="box-body">
+        <div style="display: flex; flex-direction: column;">
+            <div style="display: flex;" class="BankingTransactionRecord">
+                <div class="text-center" style="flex: 2; margin-left: 10px;"> 
+                    <b>Date</b>
+                </div>
+                <div class="text-center" style="flex: 4; margin-left: 10px;">
+                    <b>Description</b>
+                </div>
+                <div class="text-center" style="flex: 4; margin-left: 10px;">
+                    <b>Payee</b>
+                </div>
+                <div class="text-center" style="flex: 2; margin-left: 10px;">
+                    <b>Tax</b>
+                </div>
+                <div class="text-center" style="flex: 2; margin-left: 10px;">
+                    <b>Spent</b>
+                </div>
+                <div class="text-center" style="flex: 2; margin-left: 10px;">
+                    <b>Received</b>
+                </div>
+                <div class="text-center" style="flex: 1; margin-left: 10px;">
+                    <b>Action</b>
+                </div>
+            </div>
+            <div id="BankingTransactionRecordTemplate" style="display: none;">
+                <div style="display: flex;" class="BankingTransactionRecord">
+                    <div style="flex: 2; margin-left: 10px;">
+                        <input rowIndex="----" name="transactionDate" module="BankingTransactionUI" type="text" class="form-control editBanking calendar" placeholder="">
+                    </div>
+                    <div style="flex: 4; margin-left: 10px;">
+                        <input rowIndex="----" name="description" module="BankingTransactionUI" type="text" class="form-control editBanking" placeholder="">
+                    </div>
+                    <div style="flex: 4; margin-left: 10px;">
+                        <input rowIndex="----" name="payee" module="BankingTransactionUI" type="text" class="form-control editBanking" placeholder="">
+                    </div>
+                    <div style="flex: 2; margin-left: 10px;">
+                        <input rowIndex="----" name="tax" module="BankingTransactionUI" type="text" class="form-control editBanking" placeholder="">
+                    </div>
+                    <div style="flex: 2; margin-left: 10px;">
+                        <input rowIndex="----" name="spent" module="BankingTransactionUI" type="text" class="form-control editBanking" placeholder="">
+                    </div>
+                    <div style="flex: 2; margin-left: 10px;">
+                        <input rowIndex="----" name="received" module="BankingTransactionUI" type="text" class="form-control editBanking" placeholder="">
+                    </div>
+                    <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 4px;">
+                        <i class="fa fa-trash hand" class="btnAddBankingTransaction" rowIndex="----"> Add</i>
+                    </div>
+                </div>
+            </div>
+            <div id="BankingTransactionRecordHolder">
+            </div>
+        </div>
+    </div>
+</div>

@@ -57,11 +57,50 @@
                         </pre>
                     </div>
                     <div class="tab-pane" id="Banking">
-                        <pre>
+                        <pre style="display: none;">
                             This needs to connect to banks
                             -- Bank Rule
                             <a href="https://youtu.be/L2Iy2FuzTRo" target="_blank">Video</a>                                                        
                         </pre>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Bank Account</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-info btnSaveBanking">Save Bank Account</button>
+                                            <button type="button" class="btn btn-default BankingUI_btnNewBanking"><i
+                                                    class="fa fa-plus"></i> New Bank Account</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="Banking" tabUrl="BankingProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#BankingTransactions" data-toggle="tab" aria-expanded="false">Transactions</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#BankingReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="BankingTransactions">
+                                                    <div class="DisplayTab" tabName="Banking" tabUrl="BankingTransactions"></div>
+                                                </div>
+                                                <div class="tab-pane" id="BankingReport">
+                                                    <div class="DisplayTab" tabName="Banking" tabUrl="BankingReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="Banking" tabUrl="SearchBanking"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="Sales">
                         <pre>

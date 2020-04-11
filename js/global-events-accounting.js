@@ -1,6 +1,13 @@
 class GlobalEventsAccounting {
     initializeGlobalEvents() {
 
+        $(document).on('click', '.btnSaveBanking', function() {
+            bankingUI.saveBanking(this);
+        });
+        $(document).on('click', '.BankingUI_selectBanking', function() {
+            bankingUI.loadBankingProfile(this);
+        });
+
         $(document).on('click', '.btnSaveExpense', function() {
             expenseUI.saveExpense(this);
         });
