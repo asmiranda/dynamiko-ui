@@ -103,13 +103,52 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="Sales">
-                        <pre>
+                        <pre style="display: none;">
                             Sales
                             Invoices
                             Customers
                             Products and Services
                             <a href="https://youtu.be/pNRk_U-Ih8g" target="_blank">Video</a>                            
                         </pre>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Sales Order</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-info btnSaveSalesOrder">Save Sales Order</button>
+                                            <button type="button" class="btn btn-default SalesOrderUI_btnNewSalesOrder"><i
+                                                    class="fa fa-plus"></i> New Sales Order</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#SalesOrderItems" data-toggle="tab" aria-expanded="false">Items</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#SalesOrderReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="SalesOrderItems">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderItems"></div>
+                                                </div>
+                                                <div class="tab-pane" id="SalesOrderReport">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="SalesOrder" tabUrl="SearchSalesOrder"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="Expenses">
                         <pre style="display: none;">
@@ -167,13 +206,55 @@
                     <div class="tab-pane" id="Employees">
                     </div>
                     <div class="tab-pane" id="Taxes">
-                        <pre>
+                        <pre style="display: none;">
                             --Tax Creation
                             <a href="https://www.youtube.com/watch?v=yOa8dYEjcJQ&feature=youtu.be" target="_blank">Video</a>                            
                         </pre>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Tax Period</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#TaxPeriodReturn" data-toggle="tab" aria-expanded="false">Tax Returns</a>
+                                                </li>
+                                                <li class="tab-pane active">
+                                                    <a href="#TaxPeriodPayment" data-toggle="tab" aria-expanded="true">Tax Payments</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#TaxPeriodReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="TaxPeriodReturn">
+                                                    <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodReturn"></div>
+                                                </div>
+                                                <div class="tab-pane" id="TaxPeriodPayment">
+                                                    <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodPayment"></div>
+                                                </div>
+                                                <div class="tab-pane" id="TaxPeriodReport">
+                                                    <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="TaxPeriod" tabUrl="SearchTaxPeriod"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="ChartOfAccounts">
-                        <pre>
+                        <pre style="display: none;">
                             --Chart of Accounts
                             <a href="https://youtu.be/GVc-xKLhx80" target="_blank">Video</a>                            
                             --Reconcile
@@ -223,6 +304,26 @@
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
                                 <div class="DisplayTabCommon" tabName="AccountChart" tabUrl="SearchAccountChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="Reconcile">
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Reconcile</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileProfileMain"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="Reconcile" tabUrl="SearchReconcile"></div>
                             </div>
                         </div>
                     </div>

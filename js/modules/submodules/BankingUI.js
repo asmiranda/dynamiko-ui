@@ -24,25 +24,25 @@ class BankingUI {
 
         var successFunction = function(data) {
             console.log(data);
-            bankingUI.arrangeBankingProfile(data, "editBanking");
+            utils.loadDataAndAutoComplete("editBanking", data, 0, "BankingUI");
+            bankingUI.arrangeBankingTransactions(recordId, "editBanking");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    arrangeBankingProfile(data, clsName) {
-        utils.loadDataAndAutoComplete(clsName, data, 0, "BankingUI");
-        $("#BankingTransactionRecordHolder").empty();
-        var html = $("#BankingTransactionRecordTemplate").html();
-
+    arrangeBankingTransactions(recordId, clsName) {
         $(`.editBanking[module="BankingTransactionUI"]`).val("");
-        var items = data.getProp("BankingTransactions");
-        $(items).each(function(index, obj) {
-            var newHtml = utils.replaceAll(html, "----", index+1);
-            $("#BankingTransactionRecordHolder").append(newHtml);
-        })
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "BankingTransactionUI");
-        })
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BankingUI/getBankingTransactions/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(data) {
+            console.log(data);
+            $(data).each(function(index, obj) {
+                utils.loadDataAndAutoComplete(clsName, obj, index+1, "BankingTransactionUI");
+            })
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     searchBankingFilter(obj) {
@@ -68,6 +68,15 @@ class BankingUI {
         var successCallback = function(data) {
             console.log(data);
             bankingUI.arrangeSearchedBankings(data, tabName);
+
+            $("#BankingTransactionRecordHolder").empty();
+            var html = $("#BankingTransactionRecordTemplate").html();
+    
+            var newHtml = "";
+            for (var index=1; index<=100; index++) {
+                newHtml += `<div id='bankingTransaction${index}' style='margin-top: 2px;'>${utils.replaceAll(html, "----", index)}</div>`;
+            }
+            $("#BankingTransactionRecordHolder").append(newHtml);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
