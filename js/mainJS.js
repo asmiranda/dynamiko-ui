@@ -131,7 +131,6 @@ $(function () {
     employeeUI = new EmployeeUI();
     payrollScheduleUI = new PayrollScheduleUI();
     purchaseOrderUI = new PurchaseOrderUI();
-    salesOrderUI = new SalesOrderUI();
     inventoryUI = new InventoryUI();
     accountingUI = new AccountingUI();
     hospitalUI = new HospitalUI();
@@ -145,6 +144,7 @@ $(function () {
     supplierUI = new SupplierUI();
     accountChartUI = new AccountChartUI();
     expenseUI = new ExpenseUI();
+    salesOrderUI = new SalesOrderUI();
     bankingUI = new BankingUI();
     productRequestUI = new ProductRequestUI();
     realEstateUI = new RealEstateUI();

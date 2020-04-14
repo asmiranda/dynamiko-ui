@@ -10,6 +10,7 @@ class AccountingUI {
         employeeUI.loadTopEmployees();
         accountChartUI.loadTopAccountCharts("AccountChart");
         expenseUI.loadTopExpenses("Expense");
+        salesOrderUI.loadTopSalesOrders("SalesOrder");
         bankingUI.loadTopBankings("Banking");
     }
 
