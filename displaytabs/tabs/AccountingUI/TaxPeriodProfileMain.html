@@ -4,39 +4,35 @@
     <div class="form-group" style="flex: 3; margin-left: 10px;">
         <label class="control-label">Employee</label>
         <div class="input-group" style="width: 100%;">
-            <input rowIndex="0" type="text" class="form-control autocomplete" name="employeeCode" placeholder="Payee" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoname="employeeCode" helptitle="employeeCode" disabled="">
-            <input rowIndex="0" class="form-control editTaxPeriod HiddenAutoComplete" name="employeeCode" type="hidden" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoNameField="employeeCode" value="">
-            <div class="autocomplete-items" rowIndex="0" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoname="employeeCode">
-            </div>
-        </div> 
-    </div>
-    <div class="form-group" style="flex: 3; margin-left: 10px;">
-        <label class="control-label">Customer</label>
-        <div class="input-group" style="width: 100%;">
-            <input rowIndex="0" type="text" class="form-control autocomplete" name="customerCode" placeholder="Payee" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoname="customerCode" helptitle="customerCode">
-            <input rowIndex="0" class="form-control editTaxPeriod HiddenAutoComplete" name="customerCode" type="hidden" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoNameField="customerCode" value="">
-            <div class="autocomplete-items" rowIndex="0" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoname="customerCode">
+            <input rowIndex="0" type="text" class="form-control autocomplete" name="taxCode" placeholder="Payee" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoname="taxCode" helptitle="taxCode" disabled="">
+            <input rowIndex="0" class="form-control editTaxPeriod HiddenAutoComplete" name="taxCode" type="hidden" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoNameField="taxCode" value="">
+            <div class="autocomplete-items" rowIndex="0" module="TaxPeriodUI" mainmodule="TaxPeriodUI" autoname="taxCode">
             </div>
         </div> 
     </div>
     <div class="form-group" style="flex: 1; margin-left: 15px;">
-        <label>Type</label>
-        <input type="text" rowIndex="0" class="form-control editTaxPeriod" module="TaxPeriodUI"
-            name="documentType" tabName="_TABNAME_">
-    </div>
-    <div class="form-group" style="flex: 2; margin-left: 15px;">
-        <label>Contact</label>
-        <input type="text" rowIndex="0" class="form-control editTaxPeriod" module="TaxPeriodUI"
-            name="contactPerson" tabName="_TABNAME_">
+        <label>Start Period</label>
+        <input type="text" rowIndex="0" class="form-control editTaxPeriod calendar" module="TaxPeriodUI"
+            name="startPeriod" tabName="_TABNAME_">
     </div>
     <div class="form-group" style="flex: 1; margin-left: 15px;">
-        <label>Payment Date</label>
-        <input type="text" rowIndex="0" class="form-control calendar editTaxPeriod" module="TaxPeriodUI"
-            name="paymentDate" tabName="_TABNAME_">
+        <label>End Period</label>
+        <input type="text" rowIndex="0" class="form-control editTaxPeriod calendar" module="TaxPeriodUI"
+            name="endPeriod" tabName="_TABNAME_">
     </div>
     <div class="form-group" style="flex: 1; margin-left: 15px;">
-        <label>Overall Amount</label>
+        <label>Status</label>
         <input type="text" rowIndex="0" class="form-control editTaxPeriod" module="TaxPeriodUI"
-            name="overallAmount" tabName="_TABNAME_" disabled="">
+            name="status" tabName="_TABNAME_" disabled>
+    </div>
+    <div class="form-group" style="flex: 1; margin-left: 15px;">
+        <label>Collected On Sales</label>
+        <input type="text" rowIndex="0" class="form-control editTaxPeriod" module="TaxPeriodUI"
+            name="collectedOnSales" tabName="_TABNAME_" disabled>
+    </div>
+    <div class="form-group" style="flex: 1; margin-left: 15px;">
+        <label>Adjustments</label>
+        <input type="text" rowIndex="0" class="form-control editTaxPeriod" module="TaxPeriodUI"
+            name="adjustments" tabName="_TABNAME_" disabled>
     </div>
 </div>
