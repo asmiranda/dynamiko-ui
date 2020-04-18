@@ -1,5 +1,5 @@
 class SalesOrderUI {
-    saveSalesOrder(obj) {
+    saveSalesOrder(obj) { 
         console.log("saveSalesOrder called");
         var tmp = utils.collectDataForSaving("editSalesOrder", "SalesOrderUI", "0");
         tmp["SalesOrderItems"] = utils.collectSubRecordDataForSaving("editSalesOrder", "SalesOrderItemUI");
@@ -31,12 +31,6 @@ class SalesOrderUI {
 
     arrangeSalesOrderProfile(data, clsName) {
         utils.loadDataAndAutoComplete(clsName, data, 0, "SalesOrderUI");
-
-        $(`.editSalesOrder[module="SalesOrderCategoryItemUI"]`).val("");
-        var items = data.getProp("SalesOrderCategoryItems");
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "SalesOrderCategoryItemUI");
-        })
 
         $(`.editSalesOrder[module="SalesOrderItemUI"]`).val("");
         var items = data.getProp("SalesOrderItems");
@@ -76,9 +70,9 @@ class SalesOrderUI {
         var divSelector = `.SalesOrderUI_SearchSalesOrders[tabName="${tabName}"]`;
         $(divSelector).empty();
         $(data).each(function(index, obj) {
-            var payeeName = obj.getProp("payeeName");
-            var accountName = obj.getProp("accountName");
-            var paymentDate = obj.getProp("paymentDate");
+            var payeeName = obj.getProp("customerName");
+            var accountName = obj.getProp("employeeName");
+            var paymentDate = obj.getProp("invoiceDate");
             var totalAmount = obj.getProp("totalAmount");
             var SalesOrderId = obj.getProp("SalesOrderId");
             var str = `

@@ -1,11 +1,25 @@
 class GlobalEventsAccounting {
     initializeGlobalEvents() {
 
+        $(document).on('click', '.btnSaveTaxPeriod', function() {
+            taxPeriodUI.saveTaxPeriod(this);
+        });
+        $(document).on('click', '.TaxPeriodUI_selectTaxPeriod', function() {
+            taxPeriodUI.loadTaxPeriodProfile(this);
+        });
+
         $(document).on('click', '.btnSaveBanking', function() {
             bankingUI.saveBanking(this);
         });
         $(document).on('click', '.BankingUI_selectBanking', function() {
             bankingUI.loadBankingProfile(this);
+        });
+
+        $(document).on('click', '.btnSaveSalesOrder', function() {
+            salesOrderUI.saveSalesOrder(this);
+        });
+        $(document).on('click', '.SalesOrderUI_selectSalesOrder', function() {
+            salesOrderUI.loadSalesOrderProfile(this);
         });
 
         $(document).on('click', '.btnSaveExpense', function() {

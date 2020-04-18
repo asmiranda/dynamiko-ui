@@ -145,6 +145,7 @@ $(function () {
     accountChartUI = new AccountChartUI();
     expenseUI = new ExpenseUI();
     salesOrderUI = new SalesOrderUI();
+    taxPeriodUI = new TaxPeriodUI();
     bankingUI = new BankingUI();
     productRequestUI = new ProductRequestUI();
     realEstateUI = new RealEstateUI();

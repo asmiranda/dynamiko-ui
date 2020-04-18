@@ -12,6 +12,7 @@ class AccountingUI {
         expenseUI.loadTopExpenses("Expense");
         salesOrderUI.loadTopSalesOrders("SalesOrder");
         bankingUI.loadTopBankings("Banking");
+        taxPeriodUI.loadTopTaxPeriods("TaxPeriod");
     }
 
     init() {
