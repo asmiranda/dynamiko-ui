@@ -1,20 +1,20 @@
 class TaxPeriodUI {
     saveTaxPeriod(obj) { 
         console.log("saveTaxPeriod called");
-        var tmp = utils.collectDataForSaving("editTaxPeriod", "TaxPeriodUI", "0");
-        tmp["TaxPeriodItems"] = utils.collectSubRecordDataForSaving("editTaxPeriod", "TaxPeriodItemUI");
-        tmp["TaxPeriodCategoryItems"] = utils.collectSubRecordDataForSaving("editTaxPeriod", "TaxPeriodCategoryItemUI");
+        // var tmp = utils.collectDataForSaving("editTaxPeriod", "TaxPeriodUI", "0");
+        // tmp["TaxPeriodItems"] = utils.collectSubRecordDataForSaving("editTaxPeriod", "TaxPeriodItemUI");
+        // tmp["TaxPeriodCategoryItems"] = utils.collectSubRecordDataForSaving("editTaxPeriod", "TaxPeriodCategoryItemUI");
 
-        console.log(tmp);
-        var vdata = JSON.stringify(tmp); 
+        // console.log(tmp);
+        // var vdata = JSON.stringify(tmp); 
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/TaxPeriodUI/post/saveTaxPeriod`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
-            console.log(data);
-            showModalAny.show("Save TaxPeriod Message", data.value);
-        };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        // var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/TaxPeriodUI/post/saveTaxPeriod`;
+        // var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        // var successCallback = function(data) {
+        //     console.log(data);
+        //     showModalAny.show("Save TaxPeriod Message", data.value);
+        // };
+        // ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
     loadTaxPeriodProfile(obj) {
@@ -32,10 +32,16 @@ class TaxPeriodUI {
     arrangeTaxPeriodProfile(data, clsName) {
         utils.loadDataAndAutoComplete(clsName, data, 0, "TaxPeriodUI");
 
-        $(`.editTaxPeriod[module="TaxPeriodItemUI"]`).val("");
-        var items = data.getProp("TaxPeriodItems");
+        $(`.editTaxPeriod[module="TaxPeriodReturnUI"]`).val("");
+        var items = data.getProp("TaxPeriodReturns");
         $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "TaxPeriodItemUI");
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, "TaxPeriodReturnUI");
+        })
+
+        $(`.editTaxPeriod[module="TaxPeriodPaymentUI"]`).val("");
+        var items = data.getProp("TaxPeriodPayments");
+        $(items).each(function(index, obj) {
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, "TaxPeriodPaymentUI");
         })
     }
 
