@@ -214,35 +214,35 @@
                             <div style="flex: 75%; margin: 15px 0px;">
                                 <div class="box box-warning">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Tax Period</h3>
+                                        <h3 class="box-title">Reconcile</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info BankingUI_btnNewTaxPeriod">New Tax Period</button>
+                                            <button type="button" class="btn btn-info BankingUI_btnNewReconcile">New Reconcile</button>
                                         </div>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
-                                        <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodProfileMain"></div>
+                                        <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileProfileMain"></div>
                                         <div class="nav-tabs-custom" style="margin-top: 5px;">
                                             <ul class="nav nav-tabs">
                                                 <li class="tab-pane active">
-                                                    <a href="#TaxPeriodReturn" data-toggle="tab" aria-expanded="false">Tax Returns</a>
+                                                    <a href="#ReconcileReturn" data-toggle="tab" aria-expanded="false">Tax Returns</a>
                                                 </li>
                                                 <li class="tab-pane">
-                                                    <a href="#TaxPeriodPayment" data-toggle="tab" aria-expanded="true">Tax Payments</a>
+                                                    <a href="#ReconcilePayment" data-toggle="tab" aria-expanded="true">Tax Payments</a>
                                                 </li>
                                                 <li class="tab-pane">
-                                                    <a href="#TaxPeriodReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                    <a href="#ReconcileReport" data-toggle="tab" aria-expanded="true">Report</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content no-padding">
-                                                <div class="tab-pane active" id="TaxPeriodReturn">
-                                                    <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodReturn"></div>
+                                                <div class="tab-pane active" id="ReconcileReturn">
+                                                    <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileReturn"></div>
                                                 </div>
-                                                <div class="tab-pane" id="TaxPeriodPayment">
-                                                    <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodPayment"></div>
+                                                <div class="tab-pane" id="ReconcilePayment">
+                                                    <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcilePayment"></div>
                                                 </div>
-                                                <div class="tab-pane" id="TaxPeriodReport">
-                                                    <div class="DisplayTab" tabName="TaxPeriod" tabUrl="TaxPeriodReport"></div>
+                                                <div class="tab-pane" id="ReconcileReport">
+                                                    <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileReport"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +250,7 @@
                                 </div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTabCommon" tabName="TaxPeriod" tabUrl="SearchTaxPeriod"></div>
+                                <div class="DisplayTabCommon" tabName="Reconcile" tabUrl="SearchReconcile"></div>
                             </div>
                         </div>
                     </div>
@@ -320,6 +320,14 @@
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileProfileMain"></div>
+                                        <div style="display: flex; margin-top: 5px;">
+                                            <div style="flex: 1; margin-right: 10px;">
+                                                <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileDebit"></div>
+                                            </div>
+                                            <div style="flex: 1; margin-left: 10px;">
+                                                <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileCredit"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

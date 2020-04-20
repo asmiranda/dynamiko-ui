@@ -13,6 +13,7 @@ class AccountingUI {
         salesOrderUI.loadTopSalesOrders("SalesOrder");
         bankingUI.loadTopBankings("Banking");
         taxPeriodUI.loadTopTaxPeriods("TaxPeriod");
+        reconcileUI.loadTopReconciles("Reconcile");
     }
 
     init() {

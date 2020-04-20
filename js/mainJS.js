@@ -147,6 +147,7 @@ $(function () {
     salesOrderUI = new SalesOrderUI();
     taxPeriodUI = new TaxPeriodUI();
     bankingUI = new BankingUI();
+    reconcileUI = new ReconcileUI();
     productRequestUI = new ProductRequestUI();
     realEstateUI = new RealEstateUI();
     citizenUI = new CitizenUI();

@@ -1,32 +1,16 @@
-public String documentType; //can be quote, invoice, forecast
-
-public String customerCode;
-
-public String invoiceNumber; //note, for estimate, forecast and recurring just use the id
-public String contactPerson;
-public String currencyCode;
-public String accountNumber;
-
-public Double totalBeforeDiscount;
-public Double discountPercentage;
-public Double discountAmount;
-public Double freightAmount;
-public Double totalAmount;
-public Double taxAmount;
-public Double overallAmount;
-
-public LocalDate estimateDate;
-public LocalDate forecastDate;
-public LocalDate invoiceDate;
-public LocalDate paymentDueDate;
-
-public LocalDate postingDate;
-public LocalDate deliveryDate;
-public String employeeCode;
-
-@Column(length = 250)
-public String summaryText;
-@Column(length = 250)
-public String notes;
-@Column(length = 250)
-public String footer;
+<div style="display: flex;">
+    <div style="flex: 4; margin-left: 10px;">
+        <div class="input-group" style="width: 100%;">
+            <input rowIndex="10" type="text" class="form-control autocomplete" name="accountName" placeholder="Account" module="GeneralLedgerCreditUI" mainmodule="GeneralLedgerCreditUI" autoname="accountName" helptitle="accountName">
+            <input rowIndex="10" class="form-control editReconcile HiddenAutoComplete" name="accountName" type="hidden" module="GeneralLedgerCreditUI" mainmodule="GeneralLedgerCreditUI" autoNameField="accountName" value="">
+            <div class="autocomplete-items" rowIndex="10" module="GeneralLedgerCreditUI" mainmodule="GeneralLedgerCreditUI" autoname="accountName">
+            </div>
+        </div>
+    </div>
+    <div style="flex: 2; margin-left: 10px;">
+        <input rowIndex="10" name="credit" module="GeneralLedgerCreditUI" type="text" class="form-control editReconcile" placeholder="Credit">
+    </div>
+    <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
+        <i class="fa fa-trash hand" class="btnDeleteGeneralLedgerCredit" rowIndex="10"> </i>
+    </div>
+</div>

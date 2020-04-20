@@ -1,6 +1,13 @@
 class GlobalEventsAccounting {
     initializeGlobalEvents() {
 
+        $(document).on('click', '.btnSaveReconcile', function() {
+            reconcileUI.saveReconcile(this);
+        });
+        $(document).on('click', '.ReconcileUI_selectReconcile', function() {
+            reconcileUI.loadReconcileProfile(this);
+        });
+
         $(document).on('click', '.btnSaveTaxPeriod', function() {
             taxPeriodUI.saveTaxPeriod(this);
         });
