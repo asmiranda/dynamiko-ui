@@ -68,15 +68,6 @@ class BankingUI {
         var successCallback = function(data) {
             console.log(data);
             bankingUI.arrangeSearchedBankings(data, tabName);
-
-            $("#BankingTransactionRecordHolder").empty();
-            var html = $("#BankingTransactionRecordTemplate").html();
-    
-            var newHtml = "";
-            for (var index=1; index<=100; index++) {
-                newHtml += `<div id='bankingTransaction${index}' style='margin-top: 2px;'>${utils.replaceAll(html, "----", index)}</div>`;
-            }
-            $("#BankingTransactionRecordHolder").append(newHtml);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

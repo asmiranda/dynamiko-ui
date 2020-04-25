@@ -76,10 +76,10 @@ class TaxPeriodUI {
         var divSelector = `.TaxPeriodUI_SearchTaxPeriods[tabName="${tabName}"]`;
         $(divSelector).empty();
         $(data).each(function(index, obj) {
-            var payeeName = obj.getProp("customerName");
-            var accountName = obj.getProp("employeeName");
-            var paymentDate = obj.getProp("invoiceDate");
-            var totalAmount = obj.getProp("totalAmount");
+            var payeeName = obj.getProp("taxName");
+            var accountName = obj.getProp("periodCode");
+            var paymentDate = obj.getProp("startPeriod");
+            var totalAmount = obj.getProp("endPeriod");
             var TaxPeriodId = obj.getProp("TaxPeriodId");
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
@@ -88,8 +88,8 @@ class TaxPeriodUI {
                         <span class="pull-right">${accountName}</span><br/>
                     </div>
                     <div style="flex: 100%;">
-                        <span><a href="#" class="TaxPeriodUI_selectTaxPeriod" recordId="${TaxPeriodId}" module="TaxPeriodUI" tabName="${tabName}"><i class="fa fa-calendar"> Total: </i> ${paymentDate}</a></span>
-                        <span class="pull-right" style="font-size: 14px;"><i class="fa fa-money"> Total: </i> ${totalAmount}</span><br/>
+                        <span><a href="#" class="TaxPeriodUI_selectTaxPeriod" recordId="${TaxPeriodId}" module="TaxPeriodUI" tabName="${tabName}"><i class="fa fa-calendar"> </i> ${paymentDate}</a></span>
+                        <span class="pull-right" style="font-size: 14px;"><i class="fa fa-calendar"> </i> ${totalAmount}</span><br/>
                     </div>
                 </div>
                 <hr style="margin-top: 5px; width: 98%">

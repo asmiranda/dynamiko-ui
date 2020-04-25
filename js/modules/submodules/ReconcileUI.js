@@ -1,6 +1,20 @@
 class ReconcileUI {
     saveReconcile(obj) { 
         console.log("saveReconcile called");
+        var tmp = utils.collectDataForSaving("editReconcile", "ReconcileUI", "0");
+        tmp["Debits"] = utils.collectSubRecordDataForSaving("editReconcile", "GeneralLedgerDebitUI");
+        tmp["Credits"] = utils.collectSubRecordDataForSaving("editReconcile", "GeneralLedgerCreditUI");
+
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ReconcileUI/post/saveReconcile`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log(data);
+            showModalAny.show("Save Reconcile Message", data.value);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
     loadReconcileProfile(obj) {
@@ -18,16 +32,16 @@ class ReconcileUI {
     arrangeReconcileProfile(data, clsName) {
         utils.loadDataAndAutoComplete(clsName, data, 0, "ReconcileUI");
 
-        $(`.editReconcile[module="ReconcileReturnUI"]`).val("");
-        var items = data.getProp("ReconcileReturns");
+        $(`.editReconcile[module="GeneralLedgerCreditUI"]`).val("");
+        var items = data.getProp("Credits");
         $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ReconcileReturnUI");
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, "GeneralLedgerCreditUI");
         })
 
-        $(`.editReconcile[module="ReconcilePaymentUI"]`).val("");
-        var items = data.getProp("ReconcilePayments");
+        $(`.editReconcile[module="GeneralLedgerDebitUI"]`).val("");
+        var items = data.getProp("Debits");
         $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ReconcilePaymentUI");
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, "GeneralLedgerDebitUI");
         })
     }
 

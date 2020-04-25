@@ -250,27 +250,44 @@ class Utils {
     }
 
     loadAutoCompleteRowLabel(field, rowIndex, obj) {
-        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == `);
         var moduleName = $(obj).attr("module");
         var tmpLabel = $(`[class~='autocomplete'][module='${moduleName}'][autoname='${field}'][rowIndex='${rowIndex}']`);
         tmpLabel.val("");
 
         var hiddenAutoComplete = `.HiddenAutoComplete[module='${moduleName}'][name="${field}"][rowIndex='${rowIndex}']`;
         var value = $(hiddenAutoComplete).val();
+        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == [value=${value}]`);
 
         if (value!=null && value!="") {
             var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
-            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
-                console.log(data);
-                var divDescAutoComplete = $(`.DivAutoComplete[module='${moduleName}'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
-                divDescAutoComplete.html(data.getProp("value"));
-                var fieldAutoComplete = $(`.autocomplete[module='${moduleName}'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
-                fieldAutoComplete.val(data.getProp("value"));
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+            var data = sStorage.get(url);
+            if (data==null || data=="") {
+                var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+                var successCallback = function(data) {
+                    console.log(data);
+                    sStorage.set(url, data);
+                    utils.arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data);
+                };
+                ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+            }
+            else {
+                utils.arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data);
+            }
         }
     };
+
+    arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data) {
+        var fieldName = data.getProp("fieldName");
+        var fieldValue = data.getProp("value");
+        var divDescAutoComplete = $(`.DivAutoComplete[module='${moduleName}'][autoname='${fieldName}'][rowIndex='${rowIndex}']`);
+        if ($(divDescAutoComplete)) {
+            $(divDescAutoComplete).html(fieldValue);
+        }
+        var fieldAutoComplete = $(`.autocomplete[module='${moduleName}'][autoname='${fieldName}'][rowIndex='${rowIndex}']`);
+        if ($(fieldAutoComplete)) {
+            $(fieldAutoComplete).val(fieldValue);
+        }
+    }
 
     loadPopSearchLabel(form, field, name) {
         console.log("loadPopSearchLabel == " + this.form + " [tmpname='"+this.name+"'] == ");
