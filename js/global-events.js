@@ -37,6 +37,10 @@ class GlobalEvents {
         $(document).on('click', '.btnRunReport[module="ReportUI"]', function() {
             reportUI.displayReport(this);
         });
+        $(document).on('change', 'select[module="ReportUI"][name="report"]', function() {
+            reportUI.changeParameters(this);
+        });
+
         $(document).on('click', '.leftDashboardItem', function() {
             dashboard.load(this);
         });
