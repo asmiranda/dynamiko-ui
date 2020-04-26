@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<section class="content-header">
+    <div class="DisplayTab" tabUrl="Header"></div>
+</section>
+<section class="content">
+    <div style="display: flex; background: #ecf0f5;">
+        <div style="flex: 1; margin: 5px 0px;">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Report</h3>
+                </div>
+                <div class="box-body" style="display: flex;">
+                    <div style="flex: 1; flex-direction: column;">
+                        <div class="form-group" style="margin-left: 15px;">
+                            <label>Choose Report</label>
+                            <select class="form-control" rowindex="0" module="ReportUI" name="report">
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <div class="box box-default">
+                                <div class="box-header with-border" style="text-align: center;">
+                                    <h3 class="box-title">Parameters</h3>
+                                </div>
+                                <div class="box-body" style="display: flex; flex-direction: column;">
+                                    <div class="form-group" style="margin-left: 15px;">
+                                        <label>Choose Report</label>
+                                        <select class="form-control" rowindex="0" module="ReportUI" name="param1">
+                                            <option>Yes</option>
+                                            <option>No</option>
+                                          </select>
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                                <div class="box-footer text-center">
+                                    <button type="button" module="ReportUI" class="btn btn-primary btnRunReport">Run Report</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex: 4; margin-left: 15px;">
+                        <iframe id="reportFrame" class="reportFrame" src="" style="width: 100%; height:500px;" report="AutoReport" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

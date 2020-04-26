@@ -17,6 +17,7 @@ class GlobalEvents {
         this.registeredModules.push("accountingUI");
         this.registeredModules.push("hospitalUI");
         this.registeredModules.push("governmentUI");
+        this.registeredModules.push("reportUI");
 
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);
@@ -33,7 +34,9 @@ class GlobalEvents {
             globalEvents.triggerChangeRecord(this);
         });
 
-
+        $(document).on('click', '.btnRunReport[module="ReportUI"]', function() {
+            reportUI.displayReport(this);
+        });
         $(document).on('click', '.leftDashboardItem', function() {
             dashboard.load(this);
         });
