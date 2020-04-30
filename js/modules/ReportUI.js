@@ -23,14 +23,27 @@ class ReportUI {
 
             var divSelector = `select[module="ReportUI"][name="report"]`;
             $(divSelector).empty();
-            $(divSelector).append(`<option value="">--</option>`);
+            const groups = new Set();
             $(data).each(function(index, obj) {
-                var name = obj.getProp("name");
-                var title = obj.getProp("title");
-                var str = `<option value="${name}">${title}</option>`;
-                $(divSelector).append(str);
+                var group = obj.getProp("group");
+                groups.add(group);
             });
-    
+            console.log(groups);
+
+            for (let groupName of groups) {
+                console.log(groupName);
+                var str = `<optgroup label="${groupName}">`;
+                $(data).each(function(index, obj) {
+                    var group = obj.getProp("group");
+                    if (group==groupName) {
+                        var name = obj.getProp("name");
+                        var title = obj.getProp("title");
+                        str += `<option value="${name}">${title}</option>`;
+                    }
+                });
+                str += `</optgroup>`;
+                $(divSelector).append(str);
+            }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -38,8 +51,17 @@ class ReportUI {
     displayReport(obj) {
         var divSelector = `select[module="ReportUI"][name="report"]`;
         var reportName = $(divSelector).val();
-
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/pdf`;
+        var queryStr = "";
+        $(".reportParam").each(function(index, obj) {
+            var value = $(obj).val();
+            if (value != "") {
+                var name = $(obj).attr("name");
+                queryStr += `${name}=${value}`;
+            }
+        });
+        console.log(queryStr);
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/pdf?${queryStr}`;
+        console.log(url);
         $("#reportFrame").attr("src", url);
     }
 
