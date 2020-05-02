@@ -14,29 +14,45 @@
                         <div class="form-group" style="margin-left: 15px;">
                             <label>Choose Report</label>
                             <select class="form-control" rowindex="0" module="ReportUI" name="report">
-                                <option>Yes</option>
-                                <option>No</option>
                             </select>
                         </div>
                         <div style="margin-top: 15px;">
-                            <div class="box box-default">
-                                <div class="box-header with-border" style="text-align: center;">
-                                    <h3 class="box-title">Parameters</h3>
-                                </div>
-                                <div class="box-body" style="display: flex; flex-direction: column;">
-                                    <div class="reportParameters">
-                                        <div class="form-group" style="margin-left: 15px;">
-                                            <label>Choose Report</label>
-                                            <select class="form-control" rowindex="0" module="ReportUI" name="param1">
-                                                <option>Yes</option>
-                                                <option>No</option>
-                                              </select>
+                            <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                <ul class="nav nav-tabs">
+                                    <li class="tab-pane active"> 
+                                        <a href="#Parameters" data-toggle="tab" aria-expanded="true">Parameters</a>
+                                    </li>
+                                    <li class="tab-pane">
+                                        <a href="#Columns" data-toggle="tab" aria-expanded="false">Columns</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content no-padding">
+                                    <div class="tab-pane active" id="Parameters">
+                                        <div class="box box-default">
+                                            <div class="box-header with-border" style="text-align: center;">
+                                                <h3 class="box-title">Parameters</h3>
+                                            </div>
+                                            <div class="box-body" style="display: flex; flex-direction: column;">
+                                                <div class="reportParameters">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="Columns">
+                                        <div class="box box-default">
+                                            <div class="box-header with-border" style="text-align: center;">
+                                                <h3 class="box-title">Display Columns</h3>
+                                            </div>
+                                            <div class="box-body" style="display: flex; flex-direction: column;">
+                                                <div class="reportColumns">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box-footer text-center">
-                                    <button type="button" module="ReportUI" class="btn btn-primary btnRunReport">Run Report</button>
-                                </div>
+                            </div>
+                            <div class="box-footer text-center">
+                                <button type="button" module="ReportUI" class="btn btn-primary btnRunReport">Run Report</button>
                             </div>
                         </div>
                     </div>

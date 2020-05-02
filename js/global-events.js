@@ -85,9 +85,19 @@ class GlobalEvents {
         $(document).on('keyup', '.autocomplete', function() {
             dynaAutoComplete.doAutoComplete(this);
         });
+        $(document).on('click', '.autocomplete', function() {
+            dynaAutoComplete.doAutoComplete(this);
+        });
         $(document).on('click', '.autocomplete-choice', function() {
             dynaAutoComplete.putAutoComplete(this);
         });
+        $(document).on('click', '.btnCloseAutoComplete', function() {
+            dynaAutoComplete.closeAutoComplete(this);
+        });
+        $(document).on('click', '.btnAutoClearSelected', function() {
+            dynaAutoComplete.clearSelected(this);
+        });
+        
 
         $(document).on('click', '.btnChildTabSave', function() {
             dynaButtonAction.saveDisplayTab(this);

@@ -1,5 +1,6 @@
 class DynaAutoComplete {
     putAutoComplete(obj) {
+        console.log("putAutoComplete Called");
         var value = $(obj).attr("value");
         var rowIndex = $(obj).attr("rowIndex");
         var html = $(obj).html();
@@ -21,9 +22,10 @@ class DynaAutoComplete {
 
     doAutoComplete(obj) {
         var value = $(obj).val();
-        var moduleName = $(obj).attr("module");
+        var moduleName = $(obj).attr("module"); 
         var fieldName = $(obj).attr("autoName");
         var rowIndex = $(obj).attr("rowIndex");
+        $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).show();
         var isAutoCompleteQuickUpdaterInput = $(obj).hasClass("autoCompleteQuickUpdaterInput");
 
         console.log("Autocomplete typed "+value);
@@ -41,15 +43,35 @@ class DynaAutoComplete {
                 });
             }
             else {
-                $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}']`).empty();
+                $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).empty();
                 $.each(data, function(index, obj) {
                     var key = obj.getProp("key");
                     var value = obj.getProp("value");
+
+                    if (index==0) {
+                        var strHtmlClose = `<div title="Close" style="float: right;" class="btnCloseAutoComplete" autoName="${fieldName}" module="${moduleName}" rowIndex="${rowIndex}"><i style="position:fixed;margin-top: -5px;margin-left: -5px;" class="fa fa-close"></i></div>`;
+                        $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).append(strHtmlClose);
+                    }
                     var strHtml = `<div value="${key}" class="autocomplete-choice" autoName="${fieldName}" module="${moduleName}" rowIndex="${rowIndex}">${value}</div>`;
                     $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).append(strHtml);
                 });
             }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    closeAutoComplete(obj) {
+        var moduleName = $(obj).attr("module"); 
+        var fieldName = $(obj).attr("autoName");
+        var rowIndex = $(obj).attr("rowIndex");
+        $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).hide();
+    }
+
+    clearSelected(obj) {
+        var moduleName = $(obj).attr("module"); 
+        var fieldName = $(obj).attr("autoName");
+        var rowIndex = $(obj).attr("rowIndex");
+        $(`.HiddenAutoComplete[name='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).val("");
+        $(`.autocomplete[name='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).val("");
     }
 }
