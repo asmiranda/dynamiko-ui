@@ -34,6 +34,9 @@ class GlobalEvents {
             globalEvents.triggerChangeRecord(this);
         });
 
+        $(document).on('click', '.btnDownloadExcel[module="ReportUI"]', function() {
+            reportUI.downloadExcel(this);
+        });
         $(document).on('click', '.btnRunReport[module="ReportUI"]', function() {
             reportUI.displayReport(this);
         });

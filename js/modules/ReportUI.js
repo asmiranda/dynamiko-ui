@@ -49,6 +49,33 @@ class ReportUI {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
+    downloadExcel(obj) {
+        var divSelector = `select[module="ReportUI"][name="report"]`;
+        var reportName = $(divSelector).val();
+        var queryStr = "";
+        $(".reportParam").each(function(index, obj) {
+            var value = $(obj).val();
+            if (value != "") {
+                var name = $(obj).attr("name");
+                queryStr += `p_${name}=${value}&`;
+            }
+        });
+        $(".reportColumn").each(function(index, obj) {
+            var checked = $(obj).is(":checked");
+            if (checked) {
+                var name = $(obj).attr("name");
+                queryStr += `c_${name}=true&`;
+            }
+        });
+        
+        var dt = new Date();
+        var milliSec = dt.getMilliseconds();
+        console.log(queryStr);
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/downloadReport/${reportName}/xls/${milliSec}?${queryStr}`;
+        console.log(url);
+        $("#reportFrame").attr("src", url);
+    }
+
     displayReport(obj) {
         var divSelector = `select[module="ReportUI"][name="report"]`;
         var reportName = $(divSelector).val();
@@ -67,8 +94,11 @@ class ReportUI {
                 queryStr += `c_${name}=true&`;
             }
         });
+        
+        var dt = new Date();
+        var milliSec = dt.getMilliseconds();
         console.log(queryStr);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/pdf?${queryStr}`;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/pdf/${milliSec}?${queryStr}`;
         console.log(url);
         $("#reportFrame").attr("src", url);
     }
