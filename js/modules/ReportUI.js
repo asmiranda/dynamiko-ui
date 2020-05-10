@@ -50,43 +50,17 @@ class ReportUI {
     }
 
     downloadExcel(obj) {
-        var divSelector = `select[module="ReportUI"][name="report"]`;
-        var reportName = $(divSelector).val();
-        var queryStr = "";
-        $(".reportParam").each(function(index, obj) {
-            var value = $(obj).val();
-            if (value != "") {
-                var name = $(obj).attr("name");
-                queryStr += `p_${name}=${value}&`;
-            }
-        });
-        $(".reportColumn").each(function(index, obj) {
-            var checked = $(obj).is(":checked");
-            if (checked) {
-                var name = $(obj).attr("name");
-                queryStr += `c_${name}=true&`;
-            }
-        });
-        
-        var dt = new Date();
-        var milliSec = dt.getMilliseconds();
-        console.log(queryStr);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/downloadReport/${reportName}/xls/${milliSec}?${queryStr}`;
-        console.log(url);
-        $("#reportFrame").attr("src", url);
+        reportUI.runReport(obj, "xsl");
     }
 
     displayReport(obj) {
+        reportUI.runReport(obj, "pdf");
+    }
+
+    runReport(obj, reportType) {
         var divSelector = `select[module="ReportUI"][name="report"]`;
         var reportName = $(divSelector).val();
         var queryStr = "";
-        $(".reportParam").each(function(index, obj) {
-            var value = $(obj).val();
-            if (value != "") {
-                var name = $(obj).attr("name");
-                queryStr += `p_${name}=${value}&`;
-            }
-        });
         $(".reportColumn").each(function(index, obj) {
             var checked = $(obj).is(":checked");
             if (checked) {
@@ -94,13 +68,28 @@ class ReportUI {
                 queryStr += `c_${name}=true&`;
             }
         });
-        
-        var dt = new Date();
-        var milliSec = dt.getMilliseconds();
-        console.log(queryStr);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/pdf/${milliSec}?${queryStr}`;
-        console.log(url);
-        $("#reportFrame").attr("src", url);
+        var displayReport = true;
+        $(".reportParam").each(function(index, obj) {
+            var paramName = $(obj).attr("paramName");
+            var value = $(obj).val();
+            var isRequired = $(obj).attr("isRequired");
+            if (isRequired=="true" && value=="") {
+                showModalAny.show("Required Report Parameter", `${paramName} is required.`);
+                displayReport = false;
+            }
+            if (value != "") {
+                var name = $(obj).attr("name");
+                queryStr += `p_${name}=${value}&`;
+            }
+        });
+        if (displayReport) {
+            var dt = new Date();
+            var milliSec = dt.getMilliseconds();
+            console.log(queryStr);
+            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/${reportType}/${milliSec}?${queryStr}`;
+            console.log(url);
+            $("#reportFrame").attr("src", url);
+        }
     }
 
     changeParameters(obj) {
@@ -141,29 +130,30 @@ class ReportUI {
             var title = obj.getProp("title");
             var name = obj.getProp("name");
             var type = obj.getProp("type");
+            var required = obj.getProp("required");
             var dropDownLst = obj.getProp("dropDownLst");
             console.log(title, name, type, dropDownLst);
             var str = "";
             if (type=="STRING") {
-                str = reportUI.createStringParam(name, title);
+                str = reportUI.createStringParam(name, title, required);
             }
             else if (type=="INT") {
-                str = reportUI.createIntParam(name, title);
+                str = reportUI.createIntParam(name, title, required);
             }
             else if (type=="DOUBLE") {
-                str = reportUI.createDoubleParam(name, title);
+                str = reportUI.createDoubleParam(name, title, required);
             }
             else if (type=="DATE") {
-                str = reportUI.createDateParam(name, title);
+                str = reportUI.createDateParam(name, title, required);
             }
             else if (type=="DATEYEAR") {
-                str = reportUI.createDateYearParam(name, title);
+                str = reportUI.createDateYearParam(name, title, required);
             }
             else if (type=="DROPDOWN") {
-                str = reportUI.createDropDownParam(name, title, dropDownLst);
+                str = reportUI.createDropDownParam(name, title, dropDownLst, required);
             }
             else if (type=="AUTOCOMPLETE") {
-                str = reportUI.createAutoCompleteParam(name, title);
+                str = reportUI.createAutoCompleteParam(name, title, required);
             }
             $(".reportParameters").append(str);
         });
@@ -188,10 +178,10 @@ class ReportUI {
         });
     }
 
-    createAutoCompleteParam(name, title) {
+    createAutoCompleteParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="flex: 3; margin-left: 15px;">
-                <label class="control-label">${title}</label>
+                <label class="control-label">${isRequired?"*":""}${title}</label>
                 <div class="input-group" style="width: 100%;">
 
                     <div class="input-group">
@@ -199,7 +189,7 @@ class ReportUI {
                         <span rowindex="0" autoname="${name}" module="ReportUI" class="btnAutoClearSelected input-group-addon" title="Clear Selected"><i class="fa fa-remove"></i></span>
                     </div>
 
-                    <input rowindex="0" class="form-control reportParam HiddenAutoComplete" name="${name}" type="hidden" module="ReportUI" mainmodule="ReportUI" autonamefield="${name}" value="">
+                    <input isRequired="${isRequired}" paramName="${title}" rowindex="0" class="form-control reportParam HiddenAutoComplete" name="${name}" type="hidden" module="ReportUI" mainmodule="ReportUI" autonamefield="${name}" value="">
                     <div class="autocomplete-items" rowindex="0" module="ReportUI" mainmodule="ReportUI" autoname="${name}">
                     </div>
                 </div>
@@ -208,7 +198,7 @@ class ReportUI {
         return str;
     }
  
-    createDropDownParam(name, title, dropDownLst) {
+    createDropDownParam(name, title, dropDownLst, isRequired) {
         var selections = "";
         $(dropDownLst).each(function(index, obj) {
             var key = obj.getProp("key");
@@ -217,8 +207,8 @@ class ReportUI {
         });
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${title}</label>
-                <select class="form-control reportParam" rowindex="0" module="ReportUI" name="${name}">
+                <label>${isRequired?"*":""}${title}</label>
+                <select isRequired="${isRequired}" paramName="${title}" class="form-control reportParam" rowindex="0" module="ReportUI" name="${name}">
                     <option></option>
                     ${selections}
                 </select>
@@ -227,51 +217,51 @@ class ReportUI {
         return str;
     }
 
-    createDoubleParam(name, title) {
+    createDoubleParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${title}</label>
-                <input type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
+                <label>${isRequired?"*":""}${title}</label>
+                <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
         return str;
     }
 
-    createStringParam(name, title) {
+    createStringParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${title}</label>
-                <input type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
+                <label>${isRequired?"*":""}${title}</label>
+                <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
         return str;
     }
 
-    createIntParam(name, title) {
+    createIntParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${title}</label>
-                <input type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
+                <label>${isRequired?"*":""}${title}</label>
+                <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
         return str;
     }
 
-    createDateParam(name, title) {
+    createDateParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${title}</label>
-                <input type="text" rowindex="0" class="form-control calendar reportParam" module="ReportUI" name="${name}" tabname="Report">
+                <label>${isRequired?"*":""}${title}</label>
+                <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control calendar reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
         return str;
     }
 
-    createDateYearParam(name, title) {
+    createDateYearParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${title}</label>
-                <input type="text" rowindex="0" class="form-control calendarYear reportParam" module="ReportUI" name="${name}" tabname="Report">
+                <label>${isRequired?"*":""}${title}</label>
+                <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control calendarYear reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
         return str;
