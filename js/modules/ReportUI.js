@@ -50,7 +50,7 @@ class ReportUI {
     }
 
     downloadExcel(obj) {
-        reportUI.runReport(obj, "xsl");
+        reportUI.runReport(obj, "xlsx");
     }
 
     displayReport(obj) {
@@ -88,7 +88,12 @@ class ReportUI {
             console.log(queryStr);
             var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/${reportType}/${milliSec}?${queryStr}`;
             console.log(url);
-            $("#reportFrame").attr("src", url);
+            if (reportType=='pdf') {
+                $("#reportFrame").attr("src", url);
+            }
+            else {
+                window.open(url, '_blank');
+            }
         }
     }
 
@@ -104,8 +109,10 @@ class ReportUI {
                 console.log(data);
                 var params = data.getProp("params");
                 var columns = data.getProp("columns");
+                var papers = data.getProp("papers");
                 reportUI.arrangeReportParams(params);
                 reportUI.arrangeReportColumnInclusion(columns);
+                reportUI.arrangeReportPaperSizes(papers);
 
                 $('.calendar').datepicker({
                     autoclose: true,
@@ -176,6 +183,21 @@ class ReportUI {
             `;
             $(".reportColumns").append(str);
         });
+    }
+
+    arrangeReportPaperSizes(papers) {
+        console.log(papers);
+        $(".reportParam[name='paperSize']").empty();
+
+        var selections = "";
+        $(papers).each(function(index, obj) {
+            var name = obj.getProp("name");
+            var width = obj.getProp("width");
+            var height = obj.getProp("height");
+            var value = `${name} [${width} by ${height}]`;
+            selections += `<option value="${name}" width="${width}" height="${height}">${value}</option>`;
+        });
+        $(".reportParam[name='paperSize']").append(selections);
     }
 
     createAutoCompleteParam(name, title, isRequired) {
