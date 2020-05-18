@@ -20,6 +20,15 @@
                         <a href="#Expenses" data-toggle="tab" aria-expanded="false">Expenses</a>
                     </li>
                     <li class="tab-pane">
+                        <a href="#Receivables" data-toggle="tab" aria-expanded="false">Receivables</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#Payables" data-toggle="tab" aria-expanded="false">Payables</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#ManualEntry" data-toggle="tab" aria-expanded="false">Manual Entry</a>
+                    </li>
+                    <li class="tab-pane">
                         <a href="#Taxes" data-toggle="tab" aria-expanded="false">Taxes</a>
                     </li>
                     <li class="tab-pane">
@@ -197,7 +206,149 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="Employees">
+                    <div class="tab-pane" id="Receivables">
+                        <pre style="display: none;">
+                            Sales
+                            Invoices
+                            Customers
+                            Products and Services
+                            <a href="https://youtu.be/pNRk_U-Ih8g" target="_blank">Video</a>                            
+                        </pre>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Sales Order</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-info btnSaveSalesOrder">Save Sales Order</button>
+                                            <button type="button" class="btn btn-default SalesOrderUI_btnNewSalesOrder"><i
+                                                    class="fa fa-plus"></i> New Sales Order</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#SalesOrderItems" data-toggle="tab" aria-expanded="false">Items</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#SalesOrderReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="SalesOrderItems">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderItems"></div>
+                                                </div>
+                                                <div class="tab-pane" id="SalesOrderReport">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="SalesOrder" tabUrl="SearchSalesOrder"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="Payables">
+                        <pre style="display: none;">
+                            Sales
+                            Invoices
+                            Customers
+                            Products and Services
+                            <a href="https://youtu.be/pNRk_U-Ih8g" target="_blank">Video</a>                            
+                        </pre>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Sales Order</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-info btnSaveSalesOrder">Save Sales Order</button>
+                                            <button type="button" class="btn btn-default SalesOrderUI_btnNewSalesOrder"><i
+                                                    class="fa fa-plus"></i> New Sales Order</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#SalesOrderItems" data-toggle="tab" aria-expanded="false">Items</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#SalesOrderReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="SalesOrderItems">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderItems"></div>
+                                                </div>
+                                                <div class="tab-pane" id="SalesOrderReport">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="SalesOrder" tabUrl="SearchSalesOrder"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="ManualEntry">
+                        <pre style="display: none;">
+                            Sales
+                            Invoices
+                            Customers
+                            Products and Services
+                            <a href="https://youtu.be/pNRk_U-Ih8g" target="_blank">Video</a>                            
+                        </pre>
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Sales Order</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-info btnSaveSalesOrder">Save Sales Order</button>
+                                            <button type="button" class="btn btn-default SalesOrderUI_btnNewSalesOrder"><i
+                                                    class="fa fa-plus"></i> New Sales Order</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#SalesOrderItems" data-toggle="tab" aria-expanded="false">Items</a>
+                                                </li>
+                                                <li class="tab-pane">
+                                                    <a href="#SalesOrderReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="SalesOrderItems">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderItems"></div>
+                                                </div>
+                                                <div class="tab-pane" id="SalesOrderReport">
+                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderReport"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTabCommon" tabName="SalesOrder" tabUrl="SearchSalesOrder"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="Taxes">
                         <pre style="display: none;">
@@ -330,6 +481,8 @@
                                 <div class="DisplayTabCommon" tabName="Reconcile" tabUrl="SearchReconcile"></div>
                             </div>
                         </div>
+                    </div>
+                    <div class="tab-pane" id="Employees">
                     </div>
                     <div class="tab-pane" id="Reports">
                         <pre>
