@@ -1,4 +1,7 @@
 class AccountingUI { 
+    constructor() {
+    }
+
     changeMainId(obj) {
     }
 
@@ -19,16 +22,22 @@ class AccountingUI {
     init() {
         $("#dynamikoMainSearch").hide();
     }
-
-    selectAccountChart(obj) {
-        // var recordId = $(obj).attr("recordId");
-        var tabName = $(obj).attr("tabName");
-        console.log(tabName);
-
-        if (tabName=="AccountChart") {
-            accountChartUI.loadAccountChartProfile(obj);
-            // purchaseOrderUI.loadActivePoForProduct(obj);
-        }
-    }
 }
+
+$(function () {
+    accountingUI = new AccountingUI();
+
+    // #################for sub modules
+    accountingDashboardUI = new AccountingDashboardUI();
+    bankingUI = new BankingUI();
+    salesOrderUI = new SalesOrderUI();
+    expenseUI = new ExpenseUI();
+    receivableUI = new ReceivableUI();
+    payabaleUI = new PayableUI();
+    manualEntryUI = new manualEntryUI();
+    taxPeriodUI = new TaxPeriodUI();
+    reconcileUI = new ReconcileUI();
+    accountChartUI = new AccountChartUI();
+    accountingReportUI = new AccountingReportUI();
+});
 

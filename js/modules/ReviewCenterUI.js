@@ -1,4 +1,4 @@
-class ReviewCenter {
+class ReviewCenterUI {
     submitEnrollment() {
         var studentId = $("input[name='PersonId']").val();
         var choiceProgram = $("select[name='choiceProgram']").val();

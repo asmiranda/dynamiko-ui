@@ -1,6 +1,5 @@
 class GlobalEventsAccounting {
     initializeGlobalEvents() {
-
         $(document).on('click', '.btnSaveReconcile', function() {
             reconcileUI.saveReconcile(this);
         });
