@@ -125,21 +125,23 @@ $(function () {
     dynamikoCache = new DynamikoCache();
 
     // #################for saas and modules
-    reviewCenter = new ReviewCenter();
-
-    hrRequisitionUI = new HrRequisitionUI();
+    personalDashboardUI = new PersonalDashboardUI();
+    recruitmentUI = new RecruitmentUI();
     employeeUI = new EmployeeUI();
-    payrollScheduleUI = new PayrollScheduleUI();
-    purchaseOrderUI = new PurchaseOrderUI();
+    payrollUI = new PayrollUI();
+    governmentUI = new GovernmentUI();
+    schoolUI = new SchoolUI();
+    reviewCenterUI = new ReviewCenterUI();
+    hospitalUI = new HospitalUI();
     inventoryUI = new InventoryUI();
     accountingUI = new AccountingUI();
-    hospitalUI = new HospitalUI();
-    governmentUI = new GovernmentUI();
-    reportUI = new ReportUI();
     referenceUI = new ReferenceUI();
-    personalDashboardUI = new PersonalDashboardUI();
+    reportUI = new ReportUI();
 
     // #################for sub modules
+    purchaseOrderUI = new PurchaseOrderUI();
+    payrollScheduleUI = new PayrollScheduleUI();
+    hrRequisitionUI = new HrRequisitionUI();
     personTaskUI = new PersonTaskUI();
     employeeTimeSheetUI = new EmployeeTimeSheetUI();
     employeeTeamMemberUI = new EmployeeTeamMemberUI();
@@ -172,6 +174,4 @@ $(function () {
 
     globalEvents = new GlobalEvents();
     globalEvents.initializeGlobalEvents();
-
-    dynaRegister.registerSaas("ReviewCenter", reviewCenter);
 });
