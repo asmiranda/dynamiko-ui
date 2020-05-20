@@ -136,6 +136,8 @@ $(function () {
     hospitalUI = new HospitalUI();
     governmentUI = new GovernmentUI();
     reportUI = new ReportUI();
+    referenceUI = new ReferenceUI();
+    personalDashboardUI = new PersonalDashboardUI();
 
     // #################for sub modules
     personTaskUI = new PersonTaskUI();
