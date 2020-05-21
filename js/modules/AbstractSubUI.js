@@ -1,6 +1,16 @@
 class AbstractSubUI {
     constructor(moduleName) {
         this.moduleName = moduleName;
+        var context = this;
+        $(document).on('click', `.selectSearchRecord[module="${moduleName}"]`, function() {
+            context.loadRecordProfile(this);
+        });
+        $(document).on('click', `.btnSaveRecord[module="${moduleName}"]`, function() {
+            context.saveRecord(this);
+        });
+        $(document).on('click', `.btnNewRecord[module="${moduleName}"]`, function() {
+            context.newRecord(this);
+        });
     }
 
     beforeSave(data) {
@@ -23,8 +33,7 @@ class AbstractSubUI {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/saveRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            console.log("saveRecord", url);
-            console.log(data);
+            console.log("saveRecord", url, data);
             showModalAny.show("Save Record Message", data.value);
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
@@ -37,8 +46,7 @@ class AbstractSubUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
-            console.log("loadRecordProfile", url);
-            console.log(data);
+            console.log("loadRecordProfile", url, data);
             context.arrangeRecordProfile(data, `editRecord`);
             context.arrangeRecordProfileItems(data, `editRecord`);
         };
@@ -60,7 +68,7 @@ class AbstractSubUI {
 
         var context = this;
         var successCallback = function(data) {
-            console.log("searchRecordFilter", url);
+            console.log("searchRecordFilter", url, data);
             context.arrangeSearchedRecords(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -73,8 +81,7 @@ class AbstractSubUI {
 
         var context = this;
         var successCallback = function(data) {
-            console.log("loadTopRecords", url);
-            console.log(data);
+            console.log("loadTopRecords", url, data);
             context.arrangeSearchedRecords(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

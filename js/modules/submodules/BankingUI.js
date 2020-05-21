@@ -1,16 +1,6 @@
 class BankingUI extends AbstractSubUI {
     constructor(moduleName) {
         super(moduleName);
-        var context = this;
-        $(document).on('click', '.selectSearchRecord[module="BankingUI"]', function() {
-            bankingUI.loadRecordProfile(this);
-        });
-        $(document).on('click', '.btnSaveRecord[module="BankingUI"]', function() {
-            bankingUI.saveRecord(this);
-        });
-        $(document).on('click', '.btnNewRecord[module="BankingUI"]', function() {
-            bankingUI.newRecord(this);
-        });
     }
     
     beforeSave(data) {
@@ -19,6 +9,7 @@ class BankingUI extends AbstractSubUI {
     }
 
     arrangeRecordProfileItems(data, clsName) {
+        $(`.autocomplete[module="BankingTransactionUI"]`).val("");
         $(`.editRecord[module="BankingTransactionUI"]`).val("");
         var items = data.getProp("BankingTransactions");
         $(items).each(function(index, obj) {

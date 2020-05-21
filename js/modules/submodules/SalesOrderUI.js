@@ -1,10 +1,6 @@
 class SalesOrderUI extends AbstractSubUI {
     constructor(moduleName) {
         super(moduleName);
-        var context = this;
-        $(document).on('click', '.selectSearchRecord', function() {
-            salesOrderUI.loadRecordProfile(this);
-        });
     }
     
     beforeSave(data) {
@@ -13,6 +9,7 @@ class SalesOrderUI extends AbstractSubUI {
     }
 
     arrangeRecordProfileItems(data, clsName) {
+        $(`.autocomplete[module="SalesOrderItemUI"]`).val("");
         $(`.editRecord[module="SalesOrderItemUI"]`).val("");
         var items = data.getProp("SalesOrderItems");
         $(items).each(function(index, obj) {
