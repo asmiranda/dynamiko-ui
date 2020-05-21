@@ -134,7 +134,6 @@ $(function () {
     reviewCenterUI = new ReviewCenterUI();
     hospitalUI = new HospitalUI();
     inventoryUI = new InventoryUI();
-    accountingUI = new AccountingUI();
     referenceUI = new ReferenceUI();
     reportUI = new ReportUI();
 
@@ -149,7 +148,6 @@ $(function () {
     supplierUI = new SupplierUI();
     accountChartUI = new AccountChartUI();
     expenseUI = new ExpenseUI();
-    salesOrderUI = new SalesOrderUI();
     taxPeriodUI = new TaxPeriodUI();
     bankingUI = new BankingUI();
     reconcileUI = new ReconcileUI();

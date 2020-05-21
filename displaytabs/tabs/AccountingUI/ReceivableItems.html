@@ -1,14 +1,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <div class="box box-default">
-    <input rowIndex="0" type="hidden" class="form-control editSalesOrder" module="SalesOrderUI" name="SalesOrderId">
-    <input rowIndex="0" type="hidden" class="form-control editSalesOrder" module="SalesOrderUI" name="code">
+    <input rowIndex="0" type="hidden" class="form-control editReceivable" module="ReceivableUI" name="ReceivableId">
+    <input rowIndex="0" type="hidden" class="form-control editReceivable" module="ReceivableUI" name="code">
     <div class="box-header with-border">
         <h3 class="box-title">Item Details</h3>
     </div>
     <div class="box-body">
         <div style="display: flex; flex-direction: column;">
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div class="text-center" style="flex: 4; margin-left: 10px;">
                     <b>Product/Service</b>
                 </div>
@@ -24,224 +24,224 @@
                 <div class="text-center" style="flex: 1; margin-left: 10px;">
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="1" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="1" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="1" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="1" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="1" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="1" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="1" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="1" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="1" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="1" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="1" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="1" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="2" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="2" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="2" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="2" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="2" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="2" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="2" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="2" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="2" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="2" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="2" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="2" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="3" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="3" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="3" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="3" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="3" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="3" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="3" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="3" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="3" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="3" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="3" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="3" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="4" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="4" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="4" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="4" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="4" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="4" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="4" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="4" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="4" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="4" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="4" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="4" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="5" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="5" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="5" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="5" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="5" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="5" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="5" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="5" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="5" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="5" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="5" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="5" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="6" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="6" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="6" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="6" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="6" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="6" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="6" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="6" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="6" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="6" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="6" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="6" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="7" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="7" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="7" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="7" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="7" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="7" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="7" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="7" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="7" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="7" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="7" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="7" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="8" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="8" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="8" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="8" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="8" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="8" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="8" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="8" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="8" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="8" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="8" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="8" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="9" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="9" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="9" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="9" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="9" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="9" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="9" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="9" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="9" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="9" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="9" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="9" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
+            <div style="display: flex;" class="ReceivableCategoryRecord">
                 <div style="flex: 4; margin-left: 10px;">
                     <div class="input-group" style="width: 100%;">
-                        <input rowIndex="10" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="10" class="form-control editSalesOrder HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="10" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
+                        <input rowIndex="10" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode" helptitle="productCode">
+                        <input rowIndex="10" class="form-control editReceivable HiddenAutoComplete" name="productCode" type="hidden" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoNameField="productCode" value="">
+                        <div class="autocomplete-items" rowIndex="10" module="ReceivableItemUI" mainmodule="ReceivableItemUI" autoname="productCode">
                         </div>
                     </div>
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="10" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Quantity">
+                    <input rowIndex="10" name="quantity" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Quantity">
                 </div>
                 <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="10" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Unit Price">
+                    <input rowIndex="10" name="unitPrice" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Unit Price">
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="10" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editSalesOrder" placeholder="Amount">
+                    <input rowIndex="10" name="totalAmount" module="ReceivableItemUI" type="text" class="form-control editReceivable" placeholder="Amount">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                    <i class="fa fa-trash hand" class="btnReceivableItem" rowIndex="10"> </i>
                 </div>
             </div>
         </div>
@@ -255,7 +255,7 @@
                     <label class="pull-right">Item Total</label>
                 </div>
                 <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="0" name="totalItemAmount" module="SalesOrderUI" type="text" class="form-control editSalesOrder" placeholder="Item Total" disabled="">
+                    <input rowIndex="0" name="totalItemAmount" module="ReceivableUI" type="text" class="form-control editReceivable" placeholder="Item Total" disabled="">
                 </div>
                 <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
                 </div>
