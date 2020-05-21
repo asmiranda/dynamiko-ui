@@ -149,7 +149,7 @@ $(function () {
     accountChartUI = new AccountChartUI();
     expenseUI = new ExpenseUI();
     taxPeriodUI = new TaxPeriodUI();
-    bankingUI = new BankingUI();
+    // bankingUI = new BankingUI();
     reconcileUI = new ReconcileUI();
     productRequestUI = new ProductRequestUI();
     realEstateUI = new RealEstateUI();

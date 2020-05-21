@@ -4,15 +4,16 @@ class AbstractSubUI {
     }
 
     beforeSave(data) {
-        // data["RecordItems"] = utils.collectSubRecordDataForSaving(`editRecord`, "RecordItemUI");
-        // data["RecordCategoryItems"] = utils.collectSubRecordDataForSaving(`editRecord`, "RecordCategoryItemUI");
         return data;
     }
 
     arrangeRecordProfileItems(data, clsName) {
     }
 
-    saveRecord(obj) { 
+    newRecord() {  
+    }
+
+    saveRecord(obj) {  
         console.log("saveRecord called");
         var tmp = utils.collectDataForSaving(`editRecord`, `${this.moduleName}`, "0");
         tmp = this.beforeSave(tmp);
@@ -22,6 +23,7 @@ class AbstractSubUI {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/saveRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
+            console.log("saveRecord", url);
             console.log(data);
             showModalAny.show("Save Record Message", data.value);
         };
@@ -35,6 +37,7 @@ class AbstractSubUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function(data) {
+            console.log("loadRecordProfile", url);
             console.log(data);
             context.arrangeRecordProfile(data, `editRecord`);
             context.arrangeRecordProfileItems(data, `editRecord`);
@@ -57,6 +60,7 @@ class AbstractSubUI {
 
         var context = this;
         var successCallback = function(data) {
+            console.log("searchRecordFilter", url);
             context.arrangeSearchedRecords(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -69,6 +73,7 @@ class AbstractSubUI {
 
         var context = this;
         var successCallback = function(data) {
+            console.log("loadTopRecords", url);
             console.log(data);
             context.arrangeSearchedRecords(data, tabName);
         };

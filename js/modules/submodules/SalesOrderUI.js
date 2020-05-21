@@ -9,12 +9,11 @@ class SalesOrderUI extends AbstractSubUI {
     
     beforeSave(data) {
         data["SalesOrderItems"] = utils.collectSubRecordDataForSaving("editRecord", "SalesOrderItemUI");
-        data["SalesOrderCategoryItems"] = utils.collectSubRecordDataForSaving("editRecord", "SalesOrderCategoryItemUI");
         return data;
     }
 
     arrangeRecordProfileItems(data, clsName) {
-        $(`.editSalesOrder[module="SalesOrderItemUI"]`).val("");
+        $(`.editRecord[module="SalesOrderItemUI"]`).val("");
         var items = data.getProp("SalesOrderItems");
         $(items).each(function(index, obj) {
             utils.loadDataAndAutoComplete(clsName, obj, index+1, "SalesOrderItemUI");

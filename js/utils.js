@@ -129,6 +129,7 @@ class Utils {
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
+            console.log('loadRecordToForm called', url, data);
             dynamikoCache.setLastRecordId(selectedId);
 
             utils.loadJsonToForm(mainForm, data);
@@ -205,8 +206,7 @@ class Utils {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var innerForm = form;
             var successCallback = function(data) {
-                console.log(data);
-                console.log("Callback called "+innerForm);
+                console.log('loadAutoCompleteLabel called', innerForm, url, data);
                 var divDescAutoComplete = $(innerForm + " [class~='DivAutoComplete'][autoname='"+data.getProp("fieldName")+"']");
                 divDescAutoComplete.html(data.getProp("value"));
                 var fieldAutoComplete = $(innerForm + " [class~='autocomplete'][autoname='"+data.getProp("fieldName")+"']");
@@ -256,7 +256,6 @@ class Utils {
 
         var hiddenAutoComplete = `.HiddenAutoComplete[module='${moduleName}'][name="${field}"][rowIndex='${rowIndex}']`;
         var value = $(hiddenAutoComplete).val();
-        console.log(`loadAutoCompleteRowLabel == [autoname=${field}] == [value=${value}]`);
 
         if (value!=null && value!="") {
             var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
@@ -264,13 +263,14 @@ class Utils {
             if (data==null || data=="") {
                 var ajaxRequestDTO = new AjaxRequestDTO(url, "");
                 var successCallback = function(data) {
-                    console.log(data);
+                    console.log(url, `server loadAutoCompleteRowLabel == [autoname=${field}] == [value=${value}]`, data);
                     sStorage.set(url, data);
                     utils.arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data);
                 };
                 ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
             }
             else {
+                console.log(`cache loadAutoCompleteRowLabel == [autoname=${field}] == [value=${value}]`);
                 utils.arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data);
             }
         }
@@ -290,7 +290,6 @@ class Utils {
     }
 
     loadPopSearchLabel(form, field, name) {
-        console.log("loadPopSearchLabel == " + this.form + " [tmpname='"+this.name+"'] == ");
         var tmpLabel = $(this.form + " [class~='labelPopSearch'][tmpname='"+this.name+"']");
         tmpLabel.val("");
 
@@ -301,8 +300,7 @@ class Utils {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var innerForm = this.form;
         var successCallback = function(data) {
-            console.log(data);
-            console.log("Callback called "+innerForm);
+            console.log('loadPopSearchLabel called', url, innerForm, data);
             var fieldPopSearchLabel = $(innerForm + " [class~='labelPopSearch'][tmpname='"+data.POPSEARCHFIELDNAME+"']");
             fieldPopSearchLabel.val(data.POPSEARCHVALLABEL);
         };
