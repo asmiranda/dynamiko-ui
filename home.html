@@ -68,6 +68,11 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown waiting-menu">
+              <div id="waitingContainer" style="margin-top: 5px; display: none;">
+                <i style="color: aliceblue;">Loading</i> <img src="images/ajax-loader.gif"/>
+              </div>
+            </li>
             <li class="dropdown company company-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="useCompany">
                 <span style="padding-right: 15px;"></span><i class="fa fa-bank"></i>
@@ -316,6 +321,8 @@
   <link rel="stylesheet" href="plugins/leaflet/unpkg/esri-leaflet-geocoder.css"/>
   <script src="plugins/leaflet/unpkg/esri-leaflet-geocoder.js"></script>
 
+  <link rel="stylesheet" href="plugins/spinner/jquery-spinner.css"/>
+  <script src="plugins/spinner/jquery-spinner.js"></script>
 
   <script src="js/others/dropzone.js"></script>
   <script src="js/others/jquery.fullscreen.js"></script>

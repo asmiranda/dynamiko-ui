@@ -4,17 +4,17 @@ class BankingUI extends AbstractSubUI {
     }
     
     beforeSave(data) {
-        data["BankingTransactions"] = utils.collectSubRecordDataForSaving("editRecord", "BankingTransactionUI");
+        data["BankingTransactionUI"] = utils.collectSubRecordDataForSaving("editRecord", "BankingTransactionUI");
         return data;
     }
 
+    newRecord() {  
+        this.clearModuleInputs("BankingUI");
+        this.createItemsHolder("BankingTransactionUI", null);
+    }
+
     arrangeRecordProfileItems(data, clsName) {
-        $(`.autocomplete[module="BankingTransactionUI"]`).val("");
-        $(`.editRecord[module="BankingTransactionUI"]`).val("");
-        var items = data.getProp("BankingTransactions");
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "BankingTransactionUI");
-        })
+        this.formatItems("BankingTransactionUI", data, clsName);
     }
 
     formatSearchList(index, obj, tabName) {

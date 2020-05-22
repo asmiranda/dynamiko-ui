@@ -40,6 +40,7 @@ class AbstractSubUI {
     }
 
     loadRecordProfile(obj) {
+        utils.showSpin();
         var context = this;
         var recordId = $(obj).attr("recordId");
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/getRecordProfile/${recordId}`;
@@ -49,6 +50,7 @@ class AbstractSubUI {
             console.log("loadRecordProfile", url, data);
             context.arrangeRecordProfile(data, `editRecord`);
             context.arrangeRecordProfileItems(data, `editRecord`);
+            utils.hideSpin();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -99,5 +101,34 @@ class AbstractSubUI {
 
     formatSearchList(index, obj, tabName) {
         return "Please override format";
+    }
+
+    formatItems(subModule, data, clsName) {
+        var items = data.getProp(subModule);
+        this.createItemsHolder(subModule, items);
+        this.clearModuleInputs(subModule);
+        $(items).each(function(index, obj) {
+            utils.loadDataAndAutoComplete(clsName, obj, index+1, subModule);
+        })
+    }
+
+    clearModuleInputs(tmpModule) {
+        $(`.autocomplete[module="${tmpModule}"]`).val("");
+        $(`.editRecord[module="${tmpModule}"]`).val("");
+    }
+
+    createItemsHolder(subModule, subData) {
+        var template = $(`.hiddenRecordTemplate[module="${subModule}"]`).html();
+        $(`.displayRecordTemplate[module="${subModule}"]`).empty();
+        var subLength = 0;
+        if (subData==null)  {
+        }
+        else {
+            subLength = subData.length;
+        }
+        for (var offset=1; offset<=subLength+5; offset++) {
+            var recHtml = utils.replaceAll(template, "----", offset)
+            $(`.displayRecordTemplate[module="${subModule}"]`).append(recHtml);
+        }
     }
 }

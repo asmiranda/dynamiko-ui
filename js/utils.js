@@ -1,5 +1,4 @@
 class Utils {
-
     collectSubRecordDataForSaving(clsName, moduleName) {
         var tmp = [];
         for (var i=1; i<=10; i++) {
@@ -338,5 +337,12 @@ class Utils {
         } else {
             $(str).show();
         }
+    }
+    
+    showSpin() {
+        $("#waitingContainer").show();
+    }
+    hideSpin() {
+        $("#waitingContainer").hide();
     }
 }
