@@ -1,28 +1,47 @@
 class AbstractSubUI {
     constructor(moduleName) {
         this.moduleName = moduleName;
+        this.selectSearchRecord = "selectSearchRecord";
+
         var context = this;
-        $(document).on('click', `.selectSearchRecord[module="${moduleName}"]`, function() {
+        this.initSearchFilterListener(context);
+        this.initSearchSubRecordFilterListener(context);
+
+        $(document).on('click', `.selectSearchRecord[module="${context.moduleName}"]`, function() {
             context.loadRecordProfile(this);
         });
-        $(document).on('click', `.btnSaveRecord[module="${moduleName}"]`, function() {
+        $(document).on('click', `.btnSaveRecord[module="${context.moduleName}"]`, function() {
             context.saveRecord(this);
         });
-        $(document).on('click', `.btnSaveSubRecord[parentModule="${moduleName}"]`, function() {
+        $(document).on('click', `.btnSaveSubRecord[parentModule="${context.moduleName}"]`, function() {
             context.saveSubRecord(this);
         });
-        $(document).on('click', `.btnNewRecord[module="${moduleName}"]`, function() {
+        $(document).on('click', `.btnNewRecord[module="${context.moduleName}"]`, function() {
             context.newRecord(this);
         });
+    }
 
-        $(document).on('keyup', `input.searchFilter[type="text"][module="${moduleName}"]`, function(evt) {
-            context.searchRecordFilter(evt);
+    initSearchFilterListener(context) {
+        $(document).on('keyup', `input.searchFilter[type="text"][module="${context.moduleName}"]`, function(evt) {
+            context.searchRecordFilter(this);
         });
-        $(document).on('change', `input.searchFilter[type="checkbox"][module="${moduleName}"]`, function(evt) {
-            context.searchRecordFilter(evt);
+        $(document).on('change', `input.searchFilter[type="checkbox"][module="${context.moduleName}"]`, function(evt) {
+            context.searchRecordFilter(this);
         });
-        $(document).on('change', `input.calendar.searchFilter[module="${moduleName}"]`, function(evt) {
-            context.searchRecordFilter(evt);
+        $(document).on('change', `input.calendar.searchFilter[module="${context.moduleName}"]`, function(evt) {
+            context.searchRecordFilter(this);
+        });
+    }
+
+    initSearchSubRecordFilterListener(context) {
+        $(document).on('keyup', `input.subRecordSearchFilter[type="text"][module="${context.moduleName}"]`, function(evt) {
+            context.searchSubRecordFilter(this);
+        });
+        $(document).on('change', `input.subRecordSearchFilter[type="checkbox"][module="${context.moduleName}"]`, function(evt) {
+            context.searchSubRecordFilter(this);
+        });
+        $(document).on('change', `input.calendar.subRecordSearchFilter[module="${context.moduleName}"]`, function(evt) {
+            context.searchSubRecordFilter(this);
         });
     }
 
@@ -30,13 +49,16 @@ class AbstractSubUI {
         return data;
     }
 
-    arrangeRecordProfileItems(data, clsName) {
+    arrangeRecordProfileAllSubRecords(data, clsName) {
     }
-
+    arrangeRecordProfileSubRecords(data, clsName, subModule) {
+    }
+    
     newRecord() {  
     }
 
     saveRecord(obj) {  
+        utils.showSpin();
         console.log("saveRecord called");
         var tmp = utils.collectDataForSaving(`editRecord`, `${this.moduleName}`, "0");
         tmp = this.beforeSave(tmp);
@@ -48,11 +70,13 @@ class AbstractSubUI {
         var successCallback = function(data) {
             console.log("saveRecord", url, data);
             showModalAny.show("Save Record Message", data.value);
+            utils.hideSpin();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
     saveSubRecord(obj) {
+        utils.showSpin();
         console.log("saveSubRecord called");
         var rowIndex = $(obj).attr("rowIndex");
         var subModule = $(obj).attr("module");
@@ -67,6 +91,7 @@ class AbstractSubUI {
         var successCallback = function(data) {
             console.log("saveSubRecord", tmpParent, url, data);
             // showModalAny.show("Save Sub Record Message", data.value);
+            utils.hideSpin();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
@@ -81,7 +106,7 @@ class AbstractSubUI {
         var successFunction = function(data) {
             console.log("loadRecordProfile", url, data);
             context.arrangeRecordProfile(data, `editRecord`);
-            context.arrangeRecordProfileItems(data, `editRecord`);
+            context.arrangeRecordProfileAllSubRecords(data, `editRecord`);
             utils.hideSpin();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -92,6 +117,7 @@ class AbstractSubUI {
     }
 
     searchRecordFilter(obj) {
+        utils.showSpin();
         var tabName = $(obj).attr("tabName");
 
         var tmp = utils.collectDataForSaving(`searchFilter`, `${this.moduleName}`, "0");
@@ -105,11 +131,32 @@ class AbstractSubUI {
         var successCallback = function(data) {
             console.log("searchRecordFilter", url, data);
             context.arrangeSearchedRecords(data, tabName);
+            utils.hideSpin();
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+    }
+
+    searchSubRecordFilter(obj) {
+        utils.showSpin();
+        var subModule = $(obj).attr("subModule");
+        var tmp = utils.collectDataForSaving(`subRecordSearchFilter`, `${this.moduleName}`, "0");
+        var param = utils.convertToQueryString(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/filterSubRecord/${subModule}${param}`;
+        console.log("searchSubRecordFilter", url);
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var context = this;
+        var successCallback = function(data) {
+            console.log("searchSubRecordFilter", url, data);
+            context.arrangeRecordProfileSubRecords(data, `editRecord`, subModule);
+            utils.hideSpin();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadTopRecords(tabName) {
+        utils.showSpin();
         var recordId = $(mainId).val();
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/getTopRecords`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -118,6 +165,7 @@ class AbstractSubUI {
         var successCallback = function(data) {
             console.log("loadTopRecords", url, data);
             context.arrangeSearchedRecords(data, tabName);
+            utils.hideSpin();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -136,13 +184,17 @@ class AbstractSubUI {
         return "Please override format";
     }
 
-    formatItems(subModule, data, clsName) {
-        var items = data.getProp(subModule);
-        this.createItemsHolder(subModule, items);
+    formatSubRecords(subModule, subRecordData, clsName) {
+        this.createSubRecordsHolder(subModule, subRecordData);
         this.clearModuleInputs(subModule);
-        $(items).each(function(index, obj) {
+        $(subRecordData).each(function(index, obj) {
             utils.loadDataAndAutoComplete(clsName, obj, index+1, subModule);
         })
+    }
+
+    formatSubRecordsFromMain(subModule, data, clsName) {
+        var subRecordData = data.getProp(subModule);
+        this.formatSubRecords(subModule, subRecordData, clsName);
     }
 
     clearModuleInputs(tmpModule) {
@@ -150,9 +202,9 @@ class AbstractSubUI {
         $(`.editRecord[module="${tmpModule}"]`).val("");
     }
 
-    createItemsHolder(subModule, subData) {
+    createSubRecordsHolder(subModule, subData) {
         var template = $(`.hiddenRecordTemplate[module="${subModule}"]`).html();
-        this.clearItemsHolder(subModule);
+        this.clearSubRecordsHolder(subModule);
         var subLength = 0;
         if (subData==null)  {
         }
@@ -165,7 +217,7 @@ class AbstractSubUI {
         }
     }
 
-    clearItemsHolder(subModule) {
+    clearSubRecordsHolder(subModule) {
         $(`.displayRecordTemplate[module="${subModule}"]`).empty();
     }
 }

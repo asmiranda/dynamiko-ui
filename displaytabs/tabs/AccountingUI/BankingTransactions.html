@@ -6,10 +6,10 @@
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
             <div style="display: flex;">
                 <i style="margin: 5px; margin-right: 10px;">Filter&nbsp;Date </i>
-                <input name="bankingTransactionDate" module="BankingUI" type="text" class="form-control searchFilter calendar" rowIndex="0" placeholder="Filter Date"/>
+                <input name="bankingTransactionDate" module="BankingUI" subModule="BankingTransactionUI" type="text" class="form-control subRecordSearchFilter calendar" rowIndex="0" placeholder="Filter Date"/>
                 <div class="checkbox" style="margin: 5px; margin-right: 10px;">
                     <label>
-                      <input type="checkbox" name="showUnspecifiedOnly" module="BankingUI" class="searchFilter" rowIndex="0"> Show&nbsp;Unmatched&nbsp;Only
+                      <input type="checkbox" name="showUnspecifiedOnly" module="BankingUI" subModule="BankingTransactionUI" class="subRecordSearchFilter" rowIndex="0" value="true"> Show&nbsp;Unmatched&nbsp;Only
                     </label>
                 </div>
             </div>
