@@ -8,8 +8,21 @@ class AbstractSubUI {
         $(document).on('click', `.btnSaveRecord[module="${moduleName}"]`, function() {
             context.saveRecord(this);
         });
+        $(document).on('click', `.btnSaveSubRecord[parentModule="${moduleName}"]`, function() {
+            context.saveSubRecord(this);
+        });
         $(document).on('click', `.btnNewRecord[module="${moduleName}"]`, function() {
             context.newRecord(this);
+        });
+
+        $(document).on('keyup', `input.searchFilter[type="text"][module="${moduleName}"]`, function(evt) {
+            context.searchRecordFilter(evt);
+        });
+        $(document).on('change', `input.searchFilter[type="checkbox"][module="${moduleName}"]`, function(evt) {
+            context.searchRecordFilter(evt);
+        });
+        $(document).on('change', `input.calendar.searchFilter[module="${moduleName}"]`, function(evt) {
+            context.searchRecordFilter(evt);
         });
     }
 
@@ -39,6 +52,25 @@ class AbstractSubUI {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
+    saveSubRecord(obj) {
+        console.log("saveSubRecord called");
+        var rowIndex = $(obj).attr("rowIndex");
+        var subModule = $(obj).attr("module");
+
+        var tmpParent = utils.collectDataForSaving(`editRecord`, `${this.moduleName}`, "0");
+        var tmpChild = utils.collectDataForSaving(`editRecord`, `${subModule}`, rowIndex);
+        tmpParent["Child"] = tmpChild;
+
+        var vdata = JSON.stringify(tmpParent); 
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/saveSubRecord`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log("saveSubRecord", tmpParent, url, data);
+            // showModalAny.show("Save Sub Record Message", data.value);
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
     loadRecordProfile(obj) {
         utils.showSpin();
         var context = this;
@@ -60,12 +92,13 @@ class AbstractSubUI {
     }
 
     searchRecordFilter(obj) {
-        var value = $(obj).val();
         var tabName = $(obj).attr("tabName");
-        console.log(value);
 
-        var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/getFilteredRecords/${value}`;
+        var tmp = utils.collectDataForSaving(`searchFilter`, `${this.moduleName}`, "0");
+        var param = utils.convertToQueryString(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/filterRecord${param}`;
+        console.log("searchRecordFilter", url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;
@@ -119,7 +152,7 @@ class AbstractSubUI {
 
     createItemsHolder(subModule, subData) {
         var template = $(`.hiddenRecordTemplate[module="${subModule}"]`).html();
-        $(`.displayRecordTemplate[module="${subModule}"]`).empty();
+        this.clearItemsHolder(subModule);
         var subLength = 0;
         if (subData==null)  {
         }
@@ -130,5 +163,9 @@ class AbstractSubUI {
             var recHtml = utils.replaceAll(template, "----", offset)
             $(`.displayRecordTemplate[module="${subModule}"]`).append(recHtml);
         }
+    }
+
+    clearItemsHolder(subModule) {
+        $(`.displayRecordTemplate[module="${subModule}"]`).empty();
     }
 }

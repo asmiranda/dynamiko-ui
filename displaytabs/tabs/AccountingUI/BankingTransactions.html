@@ -3,76 +3,102 @@
 <div class="box box-default">
     <div class="box-header with-border">
         <h3 class="box-title">Transaction Details</h3>
+        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+            <div style="display: flex;">
+                <i style="margin: 5px; margin-right: 10px;">Filter&nbsp;Date </i>
+                <input name="bankingTransactionDate" module="BankingUI" type="text" class="form-control searchFilter calendar" rowIndex="0" placeholder="Filter Date"/>
+                <div class="checkbox" style="margin: 5px; margin-right: 10px;">
+                    <label>
+                      <input type="checkbox" name="showUnspecifiedOnly" module="BankingUI" class="searchFilter" rowIndex="0"> Show&nbsp;Unmatched&nbsp;Only
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="box-body">
         <div style="display: flex; flex-direction: column;">
-            <div style="display: flex;" class="BankingTransactionRecord">
-                <div class="text-center" style="flex: 1;">
-                    <b></b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Date</b>
-                </div>
-                <div class="text-center" style="flex: 4; margin-left: 10px;">
-                    <b>Description</b>
-                </div>
-                <div class="text-center" style="flex: 4; margin-left: 10px;">
-                    <b>Payee</b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Tax</b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Spent</b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Received</b>
-                </div>
-                <div class="text-center" style="flex: 4; margin-left: 10px; margin-right: 30px;">
-                    <b>Matched Account</b>
-                </div>
-            </div>
             <div class="hiddenRecordTemplate" module="BankingTransactionUI" style="display: none;">
-                <div style="display: flex;" class="BankingTransactionRecord" rowIndex="----">
+                <div style="display: flex; width: 100%;" class="BankingTransactionRecord" rowIndex="----">
                     <div style="flex: 1; text-align: right;">
-                        <i>----</i>
+                        <i style="margin-right: 5px;">----</i>
                     </div>
-                    <div style="flex: 2; margin-left: 10px;">
+                    <div style="flex: 2;">
                         <input rowIndex="----" name="transactionDate" module="BankingTransactionUI" type="text"
-                            class="form-control editRecord calendar" placeholder="">
+                            class="form-control editRecord calendar" placeholder=""/>
                     </div>
-                    <div style="flex: 4; margin-left: 10px;">
+                    <div style="flex: 4;">
                         <input rowIndex="----" name="description" module="BankingTransactionUI" type="text"
                             class="form-control editRecord" placeholder="">
                     </div>
-                    <div style="flex: 4; margin-left: 10px;">
+                    <div style="flex: 4;">
                         <input rowIndex="----" name="payee" module="BankingTransactionUI" type="text"
                             class="form-control editRecord" placeholder="">
                     </div>
-                    <div style="flex: 2; margin-left: 10px;">
+                    <div style="flex: 2;">
                         <input rowIndex="----" name="tax" module="BankingTransactionUI" type="text"
                             class="form-control editRecord" placeholder="">
                     </div>
-                    <div style="flex: 2; margin-left: 10px;">
+                    <div style="flex: 2;">
                         <input rowIndex="----" name="spent" module="BankingTransactionUI" type="text"
                             class="form-control editRecord" placeholder="">
                     </div>
-                    <div style="flex: 2; margin-left: 10px;">
+                    <div style="flex: 2;">
                         <input rowIndex="----" name="received" module="BankingTransactionUI" type="text"
                             class="form-control editRecord" placeholder="">
                     </div>
-                    <div style="flex: 4; margin-left: 10px; margin-right: 30px;">
+                    <div style="flex: 4;">
                         <div class="input-group" style="width: 100%;">
                             <input rowIndex="----" type="text" class="form-control autocomplete editRecordAutoComplete" name="matchAccountCode"
                                 placeholder="" module="BankingTransactionUI" mainmodule="BankingTransactionUI"
-                                autoname="matchAccountCode" helptitle="matchAccountCode">
-                            <input rowIndex="----" class="form-control editRecord HiddenAutoComplete"
-                                name="matchAccountCode" type="hidden" module="BankingTransactionUI"
-                                mainmodule="BankingTransactionUI" autoNameField="matchAccountCode" value="">
+                                autoname="matchAccountCode" helptitle="matchAccountCode"/>
+                            <span rowindex="----" autoname="matchAccountCode" module="BankingTransactionUI" class="btnAutoClearSelected input-group-addon" title="Clear Selected"><i class="fa fa-remove"></i></span>
                             <div class="autocomplete-items" rowIndex="----" module="BankingTransactionUI"
                                 mainmodule="BankingTransactionUI" autoname="matchAccountCode">
                             </div>
                         </div>
+                        <input rowIndex="----" class="form-control editRecord HiddenAutoComplete"
+                            name="matchAccountCode" type="hidden" module="BankingTransactionUI"
+                            mainmodule="BankingTransactionUI" autoNameField="matchAccountCode" value=""/>
+                    </div>
+                    <div style="flex: 1; text-align: left; margin-top: 7px;">
+                        <input rowIndex="----" name="code" module="BankingTransactionUI" type="hidden"
+                            class="form-control" placeholder=""/>
+                        <input rowIndex="----" name="bankingCode" module="BankingTransactionUI" type="hidden"
+                            class="form-control" placeholder=""/>
+                        <a href="#" class="btnSaveSubRecord" rowIndex="----" module="BankingTransactionUI" parentModule="BankingUI" title="Save #----">
+                            <i class="fa fa-save" style="margin-left: 5px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="titleRecordTemplate">
+                <div style="display: flex; width: 100%;">
+                    <div class="text-center" style="flex: 1;">
+                        <b></b>
+                    </div>
+                    <div class="text-center" style="flex: 2;">
+                        <b>Date</b>
+                    </div>
+                    <div class="text-center" style="flex: 4;">
+                        <b>Description</b>
+                    </div>
+                    <div class="text-center" style="flex: 4;">
+                        <b>Payee</b>
+                    </div>
+                    <div class="text-center" style="flex: 2;">
+                        <b>Tax</b>
+                    </div>
+                    <div class="text-center" style="flex: 2;">
+                        <b>Spent</b>
+                    </div>
+                    <div class="text-center" style="flex: 2;">
+                        <b>Received</b>
+                    </div>
+                    <div class="text-center" style="flex: 4;">
+                        <b>Matched Account</b>
+                    </div>
+                    <div style="flex: 1;">
+                        <b></b>
                     </div>
                 </div>
             </div>

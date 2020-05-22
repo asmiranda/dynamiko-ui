@@ -10,7 +10,7 @@ class BankingUI extends AbstractSubUI {
 
     newRecord() {  
         this.clearModuleInputs("BankingUI");
-        this.createItemsHolder("BankingTransactionUI", null);
+        this.clearItemsHolder("BankingTransactionUI");
     }
 
     arrangeRecordProfileItems(data, clsName) {
