@@ -6,18 +6,31 @@ class AbstractSubUI {
         var context = this;
         this.initSearchFilterListener(context);
         this.initSearchSubRecordFilterListener(context);
+        this.initSubRecordListener(context);
 
         $(document).on('click', `.selectSearchRecord[module="${context.moduleName}"]`, function() {
             context.loadRecordProfile(this);
         });
+        $(document).on('click', `.btnNewRecord[module="${context.moduleName}"]`, function() {
+            context.newRecord(this);
+        });
         $(document).on('click', `.btnSaveRecord[module="${context.moduleName}"]`, function() {
             context.saveRecord(this);
         });
+    }
+
+    initSubRecordListener(context) {
         $(document).on('click', `.btnSaveSubRecord[parentModule="${context.moduleName}"]`, function() {
             context.saveSubRecord(this);
         });
-        $(document).on('click', `.btnNewRecord[module="${context.moduleName}"]`, function() {
-            context.newRecord(this);
+        $(document).on('click', `.btnDeleteSubRecord[parentModule="${context.moduleName}"]`, function() {
+            context.deleteSubRecord(this);
+        });
+        $(document).on('change', `.autoSaveSubRecord[parentModule="${context.moduleName}"]`, function(evt) {
+            context.saveSubRecord(this);
+        });
+        $(document).on(`autoCompleteSaveSubRecord[parentModule="${context.moduleName}"]`, function(evt) { 
+            context.saveSubRecord(evt.detail[0]);
         });
     }
 
@@ -75,6 +88,27 @@ class AbstractSubUI {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
+    deleteSubRecord(obj) {
+        utils.showSpin();
+        console.log("deleteSubRecord called");
+        var rowIndex = $(obj).attr("rowIndex");
+        var subModule = $(obj).attr("module");
+
+        var tmpParent = utils.collectDataForSaving(`editRecord`, `${this.moduleName}`, "0");
+        var tmpChild = utils.collectDataForSaving(`editRecord`, `${subModule}`, rowIndex);
+        tmpParent["Child"] = tmpChild;
+
+        var vdata = JSON.stringify(tmpParent); 
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/deleteSubRecord`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log("deleteSubRecord", tmpParent, url, data);
+            $(`.subRecord[module="${subModule}"][rowIndex="${rowIndex}"]`).empty();
+            utils.hideSpin();
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
     saveSubRecord(obj) {
         utils.showSpin();
         console.log("saveSubRecord called");
@@ -90,13 +124,13 @@ class AbstractSubUI {
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log("saveSubRecord", tmpParent, url, data);
-            // showModalAny.show("Save Sub Record Message", data.value);
             utils.hideSpin();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
     loadRecordProfile(obj) {
+        autoSaveSubRecord = false;
         utils.showSpin();
         var context = this;
         var recordId = $(obj).attr("recordId");
@@ -108,6 +142,7 @@ class AbstractSubUI {
             context.arrangeRecordProfile(data, `editRecord`);
             context.arrangeRecordProfileAllSubRecords(data, `editRecord`);
             utils.hideSpin();
+            autoSaveSubRecord = true;
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -137,6 +172,7 @@ class AbstractSubUI {
     }
 
     searchSubRecordFilter(obj) {
+        autoSaveSubRecord = false;
         utils.showSpin();
         var subModule = $(obj).attr("subModule");
         var tmp = utils.collectDataForSaving(`subRecordSearchFilter`, `${this.moduleName}`, "0");
@@ -151,6 +187,7 @@ class AbstractSubUI {
             console.log("searchSubRecordFilter", url, data);
             context.arrangeRecordProfileSubRecords(data, `editRecord`, subModule);
             utils.hideSpin();
+            autoSaveSubRecord = true;
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -221,3 +258,7 @@ class AbstractSubUI {
         $(`.displayRecordTemplate[module="${subModule}"]`).empty();
     }
 }
+
+$(function () {
+    autoSaveSubRecord = false;
+});

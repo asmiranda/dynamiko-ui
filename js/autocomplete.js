@@ -18,6 +18,12 @@ class DynaAutoComplete {
 
         document.dispatchEvent(new CustomEvent(`changeAutoComplete[${fieldName}][${moduleName}]`, { bubbles: true, detail: { text: () => value } }))
         document.dispatchEvent(new CustomEvent(`changeAutoComplete[${fieldName}][${moduleName}][${rowIndex}]`, { bubbles: true, detail: { text: () => value } }))
+
+        var subRecordAutoCompleteObj = $(`.HiddenAutoComplete[module="${moduleName}"][autoNameField="${fieldName}"][name="${fieldName}"][rowIndex='${rowIndex}']`);
+        if ($(subRecordAutoCompleteObj).hasClass("autoSaveSubRecord")) {
+            var parentModule = $(subRecordAutoCompleteObj).attr("parentModule");
+            document.dispatchEvent(new CustomEvent(`autoCompleteSaveSubRecord[parentModule="${parentModule}"]`, { detail: subRecordAutoCompleteObj }))
+        }
     }
 
     doAutoComplete(obj) {
