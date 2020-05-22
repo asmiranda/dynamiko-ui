@@ -26,12 +26,16 @@ class AbstractSubUI {
         $(document).on('click', `.btnDeleteSubRecord[parentModule="${context.moduleName}"]`, function() {
             context.deleteSubRecord(this);
         });
-        $(document).on('change', `.autoSaveSubRecord[parentModule="${context.moduleName}"]`, function(evt) {
+        $(document).on('change', `.autoSaveSubRecord[parentModule="${context.moduleName}"]`, function() {
             context.saveSubRecord(this);
         });
         $(document).on(`autoCompleteSaveSubRecord[parentModule="${context.moduleName}"]`, function(evt) { 
             context.saveSubRecord(evt.detail[0]);
         });
+        $(document).on('click', `.btnMoreSubRecord[parentModule="${context.moduleName}"]`, function() {
+            context.moreSubRecord(this);
+        });
+        
     }
 
     initSearchFilterListener(context) {
@@ -109,6 +113,11 @@ class AbstractSubUI {
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
     }
 
+    moreSubRecord(obj) {
+        var subModule = $(obj).attr("module");
+        this.appendSubRecordsHolder(subModule);
+    }
+
     saveSubRecord(obj) {
         utils.showSpin();
         console.log("saveSubRecord called");
@@ -143,6 +152,7 @@ class AbstractSubUI {
             context.arrangeRecordProfileAllSubRecords(data, `editRecord`);
             utils.hideSpin();
             autoSaveSubRecord = true;
+            context.initFieldListener();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -188,6 +198,7 @@ class AbstractSubUI {
             context.arrangeRecordProfileSubRecords(data, `editRecord`, subModule);
             utils.hideSpin();
             autoSaveSubRecord = true;
+            context.initFieldListener();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -203,6 +214,7 @@ class AbstractSubUI {
             console.log("loadTopRecords", url, data);
             context.arrangeSearchedRecords(data, tabName);
             utils.hideSpin();
+            context.initFieldListener();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -239,6 +251,17 @@ class AbstractSubUI {
         $(`.editRecord[module="${tmpModule}"]`).val("");
     }
 
+    appendSubRecordsHolder(subModule) {
+        var template = $(`.hiddenRecordTemplate[module="${subModule}"]`).html();
+        var lastRowIndex = $(`.displayRecordTemplate[module="${subModule}"]`).children().length;
+        var startOffset = lastRowIndex+1;
+        var endOffset = lastRowIndex+5;
+        for (var offset=startOffset; offset<=endOffset; offset++) {
+            var recHtml = utils.replaceAll(template, "----", offset)
+            $(`.displayRecordTemplate[module="${subModule}"]`).append(recHtml);
+        }
+    }
+
     createSubRecordsHolder(subModule, subData) {
         var template = $(`.hiddenRecordTemplate[module="${subModule}"]`).html();
         this.clearSubRecordsHolder(subModule);
@@ -256,6 +279,20 @@ class AbstractSubUI {
 
     clearSubRecordsHolder(subModule) {
         $(`.displayRecordTemplate[module="${subModule}"]`).empty();
+    }
+
+    initFieldListener() {
+        $('.calendar').datepicker({
+            autoclose: true,
+            format: config.getDateFormat()
+        });
+        $('.calendarYear').datepicker({
+            autoclose: true,
+            format: "yyyy",
+            startView: 2,
+            minViewMode: 2,
+            maxViewMode: 2
+        });
     }
 }
 
