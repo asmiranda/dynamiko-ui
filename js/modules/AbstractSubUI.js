@@ -16,6 +16,9 @@ class AbstractSubUI {
         });
         $(document).on('click', `.btnSaveRecord[module="${context.moduleName}"]`, function() {
             context.saveRecord(this);
+        });        
+        $(document).on('click', `.btnRecordDownloadCSV[module="${context.moduleName}"]`, function() {
+            context.downloadRecordCSV(this);
         });
     }
 
@@ -35,7 +38,29 @@ class AbstractSubUI {
         $(document).on('click', `.btnMoreSubRecord[parentModule="${context.moduleName}"]`, function() {
             context.moreSubRecord(this);
         });
-        
+        $(document).on('click', `.btnSubRecordDownloadCSV[parentModule="${context.moduleName}"]`, function() {
+            context.downloadSubRecordCSV(this);
+        });
+    }
+
+    downloadRecordCSV(obj) {
+        var tmp = utils.collectDataForSaving(`searchFilter`, `${this.moduleName}`, "0");
+        var param = utils.convertToQueryString(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/${this.moduleName}/downloadRecordCSV${param}`;
+        window.open(url, "_blank");
+    }
+
+    downloadSubRecordCSV(obj) {
+        var mainRecordId = $(`.mainRecordId[module="${this.moduleName}"]`).val();
+        var mainRecordName = $(`.mainRecordId[module="${this.moduleName}"]`).attr("name");
+        var subModule = $(obj).attr("module");
+        var tmp = utils.collectDataForSaving(`subRecordSearchFilter`, subModule, "0");
+        tmp[mainRecordName] = mainRecordId;
+        var param = utils.convertToQueryString(tmp); 
+
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/${this.moduleName}/downloadSubRecordCSV/${subModule}${param}`;
+        window.open(url, "_blank");
     }
 
     initSearchFilterListener(context) {
@@ -51,13 +76,13 @@ class AbstractSubUI {
     }
 
     initSearchSubRecordFilterListener(context) {
-        $(document).on('keyup', `input.subRecordSearchFilter[type="text"][module="${context.moduleName}"]`, function(evt) {
+        $(document).on('keyup', `input.subRecordSearchFilter[type="text"][parentModule="${context.moduleName}"]`, function(evt) {
             context.searchSubRecordFilter(this);
         });
-        $(document).on('change', `input.subRecordSearchFilter[type="checkbox"][module="${context.moduleName}"]`, function(evt) {
+        $(document).on('change', `input.subRecordSearchFilter[type="checkbox"][parentModule="${context.moduleName}"]`, function(evt) {
             context.searchSubRecordFilter(this);
         });
-        $(document).on('change', `input.calendar.subRecordSearchFilter[module="${context.moduleName}"]`, function(evt) {
+        $(document).on('change', `input.calendar.subRecordSearchFilter[parentModule="${context.moduleName}"]`, function(evt) {
             context.searchSubRecordFilter(this);
         });
     }
@@ -184,8 +209,11 @@ class AbstractSubUI {
     searchSubRecordFilter(obj) {
         autoSaveSubRecord = false;
         utils.showSpin();
-        var subModule = $(obj).attr("subModule");
-        var tmp = utils.collectDataForSaving(`subRecordSearchFilter`, `${this.moduleName}`, "0");
+        var mainRecordId = $(`.mainRecordId[module="${this.moduleName}"]`).val();
+        var mainRecordName = $(`.mainRecordId[module="${this.moduleName}"]`).attr("name");
+        var subModule = $(obj).attr("module");
+        var tmp = utils.collectDataForSaving(`subRecordSearchFilter`, subModule, "0");
+        tmp[mainRecordName] = mainRecordId;
         var param = utils.convertToQueryString(tmp); 
 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/filterSubRecord/${subModule}${param}`;

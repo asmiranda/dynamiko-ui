@@ -7,14 +7,19 @@
             <div style="display: flex;">
                 <div class="checkbox" style="margin: 5px; margin-right: 10px;">
                     <label>
-                      <input type="checkbox" name="showUnspecifiedOnly" module="BankingUI" subModule="BankingTransactionUI" class="subRecordSearchFilter" rowIndex="0" value="true"> Show&nbsp;Unmatched&nbsp;Only
+                      <input type="checkbox" name="showUnspecifiedOnly" parentModule="BankingUI" module="BankingTransactionUI" 
+                      class="subRecordSearchFilter" rowIndex="0" value="true"> Show&nbsp;Unmatched&nbsp;Only
                     </label>
                 </div>
                 <i style="margin: 5px; margin-right: 10px;">Filter&nbsp;Date </i>
-                <input name="bankingTransactionDate" module="BankingUI" subModule="BankingTransactionUI" type="text" class="form-control subRecordSearchFilter calendar" rowIndex="0" placeholder="Filter Date"/>
-                <button class="btn btn-default btnMoreSubRecord" module="BankingTransactionUI" parentmodule="BankingUI" style="margin-left: 10px;">
+                <input name="bankingTransactionDate" parentModule="BankingUI" module="BankingTransactionUI" type="text" 
+                    class="form-control subRecordSearchFilter calendar" rowIndex="0" placeholder="Filter Date"/>
+                <button class="btn btn-default btnMoreSubRecord" module="BankingTransactionUI" parentModule="BankingUI" style="margin-left: 10px;">
                     <i class="fa fa-plus"></i> More Records
                 </button>
+                <div style="display: flex; margin-top: 5px; margin-left: 10px;" class="hand btnSubRecordDownloadCSV" module="BankingTransactionUI" parentModule="BankingUI">
+                    <i class="fa fa-fw fa-download" style="margin-top: 5px;"></i> <i>CSV</i>
+                </div>
             </div>
         </div>
     </div>
@@ -65,9 +70,9 @@
                             module="BankingTransactionUI" autoNameField="matchAccountCode" value=""/>
                     </div>
                     <div style="flex: 1; text-align: left; margin-top: 7px;">
-                        <input rowIndex="----" name="code" module="BankingTransactionUI" parentModule="BankingUI" type="hidden"
-                            class="form-control editRecord" placeholder=""/>
                         <input rowIndex="----" name="bankingCode" module="BankingTransactionUI" parentModule="BankingUI" type="hidden"
+                            class="form-control editRecord subRecordSearchFilter" placeholder=""/>
+                        <input rowIndex="----" name="code" module="BankingTransactionUI" parentModule="BankingUI" type="hidden"
                             class="form-control editRecord" placeholder=""/>
                         <a href="#" class="btnSaveSubRecord" rowIndex="----" module="BankingTransactionUI" parentModule="BankingUI" title="Save #----">
                             <i class="fa fa-save" style="margin-left: 5px;"></i>
