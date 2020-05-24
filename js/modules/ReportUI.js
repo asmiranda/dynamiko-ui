@@ -58,6 +58,7 @@ class ReportUI {
     }
 
     runReport(obj, reportType) {
+        utils.showSpin();
         var divSelector = `select[module="ReportUI"][name="report"]`;
         var reportName = $(divSelector).val();
         var queryStr = "";
@@ -95,6 +96,7 @@ class ReportUI {
                 window.open(url, '_blank');
             }
         }
+        utils.hideSpin();
     }
 
     changeParameters(obj) {
