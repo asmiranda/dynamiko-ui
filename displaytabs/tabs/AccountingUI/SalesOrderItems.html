@@ -1,264 +1,96 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <div class="box box-default">
-    <input rowIndex="0" type="hidden" class="form-control editRecord" module="SalesOrderUI" name="SalesOrderId">
-    <input rowIndex="0" type="hidden" class="form-control editRecord" module="SalesOrderUI" name="code">
     <div class="box-header with-border">
         <h3 class="box-title">Item Details</h3>
-    </div>
-    <div class="box-body">
-        <div style="display: flex; flex-direction: column;">
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div class="text-center" style="flex: 4; margin-left: 10px;">
-                    <b>Product/Service</b>
+        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+            <div style="display: flex;">
+                <div class="checkbox" style="margin: 5px; margin-right: 10px;">
+                    <label>
+                      <input type="checkbox" name="showUnspecifiedOnly" parentModule="SalesOrderUI" module="SalesOrderItemUI" 
+                      class="subRecordSearchFilter" rowIndex="0" value="true"> Show&nbsp;Unmatched&nbsp;Only
+                    </label>
                 </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Quantity</b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Unit Price</b>
-                </div>
-                <div class="text-center" style="flex: 3; margin-left: 10px;">
-                    <b>Amount</b>
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px;">
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="1" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="1" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="1" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="1" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="1" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="1" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="2" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="2" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="2" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="2" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="2" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="2" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="3" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="3" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="3" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="3" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="3" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="3" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="4" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="4" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="4" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="4" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="4" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="4" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="5" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="5" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="5" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="5" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="5" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="5" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="6" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="6" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="6" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="6" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="6" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="6" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="7" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="7" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="7" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="7" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="7" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="7" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="8" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="8" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="8" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="8" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="8" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="8" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="9" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="9" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="9" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="9" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="9" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="9" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="SalesOrderCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="10" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="10" class="form-control editRecord HiddenAutoComplete" name="productCode" type="hidden" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="10" module="SalesOrderItemUI" mainmodule="SalesOrderItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="10" name="quantity" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="10" name="unitPrice" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="10" name="totalAmount" module="SalesOrderItemUI" type="text" class="form-control editRecord" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnSalesOrderItem" rowIndex="10"> </i>
+                <i style="margin: 5px; margin-right: 10px;">Filter&nbsp;Date </i>
+                <input name="bankingTransactionDate" parentModule="SalesOrderUI" module="SalesOrderItemUI" type="text" 
+                    class="form-control subRecordSearchFilter calendar" rowIndex="0" placeholder="Filter Date"/>
+                <button class="btn btn-default btnMoreSubRecord" module="SalesOrderItemUI" parentModule="SalesOrderUI" style="margin-left: 10px;">
+                    <i class="fa fa-plus"></i> More Records
+                </button>
+                <div style="display: flex; margin-top: 5px; margin-left: 10px;" class="hand btnSubRecordDownloadCSV" module="SalesOrderItemUI" parentModule="SalesOrderUI">
+                    <i class="fa fa-fw fa-download" style="margin-top: 5px;"></i> <i>CSV</i>
                 </div>
             </div>
         </div>
-        <div style="display: flex; flex-direction: column; margin-top: 10px;">
-            <div style="display: flex; margin-top: 10px;">
-                <div style="flex: 4; margin-left: 10px;">
+    </div>
+    <div class="box-body">
+        <div style="display: flex; flex-direction: column;">
+            <div class="hiddenRecordTemplate" module="SalesOrderItemUI" parentModule="SalesOrderUI" style="display: none;">
+                <div style="display: flex;" class="subRecord" module="SalesOrderItemUI" rowIndex="----">
+                    <div style="flex: 1; text-align: right;">
+                        <i style="margin-right: 5px;">----</i>
+                    </div>
+                    <div style="flex: 4; margin-left: 10px;">
+                        <div class="input-group" style="width: 100%;">
+                            <input rowIndex="----" type="text" class="form-control autocomplete editRecordAutoComplete" name="productCode"
+                                placeholder="" module="SalesOrderItemUI" parentModule="SalesOrderUI"
+                                autoname="productCode" helptitle="productCode"/>
+                            <span rowindex="----" autoname="productCode" module="SalesOrderItemUI" parentModule="SalesOrderUI" 
+                                class="btnAutoClearSelected input-group-addon" title="Clear Selected">
+                                <i class="fa fa-remove"></i></span>
+                            <div class="autocomplete-items" rowIndex="----" parentModule="SalesOrderUI"
+                                module="SalesOrderItemUI" autoname="productCode">
+                            </div>
+                            <input rowIndex="----" class="form-control editRecord autoSaveSubRecord HiddenAutoComplete"
+                                name="productCode" type="hidden" parentModule="SalesOrderUI"
+                                module="SalesOrderItemUI" autoNameField="productCode" value=""/>
+                        </div>
+                    </div>
+                    <div style="flex: 2; margin-left: 10px;">
+                        <input rowIndex="----" name="quantity" module="SalesOrderItemUI" parentModule="SalesOrderUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 2; margin-left: 10px;">
+                        <input rowIndex="----" name="unitPrice" module="SalesOrderItemUI" parentModule="SalesOrderUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 3; margin-left: 10px;">
+                        <input rowIndex="----" name="totalAmount" module="SalesOrderItemUI" parentModule="SalesOrderUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 1; text-align: left; margin-top: 7px;">
+                        <input rowIndex="----" name="bankingCode" module="SalesOrderItemUI" parentModule="SalesOrderUI" type="hidden"
+                            class="form-control editRecord subRecordSearchFilter" placeholder=""/>
+                        <input rowIndex="----" name="code" module="SalesOrderItemUI" parentModule="SalesOrderUI" type="hidden"
+                            class="form-control editRecord" placeholder=""/>
+                        <a href="#" class="btnSaveSubRecord" rowIndex="----" module="SalesOrderItemUI" parentModule="SalesOrderUI" title="Save #----">
+                            <i class="fa fa-save" style="margin-left: 5px;"></i>
+                        </a>
+                        <a href="#" class="btnDeleteSubRecord" rowIndex="----" module="SalesOrderItemUI" parentModule="SalesOrderUI" title="Remove #----">
+                            <i class="fa fa-remove" style="margin-left: 5px;"></i>
+                        </a>
+                    </div>
                 </div>
-                <div style="flex: 2; margin-left: 10px;">
+            </div>
+            <div class="titleRecordTemplate">
+                <div style="display: flex; width: 100%;">
+                    <div class="text-center" style="flex: 4; margin-left: 10px;">
+                        <b>Product/Service</b>
+                    </div>
+                    <div class="text-center" style="flex: 2; margin-left: 10px;">
+                        <b>Quantity</b>
+                    </div>
+                    <div class="text-center" style="flex: 2; margin-left: 10px;">
+                        <b>Unit Price</b>
+                    </div>
+                    <div class="text-center" style="flex: 3; margin-left: 10px;">
+                        <b>Amount</b>
+                    </div>
+                    <div class="text-center" style="flex: 1; margin-left: 10px;">
+                    </div>
                 </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <label class="pull-right">Item Total</label>
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="0" name="totalItemAmount" module="SalesOrderUI" type="text" class="form-control editRecord" placeholder="Item Total" disabled="">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                </div>
+            </div>
+            <div class="displayRecordTemplate" module="SalesOrderItemUI">
             </div>
         </div>
     </div>

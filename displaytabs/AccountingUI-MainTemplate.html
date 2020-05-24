@@ -97,9 +97,11 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Sales Order</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info btnSaveSalesOrder">Save Sales Order</button>
-                                            <button type="button" class="btn btn-default SalesOrderUI_btnNewSalesOrder"><i
-                                                    class="fa fa-plus"></i> New Sales Order</button>
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="SalesOrderUI">Save Bank Account</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="SalesOrderUI">
+                                                <i class="fa fa-plus"></i> New Sales Order</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="SalesOrderUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
                                         </div>
                                     </div>
                                     <!-- /.box-header -->
@@ -110,16 +112,10 @@
                                                 <li class="tab-pane active">
                                                     <a href="#SalesOrderItems" data-toggle="tab" aria-expanded="false">Items</a>
                                                 </li>
-                                                <li class="tab-pane">
-                                                    <a href="#SalesOrderReport" data-toggle="tab" aria-expanded="true">Report</a>
-                                                </li>
                                             </ul>
                                             <div class="tab-content no-padding">
                                                 <div class="tab-pane active" id="SalesOrderItems">
                                                     <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderItems"></div>
-                                                </div>
-                                                <div class="tab-pane" id="SalesOrderReport">
-                                                    <div class="DisplayTab" tabName="SalesOrder" tabUrl="SalesOrderReport"></div>
                                                 </div>
                                             </div>
                                         </div>

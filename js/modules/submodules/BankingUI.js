@@ -9,17 +9,13 @@ class BankingUI extends AbstractSubUI {
         return data;
     }
 
-    newRecord() {  
+    newRecord() {   
         this.clearModuleInputs(this.moduleName);
         this.clearSubRecordsHolder(this.BankingTransactionUI);
     }
 
     arrangeRecordProfileAllSubRecords(data, clsName) {
         this.formatSubRecordsFromMain(this.BankingTransactionUI, data, clsName);
-    }
-
-    arrangeRecordProfileSubRecords(data, clsName, subModule) {
-        this.formatSubRecords(subModule, data, clsName);
     }
 
     formatSearchList(index, obj, tabName) {

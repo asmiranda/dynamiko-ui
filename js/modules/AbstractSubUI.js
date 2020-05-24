@@ -113,6 +113,7 @@ class AbstractSubUI {
     arrangeRecordProfileAllSubRecords(data, clsName) {
     }
     arrangeRecordProfileSubRecords(data, clsName, subModule) {
+        this.formatSubRecords(subModule, data, clsName);
     }
     
     newRecord() {  
