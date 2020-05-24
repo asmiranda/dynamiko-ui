@@ -353,4 +353,29 @@ class Utils {
     hideSpin() {
         $("#waitingContainer").hide();
     }
+
+    loadTab(moduleName, tabUrl, divSelector) {
+        var url = `displaytabs/tabs/${moduleName}/${tabUrl}.html`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            $(divSelector).html(data);
+        };
+        var errorCallback = function(jqXHR, textStatus, errorThrown) {
+            if (errorThrown=="Not Found") {
+                $(divSelector).html(url + " Not Found!");
+            }
+        };
+        ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
+    }
+
+    getTabHtml(moduleName, tabUrl, successCallback) {
+        var url = `displaytabs/tabs/${moduleName}/${tabUrl}.html`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var errorCallback = function(jqXHR, textStatus, errorThrown) {
+            if (errorThrown=="Not Found") {
+                alert(url + " Not Found!");
+            }
+        };
+        ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
+    }
 }

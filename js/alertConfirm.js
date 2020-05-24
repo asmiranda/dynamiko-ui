@@ -8,6 +8,19 @@ class ShowModalAny {
     }
 }
 
+class ShowModalAny1200 {
+    show(title, helpHtml, callback) {
+        var context = this;
+        $.alert({
+            title: title,
+            content: helpHtml,
+            boxWidth: '1200px',
+            useBootstrap: false,
+            onContentReady: callback,
+        });
+    }
+}
+
 class ShowModalAny500 {
     show(title, helpHtml, callback) {
         var context = this;
@@ -159,6 +172,7 @@ class ShowUploadAttachment {
 $(function () {
     showModalAny = new ShowModalAny();
     showModalAny500 = new ShowModalAny500();
+    showModalAny1200 = new ShowModalAny1200();
     showModuleHelp = new ShowModuleHelp();
     showAutoCompleteFieldHelp = new ShowAutoCompleteFieldHelp();
     showFieldHelp = new ShowFieldHelp();

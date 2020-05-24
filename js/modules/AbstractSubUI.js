@@ -7,6 +7,7 @@ class AbstractSubUI {
         this.initSearchFilterListener(context);
         this.initSearchSubRecordFilterListener(context);
         this.initSubRecordListener(context);
+        this.initReportListener(context);
 
         $(document).on('click', `.selectSearchRecord[module="${context.moduleName}"]`, function() {
             context.loadRecordProfile(this);
@@ -19,6 +20,12 @@ class AbstractSubUI {
         });        
         $(document).on('click', `.btnRecordDownloadCSV[module="${context.moduleName}"]`, function() {
             context.downloadRecordCSV(this);
+        });
+    }
+
+    initReportListener(context) {
+        $(document).on('click', `.btnReport[module="${context.moduleName}"]`, function() {
+            context.showReport(this);
         });
     }
 
@@ -41,6 +48,18 @@ class AbstractSubUI {
         $(document).on('click', `.btnSubRecordDownloadCSV[parentModule="${context.moduleName}"]`, function() {
             context.downloadSubRecordCSV(this);
         });
+    }
+
+    showReport(obj) {
+        var mainMenu = $(obj).attr("MainMenu");
+
+        var successChangeReportList = function(data) {
+            reportUI.loadReportList(mainMenu);
+        }
+        var successCallback = function(data) {
+            showModalAny1200.show("Report", data, successChangeReportList);
+        };
+        utils.getTabHtml(mainMenu, "Report", successCallback);
     }
 
     downloadRecordCSV(obj) {

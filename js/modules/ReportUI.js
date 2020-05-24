@@ -6,16 +6,16 @@ class ReportUI {
     }
 
     changeModule(evt) {
-        reportUI.loadReportList();
+        reportUI.loadReportList("ReportUI");
     }
 
     init() {
         $("#dynamikoMainSearch").hide();
     }
 
-    loadReportList() {
-        console.log("loadReportList");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ReportUI/getReports`;
+    loadReportList(tabName) {
+        console.log("loadReportList", tabName);
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ReportUI/getReports/${tabName}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function(data) {

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!-- <a>Working for Review Center - Feb 3 2020</a> -->
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,7 +40,7 @@
   <link rel="stylesheet" href="css/autocomplete.css">
   <link rel="stylesheet" href="css/slim-scroll.css">
   <link rel="stylesheet" href="css/responsive.dataTables.css">
- 
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -62,7 +63,7 @@
           <span class="sr-only">Toggle navigation</span>
         </a>
         <a href="#" class="selectedModule" style="float: left; padding: 10px 10px;">
-            <span style="color: aliceblue; font-size: 18px;"></span>
+          <span style="color: aliceblue; font-size: 18px;"></span>
         </a>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
@@ -70,7 +71,7 @@
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown waiting-menu">
               <div id="waitingContainer" style="margin-top: 5px; display: none;">
-                <i style="color: aliceblue;">Loading</i> <img src="images/ajax-loader.gif"/>
+                <i style="color: aliceblue;">Loading</i> <img src="images/ajax-loader.gif" />
               </div>
             </li>
             <li class="dropdown company company-menu">
@@ -79,14 +80,22 @@
               </a>
 
               <ul class="dropdown-menu sidebar-menu tree" data-widget="tree" style="max-height:700px; overflow-y:auto;">
-                <li><a href="#" class="leftMenuItem manageEmployee"><i class="fa fa-dashboard"></i> <span>Manage Employee</span></a></li>
-                <li><a href="#" class="leftMenuItem manageUserRoles"><i class="fa fa-dashboard"></i> <span>Manage User Roles</span></a></li>
-                <li><a href="#" class="leftMenuItem manageDepartment"><i class="fa fa-dashboard"></i> <span>Manage Department</span></a></li>
-                <li><a href="#" class="leftMenuItem manageTaxCategory"><i class="fa fa-dashboard"></i> <span>Manage Tax Category</span></a></li>
-                <li><a href="#" class="leftMenuItem manageAccountChart"><i class="fa fa-dashboard"></i> <span>Manage Account Chart</span></a></li>
-                <li><a href="#" class="leftMenuItem manageProduct"><i class="fa fa-dashboard"></i> <span>Manage Product</span></a></li>
-                <li><a href="#" class="leftMenuItem manageBenefit"><i class="fa fa-dashboard"></i> <span>Manage Benefit</span></a></li>
-                <li><a href="#" class="leftMenuItem manageSupplier"><i class="fa fa-dashboard"></i> <span>Manage Supplier</span></a></li>
+                <li><a href="#" class="leftMenuItem manageEmployee"><i class="fa fa-dashboard"></i> <span>Manage
+                      Employee</span></a></li>
+                <li><a href="#" class="leftMenuItem manageUserRoles"><i class="fa fa-dashboard"></i> <span>Manage User
+                      Roles</span></a></li>
+                <li><a href="#" class="leftMenuItem manageDepartment"><i class="fa fa-dashboard"></i> <span>Manage
+                      Department</span></a></li>
+                <li><a href="#" class="leftMenuItem manageTaxCategory"><i class="fa fa-dashboard"></i> <span>Manage Tax
+                      Category</span></a></li>
+                <li><a href="#" class="leftMenuItem manageAccountChart"><i class="fa fa-dashboard"></i> <span>Manage
+                      Account Chart</span></a></li>
+                <li><a href="#" class="leftMenuItem manageProduct"><i class="fa fa-dashboard"></i> <span>Manage
+                      Product</span></a></li>
+                <li><a href="#" class="leftMenuItem manageBenefit"><i class="fa fa-dashboard"></i> <span>Manage
+                      Benefit</span></a></li>
+                <li><a href="#" class="leftMenuItem manageSupplier"><i class="fa fa-dashboard"></i> <span>Manage
+                      Supplier</span></a></li>
               </ul>
 
             </li>
@@ -186,70 +195,77 @@
 
   <div class="allModal" style="display: none;">
     <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title autoModalReportTitle">Report Viewer</h3>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h3 class="modal-title autoModalReportTitle">Report Viewer</h3>
+          </div>
+          <div class="modal-body">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <a href="#" class="pull-right btn-box-tool btnCustomReportFullScreen" report="AutoReport">Full
+                  Screen</a>
+              </div>
+              <div class="box-body">
+                <div class="row">
+                  <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;" report="AutoReport"
+                    webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
                 </div>
-                <div class="modal-body">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <a href="#" class="pull-right btn-box-tool btnCustomReportFullScreen" report="AutoReport">Full Screen</a>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-                                <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;" report="AutoReport" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="box-footer text-center">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
+              </div>
+              <div class="box-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
     <div id="calendarQuickUpdater">
-        <div class="input-group date">
-            <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" 
-              name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput" style="width: 100px;" callback="##CALLBACK##">
-            <div class="input-group-addon displayEdit">
-                <i class="fa fa-calendar"></i>
-            </div>
+      <div class="input-group date">
+        <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
+          name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput"
+          style="width: 100px;" callback="##CALLBACK##">
+        <div class="input-group-addon displayEdit">
+          <i class="fa fa-calendar"></i>
         </div>
+      </div>
     </div>
     <div id="textQuickUpdater">
-      <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" 
-        name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;" callback="##CALLBACK##">
+      <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
+        name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;"
+        callback="##CALLBACK##">
     </div>
     <div id="autoCompleteQuickUpdater">
       <div class="input-group">
-        <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" name="##FIELDNAME##" autoName="##FIELDNAME##" type="text" 
-          class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;" callback="##CALLBACK##">
+        <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
+          name="##FIELDNAME##" autoName="##FIELDNAME##" type="text"
+          class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;"
+          callback="##CALLBACK##">
         <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
       </div>
       <div class="input-group">
-        <select quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##" autoName="##FIELDNAME##" size="3"
+        <select quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+          fieldName="##FIELDNAME##" autoName="##FIELDNAME##" size="3"
           class="form-control autoCompleteQuickUpdaterSelect" style="width: 250px;" callback="##CALLBACK##">
         </select>
       </div>
-      <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##" mainmodule="##MODULE##" autoNameField="##FIELDNAME##">
+      <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##"
+        mainmodule="##MODULE##" autoNameField="##FIELDNAME##">
     </div>
     <div id="quickMainSearcher">
       <div class="input-group" style="min-width: 350px;">
-        <input module="##MODULE##" type="text" placeholder="Please type for search" class="form-control displayEdit quickMainSearcherInput">
+        <input module="##MODULE##" type="text" placeholder="Please type for search"
+          class="form-control displayEdit quickMainSearcherInput">
         <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
       </div>
       <div class="box-body">
         <div module="##MODULE##" class="quickMainSearcherResult" style="max-height: 700px; overflow-y: auto;">
         </div>
       </div>
+    </div>
   </div>
-
-  </div>
-</div>
 
 
   <!-- jQuery 3 -->
@@ -260,7 +276,7 @@
   <script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
   <script src="js/others/dataTables.responsive.js"></script>
   <script src="js/others/dataTables.fixedColumns.js"></script>
-  
+
 
   <!-- Bootstrap 3.3.7 -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -318,10 +334,10 @@
   <!-- Load Esri Leaflet from CDN -->
   <script src="plugins/leaflet/unpkg/esri-leaflet.js"></script>
   <!-- Load Esri Leaflet Geocoder from CDN -->
-  <link rel="stylesheet" href="plugins/leaflet/unpkg/esri-leaflet-geocoder.css"/>
+  <link rel="stylesheet" href="plugins/leaflet/unpkg/esri-leaflet-geocoder.css" />
   <script src="plugins/leaflet/unpkg/esri-leaflet-geocoder.js"></script>
 
-  <link rel="stylesheet" href="plugins/spinner/jquery-spinner.css"/>
+  <link rel="stylesheet" href="plugins/spinner/jquery-spinner.css" />
   <script src="plugins/spinner/jquery-spinner.js"></script>
 
   <script src="js/others/dropzone.js"></script>
