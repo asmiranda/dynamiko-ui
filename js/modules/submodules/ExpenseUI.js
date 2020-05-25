@@ -5,7 +5,7 @@ class ExpenseUI extends AbstractSubUI {
         this.ExpenseCategoryItemUI = "ExpenseCategoryItemUI";
     }
     
-    beforeSave(data) {
+    beforeSave(data) { 
         data[this.ExpenseItemUI] = utils.collectSubRecordDataForSaving("editRecord", this.ExpenseItemUI);
         data[this.ExpenseCategoryItemUI] = utils.collectSubRecordDataForSaving("editRecord", this.ExpenseCategoryItemUI);
         return data;
@@ -46,5 +46,5 @@ class ExpenseUI extends AbstractSubUI {
 }
 
 $(function () {
-    expenseUI = new ExpenseUI("ExpenseUI");
+    expenseUI = new ExpenseUI();
 });

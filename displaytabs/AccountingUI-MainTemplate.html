@@ -180,9 +180,11 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Receivables</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info btnSaveReceivable">Save Receivable</button>
-                                            <button type="button" class="btn btn-default ReceivableUI_btnNewReceivable"><i
-                                                    class="fa fa-plus"></i> New Receivable</button>
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="ReceivableUI">Save Receivable</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="ReceivableUI">
+                                                <i class="fa fa-plus"></i> New Expense</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="ReceivableUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
                                         </div>
                                     </div>
                                     <!-- /.box-header -->
@@ -193,16 +195,10 @@
                                                 <li class="tab-pane active">
                                                     <a href="#ReceivableItems" data-toggle="tab" aria-expanded="false">Items</a>
                                                 </li>
-                                                <li class="tab-pane">
-                                                    <a href="#ReceivableReport" data-toggle="tab" aria-expanded="true">Report</a>
-                                                </li>
                                             </ul>
                                             <div class="tab-content no-padding">
                                                 <div class="tab-pane active" id="ReceivableItems">
                                                     <div class="DisplayTab" tabName="Receivable" tabUrl="ReceivableItems"></div>
-                                                </div>
-                                                <div class="tab-pane" id="ReceivableReport">
-                                                    <div class="DisplayTab" tabName="Receivable" tabUrl="ReceivableReport"></div>
                                                 </div>
                                             </div>
                                         </div>

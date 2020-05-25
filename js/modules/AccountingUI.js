@@ -4,7 +4,7 @@ class AccountingUI extends AbstractUI {
         bankingUI.loadTopRecords("Banking");
         salesOrderUI.loadTopRecords("SalesOrder");
         expenseUI.loadTopRecords("Expense");
-        // receivableUI.loadTopReceivables("Receivable");
+        receivableUI.loadTopRecords("Receivable");
         // payableUI.loadTopPayable("Payable");
 
         // employeeUI.loadTopEmployees();

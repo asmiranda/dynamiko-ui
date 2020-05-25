@@ -1,42 +1,42 @@
 <div style="display: flex; flex: 100%;">
-    <input rowIndex="0" type="hidden" class="form-control editReceivable" module="ReceivableUI" name="ReceivableId">
-    <input rowIndex="0" type="hidden" class="form-control editReceivable" module="ReceivableUI" name="code">
-    <div class="form-group" style="flex: 3; margin-left: 10px;">
-        <label class="control-label">Employee</label>
+    <input rowIndex="0" type="hidden" class="form-control editRecord mainRecordId" module="ReceivableUI" name="ReceivableId">
+    <input rowIndex="0" type="hidden" class="form-control editRecord" module="ReceivableUI" name="code">
+    <div class="form-group" style="flex: 3; margin-left: 15px;">
+        <label>Receivable From</label>
         <div class="input-group" style="width: 100%;">
-            <input rowIndex="0" type="text" class="form-control autocomplete" name="employeeCode" placeholder="Payee" module="ReceivableUI" mainmodule="ReceivableUI" autoname="employeeCode" helptitle="employeeCode" disabled="">
-            <input rowIndex="0" class="form-control editReceivable HiddenAutoComplete" name="employeeCode" type="hidden" module="ReceivableUI" mainmodule="ReceivableUI" autoNameField="employeeCode" value="">
-            <div class="autocomplete-items" rowIndex="0" module="ReceivableUI" mainmodule="ReceivableUI" autoname="employeeCode">
+            <input rowIndex="0" type="text" class="form-control autocomplete" name="receivableFromCode" placeholder="Receivable From" module="ReceivableUI" autoname="receivableFromCode" helptitle="receivableFromCode">
+            <input rowIndex="0" class="form-control editRecord HiddenAutoComplete" name="receivableFromCode" type="hidden" module="ReceivableUI" autoNameField="receivableFromCode" value="">
+            <div class="autocomplete-items" rowIndex="0" module="ReceivableUI" autoname="receivableFromCode">
             </div>
         </div> 
     </div>
-    <div class="form-group" style="flex: 3; margin-left: 10px;">
-        <label class="control-label">Customer</label>
+    <div class="form-group" style="flex: 3; margin-left: 15px;">
+        <label>Account Name</label>
         <div class="input-group" style="width: 100%;">
-            <input rowIndex="0" type="text" class="form-control autocomplete" name="customerCode" placeholder="Payee" module="ReceivableUI" mainmodule="ReceivableUI" autoname="customerCode" helptitle="customerCode">
-            <input rowIndex="0" class="form-control editReceivable HiddenAutoComplete" name="customerCode" type="hidden" module="ReceivableUI" mainmodule="ReceivableUI" autoNameField="customerCode" value="">
-            <div class="autocomplete-items" rowIndex="0" module="ReceivableUI" mainmodule="ReceivableUI" autoname="customerCode">
+            <input rowIndex="0" type="text" class="form-control autocomplete" name="accountChartCode" placeholder="Account Name" module="ReceivableUI" autoname="accountChartCode" helptitle="accountChartCode">
+            <input rowIndex="0" class="form-control editRecord HiddenAutoComplete" name="accountChartCode" type="hidden" module="ReceivableUI" autoNameField="accountChartCode" value="">
+            <div class="autocomplete-items" rowIndex="0" module="ReceivableUI" autoname="accountChartCode">
             </div>
         </div> 
     </div>
     <div class="form-group" style="flex: 1; margin-left: 15px;">
         <label>Type</label>
-        <input type="text" rowIndex="0" class="form-control editReceivable" module="ReceivableUI"
-            name="documentType" tabName="_TABNAME_">
+        <input type="text" rowIndex="0" class="form-control editRecord" module="ReceivableUI"
+            name="receivableType" tabName="_TABNAME_">
     </div>
     <div class="form-group" style="flex: 2; margin-left: 15px;">
-        <label>Contact</label>
-        <input type="text" rowIndex="0" class="form-control editReceivable" module="ReceivableUI"
-            name="contactPerson" tabName="_TABNAME_">
+        <label>Reference Number</label>
+        <input type="text" rowIndex="0" class="form-control editRecord" module="ReceivableUI"
+            name="referenceNumber" tabName="_TABNAME_">
     </div>
     <div class="form-group" style="flex: 1; margin-left: 15px;">
-        <label>Payment Date</label>
-        <input type="text" rowIndex="0" class="form-control calendar editReceivable" module="ReceivableUI"
-            name="paymentDate" tabName="_TABNAME_">
+        <label>Transaction&nbsp;Date</label>
+        <input type="text" rowIndex="0" class="form-control calendar editRecord" module="ReceivableUI"
+            name="transactionDate" tabName="_TABNAME_">
     </div>
     <div class="form-group" style="flex: 1; margin-left: 15px;">
-        <label>Overall Amount</label>
-        <input type="text" rowIndex="0" class="form-control editReceivable" module="ReceivableUI"
-            name="overallAmount" tabName="_TABNAME_" disabled="">
+        <label>Total Amount</label>
+        <input type="text" rowIndex="0" class="form-control editRecord" module="ReceivableUI"
+            name="totalAmount" tabName="_TABNAME_">
     </div>
 </div>
