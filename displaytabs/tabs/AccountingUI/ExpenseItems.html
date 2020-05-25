@@ -1,299 +1,97 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <div class="box box-default">
-    <input rowIndex="0" type="hidden" class="form-control editExpense" module="ExpenseUI" name="ExpenseId">
-    <input rowIndex="0" type="hidden" class="form-control editExpense" module="ExpenseUI" name="code">
     <div class="box-header with-border">
         <h3 class="box-title">Item Details</h3>
-    </div>
-    <div class="box-body">
-        <div style="display: flex; flex-direction: column;">
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div class="text-center" style="flex: 4; margin-left: 10px;">
-                    <b>Product/Service</b>
-                </div>
-                <div class="text-center" style="flex: 8; margin-left: 10px;">
-                    <b>Description</b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Quantity</b>
-                </div>
-                <div class="text-center" style="flex: 2; margin-left: 10px;">
-                    <b>Unit Price</b>
-                </div>
-                <div class="text-center" style="flex: 3; margin-left: 10px;">
-                    <b>Amount</b>
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px;">
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="1" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="1" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="1" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="1" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="1" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="1" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="1" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="2" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="2" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="2" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="2" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="2" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="2" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="2" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="3" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="3" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="3" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="3" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="3" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="3" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="3" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="4" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="4" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="4" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="4" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="4" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="4" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="4" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="5" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="5" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="5" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="5" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="5" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="5" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="5" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="6" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="6" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="6" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="6" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="6" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="6" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="6" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="7" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="7" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="7" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="7" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="7" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="7" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="7" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="8" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="8" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="8" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="8" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="8" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="8" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="8" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="9" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="9" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="9" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="9" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="9" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="9" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="9" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
-                </div>
-            </div>
-            <div style="display: flex;" class="ExpenseCategoryRecord">
-                <div style="flex: 4; margin-left: 10px;">
-                    <div class="input-group" style="width: 100%;">
-                        <input rowIndex="10" type="text" class="form-control autocomplete" name="productCode" placeholder="Procduct/Service" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode" helptitle="productCode">
-                        <input rowIndex="10" class="form-control editExpense HiddenAutoComplete" name="productCode" type="hidden" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoNameField="productCode" value="">
-                        <div class="autocomplete-items" rowIndex="10" module="ExpenseItemUI" mainmodule="ExpenseItemUI" autoname="productCode">
-                        </div>
-                    </div>
-                </div>
-                <div style="flex: 8; margin-left: 10px;">
-                    <input rowIndex="10" name="description" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Description">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="10" name="quantity" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Quantity">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <input rowIndex="10" name="unitPrice" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Unit Price">
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="10" name="totalAmount" module="ExpenseItemUI" type="text" class="form-control editExpense" placeholder="Amount">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                    <i class="fa fa-trash hand" class="btnExpenseItem" rowIndex="10"> </i>
+        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+            <div style="display: flex;">
+                <button class="btn btn-default btnMoreSubRecord" module="ExpenseItemUI" parentModule="ExpenseUI" style="margin-left: 10px;">
+                    <i class="fa fa-plus"></i> More Records
+                </button>
+                <div style="display: flex; margin-top: 5px; margin-left: 10px;" class="hand btnSubRecordDownloadCSV" module="ExpenseItemUI" parentModule="ExpenseUI">
+                    <i class="fa fa-fw fa-download" style="margin-top: 5px;"></i> <i>CSV</i>
                 </div>
             </div>
         </div>
-        <div style="display: flex; flex-direction: column; margin-top: 10px;">
-            <div style="display: flex; margin-top: 10px;">
-                <div style="flex: 4; margin-left: 10px;">
+    </div>
+
+    <div class="box-body">
+        <div style="display: flex; flex-direction: column;">
+            <div class="hiddenRecordTemplate" module="ExpenseItemUI" parentModule="ExpenseUI" style="display: none;">
+                <div style="display: flex;" class="subRecord" module="ExpenseItemUI" rowIndex="----">
+                    <div style="flex: 1; text-align: right;">
+                        <i style="margin-right: 5px;">----</i>
+                    </div>
+                    <div style="flex: 4;">
+                        <div class="input-group" style="width: 100%;">
+                            <input rowIndex="----" type="text" class="form-control autocomplete editRecordAutoComplete" name="productCode"
+                                placeholder="" module="ExpenseItemUI" parentModule="ExpenseUI"
+                                autoname="productCode" helptitle="productCode"/>
+                            <span rowindex="----" autoname="productCode" module="ExpenseItemUI" parentModule="ExpenseUI" 
+                                class="btnAutoClearSelected input-group-addon" title="Clear Selected">
+                                <i class="fa fa-remove"></i></span>
+                            <div class="autocomplete-items" rowIndex="----" parentModule="ExpenseUI"
+                                module="ExpenseItemUI" autoname="productCode">
+                            </div>
+                            <input rowIndex="----" class="form-control editRecord autoSaveSubRecord HiddenAutoComplete"
+                                name="productCode" type="hidden" parentModule="ExpenseUI"
+                                module="ExpenseItemUI" autoNameField="productCode" value=""/>
+                        </div>
+                    </div>
+                    <div style="flex: 8;">
+                        <input rowIndex="----" name="description" module="ExpenseItemUI" parentModule="ExpenseUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 2;">
+                        <input rowIndex="----" name="quantity" module="ExpenseItemUI" parentModule="ExpenseUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 2;">
+                        <input rowIndex="----" name="unitPrice" module="ExpenseItemUI" parentModule="ExpenseUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 3;">
+                        <input rowIndex="----" name="totalAmount" module="ExpenseItemUI" parentModule="ExpenseUI" type="text"
+                            class="form-control editRecord autoSaveSubRecord" placeholder="">
+                    </div>
+                    <div style="flex: 1; text-align: left; margin-top: 7px;">
+                        <input rowIndex="----" name="expenseCode" module="ExpenseItemUI" parentModule="ExpenseUI" type="hidden"
+                            class="form-control editRecord subRecordSearchFilter" placeholder=""/>
+                        <input rowIndex="----" name="code" module="ExpenseItemUI" parentModule="ExpenseUI" type="hidden"
+                            class="form-control editRecord" placeholder=""/>
+                        <a href="#" class="btnSaveSubRecord" rowIndex="----" module="ExpenseItemUI" parentModule="ExpenseUI" title="Save #----">
+                            <i class="fa fa-save" style="margin-left: 5px;"></i>
+                        </a>
+                        <a href="#" class="btnDeleteSubRecord" rowIndex="----" module="ExpenseItemUI" parentModule="ExpenseUI" title="Remove #----">
+                            <i class="fa fa-remove" style="margin-left: 5px;"></i>
+                        </a>
+                    </div>
                 </div>
-                <div style="flex: 8; margin-left: 10px;">
+            </div>
+            <div class="titleRecordTemplate">
+                <div style="display: flex; width: 100%;">
+                    <div class="text-center" style="flex: 1;">
+                    </div>
+                    <div class="text-center" style="flex: 4;">
+                        <b>Product/Service</b>
+                    </div>
+                    <div class="text-center" style="flex: 8;">
+                        <b>Description</b>
+                    </div>
+                    <div class="text-center" style="flex: 2;">
+                        <b>Quantity</b>
+                    </div>
+                    <div class="text-center" style="flex: 2;">
+                        <b>Unit Price</b>
+                    </div>
+                    <div class="text-center" style="flex: 3;">
+                        <b>Amount</b>
+                    </div>
+                    <div class="text-center" style="flex: 1;">
+                    </div>
                 </div>
-                <div style="flex: 2; margin-left: 10px;">
-                </div>
-                <div style="flex: 2; margin-left: 10px;">
-                    <label class="pull-right">Item Total</label>
-                </div>
-                <div style="flex: 3; margin-left: 10px;">
-                    <input rowIndex="0" name="totalItemAmount" module="ExpenseUI" type="text" class="form-control editExpense" placeholder="Item Total" disabled="">
-                </div>
-                <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-                </div>
+            </div>
+            <div class="displayRecordTemplate" module="ExpenseItemUI">
             </div>
         </div>
     </div>

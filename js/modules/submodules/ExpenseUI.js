@@ -1,28 +1,25 @@
 class ExpenseUI extends AbstractSubUI {
-    constructor(moduleName) {
-        super(moduleName);
+    constructor() {
+        super("ExpenseUI");
+        this.ExpenseItemUI = "ExpenseItemUI";
+        this.ExpenseCategoryItemUI = "ExpenseCategoryItemUI";
     }
     
     beforeSave(data) {
-        tmp["ExpenseItems"] = utils.collectSubRecordDataForSaving("editRecord", "ExpenseItemUI");
-        tmp["ExpenseCategoryItems"] = utils.collectSubRecordDataForSaving("editRecord", "ExpenseCategoryItemUI");
+        data[this.ExpenseItemUI] = utils.collectSubRecordDataForSaving("editRecord", this.ExpenseItemUI);
+        data[this.ExpenseCategoryItemUI] = utils.collectSubRecordDataForSaving("editRecord", this.ExpenseCategoryItemUI);
         return data;
     }
 
-    arrangeRecordProfileItems(data, clsName) {
-        $(`.autocomplete[module="ExpenseItemUI"]`).val("");
-        $(`.editRecord[module="ExpenseItemUI"]`).val("");
-        var items = data.getProp("ExpenseItems");
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ExpenseItemUI");
-        })
+    newRecord() {   
+        this.clearModuleInputs(this.moduleName);
+        this.clearSubRecordsHolder(this.ExpenseItemUI);
+        this.clearSubRecordsHolder(this.ExpenseCategoryItemUI);
+    }
 
-        $(`.autocomplete[module="ExpenseCategoryItemUI"]`).val("");
-        $(`.editRecord[module="ExpenseCategoryItemUI"]`).val("");
-        var items = data.getProp("ExpenseCategoryItems");
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ExpenseCategoryItemUI");
-        })
+    arrangeRecordProfileAllSubRecords(data, clsName) {
+        this.formatSubRecordsFromMain(this.ExpenseItemUI, data, clsName);
+        this.formatSubRecordsFromMain(this.ExpenseCategoryItemUI, data, clsName);
     }
 
     formatSearchList(index, obj, tabName) {
@@ -34,11 +31,11 @@ class ExpenseUI extends AbstractSubUI {
         var str = `
             <div style="display: flex; flex-wrap: wrap;">
                 <div style="flex: 100%;">
-                    <span><a href="#" class="selectSearchRecord" recordId="${ExpenseId}" module="${this.moduleName}" tabName="${tabName}">${payeeName}</a></span>
+                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${ExpenseId}" module="${this.moduleName}" tabName="${tabName}">${payeeName}</a></span>
                     <span class="pull-right">${accountName}</span><br/>
                 </div>
                 <div style="flex: 100%;">
-                    <span><a href="#" class="selectSearchRecord" recordId="${ExpenseId}" module="${this.moduleName}" tabName="${tabName}"><i class="fa fa-calendar"> Total: </i> ${paymentDate}</a></span>
+                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${ExpenseId}" module="${this.moduleName}" tabName="${tabName}"><i class="fa fa-calendar"> Date: </i> ${paymentDate}</a></span>
                     <span class="pull-right" style="font-size: 14px;"><i class="fa fa-money"> Total: </i> ${totalAmount}</span><br/>
                 </div>
             </div>

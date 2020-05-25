@@ -31,7 +31,7 @@ class SalesOrderUI extends AbstractSubUI {
                     <span class="pull-right">${accountName}</span><br/>
                 </div>
                 <div style="flex: 100%;">
-                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${SalesOrderId}" module="${this.moduleName}" tabName="${tabName}"><i class="fa fa-calendar"> Total: </i> ${paymentDate}</a></span>
+                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${SalesOrderId}" module="${this.moduleName}" tabName="${tabName}"><i class="fa fa-calendar"> Date: </i> ${paymentDate}</a></span>
                     <span class="pull-right" style="font-size: 14px;"><i class="fa fa-money"> Total: </i> ${totalAmount}</span><br/>
                 </div>
             </div>

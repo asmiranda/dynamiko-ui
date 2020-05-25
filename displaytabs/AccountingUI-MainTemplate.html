@@ -97,7 +97,7 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Sales Order</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-success btnSaveRecord" module="SalesOrderUI">Save Bank Account</button>
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="SalesOrderUI">Save Sales Order</button>
                                             <button type="button" class="btn btn-info btnNewRecord" module="SalesOrderUI">
                                                 <i class="fa fa-plus"></i> New Sales Order</button>
                                             <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="SalesOrderUI" style="margin-left: 10px;">
@@ -128,21 +128,17 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="Expenses">
-                        <pre style="display: none;">
-                            Expenses
-                            <a href="https://youtu.be/mwuRKQadjHc" target="_blank">Video</a>                            
-                            Suppliers
-                            <a href="https://youtu.be/6KIl7TGN-ak" target="_blank">Video</a>                            
-                        </pre>
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 75%; margin: 15px 0px;">
                                 <div class="box box-warning">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Expenses</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info btnSaveExpense">Save Expense</button>
-                                            <button type="button" class="btn btn-default ExpenseUI_btnNewExpense"><i
-                                                    class="fa fa-plus"></i> New Expense</button>
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="ExpenseUI">Save Expense</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="ExpenseUI">
+                                                <i class="fa fa-plus"></i> New Expense</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="ExpenseUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
                                         </div>
                                     </div>
                                     <!-- /.box-header -->
@@ -155,9 +151,6 @@
                                                 </li>
                                                 <li class="tab-pane">
                                                     <a href="#ExpenseItems" data-toggle="tab" aria-expanded="true">Items</a>
-                                                </li>
-                                                <li class="tab-pane">
-                                                    <a href="#ExpenseReport" data-toggle="tab" aria-expanded="true">Report</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content no-padding">
