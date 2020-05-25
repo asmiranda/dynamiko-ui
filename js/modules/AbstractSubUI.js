@@ -146,6 +146,7 @@ class AbstractSubUI {
         var tmpParent = utils.collectDataForSaving(`editRecord`, `${this.moduleName}`, "0");
         var tmpChild = utils.collectDataForSaving(`editRecord`, `${subModule}`, rowIndex);
         tmpParent["Child"] = tmpChild;
+        tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent); 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/deleteSubRecord`;
@@ -172,12 +173,14 @@ class AbstractSubUI {
         var tmpParent = utils.collectDataForSaving(`editRecord`, `${this.moduleName}`, "0");
         var tmpChild = utils.collectDataForSaving(`editRecord`, `${subModule}`, rowIndex);
         tmpParent["Child"] = tmpChild;
+        tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent); 
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/saveSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
             console.log("saveSubRecord", tmpParent, url, data);
+            $(`input.editRecord[name="code"][rowIndex="${rowIndex}"][module="${subModule}"]`).val(data.code);
             utils.hideSpin();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
