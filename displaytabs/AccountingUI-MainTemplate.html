@@ -37,9 +37,6 @@
                     <li class="tab-pane">
                         <a href="#ChartOfAccounts" data-toggle="tab" aria-expanded="false">Chart of Accounts</a>
                     </li>
-                    <li class="tab-pane">
-                        <a href="#Reports" data-toggle="tab" aria-expanded="false">Reports</a>
-                    </li> 
                 </ul>
                 <div class="tab-content no-padding"> 
                     <div class="tab-pane active" id="Dashboard">
@@ -215,11 +212,13 @@
                             <div style="flex: 75%; margin: 15px 0px;">
                                 <div class="box box-warning">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Payable</h3>
+                                        <h3 class="box-title">Payables</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info btnSavePayable">Save Payable</button>
-                                            <button type="button" class="btn btn-default PayableUI_btnNewPayable"><i
-                                                    class="fa fa-plus"></i> New Payable</button>
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="PayableUI">Save Payable</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="PayableUI">
+                                                <i class="fa fa-plus"></i> New Expense</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="PayableUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
                                         </div>
                                     </div>
                                     <!-- /.box-header -->
@@ -230,16 +229,10 @@
                                                 <li class="tab-pane active">
                                                     <a href="#PayableItems" data-toggle="tab" aria-expanded="false">Items</a>
                                                 </li>
-                                                <li class="tab-pane">
-                                                    <a href="#PayableReport" data-toggle="tab" aria-expanded="true">Report</a>
-                                                </li>
                                             </ul>
                                             <div class="tab-content no-padding">
                                                 <div class="tab-pane active" id="PayableItems">
                                                     <div class="DisplayTab" tabName="Payable" tabUrl="PayableItems"></div>
-                                                </div>
-                                                <div class="tab-pane" id="PayableReport">
-                                                    <div class="DisplayTab" tabName="Payable" tabUrl="PayableReport"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -247,7 +240,7 @@
                                 </div>
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabName="Payable" tabUrl="SearchPayable"></div>
+                                <div class="DisplayTab" tabName="Payable" tabUrl="PayableSearch"></div>
                             </div>
                         </div>
                     </div>
@@ -258,9 +251,11 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Manual Entry</h3>
                                         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info btnSaveManualEntry">Save Manual Entry</button>
-                                            <button type="button" class="btn btn-default ManualEntryUI_btnNewManualEntry"><i
-                                                    class="fa fa-plus"></i> New Manual Entry</button>
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="ManualEntryUI">Save Manual Entry</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="ManualEntryUI">
+                                                <i class="fa fa-plus"></i> New Expense</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="ManualEntryUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
                                         </div>
                                     </div>
                                     <!-- /.box-header -->
@@ -271,16 +266,10 @@
                                                 <li class="tab-pane active">
                                                     <a href="#ManualEntryItems" data-toggle="tab" aria-expanded="false">Items</a>
                                                 </li>
-                                                <li class="tab-pane">
-                                                    <a href="#ManualEntryReport" data-toggle="tab" aria-expanded="true">Report</a>
-                                                </li>
                                             </ul>
                                             <div class="tab-content no-padding">
                                                 <div class="tab-pane active" id="ManualEntryItems">
                                                     <div class="DisplayTab" tabName="ManualEntry" tabUrl="ManualEntryItems"></div>
-                                                </div>
-                                                <div class="tab-pane" id="ManualEntryReport">
-                                                    <div class="DisplayTab" tabName="ManualEntry" tabUrl="ManualEntryReport"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -423,13 +412,6 @@
                                 <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileSearch"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane" id="Reports">
-                        <pre>
-                            --Standard Reports
-                            --Customised Reports
-                            --Management Reports
-                        </pre>
                     </div>
                 </div>
             </div>

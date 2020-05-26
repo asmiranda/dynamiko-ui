@@ -311,6 +311,7 @@ class AbstractSubUI {
             var recHtml = utils.replaceAll(template, "----", offset)
             $(`.displayRecordTemplate[module="${subModule}"]`).append(recHtml);
         }
+        this.initFieldListener();
     }
 
     createSubRecordsHolder(subModule, subData) {
