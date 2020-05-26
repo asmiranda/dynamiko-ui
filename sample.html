@@ -1,16 +1,9 @@
-<div style="display: flex;">
-    <div style="flex: 4; margin-left: 10px;">
-        <div class="input-group" style="width: 100%;">
-            <input rowIndex="10" type="text" class="form-control autocomplete" name="accountName" placeholder="Account" module="GeneralLedgerCreditUI" mainmodule="GeneralLedgerCreditUI" autoname="accountName" helptitle="accountName">
-            <input rowIndex="10" class="form-control editReconcile HiddenAutoComplete" name="accountName" type="hidden" module="GeneralLedgerCreditUI" mainmodule="GeneralLedgerCreditUI" autoNameField="accountName" value="">
-            <div class="autocomplete-items" rowIndex="10" module="GeneralLedgerCreditUI" mainmodule="GeneralLedgerCreditUI" autoname="accountName">
-            </div>
-        </div>
-    </div>
-    <div style="flex: 2; margin-left: 10px;">
-        <input rowIndex="10" name="credit" module="GeneralLedgerCreditUI" type="text" class="form-control editReconcile" placeholder="Credit">
-    </div>
-    <div class="text-center" style="flex: 1; margin-left: 10px; margin-top: 2px;">
-        <i class="fa fa-trash hand" class="btnDeleteGeneralLedgerCredit" rowIndex="10"> </i>
-    </div>
-</div>
+public String taxTransactionAccountCode;
+public String chargeAccountCode;
+
+public LocalDate fileDate;
+public LocalDate transactionDate;
+public String postingStatus;
+
+public double returnedAmount;
+public double paidAmount;
