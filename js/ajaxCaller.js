@@ -28,15 +28,16 @@ class AjaxCaller {
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log('jqXHR:');
-                console.log(jqXHR);
-                console.log('textStatus:');
-                console.log(textStatus);
-                if (jqXHR.responseJSON.message=="Access Denied") {
+                if ("Access Denied"==jqXHR.responseJSON.message) {
                     window.location.href = "login.html";
                 }
                 else {
-                    showModuleHelp.show("Information", jqXHR.responseJSON.message);
+                    if (jqXHR.responseJSON) {
+                        showModuleHelp.show("Information", jqXHR.responseJSON.message);
+                    }
+                    else {
+                        showModuleHelp.show("Information", jqXHR.responseText);
+                    }
                 }
             },
             success: callback
@@ -61,7 +62,12 @@ class AjaxCaller {
                 console.log(textStatus);
                 // console.log('responseJSON:');
                 // console.log(jqXHR.responseJSON.message);
-                showModuleHelp.show("Information", jqXHR.responseJSON.message);
+                if (jqXHR.responseJSON) {
+                    showModuleHelp.show("Information", jqXHR.responseJSON.message);
+                }
+                else {
+                    showModuleHelp.show("Information", jqXHR.responseText);
+                }
             },
             success: callback
         });

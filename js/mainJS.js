@@ -146,7 +146,7 @@ $(function () {
     employeeTeamMemberUI = new EmployeeTeamMemberUI();
     productUI = new ProductUI();
     supplierUI = new SupplierUI();
-    accountChartUI = new AccountChartUI();
+    // accountChartUI = new AccountChartUI();
     // expenseUI = new ExpenseUI();
     taxPeriodUI = new TaxPeriodUI();
     // bankingUI = new BankingUI();

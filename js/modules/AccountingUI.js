@@ -7,10 +7,8 @@ class AccountingUI extends AbstractUI {
         receivableUI.loadTopRecords("Receivable");
         payableUI.loadTopRecords("Payable");
         manualEntryUI.loadTopRecords("ManualEntry");
-        taxPeriodUI.loadTopRecords("TaxPeriod");
-        
-        // accountChartUI.loadTopAccountCharts("AccountChart");
-        // reconcileUI.loadTopReconciles("Reconcile");
+        taxPeriodUI.loadTopRecords("TaxPeriod");        
+        accountChartUI.loadTopRecords("AccountChart");
     }
 }
 

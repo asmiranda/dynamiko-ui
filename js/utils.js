@@ -232,6 +232,9 @@ class Utils {
                         $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
                     }
                 }
+                else if (inputType=="html") {
+                    $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).html(value);    
+                }
                 else {
                     $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
                 }

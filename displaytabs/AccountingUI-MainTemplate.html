@@ -32,9 +32,6 @@
                         <a href="#Taxes" data-toggle="tab" aria-expanded="false">Taxes</a>
                     </li>
                     <li class="tab-pane">
-                        <a href="#Reconcile" data-toggle="tab" aria-expanded="false">Reconcile</a>
-                    </li>
-                    <li class="tab-pane">
                         <a href="#ChartOfAccounts" data-toggle="tab" aria-expanded="false">Chart of Accounts</a>
                     </li>
                 </ul>
@@ -319,17 +316,18 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="ChartOfAccounts">
-                        <pre style="display: none;">
-                            --Chart of Accounts
-                            <a href="https://youtu.be/GVc-xKLhx80" target="_blank">Video</a>                            
-                            --Reconcile
-                            <a href="https://youtu.be/jezAtbPt7g4" target="_blank">Video</a>                            
-                        </pre>
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 75%; margin: 15px 0px;">
                                 <div class="box box-warning">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Chart of Accounts</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="AccountChartUI">Save Account</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="AccountChartUI">
+                                                <i class="fa fa-plus"></i> New Account</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="AccountChartUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
+                                        </div>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -337,30 +335,12 @@
                                         <div class="nav-tabs-custom" style="margin-top: 5px;">
                                             <ul class="nav nav-tabs">
                                                 <li class="tab-pane active">
-                                                    <a href="#AccountChartTodayEntries" data-toggle="tab" aria-expanded="false">Today's Entries</a>
-                                                </li>
-                                                <li class="tab-pane">
-                                                    <a href="#AccountChartWeekEntries" data-toggle="tab" aria-expanded="true">This Week's Entries</a>
-                                                </li>
-                                                <li class="tab-pane">
-                                                    <a href="#AccountChartMonthEntries" data-toggle="tab" aria-expanded="true">This Month's Entries</a>
-                                                </li>
-                                                <li class="tab-pane">
-                                                    <a href="#AccountChartReport" data-toggle="tab" aria-expanded="true">Report</a>
+                                                    <a href="#GeneralLedgers" data-toggle="tab" aria-expanded="false">GL Entries</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content no-padding">
-                                                <div class="tab-pane active" id="AccountChartTodayEntries">
-                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartTodayEntries"></div>
-                                                </div>
-                                                <div class="tab-pane" id="AccountChartWeekEntries">
-                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartWeekEntries"></div>
-                                                </div>
-                                                <div class="tab-pane" id="AccountChartMonthEntries">
-                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartMonthEntries"></div>
-                                                </div>
-                                                <div class="tab-pane" id="AccountChartReport">
-                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartReport"></div>
+                                                <div class="tab-pane active" id="GeneralLedgers">
+                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartTransaction"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -369,35 +349,6 @@
                             </div>
                             <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
                                 <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartSearch"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="Reconcile">
-                        <div style="display: flex; background: #ecf0f5;">
-                            <div style="flex: 75%; margin: 15px 0px;">
-                                <div class="box box-warning">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Reconcile</h3>
-                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                                            <button type="button" class="btn btn-info btnSaveReconcile">Reconcile</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileProfileMain"></div>
-                                        <div style="display: flex; margin-top: 5px;">
-                                            <div style="flex: 1; margin-right: 10px;">
-                                                <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileDebit"></div>
-                                            </div>
-                                            <div style="flex: 1; margin-left: 10px;">
-                                                <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileCredit"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
-                                <div class="DisplayTab" tabName="Reconcile" tabUrl="ReconcileSearch"></div>
                             </div>
                         </div>
                     </div>
