@@ -2,12 +2,15 @@ class AbstractSubUI {
     constructor(moduleName) {
         this.moduleName = moduleName;
         this.selectSearchRecord = "selectSearchRecord";
+        this.AcctTransactionGLEditorUI = "AcctTransactionGLEditorUI";
+        this.GeneralLedgerEditorUI = "GeneralLedgerEditorUI";
 
         var context = this;
         this.initSearchFilterListener(context);
         this.initSearchSubRecordFilterListener(context);
         this.initSubRecordListener(context);
         this.initReportListener(context);
+        this.initGlEntryListener(context);
 
         $(document).on('click', `.selectSearchRecord[module="${context.moduleName}"]`, function() {
             context.loadRecordProfile(this);
@@ -20,6 +23,15 @@ class AbstractSubUI {
         });        
         $(document).on('click', `.btnRecordDownloadCSV[module="${context.moduleName}"]`, function() {
             context.downloadRecordCSV(this);
+        });
+    }
+
+    initGlEntryListener(context) {
+        $(document).on('click', `.editAcctTransaction`, function() {
+            context.editAcctTransaction(this);
+        });
+        $(document).on('click', `.updateAcctTransaction`, function() {
+            context.updateAcctTransaction(this);
         });
     }
 
@@ -48,6 +60,45 @@ class AbstractSubUI {
         $(document).on('click', `.btnSubRecordDownloadCSV[parentModule="${context.moduleName}"]`, function() {
             context.downloadSubRecordCSV(this);
         });
+    }
+
+    updateAcctTransaction(obj) {
+        var tmp = utils.collectDataForSaving(`editRecord`, this.AcctTransactionGLEditorUI, "0");
+        tmp[this.GeneralLedgerEditorUI] = utils.collectSubRecordDataForSaving("editRecord", this.GeneralLedgerEditorUI);
+
+        console.log(tmp);
+        var vdata = JSON.stringify(tmp); 
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${this.moduleName}/post/saveAcctTransactionGL`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        var successCallback = function(data) {
+            console.log("saveRecord", url, data);
+            showModalAny.show("GL Save", "GL Entries saved successfully.");
+            utils.hideSpin();
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+    }
+
+    editAcctTransaction(obj) {
+        var context = this;
+        var rowIndex = $(obj).attr("rowIndex");
+        var moduleName = $(obj).html();
+        var moduleCode = $(`.editRecord[rowIndex="${rowIndex}"][name="moduleCode"]`).val();
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${context.moduleName}/getAcctTransactionGL/${moduleName}/${moduleCode}`;
+
+        var successLoadGLData = function(data) {
+            console.log("editAcctTransaction", url, data);
+            utils.loadDataAndAutoComplete("editRecord", data, 0, context.AcctTransactionGLEditorUI);
+            context.formatSubRecordsFromMain(context.GeneralLedgerEditorUI, data, "editRecord");
+
+            context.initFieldListener();
+        };
+        var successTransGLEditorList = function(data) {
+            ajaxCaller.ajaxGet(new AjaxRequestDTO(url, ""), successLoadGLData);
+        }
+        var successCallback = function(data) {
+            showModalAny1200.show("Transaction GL Editing", data, successTransGLEditorList);
+        };
+        utils.getTabHtml("AccountingUI", "AcctTransactionGLEditor", successCallback);
     }
 
     showReport(obj) {
