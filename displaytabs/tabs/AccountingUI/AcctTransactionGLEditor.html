@@ -37,7 +37,7 @@
         <h3 class="box-title">GL Entries</h3>
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
             <div style="display: flex;">
-                <button class="btn btn-default btnMoreSubRecord" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" style="margin-left: 10px;">
+                <button class="btn btn-default btnMoreSubRecord" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" style="margin-left: 10px;">
                     <i class="fa fa-plus"></i> More Records
                 </button>
             </div>
@@ -45,43 +45,43 @@
     </div>
     <div class="box-body">
         <div style="display: flex; flex-direction: column;">
-            <div class="hiddenRecordTemplate" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" style="display: none;">
+            <div class="hiddenRecordTemplate" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" style="display: none;">
                 <div style="display: flex; margin-top: 10px;" class="subRecord" module="GeneralLedgerEditorUI" rowIndex="----">
                     <div style="flex: 1; text-align: right;">
                         <i style="margin-right: 5px;">----</i>
-                        <input rowIndex="----" name="acctTransactionCode" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" type="hidden"
+                        <input rowIndex="----" name="acctTransactionCode" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" type="hidden"
                             class="form-control editRecord"  placeholder=""/>
-                        <input rowIndex="----" name="generalLedgerId" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" type="hidden"
+                        <input rowIndex="----" name="generalLedgerId" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" type="hidden"
                             class="form-control editRecord"  placeholder=""/>
                     </div>
                     <div style="flex: 2; text-align: right;">
                         <div class="input-group" style="width: 100%;">
                             <input rowIndex="----" type="text" class="form-control autocomplete editRecordAutoComplete" name="accountCode"
-                                placeholder="" module="GeneralLedgerEditorUI" parentModule="AccountChartUI"
+                                placeholder="" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE"
                                 autoname="accountCode" helptitle="accountCode"/>
-                            <span rowindex="----" autoname="accountCode" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" 
+                            <span rowindex="----" autoname="accountCode" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" 
                                 class="btnAutoClearSelected input-group-addon" title="Clear Selected">
                                 <i class="fa fa-remove"></i></span>
-                            <div class="autocomplete-items" rowIndex="----" parentModule="AccountChartUI"
+                            <div class="autocomplete-items" rowIndex="----" parentModule="PARENT_MODULE"
                                 module="GeneralLedgerEditorUI" autoname="accountCode">
                             </div>
                         </div>
                         <input rowIndex="----" class="form-control editRecord HiddenAutoComplete"
-                            name="accountCode" type="hidden" parentModule="AccountChartUI"
+                            name="accountCode" type="hidden" parentModule="PARENT_MODULE"
                             module="GeneralLedgerEditorUI" autoNameField="accountCode" value=""/>
                     </div>
                     <div style="flex: 1; text-align: right; margin-left: 10px;">
-                        <input rowIndex="----" name="debit" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" type="text"
+                        <input rowIndex="----" name="debit" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" type="text"
                             class="form-control editRecord"  placeholder=""/>
                     </div>
                     <div style="flex: 1; text-align: right;">
-                        <input rowIndex="----" name="credit" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" type="text"
+                        <input rowIndex="----" name="credit" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" type="text"
                             class="form-control editRecord"  placeholder=""/>
                     </div>
                     <div style="flex: 1; text-align: left; margin-top: 7px;">
-                        <input rowIndex="----" name="AccountChartCode" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" type="hidden"
+                        <input rowIndex="----" name="AccountChartCode" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" type="hidden"
                             class="form-control editRecord subRecordSearchFilter" placeholder=""/>
-                        <input rowIndex="----" name="code" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" type="hidden"
+                        <input rowIndex="----" name="code" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" type="hidden"
                             class="form-control editRecord" placeholder=""/>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
         </div>
     </div>
     <div class="box-footer text-center">
-        <button class="btn btn-success updateAcctTransaction" module="GeneralLedgerEditorUI" parentModule="AccountChartUI" style="margin-left: 10px;">
+        <button class="btn btn-success updateAcctTransaction" module="GeneralLedgerEditorUI" parentModule="PARENT_MODULE" style="margin-left: 10px;">
             <i class="fa fa-save"></i> Update Transaction and GL Entries
         </button>
     </div>

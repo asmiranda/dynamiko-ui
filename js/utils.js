@@ -216,7 +216,8 @@ class Utils {
     };
 
     loadDataAndAutoComplete(clsName, data, dRowIndex, dModuleName) {
-        $(`.${clsName}`).each(function(index, obj) {
+        // benchMark.start(`loadDataAndAutoComplete`);
+        $(`.${clsName}[module="${dModuleName}"][rowIndex="${dRowIndex}"]`).each(function(index, obj) {
             var key = $(obj).attr("name");
             var inputType = $(obj).attr("type");
             if (key) {
@@ -225,18 +226,18 @@ class Utils {
                 if (inputType=="checkbox") {
                     if (value==null || value==undefined || value=="" || value==false) {
                         $(obj).attr("checked", false);
-                        $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val("");
+                        $(obj).val("");
                     }
                     else {
                         $(obj).attr("checked", true);
-                        $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
+                        $(obj).val(value);    
                     }
                 }
                 else if (inputType=="html") {
-                    $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).html(value);    
+                    $(obj).html(value);    
                 }
                 else {
-                    $(`.${clsName}[name="${key}"][module="${dModuleName}"][rowIndex="${dRowIndex}"]`).val(value);    
+                    $(obj).val(value);    
                 }
             }
         });
@@ -249,6 +250,7 @@ class Utils {
                 utils.loadAutoCompleteRowLabel(field, rowIndex, obj);
             }
         });
+        // benchMark.log();
     }
 
     loadAutoCompleteRowLabel(field, rowIndex, obj) {
@@ -382,3 +384,27 @@ class Utils {
         ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
     }
 }
+
+class BenchMark {
+    constructor() {
+        this.label = "";
+        this.startTime = new Date();
+    }
+
+    start(label) {
+        this.label = label;
+        this.startTime = new Date();
+    }
+
+    log() {
+        var endTime = new Date();
+        var totalTime = endTime.getTime() - this.startTime.getTime();
+        console.log(`#################${this.label} took ${totalTime} to complete.################`);
+    }
+}
+
+$(function () {
+    utils = new Utils();
+    benchMark = new BenchMark();
+});
+

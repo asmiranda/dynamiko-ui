@@ -119,7 +119,7 @@ $(function () {
     quickSearcher = new QuickSearcher();   
     dynaRegister = new DynaRegister();
     uploadDataFile = new UploadDataFile();
-    utils = new Utils();
+    // utils = new Utils();
     dashboard = new Dashboard();
     mainReport = new MainReport();
     dynamikoCache = new DynamikoCache();

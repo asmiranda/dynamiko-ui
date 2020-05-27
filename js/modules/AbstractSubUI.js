@@ -27,10 +27,10 @@ class AbstractSubUI {
     }
 
     initGlEntryListener(context) {
-        $(document).on('click', `.editAcctTransaction`, function() {
+        $(document).on('click', `.editAcctTransaction[parentModule="${context.moduleName}"]`, function() {
             context.editAcctTransaction(this);
         });
-        $(document).on('click', `.updateAcctTransaction`, function() {
+        $(document).on('click', `.updateAcctTransaction[parentModule="${context.moduleName}"]`, function() {
             context.updateAcctTransaction(this);
         });
     }
@@ -96,6 +96,7 @@ class AbstractSubUI {
             ajaxCaller.ajaxGet(new AjaxRequestDTO(url, ""), successLoadGLData);
         }
         var successCallback = function(data) {
+            data = utils.replaceAll(data, "PARENT_MODULE", context.moduleName);
             showModalAny1200.show("Transaction GL Editing", data, successTransGLEditorList);
         };
         utils.getTabHtml("AccountingUI", "AcctTransactionGLEditor", successCallback);
