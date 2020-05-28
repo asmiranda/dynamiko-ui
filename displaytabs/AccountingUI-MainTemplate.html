@@ -34,6 +34,9 @@
                     <li class="tab-pane">
                         <a href="#ChartOfAccounts" data-toggle="tab" aria-expanded="false">Chart of Accounts</a>
                     </li>
+                    <li class="tab-pane">
+                        <a href="#GLSummary" data-toggle="tab" aria-expanded="false">GL Summary</a>
+                    </li>
                 </ul>
                 <div class="tab-content no-padding"> 
                     <div class="tab-pane active" id="Dashboard">
@@ -316,6 +319,43 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="ChartOfAccounts">
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Chart of Accounts</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="AccountChartUI">Save Account</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="AccountChartUI">
+                                                <i class="fa fa-plus"></i> New Account</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="AccountingUI" module="AccountChartUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#GeneralLedgers" data-toggle="tab" aria-expanded="false">GL Entries</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="GeneralLedgers">
+                                                    <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartTransaction"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTab" tabName="AccountChart" tabUrl="AccountChartSearch"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="GLSummary">
                         <div style="display: flex; background: #ecf0f5;">
                             <div style="flex: 75%; margin: 15px 0px;">
                                 <div class="box box-warning">
