@@ -1,18 +1,17 @@
 class ConferenceUI extends AbstractUI { 
     constructor() {
         super("ConferenceUI");
-        this.conn = new WebSocket('ws://localhost:8080/socket');
-        this.conn.onopen = function() {
-            console.log("Connected to the signaling server");
-            initialize();
-        };
+        var context = this;
 
         this.peerConnection;
         this.dataChannel;
-        this.input = document.getElementById("messageInput");
-    
-        
-        var context = this;
+
+        this.conn = new WebSocket('ws://localhost:8888/socket');
+        this.conn.onopen = function() {
+            console.log("Connected to the signaling server");
+            context.initialize();
+        };
+
         context.conn.onmessage = function(msg) {
             console.log("Got message", msg.data);
             var content = JSON.parse(msg.data);
@@ -59,7 +58,7 @@ class ConferenceUI extends AbstractUI {
         // Setup ice handling
         context.peerConnection.onicecandidate = function(event) {
             if (event.candidate) {
-                send({
+                context.send({
                     event : "candidate",
                     data : event.candidate
                 });
@@ -88,7 +87,7 @@ class ConferenceUI extends AbstractUI {
     createOffer() {
         var context = this;
         context.peerConnection.createOffer(function(offer) {
-            send({
+            context.send({
                 event : "offer",
                 data : offer
             });
@@ -105,7 +104,7 @@ class ConferenceUI extends AbstractUI {
         // create and send an answer to an offer
         context.peerConnection.createAnswer(function(answer) {
             context.peerConnection.setLocalDescription(answer);
-            send({
+            context.send({
                 event : "answer",
                 data : answer
             });
@@ -128,8 +127,9 @@ class ConferenceUI extends AbstractUI {
 
     sendMessage() {
         var context = this;
-        context.dataChannel.send(input.value);
-        context.input.value = "";
+        var value = $("#messageInput").val();
+        context.dataChannel.send(value);
+        $("#messageInput").val("");
     }
 }
 
