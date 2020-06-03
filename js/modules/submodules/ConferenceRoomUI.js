@@ -2,6 +2,11 @@ class ConferenceRoomUI extends AbstractSubUI {
     constructor() {
         super("ConferenceRoomUI");
         this.ConferenceRoomTenantUI = "ConferenceRoomTenantUI";
+
+        $(document).on('click', `.btnJoinMeetingRoom`, function() {
+            var roomName = $(`.editRecord[module="ConferenceRoomUI"][name="name"]`).val();
+            meetingRoom.join(roomName);
+        });
     }
     
     beforeSave(data) {
