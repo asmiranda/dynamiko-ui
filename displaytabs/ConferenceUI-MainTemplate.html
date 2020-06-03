@@ -5,26 +5,55 @@
 <section class="content">
     <div style="display: flex;">
         <div id="dynamikoMainContent" style="flex: 70%; padding-right: 10px; margin-left: 0px;" class="row">
-
-            <div class="container">
-                <h1>A Demo for messaging in WebRTC</h1>
-              
-                <h3>
-                 Run two instances of this webpage along with the server to test this
-                 application.<br> Create an offer, and then send the message. <br>Check
-                 the browser console to see the output.
-                </h3>
-              
-                <!--WebRTC related code-->
-                <button type="button" class="btn btn-primary btnCreateOffer" module="ConferenceUI" onclick='conferenceUI.createOffer()'>Create Offer</button>
-                <input id="messageInput" type="text" class="form-control" module="ConferenceUI" placeholder="message">
-                <button type="button" class="btn btn-primary btnSendMessage" module="ConferenceUI" onclick='conferenceUI.sendMessage()'>SEND</button>
-                <!--WebRTC related code-->
-              
-               </div>
-               <div class="footer">This application is intentionally made simple to avoid cluttering with non WebRTC related code.</div>
-              
-
+            <div class="nav-tabs-custom" style="margin-top: 5px;">
+                <ul class="nav nav-tabs">
+                    <li class="tab-pane active"> 
+                        <a href="#ConferenceRoom" data-toggle="tab" aria-expanded="true">Meeting Room</a>
+                    </li>
+                    <li class="tab-pane">
+                        <a href="#Dashboard" data-toggle="tab" aria-expanded="false">Dashboard</a>
+                    </li>
+                </ul>
+                <div class="tab-content no-padding"> 
+                    <div class="tab-pane active" id="ConferenceRoom">
+                        <div style="display: flex; background: #ecf0f5;">
+                            <div style="flex: 75%; margin: 15px 0px;">
+                                <div class="box box-warning">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Meeting Room</h3>
+                                        <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
+                                            <button type="button" class="btn btn-success btnSaveRecord" module="ConferenceRoomUI">Save Meeting Room</button>
+                                            <button type="button" class="btn btn-info btnNewRecord" module="ConferenceRoomUI">
+                                                <i class="fa fa-plus"></i> New Meeting Room</button>
+                                            <button type="button" class="btn btn-info btnReport" MainMenu="ConferenceUI" module="ConferenceRoomUI" style="margin-left: 10px;">
+                                                <i class="fa fa-file-text-o"></i> Report</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="DisplayTab" tabName="ConferenceRoom" tabUrl="ConferenceRoomProfileMain"></div>
+                                        <div class="nav-tabs-custom" style="margin-top: 5px;">
+                                            <ul class="nav nav-tabs">
+                                                <li class="tab-pane active">
+                                                    <a href="#ConferenceRoomTenants" data-toggle="tab" aria-expanded="false">Room Tenants</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content no-padding">
+                                                <div class="tab-pane active" id="ConferenceRoomTenants">
+                                                    <div class="DisplayTab" tabName="ConferenceRoom" tabUrl="ConferenceRoomTenants"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 25%; margin: 15px 0px; margin-left: 15px;">
+                                <div class="DisplayTab" tabName="ConferenceRoom" tabUrl="ConferenceRoomSearch"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

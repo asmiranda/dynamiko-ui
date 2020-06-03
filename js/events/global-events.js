@@ -18,6 +18,7 @@ class GlobalEvents {
         this.registeredModules.push("hospitalUI");
         this.registeredModules.push("governmentUI");
         this.registeredModules.push("reportUI");
+        this.registeredModules.push("conferenceUI");
 
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);

@@ -1,4 +1,2 @@
-1. Suppliers
-2. Product
-3. Account Chart
-4. 
+ sudo http-server -S -C cert.pem -p443
+ 
