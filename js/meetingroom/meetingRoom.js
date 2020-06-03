@@ -2,7 +2,17 @@ class MeetingRoom {
     constructor() {
         this.roomName;
         this.localStream;
+        this.activeVideo;
+        this.myVideo;
+        this.remoteVideo;
+        this.constraints = window.constraints = {
+            audio: false,
+            video: true
+        };
 
+        $(document).on('click', `.btnCall`, function () {
+            meetingRoom.call();
+        });
         $(document).on('click', `.btnShareVideo`, function () {
             meetingRoom.shareVideo();
         });
@@ -17,27 +27,29 @@ class MeetingRoom {
         });
     }
 
-    async init(constraints) {
+    call() {
+        var context = this;
+        chatInitializer.offer();
+    }
+
+    async init() {
         var context = this;
         try {
-            context.localStream = await navigator.mediaDevices.getUserMedia(constraints);
+            this.activeVideo = document.querySelector('#activeVideo');
+            this.myVideo = document.querySelector('#myVideo');
+            this.remoteVideo = document.querySelector('#remoteVideo');
+
+            context.localStream = await navigator.mediaDevices.getUserMedia(context.constraints);
+
+            chatInitializer.init(context.roomName, context.localStream, context.localVideo, context.remoteVideo);
         } catch (e) {
             context.handleError(e);
         }
     }
 
     shareVideo() {
-        var context = this;
-        var constraints = window.constraints = {
-            audio: false,
-            video: true
-        };
-        this.init(constraints);
-
-        var activeVideo = document.querySelector('#activeVideo');
-        var myVideo = document.querySelector('#myVideo');
-        activeVideo.srcObject = context.localStream;
-        myVideo.srcObject = context.localStream;
+        this.activeVideo.srcObject = this.localStream;
+        this.myVideo.srcObject = this.localStream;
     }
 
     join(roomName) {
@@ -46,7 +58,7 @@ class MeetingRoom {
         var context = this;
 
         var successRoomPopup = function (data) {
-            // do anything here
+            context.init();
         }
         var successCallback = function (data) {
             showModalAny1200.show(`Joining Room ${context.roomName}`, data, successRoomPopup);
@@ -56,7 +68,7 @@ class MeetingRoom {
 
     handleError(error) {
         if (error.name === 'ConstraintNotSatisfiedError') {
-            const v = constraints.video;
+            const v = this.constraints.video;
             showModalAny.show("Error", `The resolution ${v.width.exact}x${v.height.exact} px is not supported by your device.`);
         } else if (error.name === 'PermissionDeniedError') {
             showModalAny.show("Error", 'Permissions have not been granted to use your camera and ' +
