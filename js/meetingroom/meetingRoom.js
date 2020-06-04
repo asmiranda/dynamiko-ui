@@ -14,7 +14,7 @@ class MeetingRoom {
         context.sockjs.onclose = function() {
             console.log('close');
         };
-        context.sockjs.onmessage = function(e) {
+        context.sockjs.onmessage = function(msg) {
             console.log("Got message", msg.data);
             var content = JSON.parse(msg.data);
             var data = content.data;
@@ -81,6 +81,9 @@ class MeetingRoom {
         // when we receive a message from the other peer, printing it on the console
         context.dataChannel.onmessage = function(event) {
             console.log("message:", event.data);
+            var value = $("textarea#allChatMessages").val();
+            value += event.data;
+            $("textarea#allChatMessages").val(value);
         };
     
         context.dataChannel.onclose = function() {
@@ -131,9 +134,9 @@ class MeetingRoom {
     
     sendMessage() {
         var context = this;
-        var messageText = $('input#chatMessageTxt').val();
+        var messageText = $('textarea#chatMessageTxt').val();
         context.dataChannel.send(messageText);
-        $('input#chatMessageTxt').val("");
+        $('textarea#chatMessageTxt').val("");
     }
 
     join(roomName) {
