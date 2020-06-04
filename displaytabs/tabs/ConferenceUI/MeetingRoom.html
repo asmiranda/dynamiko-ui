@@ -5,7 +5,7 @@
             <i class="fa fa-fw fa-phone btnCall" style="margin: 5px;"></i>
             <i class="glyphicon glyphicon-facetime-video btnShareVideo" style="margin: 5px;"></i>
             <i class="fa fa-fw fa-microphone btnShareAudio" style="margin: 5px;"></i>
-            <i class="fa fa-fw fa-users btnInviteUser" style="margin: 5px;"></i>
+            <i class="fa fa-fw fa-users btnInviteUser" style="margin: 5px;"></i> 
             <i class="glyphicon glyphicon-record btnRecordMeeting" style="margin: 5px;"></i>
         </div>
     </div>
@@ -21,7 +21,7 @@
             <div style="flex: 1; margin-left: 10px; display: flex; flex-direction: column;">
                 <div class="text-center">Chat</div>
                 <div style="flex: 1">
-                    <textarea rows="15" style="width: 100%;"></textarea>
+                    <textarea id="allChatMessages" rows="15" style="width: 100%;"></textarea>
                 </div>
                 <div style="flex: 1">
                     <select class="form-control selectChatTo">
@@ -29,7 +29,7 @@
                     </select>
                 </div>
                 <div style="flex: 1">
-                    <textarea rows="3" style="width: 100%;"></textarea>
+                    <textarea id="chatMessageTxt" rows="3" style="width: 100%;"></textarea>
                 </div>
                 <div style="flex: 1" class="text-center">
                     <button type="button" class="btn btn-info btnSendChat" style="margin-left: 10px;">

@@ -1,2 +1,3 @@
+ http-server
  sudo http-server -S -C cert.pem -p443
  

@@ -1,4 +1,8 @@
 class UIService {
+    constructor() {
+        this.profileName;
+    }
+
     initHome() {
         uiService.initCompany();
         uiService.initProfile();
@@ -98,7 +102,8 @@ class UIService {
             console.log("profile ==");
             console.log(data);
             USERNAME = data.getProp("userName");
-            $(".profileName").html(data.getProp("profileName"));
+            PROFILENAME = data.getProp("profileName");
+            $(".profileName").html(PROFILENAME);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
