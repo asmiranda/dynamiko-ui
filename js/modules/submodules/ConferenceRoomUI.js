@@ -5,7 +5,9 @@ class ConferenceRoomUI extends AbstractSubUI {
 
         $(document).on('click', `.btnJoinMeetingRoom`, function() {
             var roomName = $(`.editRecord[module="ConferenceRoomUI"][name="name"]`).val();
-            meetingRoom.join(roomName);
+            var conCompany = $(`.editRecord[module="ConferenceRoomUI"][name="assignedConferenceCompany"]`).val();
+            var conRoom = $(`.editRecord[module="ConferenceRoomUI"][name="assignedConferenceRoom"]`).val();
+            meetingRoom.join(roomName, conCompany, conRoom);
         });
     }
     
@@ -26,7 +28,7 @@ class ConferenceRoomUI extends AbstractSubUI {
     formatSearchList(index, obj, tabName) {
         var payeeName = obj.getProp("name");
         var accountName = obj.getProp("hostName");
-        var paymentDate = obj.getPropDefault("schedule","--");
+        var conferenceCode = obj.getPropDefault("conferenceCode","--");
         var totalAmount = obj.getPropDefault("description","--");
         var ConferenceRoomId = obj.getProp("ConferenceRoomId");
         var str = `
@@ -34,6 +36,9 @@ class ConferenceRoomUI extends AbstractSubUI {
                 <div style="flex: 100%;">
                     <span><a href="#" class="${this.selectSearchRecord}" recordId="${ConferenceRoomId}" module="${this.moduleName}" tabName="${tabName}">${payeeName}</a></span>
                     <span class="pull-right">${accountName}</span><br/>
+                </div>
+                <div style="flex: 100%;">
+                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${ConferenceRoomId}" module="${this.moduleName}" tabName="${tabName}">Conference Code: ${conferenceCode}</a></span>
                 </div>
             </div>
             <hr style="margin-top: 5px; width: 98%">
