@@ -1,6 +1,6 @@
 <div class="box box-warning">
     <div class="box-header">
-        <h3 class="box-title">My Meeting Room</h3>
+        <h2 class="box-title">My Meeting Room <small id="messageAlert" style="color: orangered;"></small></h2>
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
             <i class="fa fa-fw fa-phone btnCall" style="margin: 5px;"></i>
             <i class="glyphicon glyphicon-facetime-video btnShareVideo" style="margin: 5px;"></i>
@@ -10,13 +10,10 @@
         </div>
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
+    <div class="box-body"> 
         <div style="display: flex;">
-            <div style="flex: 1;">
+            <div style="flex: 3;">
                 <video id="activeVideo" style="min-height: 400px; max-height: 400px; width: 400px; background-color: lightseagreen;" autoplay playsinline></video>
-            </div>
-            <div style="flex: 1; margin-left: 10px;">
-                <video id="otherVideo" style="min-height: 400px; max-height: 400px; width: 400px; background-color: lightseagreen;" autoplay playsinline></video>
             </div>
             <div style="flex: 1; margin-left: 10px; display: flex; flex-direction: column;">
                 <div class="text-center">Chat</div>
@@ -41,13 +38,7 @@
     </div>
 
     <div class="box-footer">
-        <div style="display: flex; height: 100px; flex-wrap: nowrap; overflow-x: auto;">
-            <div style="flex: 1; width: 100px;">
-                <video id="myVideo" style="width: 100px; min-height: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-            </div>
-            <div style="flex: 1; width: 100px; margin-left: 5px;">
-                <video id="remoteVideo" agentId="1" style="width: 100px; min-height: 100px; max-height: 100px;" autoplay playsinline></video>
-            </div>
+        <div style="display: flex; height: 150px; flex-wrap: nowrap; overflow-x: auto;" class="videoBoxList">
         </div>
     </div>
 </div>
