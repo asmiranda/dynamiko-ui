@@ -4,6 +4,7 @@ var TOKEN;
 var USERNAME;
 var PROFILENAME;
 var dynaRegister; 
+var meetingRoomSignal;
 
 class Config {
     getDateFormat() {

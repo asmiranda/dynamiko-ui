@@ -4,6 +4,7 @@ class P2P {
         this.profile = profile;
         this.peerConnection;
         this.dataChannel;
+        this.remoteStream;
 
         this.peerConnectionConfig = {
             'iceServers': [
@@ -16,8 +17,6 @@ class P2P {
     initP2P() {
         var context = this;
         $("#messageAlert").html(`${context.profile} joined!`);
-
-        context.createVideoBox();
 
         context.peerConnection = new RTCPeerConnection(context.peerConnectionConfig, {
             optional: [{
@@ -32,8 +31,28 @@ class P2P {
             }
         };
 
-        context.peerConnection.onaddstream = function () {
-            context.displayRemoteStream(event)
+        context.peerConnection.ontrack = function(ev) {
+            console.log("remote track.")
+            // context.displayRemoteStream(ev)
+            var videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
+            console.log(videoElem);
+
+            console.log("on track", ev);
+            if (ev.streams && ev.streams[0]) {
+                videoElem.srcObject = ev.streams[0];
+            } else {
+                if (!context.remoteStream) {
+                    context.remoteStream = new MediaStream();
+                    videoElem.srcObject = context.remoteStream;
+                }
+                context.remoteStream.addTrack(ev.track);
+                console.log("remote stream", ev.track);
+            }
+        };
+
+        for (const track of audioVideoStream.localStream.getTracks()) {
+            console.log("add track", track);
+            context.peerConnection.addTrack(track, audioVideoStream.localStream);
         }
     }
 
@@ -75,12 +94,17 @@ class P2P {
         };
     }
 
-    displayRemoteStream(event) {
-        var video = document.querySelectorAll(`video[email="${this.email}"]`);
+    displayRemoteStream(ev) {
+        console.log(`remote track from ${this.email}`);
+        var video = document.querySelectorAll(`video.miniVideoStream[email="${this.email}"]`);
 
-        // video.src = window.URL.createObjectURL(event.stream);
-        video.srcObject = event.stream;
-        video.muted = true;
+        if (ev.streams && ev.streams[0]) {
+            video.srcObject = ev.streams[0];
+        } else {
+            var inboundStream = new MediaStream();
+            inboundStream.addTrack(ev.track);
+            video.srcObject = inboundStream;
+        }
     }
 
     handleOffer(offer) {
@@ -109,9 +133,15 @@ class P2P {
         var context = this;
         var objData = JSON.parse(answer);
         context.peerConnection.setRemoteDescription(new RTCSessionDescription(objData.sdp));
-        // context.peerConnection.addStream(audioVideoStream.localStream);
+        context.peerConnection.addStream(audioVideoStream.localStream);
 
+        roomSignal.send("answer-accepted", context.email, "");
         console.log("connection established successfully!!");
+    };
+
+    handleAnswerAccepted(answer) {
+        var context = this;
+        context.peerConnection.addStream(audioVideoStream.localStream);
     };
 
     createVideoBox() {

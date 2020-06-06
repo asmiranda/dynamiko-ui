@@ -2,14 +2,36 @@
     <div class="box-header">
         <h2 class="box-title">My Meeting Room <small id="messageAlert" style="color: orangered;"></small></h2>
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-            <i class="glyphicon glyphicon-facetime-video btnShareVideo" style="margin: 5px;"></i>
-            <i class="fa fa-fw fa-microphone btnShareAudio" style="margin: 5px;"></i>
-            <i class="fa fa-fw fa-users btnInviteUser" style="margin: 5px;"></i> 
-            <i class="glyphicon glyphicon-record btnRecordMeeting" style="margin: 5px;"></i>
+            <div style="display: flex;">
+                <div style="flex: 1; text-align: center; margin: 15px;" class="hand btnShareVideo">
+                    <i class="glyphicon glyphicon-facetime-video "></i>
+                    <div>Video</div>
+                </div>
+                <div style="flex: 1; text-align: center; margin: 15px;" class="hand btnShareAudio">
+                    <i class="fa fa-fw fa-microphone "></i>
+                    <div>Audio</div>
+                </div>
+                <div style="flex: 1; text-align: center; margin: 15px;" class="hand btnInviteUser">
+                    <i class="fa fa-fw fa-users "></i> 
+                    <div>Invite</div>
+                </div>
+                <div style="flex: 1; text-align: center; margin: 15px;" class="hand btnRecordMeeting">
+                    <i class="glyphicon glyphicon-record "></i>
+                    <div>Record</div>
+                </div>
+                <div style="flex: 1; text-align: center; margin: 15px; margin-left: 30px;" class="hand btnSignOut">
+                    <i class="fa fa-fw fa-sign-out "></i>
+                    <div>Sign&nbsp;Out</div>
+                </div>
+                <div style="flex: 1; text-align: center; margin: 15px; margin-left: 30px;" class="hand btnEndMeeting">
+                    <i class="fa fa-fw fa-sign-out "></i>
+                    <div>End&nbsp;Meeting</div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.box-header -->
-    <div class="box-body"> 
+    <div class="box-body" style="margin-top: 25px;"> 
         <div style="display: flex;">
             <div style="flex: 3; display: flex; flex-direction: column;">
                 <video id="activeVideo" style="width: 100%; background-color: lightseagreen;" autoplay playsinline></video>
