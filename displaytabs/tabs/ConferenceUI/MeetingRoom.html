@@ -2,7 +2,6 @@
     <div class="box-header">
         <h2 class="box-title">My Meeting Room <small id="messageAlert" style="color: orangered;"></small></h2>
         <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-            <i class="fa fa-fw fa-phone btnCall" style="margin: 5px;"></i>
             <i class="glyphicon glyphicon-facetime-video btnShareVideo" style="margin: 5px;"></i>
             <i class="fa fa-fw fa-microphone btnShareAudio" style="margin: 5px;"></i>
             <i class="fa fa-fw fa-users btnInviteUser" style="margin: 5px;"></i> 
@@ -12,11 +11,13 @@
     <!-- /.box-header -->
     <div class="box-body"> 
         <div style="display: flex;">
-            <div style="flex: 3;">
-                <video id="activeVideo" style="min-height: 400px; max-height: 400px; width: 400px; background-color: lightseagreen;" autoplay playsinline></video>
+            <div style="flex: 3; display: flex; flex-direction: column;">
+                <video id="activeVideo" style="width: 100%; background-color: lightseagreen;" autoplay playsinline></video>
+                <div style="display: flex; height: 150px; flex-wrap: nowrap; overflow-x: auto; margin-top: 10px;" class="videoBoxList">
+                </div>
             </div>
             <div style="flex: 1; margin-left: 10px; display: flex; flex-direction: column;">
-                <div class="text-center">Chat</div>
+                <video id="myVideo" style="min-height: 100px; max-height: 100px; width: 100%; background-color: lightseagreen; margin-bottom: 5px;" autoplay playsinline></video>
                 <div style="flex: 1">
                     <textarea id="allChatMessages" rows="15" style="width: 100%;"></textarea>
                 </div>
@@ -34,11 +35,9 @@
                 </div>
             </div>
         </div>
-        <div id="errorMsg"></div>
     </div>
 
     <div class="box-footer">
-        <div style="display: flex; height: 150px; flex-wrap: nowrap; overflow-x: auto;" class="videoBoxList">
-        </div>
+        <div id="errorMsg"></div>
     </div>
 </div>
