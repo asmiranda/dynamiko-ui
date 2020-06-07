@@ -33,7 +33,3 @@ class AudioVideoStream {
     }
 
 }
-
-$(function () {
-    audioVideoStream = new AudioVideoStream();
-});

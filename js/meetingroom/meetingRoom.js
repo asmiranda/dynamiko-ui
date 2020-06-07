@@ -11,17 +11,13 @@ class MeetingRoom {
         });
     }
 
-    signOut(obj) {
-        allP2P.clear();
+    doSignOut(obj) {
         $(".jconfirm").hide();
-    }
+        roomSignal.sendExit();
+        roomSignal.close();
 
-    endMeeting(obj) {
         allP2P.clear();
-        $(".jconfirm").hide();
-        if (meetingRoomSignal!=null) {
-            meetingRoomSignal.close();
-        }
+        allP2P = new Map();
     }
 
     messageCallback(msg) {
@@ -33,48 +29,46 @@ class MeetingRoom {
         var from = jsonMsg.from;
         var data = jsonMsg.data;
 
-        if ("meeting-ended"==action) {
-            meetingRoom.endMeeting();
+        if ("do-end-meeting"==action) {
+            showModalAny.show("Meeting Info", `Meeting has ended.`);
+            meetingRoom.doSignOut();
         }
-        else if ("signed-out"==action) {
-            meetingRoom.signOut();
+        else if ("do-sign-out"==action) {
+            showModalAny.show("Meeting Info", `${from} signed out.`);
+            meetingRoom.doSignOut();
         }
-        else if ("user-joined"==action) {
-            meetingRoom.userJoined(from, data);
+
+        else if ("do-active-users"==action) {
+            meetingRoom.doActiveUsers(data);
         }
-        else if ("start-offer"==action) {
-            meetingRoom.startOffering(from, data);
+        else if ("do-join"==action) {
+            meetingRoom.doJoin(data);
         }
-        else if ("offer"==action) {
+        else if ("do-offer"==action) {
             var myP2P = allP2P.get(from);
-            myP2P.handleOffer(data);
+            myP2P.doOffer(data);
         }
-        else if ("answer"==action) {
+        else if ("do-answer"==action) {
             var myP2P = allP2P.get(from);
-            myP2P.handleAnswer(data);
+            myP2P.doAnswer(data);
         }
-        else if ("candidate"==action) {
+        else if ("do-ice"==action) {
             var myP2P = allP2P.get(from);
-            myP2P.handleCandidate(data);
-        }
-        else if ("answer-accepted"==action) {
-            var myP2P = allP2P.get(from);
-            myP2P.handleAnswerAccepted(data);
+            myP2P.doIce(data);
         }
     }
 
     sendSignOut() {
-        roomSignal.send("sign-out", "all", "Sign Out.");
+        roomSignal.send("req-sign-out", "all", "Meeting Ended.");
+        this.doSignOut();
     }
 
     sendEndMeeting() {
-        if (meetingRoomSignal!=null) {
-            meetingRoomSignal.close();
-        }
-        roomSignal.send("end-meeting", "all", "Meeting Ended.");
+        roomSignal.send("req-end-meeting", "all", "Meeting Ended.");
+        this.doSignOut();
     }
 
-    startOffering(from, data) {
+    doJoin(data) {
         var context = this;
         console.log(data);
         $(data).each(function(index, str) {
@@ -85,7 +79,7 @@ class MeetingRoom {
         });
     }
 
-    userJoined(from, data) {
+    doActiveUsers(data) {
         var context = this;
         console.log(data);
         $(".selectChatTo").empty();
@@ -162,7 +156,13 @@ class MeetingRoom {
     }
 }
 
+var meetingRoomSignal;
 $(function () {
     allP2P = new Map();
+    audioVideoStream = new AudioVideoStream();
     meetingRoom = new MeetingRoom();
+    roomSignal = new RoomSignal();
+
+    window.onbeforeunload = meetingRoom.sendSignOut();
+    window.onunload = meetingRoom.sendSignOut();
 });

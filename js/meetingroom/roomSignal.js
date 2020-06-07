@@ -7,6 +7,17 @@ class RoomSignal {
         var context = this;
     }
 
+    close() {
+        if (meetingRoomSignal!=null) {
+            meetingRoomSignal.close();
+        }
+        meetingRoomSignal = null;
+    }
+
+    sendExit() {
+        roomSignal.send("sign-out", "all", "Sign Out.");
+    }
+
     send(action, sendTo, data) {
         console.log(`***************SEND ${action}`, sendTo, data);
         var tmp = {};
@@ -14,31 +25,53 @@ class RoomSignal {
         tmp["from"] = USERNAME;
         tmp["sendTo"] = sendTo;
         tmp["data"] = data;
-        meetingRoomSignal.send(JSON.stringify(tmp));
+
+        roomSignal.asyncSend(
+            function() {}, 
+            roomSignal.messageCallback,
+            function() {
+                meetingRoomSignal.send(JSON.stringify(tmp));
+            }
+        );
     }
 
     joinRoom(conCompany, conRoom, messageCallback) {
-        var context = this;
-        context.conCompany = conCompany;
-        context.conRoom = conRoom;
+        roomSignal.conCompany = conCompany;
+        roomSignal.conRoom = conRoom;
+        roomSignal.messageCallback = messageCallback;
 
-        context.messageCallback = messageCallback;
-        roomSignal.startWebSocket();
+        roomSignal.asyncSend(
+            function() {
+                roomSignal.send("req-join", "all", PROFILENAME);
+            }, 
+            roomSignal.messageCallback, 
+            function() {}
+        );
     }
 
-    startWebSocket() {
-        meetingRoomSignal = new WebSocket(`ws://localhost:8888/socket/${roomSignal.conCompany}/${roomSignal.conRoom}`);
-        meetingRoomSignal.onopen = function () {
-            console.log("Connected to the signaling server");
-            roomSignal.send("join", "all", PROFILENAME);
-        };
-        meetingRoomSignal.onclose = function () {
-            console.log('meetingRoomSignal is closed.');
-        };
-        meetingRoomSignal.onmessage = roomSignal.messageCallback;
+    asyncSend(onOpen, onMessage, sendFunc) {
+        if (roomSignal.conCompany && roomSignal.conRoom) {
+            if (meetingRoomSignal==null || meetingRoomSignal.readyState==WebSocket.CLOSED || meetingRoomSignal.readyState==WebSocket.CLOSING) {
+                meetingRoomSignal = new WebSocket(`ws://localhost:8888/meetingRoom/${roomSignal.conCompany}/${roomSignal.conRoom}`);
+                meetingRoomSignal.onopen = function() {
+                    onOpen();
+                    sendFunc();
+                };
+                meetingRoomSignal.onmessage = onMessage;
+            }
+            else if (meetingRoomSignal.readyState==WebSocket.CONNECTING) {
+                meetingRoomSignal.onopen = function() {
+                    onOpen();
+                    sendFunc();
+                };
+                meetingRoomSignal.onmessage = onMessage;
+            }
+            else {
+                sendFunc();
+            }
+        }
+        else {
+            console.log("No selected room.");
+        }
     }
 }
-
-$(function () {
-    roomSignal = new RoomSignal();
-});

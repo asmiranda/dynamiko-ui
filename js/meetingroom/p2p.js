@@ -27,7 +27,7 @@ class P2P {
         // Setup ice handling
         context.peerConnection.onicecandidate = function (event) {
             if (event.candidate) {
-                roomSignal.send("candidate", context.email, JSON.stringify({ 'ice': event.candidate }));
+                roomSignal.send("req-ice", context.email, JSON.stringify({ 'ice': event.candidate }));
             }
         };
 
@@ -64,7 +64,7 @@ class P2P {
 
         context.peerConnection.createOffer(function (description) {
             context.peerConnection.setLocalDescription(description);
-            roomSignal.send("offer", context.email, JSON.stringify({ 'sdp': context.peerConnection.localDescription }));
+            roomSignal.send("req-offer", context.email, JSON.stringify({ 'sdp': context.peerConnection.localDescription }));
         }, function (error) {
             alert("Error creating an offer");
         });
@@ -94,20 +94,7 @@ class P2P {
         };
     }
 
-    displayRemoteStream(ev) {
-        console.log(`remote track from ${this.email}`);
-        var video = document.querySelectorAll(`video.miniVideoStream[email="${this.email}"]`);
-
-        if (ev.streams && ev.streams[0]) {
-            video.srcObject = ev.streams[0];
-        } else {
-            var inboundStream = new MediaStream();
-            inboundStream.addTrack(ev.track);
-            video.srcObject = inboundStream;
-        }
-    }
-
-    handleOffer(offer) {
+    doOffer(offer) {
         var context = this;
         var signal = JSON.parse(offer);
         context.peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp));
@@ -117,31 +104,24 @@ class P2P {
         })
             .then(function () {
                 console.log(`Sending answer to ${context.email} with sdp = `, context.peerConnection.localDescription);
-                roomSignal.send("answer", context.email, JSON.stringify({ 'sdp': context.peerConnection.localDescription}));
+                roomSignal.send("req-answer", context.email, JSON.stringify({ 'sdp': context.peerConnection.localDescription}));
                 console.log(`Answer sent.`);
             })
             .catch(e => console.log(e));
     };
 
-    handleCandidate(candidate) {
+    doIce(ice) {
         var context = this;
-        var objData = JSON.parse(candidate);
+        var objData = JSON.parse(ice);
         context.peerConnection.addIceCandidate(new RTCIceCandidate(objData.ice));
     };
 
-    handleAnswer(answer) {
+    doAnswer(answer) {
         var context = this;
         var objData = JSON.parse(answer);
         context.peerConnection.setRemoteDescription(new RTCSessionDescription(objData.sdp));
-        context.peerConnection.addStream(audioVideoStream.localStream);
 
-        roomSignal.send("answer-accepted", context.email, "");
         console.log("connection established successfully!!");
-    };
-
-    handleAnswerAccepted(answer) {
-        var context = this;
-        context.peerConnection.addStream(audioVideoStream.localStream);
     };
 
     createVideoBox() {
