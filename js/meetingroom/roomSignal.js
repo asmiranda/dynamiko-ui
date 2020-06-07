@@ -14,10 +14,6 @@ class RoomSignal {
         meetingRoomSignal = null;
     }
 
-    sendExit() {
-        roomSignal.send("sign-out", "all", "Sign Out.");
-    }
-
     send(action, sendTo, data) {
         console.log(`***************SEND ${action}`, sendTo, data);
         var tmp = {};

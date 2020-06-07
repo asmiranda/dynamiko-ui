@@ -1,19 +1,18 @@
 class MeetingRoom {
     constructor() {
-        $(document).on('click', `.btnSignOut`, function() {
-            meetingRoom.sendSignOut(this);
+        $(document).on('click', `.btnMeetingSignOut`, function() {
+            meetingRoom.clickSignOut(this);
         });
         $(document).on('click', `.btnEndMeeting`, function() {
-            meetingRoom.sendEndMeeting(this);
+            meetingRoom.clickEndMeeting(this);
         });
         $(document).on('click', `.btnShareVideo`, function() {
-            meetingRoom.shareVideo(this);
+            meetingRoom.clickShareVideo(this);
         });
     }
 
-    doSignOut(obj) {
+    completeSignOut(obj) {
         $(".jconfirm").hide();
-        roomSignal.sendExit();
         roomSignal.close();
 
         allP2P.clear();
@@ -30,14 +29,11 @@ class MeetingRoom {
         var data = jsonMsg.data;
 
         if ("do-end-meeting"==action) {
-            showModalAny.show("Meeting Info", `Meeting has ended.`);
-            meetingRoom.doSignOut();
+            meetingRoom.doEndMeeting(from);
         }
         else if ("do-sign-out"==action) {
-            showModalAny.show("Meeting Info", `${from} signed out.`);
-            meetingRoom.doSignOut();
+            meetingRoom.doSignOut(from);
         }
-
         else if ("do-active-users"==action) {
             meetingRoom.doActiveUsers(data);
         }
@@ -58,25 +54,43 @@ class MeetingRoom {
         }
     }
 
-    sendSignOut() {
+    clickSignOut() {
         roomSignal.send("req-sign-out", "all", "Meeting Ended.");
-        this.doSignOut();
+        this.completeSignOut();
     }
 
-    sendEndMeeting() {
+    clickEndMeeting() {
         roomSignal.send("req-end-meeting", "all", "Meeting Ended.");
-        this.doSignOut();
+        this.completeSignOut();
+    }
+
+    doEndMeeting(from) {
+        $(`#messageAlert`).html(`Meeting has ended.`);
+        meetingRoom.completeSignOut();
+    }
+
+    doSignOut(from) {
+        $(`#messageAlert`).html(`${from} signed out.`);
+
+        var p2p = allP2P.get(from);
+        if (p2p!=null) {
+            p2p.removeBox();
+        }
+        allP2P.delete(from);
     }
 
     doJoin(data) {
         var context = this;
         console.log(data);
-        $(data).each(function(index, str) {
-            if (str.key!=USERNAME) {
-                var p2p = allP2P.get(str.key);
-                p2p.startOffer();
-            }
-        });
+
+        var p2p = allP2P.get(data.key);
+        if (p2p==null) {
+            p2p = new P2P(data.key, data.value);
+            allP2P.set(data.key, p2p);
+        }
+        p2p.initP2P();
+        p2p.createVideoBox();
+        p2p.startOffer();
     }
 
     doActiveUsers(data) {
@@ -136,10 +150,10 @@ class MeetingRoom {
         utils.getTabHtml("ConferenceUI", "MeetingRoom", successCallback);
     }
     
-    unshareVideo() {
+    clickUnshareVideo() {
     }
 
-    shareVideo() {
+    clickShareVideo() {
         // var context = this;
 
         // const myVideo = document.querySelector('video#myVideo');
