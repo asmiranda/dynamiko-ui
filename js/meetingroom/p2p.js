@@ -2,9 +2,6 @@ class P2P {
     constructor(email, profile) {
         this.email = email;
         this.profile = profile;
-        this.peerConnection;
-        this.dataChannel;
-        this.remoteStream;
 
         this.peerConnectionConfig = {
             'iceServers': [
@@ -12,9 +9,16 @@ class P2P {
                 { 'urls': 'stun:stun.l.google.com:19302' },
             ]
         };
+
+        this.peerConnection;
+        this.dataChannel;
+        this.remoteStream;
+
+        this.peerScreenConnection;
+        this.remoteScreenStream;
     }
 
-    initP2P() {
+    initP2PStream(iceCallback) {
         var context = this;
         $("#messageAlert").html(`${context.profile} joined!`);
 
@@ -24,17 +28,15 @@ class P2P {
             }]
         });
 
-        // Setup ice handling
-        context.peerConnection.onicecandidate = function (event) {
-            if (event.candidate) {
-                roomSignal.send("req-ice", context.email, JSON.stringify({ 'ice': event.candidate }));
-            }
-        };
+        context.peerConnection.onicecandidate = iceCallback;
 
         context.peerConnection.ontrack = function(ev) {
             console.log("remote track.")
-            // context.displayRemoteStream(ev)
             var videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
+            if (videoElem==undefined) {
+                context.createVideoBox();
+                videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
+            }
             console.log(videoElem);
 
             console.log("on track", ev);
@@ -56,7 +58,43 @@ class P2P {
         }
     }
 
-    startOffer() {
+    initP2PScreen(iceCallbackScreen) {
+        var context = this;
+
+        context.peerScreenConnection = new RTCPeerConnection(context.peerConnectionConfig, {
+            optional: [{
+                RtpDataChannels: true
+            }]
+        });
+
+        context.peerScreenConnection.onicecandidate = iceCallbackScreen;
+
+        context.peerScreenConnection.ontrack = function(ev) {
+            console.log("remote screen track.")
+            var videoElem = document.querySelectorAll(`video.screenVideo`)[0];
+            console.log(videoElem);
+
+            console.log("on screen track", ev);
+            if (ev.streams && ev.streams[0]) {
+                videoElem.srcObject = ev.streams[0];
+            } else {
+                if (!context.remoteScreenStream) {
+                    context.remoteScreenStream = new MediaStream();
+                    videoElem.srcObject = context.remoteScreenStream;
+                }
+                context.remoteScreenStream.addTrack(ev.track);
+                console.log("remote screen", ev.track);
+            }
+        };
+    }
+
+    initP2P(iceCallback, iceCallbackScreen) {
+        var context = this;
+        context.initP2PStream(iceCallback);
+        context.initP2PScreen(iceCallbackScreen);
+    }
+
+    startOffer(offerCallback, offerCallbackScreen) {
         var context = this;
 
         // creating data channel
@@ -64,7 +102,14 @@ class P2P {
 
         context.peerConnection.createOffer(function (description) {
             context.peerConnection.setLocalDescription(description);
-            roomSignal.send("req-offer", context.email, JSON.stringify({ 'sdp': context.peerConnection.localDescription }));
+            offerCallback();
+        }, function (error) {
+            alert("Error creating an offer");
+        });
+
+        context.peerScreenConnection.createOffer(function (description) {
+            context.peerScreenConnection.setLocalDescription(description);
+            offerCallbackScreen();
         }, function (error) {
             alert("Error creating an offer");
         });
@@ -94,7 +139,7 @@ class P2P {
         };
     }
 
-    doOffer(offer) {
+    doOffer(offer, doOfferCallback) {
         var context = this;
         var signal = JSON.parse(offer);
         context.peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp));
@@ -103,9 +148,21 @@ class P2P {
             return context.peerConnection.setLocalDescription(answer);
         })
             .then(function () {
-                console.log(`Sending answer to ${context.email} with sdp = `, context.peerConnection.localDescription);
-                roomSignal.send("req-answer", context.email, JSON.stringify({ 'sdp': context.peerConnection.localDescription}));
-                console.log(`Answer sent.`);
+                doOfferCallback();
+            })
+            .catch(e => console.log(e));
+    };
+
+    doOfferScreen(offer, doOfferScreenCallback) {
+        var context = this;
+        var signal = JSON.parse(offer);
+        context.peerScreenConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp));
+
+        context.peerScreenConnection.createAnswer().then(function (answer) {
+            return context.peerScreenConnection.setLocalDescription(answer);
+        })
+            .then(function () {
+                doOfferScreenCallback();
             })
             .catch(e => console.log(e));
     };
@@ -116,12 +173,22 @@ class P2P {
         context.peerConnection.addIceCandidate(new RTCIceCandidate(objData.ice));
     };
 
+    doIceScreen(ice) {
+        var context = this;
+        var objData = JSON.parse(ice);
+        context.peerScreenConnection.addIceCandidate(new RTCIceCandidate(objData.ice));
+    };
+
     doAnswer(answer) {
         var context = this;
         var objData = JSON.parse(answer);
         context.peerConnection.setRemoteDescription(new RTCSessionDescription(objData.sdp));
+    };
 
-        console.log("connection established successfully!!");
+    doAnswerScreen(answer) {
+        var context = this;
+        var objData = JSON.parse(answer);
+        context.peerScreenConnection.setRemoteDescription(new RTCSessionDescription(objData.sdp));
     };
 
     createVideoBox() {
@@ -130,7 +197,7 @@ class P2P {
             var str = `
                 <div style="flex: 1; width: 100px; display: flex; flex-direction: column;" class="miniVideo" email="${context.email}">
                     <video class="miniVideoStream" email="${context.email}" style="width: 100px; min-height: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center">${context.profile}</div>
+                    <div class="text-center" style="width: 100px;">${context.profile}</div>
                 </div>
             `;
             $(".videoBoxList").append(str);

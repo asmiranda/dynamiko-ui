@@ -74,7 +74,7 @@
                 <i style="color: aliceblue;">Loading</i> <img src="images/ajax-loader.gif" />
               </div>
             </li>
-            <li class="dropdown company company-menu">
+            <li class="dropdown company company-menu" style="display: none;">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="useCompany">
                 <span style="padding-right: 15px;"></span><i class="fa fa-bank"></i>
               </a>
@@ -99,17 +99,17 @@
               </ul>
 
             </li>
-            <li class="dropdown messages-menu">
+            <li class="dropdown messages-menu" style="display: none;">
               <a href="#" class="pivotTable">
                 <i class="fa fa-bar-chart"></i>
               </a>
             </li>
-            <li class="dropdown messages-menu">
+            <li class="dropdown messages-menu" style="display: none;">
               <a href="#" class="myReportViewer">
                 <i class="fa fa-file-text"></i>
               </a>
             </li>
-            <li class="dropdown messages-menu">
+            <li class="dropdown messages-menu" style="display: none;">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="uploadDataFile">
                 <i class="fa fa-upload"></i>
               </a>
@@ -141,7 +141,7 @@
               </ul>
             </li>
             <!-- Control Sidebar Toggle Button -->
-            <li>
+            <li style="display: none;">
               <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
             </li>
           </ul>
@@ -394,7 +394,10 @@
 
   <script src="js/meetingroom/p2p.js"></script>
   <script src="js/meetingroom/roomSignal.js"></script>
+
   <script src="js/meetingroom/audioVideoStream.js"></script>
+  <script src="js/meetingroom/screenShare.js"></script>
+
   <script src="js/meetingroom/meetingRoom.js"></script>
 
   <script src="js/modules/AbstractUI.js"></script>
@@ -452,6 +455,8 @@
   <script src="js/modules/ReferenceUI.js"></script>
   <script src="js/modules/ReportUI.js"></script>
   <script src="js/modules/ConferenceUI.js"></script>
+
+  <script src="js/modules/FacultyMeetingUI.js"></script>
 
   <script src="js/events/global-events-others.js"></script>
   <script src="js/events/global-events-hr.js"></script>

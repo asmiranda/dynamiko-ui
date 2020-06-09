@@ -7,6 +7,12 @@ class RoomSignal {
         var context = this;
     }
 
+    init(conCompany, conRoom, messageCallback) {
+        roomSignal.conCompany = conCompany;
+        roomSignal.conRoom = conRoom;
+        roomSignal.messageCallback = messageCallback;
+    }
+
     close() {
         if (meetingRoomSignal!=null) {
             meetingRoomSignal.close();
@@ -26,29 +32,16 @@ class RoomSignal {
             function() {}, 
             roomSignal.messageCallback,
             function() {
+                meetingRoom.log(action, sendTo);
                 meetingRoomSignal.send(JSON.stringify(tmp));
             }
-        );
-    }
-
-    joinRoom(conCompany, conRoom, messageCallback) {
-        roomSignal.conCompany = conCompany;
-        roomSignal.conRoom = conRoom;
-        roomSignal.messageCallback = messageCallback;
-
-        roomSignal.asyncSend(
-            function() {
-                roomSignal.send("req-join", "all", PROFILENAME);
-            }, 
-            roomSignal.messageCallback, 
-            function() {}
         );
     }
 
     asyncSend(onOpen, onMessage, sendFunc) {
         if (roomSignal.conCompany && roomSignal.conRoom) {
             if (meetingRoomSignal==null || meetingRoomSignal.readyState==WebSocket.CLOSED || meetingRoomSignal.readyState==WebSocket.CLOSING) {
-                meetingRoomSignal = new WebSocket(`ws://localhost:8888/meetingRoom/${roomSignal.conCompany}/${roomSignal.conRoom}`);
+                meetingRoomSignal = new WebSocket(`${MAIN_SIGNAL_URL}/meetingRoom/${roomSignal.conCompany}/${roomSignal.conRoom}`);
                 meetingRoomSignal.onopen = function() {
                     onOpen();
                     sendFunc();

@@ -7,6 +7,29 @@ class AudioVideoStream {
         };
     }
 
+    initMedia(mediaSuccessCallback) {
+        if(navigator.mediaDevices.getDisplayMedia) {
+            navigator.mediaDevices.getDisplayMedia(screenShare.mediaConstraints)
+                .then(function(stream) {
+                    screenShare.localStream = stream;
+                })
+                .then(function() {
+                    screenShare.initialize();
+                })
+            }
+
+        if(navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia(audioVideoStream.mediaConstraints)
+                .then(function(stream) {
+                    audioVideoStream.localStream = stream;
+                })
+                .then(function() {
+                    audioVideoStream.initialize();
+                    mediaSuccessCallback();
+                })
+            }
+    }
+
     initialize(e) {
         const video = document.getElementById("myVideo");
         video.srcObject = audioVideoStream.localStream;
