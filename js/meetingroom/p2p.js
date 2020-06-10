@@ -195,9 +195,9 @@ class P2P {
         var context = this;
         if (!$(`.miniVideo[email="${context.email}"]`).length) {
             var str = `
-                <div style="flex: 1; width: 100px; display: flex; flex-direction: column;" class="miniVideo" email="${context.email}">
-                    <video class="miniVideoStream" email="${context.email}" style="width: 100px; min-height: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center" style="width: 100px;">${context.profile}</div>
+                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="miniVideo" email="${context.email}">
+                    <video class="miniVideoStream" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                    <div class="text-center" style="width: 100px; color:white;">${context.profile}</div>
                 </div>
             `;
             $(".videoBoxList").append(str);

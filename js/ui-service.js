@@ -104,6 +104,8 @@ class UIService {
             USERNAME = data.getProp("userName");
             PROFILENAME = data.getProp("profileName");
             $(".profileName").html(PROFILENAME);
+
+            meetingLoader.loadMeetings();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

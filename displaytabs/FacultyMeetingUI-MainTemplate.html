@@ -6,7 +6,7 @@
   <h1>
     My Meetings (Faculty)
     <small style="margin-left: 50px; vertical-align: text-bottom;">
-      <div class="btn-group">
+      <div class="btn-group myMeetingButtonGroup">
         <button type="button" class="btn btn-info">Choose Meeting Room</button>
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
@@ -21,7 +21,8 @@
 <section class="content">
   <div class="box box-warning">
     <div class="box-header">
-      <h2 class="box-title">Room <span id="roomNameDisplay"></span><small id="messageAlert" style="color: orangered;"></small></h2>
+      <h2 class="box-title">Room <span id="roomNameDisplay"></span><small id="messageAlert"
+          style="color: orangered;"></small></h2>
       <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
         <div style="display: flex;">
           <div style="flex: 1; text-align: center; margin: 15px;" class="hand btnShareVideo">
@@ -55,7 +56,8 @@
     <div class="box-body" style="margin-top: 25px;">
       <div style="display: flex;">
         <div style="flex: 3; display: flex; flex-direction: column;">
-          <video id="activeVideo" style="width: 100%; background-color: lightseagreen; max-height: 500px;" autoplay playsinline></video>
+          <video id="activeVideo" style="width: 100%; background-color: lightseagreen; max-height: 500px;" autoplay
+            playsinline></video>
           <div style="display: flex; height: 150px; flex-wrap: wrap; overflow-x: auto; margin-top: 10px;"
             class="videoBoxList">
           </div>
@@ -64,13 +66,13 @@
           <div style="display: flex;">
             <div style="flex: 1;">
               <video id="myVideo" class="miniVideoStream"
-              style="min-height: 100px; max-height: 100px; width: 100%; background-color: lightseagreen; margin-bottom: 5px;"
-              autoplay playsinline></video>
+                style="min-height: 100px; max-height: 100px; width: 100%; background-color: lightseagreen; margin-bottom: 5px;"
+                autoplay playsinline></video>
             </div>
             <div style="flex: 1;">
               <video id="screenVideo" class="miniVideoStream"
-              style="min-height: 100px; max-height: 100px; width: 100%; background-color: lightseagreen; margin-bottom: 5px;"
-              autoplay playsinline></video>
+                style="min-height: 100px; max-height: 100px; width: 100%; background-color: lightseagreen; margin-bottom: 5px;"
+                autoplay playsinline></video>
             </div>
           </div>
           <div style="flex: 1">
@@ -93,6 +95,26 @@
     </div>
 
     <div class="box-footer">
+      <div class="btn-group-fab" role="group" aria-label="FAB Menu">
+        <div>
+          <button type="button" class="btn btn-main btn-primary has-tooltip" data-placement="left" title="Menu"> <i
+              class="fa fa-bars"></i> </button>
+
+          <button type="button" class="btn btn-sub btn-info has-tooltip btnFullscreen" data-placement="left"
+            title="Fullscreen"> <i class="fa fa-arrows-alt"></i> </button>
+          <button type="button" class="btn btn-sub btn-info has-tooltip btnShareVideo" data-placement="left"
+            title="Share Video"> <i class="glyphicon glyphicon-facetime-video"></i> </button>
+          <button type="button" class="btn btn-sub btn-info has-tooltip btnShareAudio" data-placement="left"
+            title="Unmute"> <i class="fa fa-fw fa-microphone"></i> </button>
+          <button type="button" class="btn btn-sub btn-info has-tooltip btnInviteUser" data-placement="left"
+            title="Invite User"> <i class="fa fa-fw fa-users"></i> </button>
+          <button type="button" class="btn btn-sub btn-info has-tooltip btnMeetingSignOut" data-placement="left"
+            title="Sign Out"> <i class="fa fa-fw fa-sign-out"></i> </button>
+          <button type="button" class="btn btn-sub btn-info has-tooltip btnEndMeeting" data-placement="left"
+            title="End Meeting"> <i class="fa fa-fw fa-sign-out"></i> </button>
+        </div>
+      </div>
+
       <div id="errorMsg"></div>
     </div>
   </div>

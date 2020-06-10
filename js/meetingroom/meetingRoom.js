@@ -12,7 +12,29 @@ class MeetingRoom {
         $(document).on('click', `.miniVideoStream`, function() {
             meetingRoom.focusMiniVideoStream(this);
         });
+        $(document).on('click', `.btnToggleChat`, function() {
+            meetingRoom.toggleChat(this);
+        });
+        $(document).on('click', `.btnToggleOtherUsers`, function() {
+            meetingRoom.toggleOtherUsers(this);
+        });
         
+    }
+
+    toggleOtherUsers() {
+        if ($(".videoBoxList").is(":visible")){
+            $(".videoBoxList").hide();
+        } else {
+            $(".videoBoxList").show();
+        }
+    }
+
+    toggleChat() {
+        if ($("#myChatBox").is(":visible")){
+            $("#myChatBox").hide();
+        } else {
+            $("#myChatBox").show();
+        }
     }
 
     focusMiniVideoStream(obj) {
@@ -84,7 +106,7 @@ class MeetingRoom {
             });
         }
         var successCallback = function (data) {
-            showModalAny1200.show(title, data, successRoomPopup);
+            showModalAny1200NoButtons.show(title, data, successRoomPopup);
         };
         utils.getTabHtml("ConferenceUI", "MeetingRoom", successCallback);
     }
