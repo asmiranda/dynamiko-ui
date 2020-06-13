@@ -1,7 +1,7 @@
 class ShowModalAny {
     show(title, helpHtml) {
         var context = this;
-        $.alert({
+        alertConfirmActiveModal = $.alert({
             title: title,
             content: helpHtml,
         });
@@ -11,11 +11,12 @@ class ShowModalAny {
 class ShowModalAny1200 {
     show(title, helpHtml, callback) {
         var context = this;
-        $.alert({
+        alertConfirmActiveModal = $.alert({
             title: title,
             content: helpHtml,
             boxWidth: '1200px',
             useBootstrap: false,
+            dragWindowBorder: false,
             onContentReady: callback,
         });
     }
@@ -24,12 +25,14 @@ class ShowModalAny1200 {
 class ShowModalAny1200NoButtons {
     show(title, helpHtml, callback) {
         var context = this;
-        $.alert({
+        alertConfirmActiveModal = $.alert({
             title: title,
             content: helpHtml,
             boxWidth: '1200px',
             useBootstrap: false,
             onContentReady: callback,
+            draggable: true,
+            dragWindowBorder: false,
             buttons: []
         });
     }
@@ -184,6 +187,8 @@ class ShowUploadAttachment {
 }
 
 $(function () {
+    alertConfirmActiveModal = null;
+
     showModalAny = new ShowModalAny();
     showModalAny500 = new ShowModalAny500();
     showModalAny1200 = new ShowModalAny1200();

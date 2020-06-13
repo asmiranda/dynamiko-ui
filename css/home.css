@@ -155,3 +155,10 @@ div.upload {
     margin: 0px;
     height: 18px;
 }
+
+.icon-flipped {
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+}

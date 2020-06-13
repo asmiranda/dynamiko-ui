@@ -18,11 +18,43 @@ class MeetingRoom {
         $(document).on('click', `.btnToggleOtherUsers`, function() {
             meetingRoom.toggleOtherUsers(this);
         });
+        $(document).on('click', `.btnMinimizeToRight`, function() {
+            meetingRoom.minimizeToRight(this);
+        });
+        $(document).on('click', `.btnToggleMiniVideo`, function() {
+            meetingRoom.toggleMiniVideo(this);
+        });
+        $(document).on('click', `#myVideoMinimize`, function() {
+            meetingRoom.myVideoMaximize(this);
+        });
         
     }
 
+    myVideoMaximize() {
+        alertConfirmActiveModal.toggle();
+        $("#myVideoMinimize").hide();
+    }
+
+    toggleMiniVideo() {
+        if ($("#myVideoMinimize").is(":visible")) {
+            $("#myVideoMinimize").hide();
+        } else {
+            $("#myVideoMinimize").show();
+        }
+    }
+
+    minimizeToRight() {
+        var activeVideoElem = document.querySelectorAll(`video#activeVideo`)[0];
+        var minimizeVideoElem = document.querySelectorAll(`video#myVideoMinimize`)[0];
+
+        minimizeVideoElem.srcObject = activeVideoElem.srcObject;
+        
+        alertConfirmActiveModal.toggle();
+        $("#myVideoMinimize").show();
+    }
+
     toggleOtherUsers() {
-        if ($(".videoBoxList").is(":visible")){
+        if ($(".videoBoxList").is(":visible")) {
             $(".videoBoxList").hide();
         } else {
             $(".videoBoxList").show();
