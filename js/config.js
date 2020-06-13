@@ -1,8 +1,8 @@
-// var MAIN_URL = "http://service.dynamikosoft.com:8888";
-// var MAIN_SIGNAL_URL = "ws://service.dynamikosoft.com:8888";
+// var MAIN_URL = "https://service.dynamikosoft.com:8443";
+// var MAIN_SIGNAL_URL = "wss://service.dynamikosoft.com:4343";
 
-var MAIN_URL = "https://localhost:8433";
-var MAIN_SIGNAL_URL = "wss://localhost:8433";
+var MAIN_URL = "https://localhost:8443";
+var MAIN_SIGNAL_URL = "wss://localhost:4343";
 
 var TOKEN;
 var USERNAME;
