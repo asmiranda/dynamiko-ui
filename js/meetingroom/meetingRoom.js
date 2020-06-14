@@ -122,8 +122,14 @@ class MeetingRoom {
         else if ("do-offer"==action) {
             meetingRoom.doOffer(from, data);
         }
+        else if ("do-offer-change"==action) {
+            meetingRoom.doOfferChange(from, data);
+        }
         else if ("do-answer"==action) {
             meetingRoom.doAnswer(from, data);
+        }
+        else if ("do-answer-change"==action) {
+            meetingRoom.doAnswerChange(from, data);
         }
         else if ("do-ice"==action) {
             meetingRoom.doIce(from, data);
@@ -163,6 +169,7 @@ class MeetingRoom {
     }
     
     doActiveUsers(data) {
+        var context = this;
         console.log(data);
         $(".selectChatTo").empty();
         $(".selectChatTo").append(`<option value="All">All</option>`);
@@ -174,25 +181,29 @@ class MeetingRoom {
                 var opt = `<option value="${email}">${profile}</option>`;
                 $(".selectChatTo").append(opt);
     
-                var p2p = new P2P(email, profile);
-                allP2P.set(email, p2p);
-                p2p.initP2P(
-                    function(event) {
-                        if (event.candidate!=null) {
-                            roomSignal.send("req-ice", email, JSON.stringify({ 'ice': event.candidate }));
-                        }
-                        else {
-                            console.log("ICE is null");
-                        }
-                    }
-                );
-                p2p.startOffer(
-                    function() {
-                        roomSignal.send("req-offer", email, JSON.stringify({ 'sdp': p2p.peerConnection.localDescription }));
-                    }
-                );
+                context.newP2P(email, profile);
             }
         });
+    }
+
+    newP2P(email, profile) {
+        var p2p = new P2P(email, profile);
+        allP2P.set(email, p2p);
+        p2p.initP2P(
+            function(event) {
+                if (event.candidate!=null) {
+                    roomSignal.send("req-ice", email, JSON.stringify({ 'ice': event.candidate }));
+                }
+                else {
+                    console.log("ICE is null");
+                }
+            }
+        );
+        p2p.startOffer(
+            function() {
+                roomSignal.send("req-offer", email, JSON.stringify({ 'sdp': p2p.peerConnection.localDescription }));
+            }
+        );
     }
 
     doOffer(from, obj) {
@@ -213,11 +224,30 @@ class MeetingRoom {
         allP2P.set(email, p2p);
     }
 
+    doOfferChange(from, data) {
+        var p2p = allP2P.get(from);
+        p2p.doOffer(data, function() {
+            console.log(`Sending change answer to ${from} with sdp = `, p2p.peerConnection.localDescription);
+            var strMessage = JSON.stringify({ 'sdp': p2p.peerConnection.localDescription});
+
+            var chunkSize = 2000;
+            dataChunkSender.sendToSocket(roomSignal, chunkSize, 'req-answer-change', from, strMessage);
+            console.log(`Answer change sent.`);
+        });
+    }
+
     doAnswer(from, data) {
         var myP2P = allP2P.get(from);
         myP2P.doAnswer(data);
 
         console.log(`connection to ${from} established successfully!!`);
+    };
+
+    doAnswerChange(from, data) {
+        var myP2P = allP2P.get(from);
+        myP2P.doAnswer(data);
+
+        console.log(`change answer to ${from} is successful!!`);
     };
 
     doIce(from, data) {
@@ -246,7 +276,10 @@ class MeetingRoom {
     }
 
     clickShareContent() {
-        mediaStream.shareScreen();
+        var context = this;
+        mediaStream.shareScreen(function(myP2P) {
+            console.log("Called sharedScreen callback do offer-change", myP2P);
+        });
     }
 
     clickSignOut() {

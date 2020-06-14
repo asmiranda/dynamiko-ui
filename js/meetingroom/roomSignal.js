@@ -32,7 +32,7 @@ class RoomSignal {
             function() {}, 
             roomSignal.messageCallback,
             function() {
-                console.log(`***************ACTUAL SEND ${action}`, sendTo, data);
+                console.log(`***************ACTUAL SEND ${action}`, sendTo, "Message Size == "+data.length, data);
                 meetingRoomSignal.send(JSON.stringify(tmp));
                 console.log(`***************MESSAGE SENT....`);
             }
