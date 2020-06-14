@@ -30,8 +30,8 @@ class MediaStream {
             }
     }
 
-    shareScreen(callback) {
-        // if (this.screenSharing!=true) {
+    shareScreen() {
+        if (this.screenSharing!=true) {
             if(navigator.mediaDevices.getDisplayMedia) {
                 navigator.mediaDevices.getDisplayMedia(screenShare.mediaConstraints)
                     .then(function(stream) {
@@ -39,21 +39,20 @@ class MediaStream {
 
                         allP2P.forEach(function (value, key) {
                             var myP2P = value;
+
                             var trackScreen = screenShare.localStream.getVideoTracks()[0];
                             myP2P.peerConnection.addTrack(trackScreen, screenShare.localStream);
-
-                            callback(myP2P);
                         });
                     })
                     .then(function() {
                         screenShare.initialize();
                     })
                 }
-        // }
-        // else {
-        //     screenShare.localStream.getVideoTracks()[0].enabled=true;
-        // }
-        // this.screenSharing = true;
+        }
+        else {
+            screenShare.localStream.getVideoTracks()[0].enabled=true;
+        }
+        this.screenSharing = true;
     }
 
     initialize(e) {

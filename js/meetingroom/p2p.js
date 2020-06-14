@@ -13,6 +13,7 @@ class P2P {
         this.peerConnection;
         this.dataChannel;
         this.remoteStream;
+        this.videoReceived = false;
     }
 
     initP2P(iceCallback) {
@@ -35,6 +36,7 @@ class P2P {
                 
                 var oldP2P = allP2P.get(context.email);
                 if (oldP2P) {
+                    meetingRoom.log("change offer negotiation.");
                     var chunkSize = 2000;
                     dataChunkSender.sendToSocket(roomSignal, chunkSize, 'req-offer-change', context.email, strMessage);
                 }
@@ -60,10 +62,13 @@ class P2P {
 
         context.peerConnection.ontrack = function(ev) {
             if (ev.streams && ev.streams[0]) {
-                context.onTrackVideo(ev.streams[0]);
-            }
-            if (ev.streams && ev.streams[1]) {
-                context.onTrackScreen(ev.streams[1]);
+                if (this.videoReceived) {
+                    context.onTrackScreen(ev.streams[0]);
+                }
+                else {
+                    context.onTrackVideo(ev.streams[0]);
+                }
+                this.videoReceived = true;
             }
         };
     }
@@ -71,6 +76,7 @@ class P2P {
     onTrackVideo(tmpMedia) {
         var context = this;
         console.log("remote video track.")
+        meetingRoom.log("remote video track.");
         var videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
         if (videoElem==undefined) {
             context.createVideoBox();
@@ -81,7 +87,8 @@ class P2P {
     }
 
     onTrackScreen(tmpMedia) {
-        alert("Screen Sharang....");
+        // alert("Screen Sharang....");
+        meetingRoom.log("screen sharing.");
         console.log("remote screen track.")
         var videoElem = document.querySelectorAll(`#activeVideo`)[0];
         console.log(videoElem);

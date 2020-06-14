@@ -276,10 +276,7 @@ class MeetingRoom {
     }
 
     clickShareContent() {
-        var context = this;
-        mediaStream.shareScreen(function(myP2P) {
-            console.log("Called sharedScreen callback do offer-change", myP2P);
-        });
+        mediaStream.shareScreen();
     }
 
     clickSignOut() {
@@ -305,6 +302,11 @@ class MeetingRoom {
             p2p.removeBox();
         }
         allP2P.delete(from);
+    }
+
+    log(str) {
+        var display = `<div style="flex: 1;">${str}</div>`;
+        $('#chat-box').append(display);
     }
 }
 
