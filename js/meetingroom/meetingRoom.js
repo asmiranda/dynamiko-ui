@@ -6,9 +6,26 @@ class MeetingRoom {
         $(document).on('click', `.btnEndMeeting`, function() {
             meetingRoom.clickEndMeeting(this);
         });
+
         $(document).on('click', `.btnShareVideo`, function() {
             meetingRoom.clickShareVideo(this);
         });
+        $(document).on('click', `.btnUnShareVideo`, function() {
+            meetingRoom.clickUnShareVideo(this);
+        });
+        $(document).on('click', `.btnShareAudio`, function() {
+            meetingRoom.clickShareAudio(this);
+        });
+        $(document).on('click', `.btnUnShareAudio`, function() {
+            meetingRoom.clickUnShareAudio(this);
+        });
+        $(document).on('click', `.btnShareContent`, function() {
+            meetingRoom.clickShareContent(this);
+        });
+        $(document).on('click', `.btnUnShareContent`, function() {
+            meetingRoom.clickUnShareContent(this);
+        });
+
         $(document).on('click', `.miniVideoStream`, function() {
             meetingRoom.focusMiniVideoStream(this);
         });
@@ -93,7 +110,6 @@ class MeetingRoom {
         var from = jsonMsg.from;
         var data = jsonMsg.data;
 
-        meetingRoom.log(action, from);
         if ("do-end-meeting"==action) {
             meetingRoom.doEndMeeting(from);
         }
@@ -106,20 +122,11 @@ class MeetingRoom {
         else if ("do-offer"==action) {
             meetingRoom.doOffer(from, data);
         }
-        else if ("do-offer-screen"==action) {
-            meetingRoom.doOfferScreen(from, data);
-        }
         else if ("do-answer"==action) {
             meetingRoom.doAnswer(from, data);
         }
-        else if ("do-answer-screen"==action) {
-            meetingRoom.doAnswerScreen(from, data);
-        }
         else if ("do-ice"==action) {
             meetingRoom.doIce(from, data);
-        }
-        else if ("do-ice-screen"==action) {
-            meetingRoom.doIceScreen(from, data);
         }
     }
 
@@ -132,7 +139,7 @@ class MeetingRoom {
         var context = this;
 
         var successRoomPopup = function (data) {
-            audioVideoStream.initMedia(function() {
+            mediaStream.initMedia(function() {
                 roomSignal.init(conCompany, conRoom, context.messageCallback);
                 roomSignal.send("req-join", "all", PROFILENAME);
             });
@@ -149,7 +156,7 @@ class MeetingRoom {
         this.conRoom = conRoom;
         var context = this;
 
-        audioVideoStream.initMedia(function() {
+        mediaStream.initMedia(function() {
             roomSignal.init(conCompany, conRoom, context.messageCallback);
             roomSignal.send("req-join", "all", PROFILENAME);
         });
@@ -171,18 +178,17 @@ class MeetingRoom {
                 allP2P.set(email, p2p);
                 p2p.initP2P(
                     function(event) {
-                        roomSignal.send("req-ice", email, JSON.stringify({ 'ice': event.candidate }));
-                    }, 
-                    function(event) {
-                        roomSignal.send("req-ice-screen", email, JSON.stringify({ 'ice': event.candidate }));
+                        if (event.candidate!=null) {
+                            roomSignal.send("req-ice", email, JSON.stringify({ 'ice': event.candidate }));
+                        }
+                        else {
+                            console.log("ICE is null");
+                        }
                     }
                 );
                 p2p.startOffer(
                     function() {
                         roomSignal.send("req-offer", email, JSON.stringify({ 'sdp': p2p.peerConnection.localDescription }));
-                    }, 
-                    function() {
-                        roomSignal.send("req-offer-screen", email, JSON.stringify({ 'sdp': p2p.peerScreenConnection.localDescription }));
                     }
                 );
             }
@@ -207,18 +213,6 @@ class MeetingRoom {
         allP2P.set(email, p2p);
     }
 
-    doOfferScreen(from, data) {
-        var email = from;
-
-        var p2p = allP2P.get(email);
-        p2p.doOfferScreen(data, function() {
-            console.log(`Sending answer screen to ${email} with sdp = `, p2p.peerScreenConnection.localDescription);
-            roomSignal.send("req-answer-screen", email, JSON.stringify({ 'sdp': p2p.peerScreenConnection.localDescription}));
-            console.log(`Answer screen sent.`);
-        });
-        allP2P.set(email, p2p);
-    }
-
     doAnswer(from, data) {
         var myP2P = allP2P.get(from);
         myP2P.doAnswer(data);
@@ -226,40 +220,33 @@ class MeetingRoom {
         console.log(`connection to ${from} established successfully!!`);
     };
 
-    doAnswerScreen(from, data) {
-        var myP2P = allP2P.get(from);
-        myP2P.doAnswerScreen(data);
-
-        console.log(`connection (screen) to ${from} established successfully!!`);
-    };
-
     doIce(from, data) {
         var myP2P = allP2P.get(from);
         myP2P.doIce(data);
     };
 
-    doIceScreen(from, data) {
-        var myP2P = allP2P.get(from);
-        myP2P.doIce(data);
-    };
-
-    clickUnshareVideo() {
+    clickUnShareVideo() {
+        mediaStream.localStream.getVideoTracks()[0].enabled=false;
     }
 
     clickShareVideo() {
-        // var context = this;
+        mediaStream.localStream.getVideoTracks()[0].enabled=true;
+    }
 
-        // const myVideo = document.querySelector('video#myVideo');
-        // myVideo.srcObject = audioVideoStream.localStream;
+    clickUnShareAudio() {
+        mediaStream.localStream.getAudioTracks()[0].enabled=false;
+    }
 
-        // allP2P.forEach(function logMapElements(value, key, map) {
-        //     var myP2P = value;
-        //     console.log(`m[${key}] = ${value}`);
-        //     for (const track of audioVideoStream.localStream.getTracks()) {
-        //         console.log(`log tracks.`);
-        //         myP2P.peerConnection.addTrack(track, audioVideoStream.localStream);
-        //     }
-        // });
+    clickShareAudio() {
+        mediaStream.localStream.getAudioTracks()[0].enabled=true;
+    }
+
+    clickUnShareContent() {
+        screenShare.localStream.getVideoTracks()[0].enabled=false;
+    }
+
+    clickShareContent() {
+        mediaStream.shareScreen();
     }
 
     clickSignOut() {
@@ -286,16 +273,12 @@ class MeetingRoom {
         }
         allP2P.delete(from);
     }
-
-    log(action, peer) {
-        $('#allChatMessages').append(action+"\t\t\t"+peer+"\n");
-    }
 }
 
 var meetingRoomSignal;
 $(function () {
     allP2P = new Map();
-    audioVideoStream = new AudioVideoStream();
+    mediaStream = new MediaStream();
     roomSignal = new RoomSignal();
 
     screenShare = new ScreenShare();

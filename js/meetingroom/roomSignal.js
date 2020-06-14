@@ -21,7 +21,7 @@ class RoomSignal {
     }
 
     send(action, sendTo, data) {
-        console.log(`***************SEND ${action}`, sendTo, data);
+        console.log(`***************SEND ${action}`, sendTo);
         var tmp = {};
         tmp["action"] = action;
         tmp["from"] = USERNAME;
@@ -32,8 +32,9 @@ class RoomSignal {
             function() {}, 
             roomSignal.messageCallback,
             function() {
-                meetingRoom.log(action, sendTo);
+                console.log(`***************ACTUAL SEND ${action}`, sendTo, data);
                 meetingRoomSignal.send(JSON.stringify(tmp));
+                console.log(`***************MESSAGE SENT....`);
             }
         );
     }
