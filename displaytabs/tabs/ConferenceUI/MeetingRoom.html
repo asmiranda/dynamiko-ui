@@ -15,26 +15,14 @@
         </div>
     </div>
 
-    <div class="popBox"
-        style="position: absolute; bottom: 0; right: 20px; margin-top: 15px; display: flex; flex-direction: column;">
+    <div class="popBox" style="position: absolute; bottom: 0; right: 20px; margin-top: 15px; display: flex; flex-direction: column;">
         <div style="display: flex;">
-            <div style="display: flex; flex-direction: column; flex-wrap: wrap; overflow-y: auto; margin-top: 10px;"
-                class="videoBoxList"></div>
-            <div class="box box-success" id="myChatBox" style="width: 300px; margin-left: 10px;">
+            <div style="display: flex; flex-direction: column; flex-wrap: wrap; overflow-y: auto; margin-top: 10px;" class="videoBoxList"></div>
+            <div class="box box-success" id="myChatBox" style="width: 300px; margin-left: 10px; display: none;">
                 <div class="box-header ui-sortable-handle" style="cursor: move;">
                     <i class="fa fa-comments-o"></i>
 
                     <h3 class="box-title">Chat</h3>
-
-                    <div class="box-tools pull-right" data-toggle="tooltip" title="" data-original-title="Status">
-                        <div class="btn-group" data-toggle="btn-toggle">
-                            <button type="button" class="btn btn-default btn-sm active"><i
-                                    class="fa fa-square text-green"></i>
-                            </button>
-                            <button type="button" class="btn btn-default btn-sm"><i
-                                    class="fa fa-square text-red"></i></button>
-                        </div>
-                    </div>
                 </div>
                 <div class="box-body chat" id="chat-box" style="overflow-y: auto; width: auto; height: 250px; display: flex; flex-direction: column;">
                 </div>
@@ -81,21 +69,21 @@
         <a class="btn btn-social-icon btn-bitbucket btnShareVideo" title="Video"><i
                 class="glyphicon glyphicon-facetime-video"></i></a>
         <a class="btn btn-social-icon btn-bitbucket btnUnShareVideo" title="Stop Video"><i
-                class="glyphicon glyphicon-facetime-video"></i></a>
+                class="glyphicon glyphicon-facetime-video icon-slashed" style="background: black;"></i></a>
 
         <a class="btn btn-social-icon btn-dropbox btnShareAudio" title="Audio"><i
                 class="fa fa-fw fa-microphone"></i></a>
         <a class="btn btn-social-icon btn-dropbox btnUnShareAudio" title="Mute"><i
-                class="fa fa-fw fa-microphone"></i></a>
+                class="fa fa-fw fa-microphone icon-slashed" style="background: black;"></i></a>
 
         <a class="btn btn-social-icon btn-dropbox btnShareContent" title="Share Content"><i
                 class="fa fa-fw fa-slideshare"></i></a>
         <a class="btn btn-social-icon btn-dropbox btnUnShareContent" title="Unshare Content"><i
-                class="fa fa-fw fa-slideshare"></i></a>
+                class="fa fa-fw fa-slideshare icon-slashed" style="background: black;"></i></a>
 
         <a class="btn btn-social-icon btn-flickr btnMeetingSignOut" title="Sign Out" style="margin-left: 50px;"><i
                 class="fa fa-fw fa-sign-out"></i></a>
         <a class="btn btn-social-icon btn-foursquare btnEndMeeting" title="End Meeting"><i
-                class="fa fa-fw fa-sign-out"></i></a>
+                class="fa fa-fw fa-power-off"></i></a>
     </div>
 </div>

@@ -61,19 +61,6 @@ class MeetingRoom {
         });
         
     }
-
-    changeSendTo(obj) {
-        var sendTo = $(obj).attr("sendTo");
-        $('#sendChatMessageTo').val(sendTo);
-    }
-
-    sendChatMessage(obj) {
-        var sendChatMessageTo = $('#sendChatMessageTo').val();
-        var message = $("#txtChatMessage").val();
-        var chatMessageForSending = `chat|${sendChatMessageTo}|${message}`;
-        chatMessageWriter.writeToChat(chatMessageForSending);
-        chatMessageWriter.sendChatToOthers(sendChatMessageTo, message);
-    }
     
     myVideoMaximize() {
         alertConfirmActiveModal.toggle();
@@ -129,9 +116,24 @@ class MeetingRoom {
         allP2P = new Map();
     }
 
-    dataChannelCallback(msg) {
+    changeSendTo(obj) {
+        var sendTo = $(obj).attr("sendTo");
+        $('#sendChatMessageTo').val(sendTo);
+    }
+
+    sendChatMessage(obj) {
+        var sendChatMessageTo = $('#sendChatMessageTo').val();
+        var message = $("#txtChatMessage").val();
+
+        chatMessageWriter.writeToChatForMe(message);
+        chatMessageWriter.sendChatToOthers(sendChatMessageTo, message);
+    }
+
+    dataChannelCallback(ev) {
+        var sentFrom = ev.currentTarget.label;
+        var msg = ev.data;
         if (msg.startsWith("chat|")) {
-            chatMessageWriter.writeToChat(msg);
+            chatMessageWriter.writeToChatFromSender(sentFrom, msg);
         }
     }
     
@@ -341,7 +343,13 @@ class MeetingRoom {
     }
 
     log(str) {
-        var display = `<div style="flex: 1;">${str}</div>`;
+        var display = `
+            <div>
+                <p class="message">
+                    ${str}
+                </p>
+            </div>
+        `;
         $('#chat-box').append(display);
     }
 }

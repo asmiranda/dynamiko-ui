@@ -9,6 +9,10 @@ class P2P {
                 { 'urls': 'stun:stun.l.google.com:19302' },
             ]
         };
+        this.dataChannelOptions = {
+            ordered: false, // do not guarantee order
+            maxRetransmits: 5
+        };
 
         this.peerConnection;
         this.dataChannel;
@@ -21,11 +25,17 @@ class P2P {
         var context = this;
         $("#messageAlert").html(`${context.profile} joined!`);
 
-        context.peerConnection = new RTCPeerConnection(context.peerConnectionConfig, {
-            optional: [{
-                RtpDataChannels: true
-            }]
-        });
+        context.peerConnection = new RTCPeerConnection(context.peerConnectionConfig);
+        context.dataChannel = context.peerConnection.createDataChannel(USERNAME, context.dataChannelOptions);
+
+        var track = mediaStream.localStream.getTracks()[0];
+        context.peerConnection.addTrack(track, mediaStream.localStream);
+
+        if (screenShare.localStream) {
+            var trackScreen = screenShare.localStream.getVideoTracks()[0];
+            context.peerConnection.addTrack(trackScreen, screenShare.localStream);
+        }
+
         context.peerConnection.onnegotiationneeded = function() {
             context.peerConnection.createOffer(function (description) {
                 context.peerConnection.setLocalDescription(description);
@@ -33,11 +43,9 @@ class P2P {
                     'sdp': description
                 });
                 console.log(description);
-                // strMessage = "This is a sample message, just to tame frame size.";
-                
                 var oldP2P = allP2P.get(context.email);
                 if (oldP2P) {
-                    meetingRoom.log("change offer negotiation.");
+                    // meetingRoom.log("change offer negotiation.");
                     var chunkSize = 2000;
                     dataChunkSender.sendToSocket(roomSignal, chunkSize, 'req-offer-change', context.email, strMessage);
                 }
@@ -48,16 +56,6 @@ class P2P {
                 alert("Error creating an offer-change");
             });
         };
-
-        context.initDataChannel();
-
-        var track = mediaStream.localStream.getTracks()[0];
-        context.peerConnection.addTrack(track, mediaStream.localStream);
-
-        if (screenShare.localStream) {
-            var trackScreen = screenShare.localStream.getVideoTracks()[0];
-            context.peerConnection.addTrack(trackScreen, screenShare.localStream);
-        }
 
         context.peerConnection.onicecandidate = iceCallback;
 
@@ -72,12 +70,28 @@ class P2P {
                 this.videoReceived = true;
             }
         };
+
+        context.peerConnection.ondatachannel = e => {
+            var remoteDC = e.channel;
+            remoteDC.onmessage = context.dataChannelCallback;
+
+            remoteDC.onopen = function(event) {
+                console.debug('Data Channel Open:', event);
+                // context.dataChannel.send("chat|All|Data Channel Open!");
+            };
+            remoteDC.onclose = function (e) {
+                console.error(e);
+            };
+            remoteDC.onerror = function (e) {
+                console.error(e);
+            };
+        };
     }
 
     onTrackVideo(tmpMedia) {
         var context = this;
         console.log("remote video track.")
-        meetingRoom.log("remote video track.");
+        // meetingRoom.log("remote video track.");
         var videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
         if (videoElem==undefined) {
             context.createVideoBox();
@@ -89,7 +103,7 @@ class P2P {
 
     onTrackScreen(tmpMedia) {
         // alert("Screen Sharang....");
-        meetingRoom.log("screen sharing.");
+        // meetingRoom.log("screen sharing.");
         console.log("remote screen track.")
         var videoElem = document.querySelectorAll(`#activeVideo`)[0];
         console.log(videoElem);
@@ -105,27 +119,6 @@ class P2P {
         // }, function (error) {
         //     alert("Error creating an offer");
         // });
-    }
-
-    initDataChannel() {
-        var context = this;
-        console.log("Create Data Channel");
-        context.dataChannel = context.peerConnection.createDataChannel("dataChannel");
-
-        context.dataChannel.onerror = function (error) {
-            console.log("Error occured on datachannel:", error);
-        };
-
-        // when we receive a message from the other peer, printing it on the console
-        // context.dataChannel.onmessage = function (event) {
-        //     console.log("message:", JSON.stringify(event.data));
-        //     context.messageCallback();
-        // };
-        context.dataChannel.onmessage = context.dataChannelCallback;
-
-        context.dataChannel.onclose = function () {
-            console.log("data channel is closed");
-        };
     }
 
     doOffer(offer, doOfferCallback) {

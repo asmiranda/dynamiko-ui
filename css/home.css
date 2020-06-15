@@ -162,3 +162,13 @@ div.upload {
     -webkit-transform: scaleX(-1);
     -ms-transform: scaleX(-1);
 }
+
+.icon-slashed:after {
+    position: absolute;
+    content: "|";
+    font-size: 4.7em;
+    left: 7px;
+    top: 0px;
+    left: 6px;
+    -webkit-transform: rotate(-136deg);
+}
