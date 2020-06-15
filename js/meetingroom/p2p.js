@@ -1,5 +1,5 @@
 class P2P {
-    constructor(email, profile) {
+    constructor(email, profile, dataChannelCallback) {
         this.email = email;
         this.profile = profile;
 
@@ -14,6 +14,7 @@ class P2P {
         this.dataChannel;
         this.remoteStream;
         this.videoReceived = false;
+        this.dataChannelCallback = dataChannelCallback;
     }
 
     initP2P(iceCallback) {
@@ -116,9 +117,11 @@ class P2P {
         };
 
         // when we receive a message from the other peer, printing it on the console
-        context.dataChannel.onmessage = function (event) {
-            console.log("message:", JSON.stringify(event.data));
-        };
+        // context.dataChannel.onmessage = function (event) {
+        //     console.log("message:", JSON.stringify(event.data));
+        //     context.messageCallback();
+        // };
+        context.dataChannel.onmessage = context.dataChannelCallback;
 
         context.dataChannel.onclose = function () {
             console.log("data channel is closed");

@@ -40,6 +40,10 @@ class MediaStream {
                         allP2P.forEach(function (value, key) {
                             var myP2P = value;
 
+                            var videoElem = document.querySelectorAll(`#activeVideo`)[0];
+                            console.log(videoElem);
+                            videoElem.srcObject = screenShare.localStream;
+
                             var trackScreen = screenShare.localStream.getVideoTracks()[0];
                             myP2P.peerConnection.addTrack(trackScreen, screenShare.localStream);
                         });

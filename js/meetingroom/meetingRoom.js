@@ -1,5 +1,18 @@
 class MeetingRoom {
     constructor() {
+        $(document).on('click', `#btnSendChatMessage`, function() {
+            meetingRoom.sendChatMessage(this);
+        });
+        $(document).on('keyup', `#txtChatMessage`, function(e) {
+            if (e.key === 'Enter') {
+                meetingRoom.sendChatMessage(this);
+            }
+        });
+        $(document).on('click', `.changeSendTo`, function() {
+            meetingRoom.changeSendTo(this);
+        });
+        
+
         $(document).on('click', `.btnMeetingSignOut`, function() {
             meetingRoom.clickSignOut(this);
         });
@@ -29,12 +42,14 @@ class MeetingRoom {
         $(document).on('click', `.miniVideoStream`, function() {
             meetingRoom.focusMiniVideoStream(this);
         });
+
         $(document).on('click', `.btnToggleChat`, function() {
             meetingRoom.toggleChat(this);
         });
         $(document).on('click', `.btnToggleOtherUsers`, function() {
             meetingRoom.toggleOtherUsers(this);
         });
+
         $(document).on('click', `.btnMinimizeToRight`, function() {
             meetingRoom.minimizeToRight(this);
         });
@@ -47,6 +62,19 @@ class MeetingRoom {
         
     }
 
+    changeSendTo(obj) {
+        var sendTo = $(obj).attr("sendTo");
+        $('#sendChatMessageTo').val(sendTo);
+    }
+
+    sendChatMessage(obj) {
+        var sendChatMessageTo = $('#sendChatMessageTo').val();
+        var message = $("#txtChatMessage").val();
+        var chatMessageForSending = `chat|${sendChatMessageTo}|${message}`;
+        chatMessageWriter.writeToChat(chatMessageForSending);
+        chatMessageWriter.sendChatToOthers(sendChatMessageTo, message);
+    }
+    
     myVideoMaximize() {
         alertConfirmActiveModal.toggle();
         $("#myVideoMinimize").hide();
@@ -101,6 +129,12 @@ class MeetingRoom {
         allP2P = new Map();
     }
 
+    dataChannelCallback(msg) {
+        if (msg.startsWith("chat|")) {
+            chatMessageWriter.writeToChat(msg);
+        }
+    }
+    
     messageCallback(msg) {
         var context = this;
         console.log("Got message", msg.data);
@@ -138,7 +172,7 @@ class MeetingRoom {
 
     join(roomName, conCompany, conRoom) {
         this.roomName = roomName;
-        this.conCompany = conCompany;
+        this.conCompany = conCompany; 
         this.conRoom = conRoom;
         var title = `Joining Room ${roomName} [C${conCompany} - R${conRoom}]`;
         console.log(title);
@@ -187,7 +221,8 @@ class MeetingRoom {
     }
 
     newP2P(email, profile) {
-        var p2p = new P2P(email, profile);
+        var context = this;
+        var p2p = new P2P(email, profile, context.dataChannelCallback);
         allP2P.set(email, p2p);
         p2p.initP2P(
             function(event) {
@@ -214,7 +249,8 @@ class MeetingRoom {
         var opt = `<option value="${email}">${profile}</option>`;
         $(".selectChatTo").append(opt);
 
-        var p2p = new P2P(email, profile);
+        var context = this;
+        var p2p = new P2P(email, profile, context.dataChannelCallback);
         p2p.initP2P();
         p2p.doOffer(data, function() {
             console.log(`Sending answer to ${email} with sdp = `, p2p.peerConnection.localDescription);
@@ -317,6 +353,7 @@ $(function () {
     roomSignal = new RoomSignal();
 
     screenShare = new ScreenShare();
+    chatMessageWriter = new ChatMessageWriter();
     // roomSignal = new RoomSignal();
 
     meetingRoom = new MeetingRoom();
