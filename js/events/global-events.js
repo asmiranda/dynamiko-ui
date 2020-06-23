@@ -20,6 +20,7 @@ class GlobalEvents {
         this.registeredModules.push("reportUI");
         this.registeredModules.push("conferenceUI");
         this.registeredModules.push("facultyMeetingUI");
+        this.registeredModules.push("schoolUI");
 
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);

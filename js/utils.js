@@ -383,6 +383,32 @@ class Utils {
         };
         ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
     }
+
+    getUrlParams(url) {
+        var arr = url.split("?");
+        var query = arr[1];
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            params[pair[0]] = decodeURIComponent(pair[1]);
+        }
+        return params;
+    };
+
+    getUrlParamValue(url, key) {
+        var value = "";
+        var arr = url.split("?");
+        var query = arr[1];
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if  (key==pair[0]) {
+                value = decodeURIComponent(pair[1]);
+                break;
+            }
+        }
+        return value;
+    };
 }
 
 class BenchMark {

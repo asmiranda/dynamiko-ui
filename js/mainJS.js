@@ -15,7 +15,10 @@ $(function () {
                         break;
                     }
                 }
-            }    
+            }
+            if (retVal==null || retVal=='null') {
+                retVal = val;
+            }
             return retVal;
         },
         //this keeps jquery happy
