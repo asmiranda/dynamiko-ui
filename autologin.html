@@ -39,33 +39,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form class="form-signin" method="POST">
-                <div class="form-group has-feedback">
-                    <input class="form-control logInput" id="email" name="email" th:placeholder="Email" type="email" />
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input class="form-control logInput" id="password" name="password" th:placeholder="Password"
-                        type="password" />
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button class="btn btn-lg btn-primary btn-block" name="btnSubmit" id="btnSubmit" text="Login"
-                            value="Login" type="button">Login</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
-            <!-- /.social-auth-links -->
-
-            <a href="#">I forgot my password</a><br>
-            <a class="text-center" href="registration.html">Register a new membership</a>
+            <h3>Auto Login, please wait....</h3>
 
         </div>
         <!-- /.login-box-body -->
@@ -98,6 +72,8 @@
             });
 
             var vusername = utils.getUrlParamValue(window.location.href, "demo-user");
+            var name = utils.getUrlParamValue(window.location.href, "name");
+            $("#autoLoginName").html(name);
             console.log(`User == ${vusername}`);
             loginJS.login(vusername+"@test.com", 'password', "home.html");
         });
