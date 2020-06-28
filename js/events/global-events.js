@@ -46,63 +46,11 @@ class GlobalEvents {
         $(document).on('change', 'select[module="ReportUI"][name="report"]', function() {
             reportUI.changeParameters(this);
         });
-
-        $(document).on('click', '.leftDashboardItem', function() {
-            dashboard.load(this);
-        });
-        $(document).on('click', '.leftMenuItem[report="true"]', function() {
-            mainReport.constructMainReport(this);
-        });
-        $(document).on('click', '.leftMenuItem[report="false"]', function() {
-            leftMenu.loadUI(this);
-        });
-
         $(document).on('click', '.btnSignOut', function() {
             window.location.href = "login.html";
         });
-        $(document).on('click', '.manageUserRoles', function() {
-            uiService.manageUserRoles();
-        });
-        $(document).on('click', '.manageDepartment', function() {
-            uiService.manageDepartment();
-        });
-        $(document).on('click', '.manageTaxCategory', function() {
-            uiService.manageTaxCategory();
-        });
-        $(document).on('click', '.manageAccountChart', function() {
-            uiService.manageAccountChart();
-        });
-        $(document).on('click', '.manageBenefit', function() {
-            uiService.manageBenefit();
-        });
-        $(document).on('click', '.manageEmployee', function() {
-            uiService.manageEmployee();
-        });
-        $(document).on('click', '.manageSupplier', function() {
-            uiService.manageSupplier();
-        });
-        $(document).on('click', '.manageProduct', function() {
-            uiService.manageProduct();
-        });
-        $(document).on('click', '.choiceCompany', function() {
-            uiService.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
-        });
 
-        $(document).on('keyup', '.autocomplete', function() {
-            dynaAutoComplete.doAutoComplete(this);
-        });
-        $(document).on('click', '.autocomplete', function() {
-            dynaAutoComplete.doAutoComplete(this);
-        });
-        $(document).on('click', '.autocomplete-choice', function() {
-            dynaAutoComplete.putAutoComplete(this);
-        });
-        $(document).on('click', '.btnCloseAutoComplete', function() {
-            dynaAutoComplete.closeAutoComplete(this);
-        });
-        $(document).on('click', '.btnAutoClearSelected', function() {
-            dynaAutoComplete.clearSelected(this);
-        });
+
         
 
         $(document).on('click', '.btnChildTabSave', function() {
@@ -134,48 +82,7 @@ class GlobalEvents {
             childTabs.displayLargeImageFullScreen(this);
         });
 
-        // ##################################### for Search
-        $(document).on('click', '.setFileProfile', function() {
-            searchTable.setFileProfile(this);
-        });               
-        $(document).on('click', '.attachFileRemove', function() {
-            searchTable.removeAttachedFile(this);
-        });               
-        $(document).on('keyup', 'input[class~="filter"]', function() {
-            searchTable.reloadSearch();
-        });
-        $(document).on('click', 'select.specialSearch', function() {
-            searchTable.reloadSpecialSearch();
-        });
-        $(document).on('click', 'btnImage', function() {
-            searchTable.displayLargeImageFullScreen(this);
-        });
 
-        // ########################Form Control Button
-        $(document).on('click', '.btnToggleSearch', function() {
-            formControlButton.toggleSearch();
-        });
-        $(document).on('click', '.btnNew', function() {
-            formControlButton.newRecord(this);
-        });
-        $(document).on('click', '.btnUpdate', function() {
-            formControlButton.showModalUpdateRecord(this);
-        });
-        $(document).on('click', '.btnSave', function() {
-            formControlButton.saveRecord(this);
-        });
-        $(document).on('click', '.btnDelete', function() {
-            formControlButton.deleteRecord(this);
-        });
-        $(document).on('click', 'li.btnUpload', function() {
-            formControlButton.listFileAttachments(this);
-        });
-        $(document).on('click', 'button.btnSaveUpload', function() {
-            formControlButton.saveUpload(this);
-        });
-        $(document).on('click', '.myReport', function() {
-            formControlButton.displayReport(this);
-        });
         $(document).on('click', '.reportClose', function() {
             console.log("close report");
             dynamicReport.dialog("close");
@@ -318,21 +225,6 @@ class GlobalEvents {
                 formControlButton.formUploadData.append("file", file);
             }
         });
-
-        // ################################################# for modules
-        // $(document).on('click', '.addToPayroll', function() {
-        //     payrollScheduleUI.addToPayroll(this);
-        // });
-        // $(document).on('click', 'input.payrollInput', function() {
-        //     payrollScheduleUI.onfocusout(this);
-        // });
-        // $(document).on('change', 'input[module="PurchaseOrderUI"]', function() {
-        //     purchaseOrderUI.onfocusout(this);
-        // });
-        // $(document).on('change', 'input[module="SalesOrderUI"]', function() {
-        //     salesOrderUI.onfocusout(this);
-        // });
-
 
         // ###################For Reports 
         $(document).on('click', '.btnShowInvoiceReport', function() {

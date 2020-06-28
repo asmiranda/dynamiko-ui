@@ -7,6 +7,8 @@ class ConstructMainForm {
         var successCallback = function(data) {
             $("#content-main").html(data);
             constructMainForm.replaceDisplayTabs(recordId);
+            var funcName = moduleName.charAt(0).toLowerCase() + moduleName.slice(1)
+            eval(`${funcName}.loadedCallback('${recordId}')`);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         $(".quickMainSearcherResult").empty();
@@ -189,6 +191,30 @@ class FormControlButton {
     initButtons(moduleName) {
         this.moduleName = moduleName;
         this.formUploadData = new FormData();
+        $(document).on('click', '.btnToggleSearch', function() {
+            formControlButton.toggleSearch();
+        });
+        $(document).on('click', '.btnNew', function() {
+            formControlButton.newRecord(this);
+        });
+        $(document).on('click', '.btnUpdate', function() {
+            formControlButton.showModalUpdateRecord(this);
+        });
+        $(document).on('click', '.btnSave', function() {
+            formControlButton.saveRecord(this);
+        });
+        $(document).on('click', '.btnDelete', function() {
+            formControlButton.deleteRecord(this);
+        });
+        $(document).on('click', 'li.btnUpload', function() {
+            formControlButton.listFileAttachments(this);
+        });
+        $(document).on('click', 'button.btnSaveUpload', function() {
+            formControlButton.saveUpload(this);
+        });
+        $(document).on('click', '.myReport', function() {
+            formControlButton.displayReport(this);
+        });
 
         var myUploadDialog = $("#myUploadDialog").dialog({
             autoOpen: false,
@@ -396,6 +422,21 @@ class SearchTable {
         this.successCallback;
 
         var mainDataTable = dynaRegister.createMainTable(searchTable.moduleName, mainSearchForm, this);
+        $(document).on('click', '.setFileProfile', function() {
+            searchTable.setFileProfile(this);
+        });               
+        $(document).on('click', '.attachFileRemove', function() {
+            searchTable.removeAttachedFile(this);
+        });               
+        $(document).on('keyup', 'input[class~="filter"]', function() {
+            searchTable.reloadSearch();
+        });
+        $(document).on('click', 'select.specialSearch', function() {
+            searchTable.reloadSpecialSearch();
+        });
+        $(document).on('click', 'btnImage', function() {
+            searchTable.displayLargeImageFullScreen(this);
+        });
 
         this.reloadSearch();
     };
@@ -625,3 +666,11 @@ class SearchTable {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 };
+
+$(function() {
+    constructMainForm = new ConstructMainForm();
+    searchTable = new SearchTable();
+    formControlButton = new FormControlButton();
+    formRule = new FormRule();
+    profilePicLoader = new ProfilePicLoader();
+})

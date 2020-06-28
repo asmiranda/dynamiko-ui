@@ -92,23 +92,11 @@ $(function () {
     allTable = [];
     config = new Config();
     dynamikoFullScreen = new DynamikoFullScreen();
-    uiService = new UIService();
-    leftMenu = new LeftMenu();
-    toggleForm = new ToggleForm();
-    registerDatatable = new RegisterDatatable();
-    uiCache = new UICache();
-    searchCache = new SearchCache();
-    dynaAutoComplete = new DynaAutoComplete();
     dynaButtonAction = new DynaButtonAction();
     childFieldConstructor = new ChildFieldConstructor();
     childFieldAutoComplete = new ChildFieldAutoComplete();
     childTabs = new ChildTabs();
 
-    constructMainForm = new ConstructMainForm();
-    searchTable = new SearchTable();
-    formControlButton = new FormControlButton();
-    formRule = new FormRule();
-    profilePicLoader = new ProfilePicLoader();
     customReport = new CustomReport();
     dataVisualizer = new DataVisualizer();
     widgetChartRule = new WidgetChartRule();

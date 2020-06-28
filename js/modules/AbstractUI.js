@@ -12,4 +12,8 @@ class AbstractUI {
     init() {
         $("#dynamikoMainSearch").hide();
     }
+    
+    loadedCallback(data) {
+        console.log("loadedCallback not implemented.")
+    }
 }

@@ -1,6 +1,33 @@
 class UIService {
     constructor() {
         this.profileName;
+        $(document).on('click', '.manageUserRoles', function() {
+            uiService.manageUserRoles();
+        });
+        $(document).on('click', '.manageDepartment', function() {
+            uiService.manageDepartment();
+        });
+        $(document).on('click', '.manageTaxCategory', function() {
+            uiService.manageTaxCategory();
+        });
+        $(document).on('click', '.manageAccountChart', function() {
+            uiService.manageAccountChart();
+        });
+        $(document).on('click', '.manageBenefit', function() {
+            uiService.manageBenefit();
+        });
+        $(document).on('click', '.manageEmployee', function() {
+            uiService.manageEmployee();
+        });
+        $(document).on('click', '.manageSupplier', function() {
+            uiService.manageSupplier();
+        });
+        $(document).on('click', '.manageProduct', function() {
+            uiService.manageProduct();
+        });
+        $(document).on('click', '.choiceCompany', function() {
+            uiService.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
+        });
     }
 
     initHome() {
@@ -114,6 +141,15 @@ class UIService {
 class LeftMenu {
     constructor() {
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
+        $(document).on('click', '.leftDashboardItem', function() {
+            dashboard.load(this);
+        });
+        $(document).on('click', '.leftMenuItem[report="true"]', function() {
+            mainReport.constructMainReport(this);
+        });
+        $(document).on('click', '.leftMenuItem[report="false"]', function() {
+            leftMenu.loadUI(this);
+        });
 
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -135,7 +171,8 @@ class LeftMenu {
             if (obj.getProp("group")==menu) {
                 var menuId = menu.replace(/ /g,'')
                 counter++;
-                $(".mysidemenu").append('<li><a href="#" class="leftMenuItem '+obj.getProp("name")+'" data="'+obj.getProp("name")+'" report="false"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+                var str = `<li><a href="#" class="leftMenuItem ${obj.getProp("name")}" data="${obj.getProp("name")}" code="${obj.getProp("code")}" report="false"><i class="${obj.getProp("icon")}"></i> <span>${obj.getProp("label")}</span></a></li>`;
+                $(".mysidemenu").append(str);
             }
         });
     }
@@ -150,13 +187,14 @@ class LeftMenu {
 
     loadUI(obj) {
         localStorage.latestModule = $(obj).attr("data");
+        localStorage.latestModuleCode = $(obj).attr("code");
         leftMenu.loadLatestUI();
     }    
 
     loadLatestUI() {
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(localStorage.latestModule);
+        constructMainForm.construct(localStorage.latestModule, localStorage.latestModuleCode);
     }    
 }
 
@@ -267,3 +305,12 @@ class SearchCache {
         }
     }
 }
+
+$(function() {
+    uiService = new UIService();
+    leftMenu = new LeftMenu();
+    toggleForm = new ToggleForm();
+    registerDatatable = new RegisterDatatable();
+    uiCache = new UICache();
+    searchCache = new SearchCache();
+})

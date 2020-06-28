@@ -26,6 +26,10 @@ class AbstractSubUI {
         });
     }
 
+    loadedCallback(data) {
+        console.log("loadedCallback not implemented.")
+    }
+
     initGlEntryListener(context) {
         $(document).on('click', `.editAcctTransaction[parentModule="${context.moduleName}"]`, function() {
             context.editAcctTransaction(this);

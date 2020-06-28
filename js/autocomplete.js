@@ -1,4 +1,22 @@
 class DynaAutoComplete {
+    constructor() {
+        $(document).on('keyup', '.autocomplete', function() {
+            dynaAutoComplete.doAutoComplete(this);
+        });
+        $(document).on('click', '.autocomplete', function() {
+            dynaAutoComplete.doAutoComplete(this);
+        });
+        $(document).on('click', '.autocomplete-choice', function() {
+            dynaAutoComplete.putAutoComplete(this);
+        });
+        $(document).on('click', '.btnCloseAutoComplete', function() {
+            dynaAutoComplete.closeAutoComplete(this);
+        });
+        $(document).on('click', '.btnAutoClearSelected', function() {
+            dynaAutoComplete.clearSelected(this);
+        });
+    }
+
     putAutoComplete(obj) {
         console.log("putAutoComplete Called");
         var value = $(obj).attr("value");
@@ -81,3 +99,7 @@ class DynaAutoComplete {
         $(`.autocomplete[name='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).val("");
     }
 }
+
+$(function() {
+    dynaAutoComplete = new DynaAutoComplete();
+})
