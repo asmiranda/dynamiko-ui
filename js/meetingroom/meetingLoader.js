@@ -8,7 +8,8 @@ class MeetingLoader {
     }
 
     loadMeetings() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GenericMeetingUI/getMeetings`;
+        // var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GenericMeetingUI/getMeetings`; 
+        var url = `${MAIN_SIGNAL_HTTP_URL}/api/signal/getRooms/${sessionStorage.companyCode}`; 
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;
@@ -24,10 +25,9 @@ class MeetingLoader {
         var divSelector = `#myMeetings`;
         $(divSelector).empty();
         $(data).each(function (index, obj) {
-            var conCompany = obj.getProp("conCompany");
-            var conRoom = obj.getProp("conRoom");
-            var name = obj.getProp("name");
-            var str = `<li><a href="#" class="btnChooseMeetingRoom" conCompany="${conCompany}" conRoom="${conRoom}" name="${name}">${name}</a></li>`;
+            var label = obj.getProp("key");
+            var code = obj.getProp("value");
+            var str = `<li><a href="#" class="btnChooseMeetingRoom" conCompany="${sessionStorage.companyCode}" conRoom="${code}" name="${label}">${label}</a></li>`;
             $(divSelector).append(str);
         });
     }

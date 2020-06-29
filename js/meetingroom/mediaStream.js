@@ -2,8 +2,8 @@ class MediaStream {
     constructor() {
         this.localStream;
         this.videoSharing = true;
-        // this.audioSharing = true;
-        this.audioSharing = false;
+        this.audioSharing = true;
+        // this.audioSharing = false;
         this.screenSharing = false;
     }
 
