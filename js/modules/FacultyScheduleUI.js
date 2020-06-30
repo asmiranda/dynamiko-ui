@@ -144,7 +144,7 @@ class FacultyScheduleUI extends AbstractUI {
             var profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;
             $(".profile-username").html(profileName);
 
-            var subjectScheduleProfile = `${data.getProp("subjectCode")} [${data.getProp("days")} ${data.getProp("startTime")} - ${data.getProp("endTime")}]`;
+            var subjectScheduleProfile = data.getProp("schedConfName");
             $(".subjectScheduleProfile").html(subjectScheduleProfile);
 
             var totalStudents = data.getProp("studentCount");

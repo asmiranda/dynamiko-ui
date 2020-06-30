@@ -102,7 +102,7 @@ class P2P {
     }
 
     onTrackScreen(tmpMedia) {
-        // alert("Screen Sharang....");
+        // alert("Screen Sharing....");
         // meetingRoom.log("screen sharing.");
         console.log("remote screen track.")
         var videoElem = document.querySelectorAll(`#activeVideo`)[0];
