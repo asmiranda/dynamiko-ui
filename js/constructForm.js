@@ -14,58 +14,50 @@ class ConstructMainForm {
         $(".quickMainSearcherResult").empty();
     };
 
-    replaceDisplayTabs(recordId) {
-        $(".DisplayTab").each(function(index, obj) {
-            var tabUrl = $(obj).attr("tabUrl");
-            var tabName = $(obj).attr("tabName");
-            var url = `displaytabs/tabs/${constructMainForm.moduleName}/${tabUrl}.html`;
-            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
-                var strHtml = utils.replaceAll(data, "_TABNAME_", tabName);
-                $(obj).replaceWith(strHtml);
-                var displayTabs = document.getElementsByClassName('DisplayTab');
-                if (displayTabs.length == 0) {
-                    fieldGenerator.generate();
-                    constructMainForm.cacheConstruct(recordId);
-                }
-            };
-            var errorCallback = function(jqXHR, textStatus, errorThrown) {
+    loadTab(obj, moduleName, cls, tabUrl, tabName, notFoundCallback) {
+        var url = `displaytabs/tabs/${moduleName}/${tabUrl}.html`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        var successCallback = function(data) {
+            var strHtml = utils.replaceAll(data, "_TABNAME_", tabName);
+            $(obj).replaceWith(strHtml);
+            var displayTabs = document.getElementsByClassName(cls);
+            if (displayTabs.length == 0) {
+                fieldGenerator.generate();
+                constructMainForm.cacheConstruct();
+            }
+        };
+        var errorCallback = function(jqXHR, textStatus, errorThrown) {
+            if (notFoundCallback) {
+                notFoundCallback();
+            }
+            else {
                 if (errorThrown=="Not Found") {
                     $(obj).replaceWith(url + " Not Found!");
                 }
-                var displayTabs = document.getElementsByClassName('DisplayTab');
+                var displayTabs = document.getElementsByClassName(cls);
                 if (displayTabs.length == 0) {
                     fieldGenerator.generate();
-                    constructMainForm.cacheConstruct(recordId);
+                    constructMainForm.cacheConstruct();
                 }
-            };
-            ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
+            }
+        };
+        ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
+    }
+
+    replaceDisplayTabs(recordId) {
+        var context = this;
+        $(".DisplayTab").each(function(index, obj) {
+            var tabUrl = $(obj).attr("tabUrl");
+            var tabName = $(obj).attr("tabName");
+            var module2 = $(obj).attr("module2");
+            context.loadTab(obj, constructMainForm.moduleName, 'DisplayTab', tabUrl, tabName, function() {
+                context.loadTab(obj, module2, 'DisplayTab', tabUrl, tabName);
+            });
         });
         $(".DisplayTabCommon").each(function(index, obj) {
             var tabUrl = $(obj).attr("tabUrl");
             var tabName = $(obj).attr("tabName");
-            var url = `displaytabs/tabs/common/${tabUrl}.html`;
-            var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
-                var strHtml = utils.replaceAll(data, "_TABNAME_", tabName);
-                $(obj).replaceWith(strHtml);
-                var displayTabs = document.getElementsByClassName('DisplayTabCommon');
-                if (displayTabs.length == 0) {
-                    fieldGenerator.generate();
-                    constructMainForm.cacheConstruct(recordId);
-                }
-            };
-            var errorCallback = function(jqXHR, textStatus, errorThrown) {
-                if (errorThrown=="Not Found") {
-                    $(obj).replaceWith(url + " Not Found!");
-                }
-                var displayTabs = document.getElementsByClassName('DisplayTabCommon');
-                if (displayTabs.length == 0) {
-                    fieldGenerator.generate();
-                    constructMainForm.cacheConstruct(recordId);
-                }
-            };
-            ajaxCaller.ajaxGetErr(ajaxRequestDTO, successCallback, errorCallback);
+            context.loadTab(obj, 'common', 'DisplayTabCommon', tabUrl, tabName);
         });
     }
 

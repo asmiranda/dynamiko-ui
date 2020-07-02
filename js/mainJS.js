@@ -2,6 +2,7 @@ $(function () {
     mainForm = '#mainForm';
     mainSearchForm = '#searchTable';
     mainId = 'input.mainId';
+    registeredModules = [];
     QUICK_UPDATER_COUNTER=0;
 
     Object.defineProperty(Object.prototype, "getPropDefault", {
@@ -126,7 +127,6 @@ $(function () {
     hospitalUI = new HospitalUI();
     inventoryUI = new InventoryUI();
     referenceUI = new ReferenceUI();
-    reportUI = new ReportUI();
 
     // #################for sub modules
     purchaseOrderUI = new PurchaseOrderUI();

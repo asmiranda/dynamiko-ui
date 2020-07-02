@@ -6,5 +6,6 @@ class SchoolUI extends AbstractUI {
 
 $(function () {
     schoolUI = new SchoolUI();
+    registeredModules.push("schoolUI");
 });
 

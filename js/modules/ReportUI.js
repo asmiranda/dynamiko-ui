@@ -292,3 +292,7 @@ class ReportUI {
     }
 }
 
+$(function() {
+    reportUI = new ReportUI();
+})
+

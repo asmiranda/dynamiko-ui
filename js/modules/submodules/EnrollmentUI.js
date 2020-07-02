@@ -1,12 +1,12 @@
-class AdmissionUI extends AbstractSubUI {
+class EnrollmentUI extends AbstractSubUI {
     constructor() {
-        super("AdmissionUI");
+        super("EnrollmentUI");
     }
 
     changeModule(evt) {
         console.log("changeModule");
-        admissionUI.loadTopRecords("Admission");
-        reportUI.loadReportList("AdmissionUI");
+        enrollmentUI.loadTopRecords("Enrollment");
+        reportUI.loadReportList("EnrollmentUI");
     }
 
     newRecord() {   
@@ -18,15 +18,15 @@ class AdmissionUI extends AbstractSubUI {
         var level = obj.getPropDefault("gradeLevel", "--");
         var accountNumber = obj.getPropDefault("invoiceNumber", "--");
         var email = obj.getPropDefault("email");
-        var AdmissionId = obj.getPropDefault("AdmissionId");
+        var EnrollmentId = obj.getPropDefault("EnrollmentId");
         var str = `
             <div style="display: flex; flex-wrap: wrap;">
                 <div style="flex: 100%;">
-                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${AdmissionId}" module="${this.moduleName}" tabName="${tabName}">${accountName}</a></span>
+                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${EnrollmentId}" module="${this.moduleName}" tabName="${tabName}">${accountName}</a></span>
                     <span class="pull-right">Level: ${level}</span><br/>
                 </div>
                 <div style="flex: 100%;">
-                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${AdmissionId}" module="${this.moduleName}" tabName="${tabName}">
+                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${EnrollmentId}" module="${this.moduleName}" tabName="${tabName}">
                         Invoice #: ${accountNumber}</a></span>
                     <span class="pull-right" style="font-size: 14px;">${email}</span><br/>
                 </div>
@@ -38,6 +38,6 @@ class AdmissionUI extends AbstractSubUI {
 }
 
 $(function () {
-    admissionUI = new AdmissionUI();
-    registeredModules.push("admissionUI");
+    enrollmentUI = new EnrollmentUI();
+    registeredModules.push("enrollmentUI");
 });

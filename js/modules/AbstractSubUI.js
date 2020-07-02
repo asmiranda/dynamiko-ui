@@ -26,10 +26,6 @@ class AbstractSubUI {
         });
     }
 
-    loadedCallback(data) {
-        console.log("loadedCallback not implemented.")
-    }
-
     initGlEntryListener(context) {
         $(document).on('click', `.editAcctTransaction[parentModule="${context.moduleName}"]`, function() {
             context.editAcctTransaction(this);
@@ -401,6 +397,24 @@ class AbstractSubUI {
             minViewMode: 2,
             maxViewMode: 2
         });
+    }
+
+    loadedCallback(data) {
+        console.log("loadedCallback not implemented.")
+    }
+
+    changeMainId(obj) {
+    }
+
+    doMainSearchData(evt) {
+    }
+
+    changeModule(evt) {
+        console.log("testing");
+    }
+
+    init() {
+        $("#dynamikoMainSearch").hide();
     }
 }
 

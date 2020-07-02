@@ -7,20 +7,20 @@ class GlobalEvents {
             }
         });
         
-        this.registeredModules = [];
-        this.registeredModules.push("hrRequisitionUI");
-        this.registeredModules.push("employeeUI");
-        this.registeredModules.push("payrollScheduleUI");
-        this.registeredModules.push("purchaseOrderUI");
-        this.registeredModules.push("salesOrderUI");
-        this.registeredModules.push("inventoryUI");
-        this.registeredModules.push("accountingUI");
-        this.registeredModules.push("hospitalUI");
-        this.registeredModules.push("governmentUI");
-        this.registeredModules.push("reportUI");
-        this.registeredModules.push("conferenceUI");
-        this.registeredModules.push("facultyMeetingUI");
-        this.registeredModules.push("schoolUI");
+        // this.registeredModules = [];
+        // this.registeredModules.push("hrRequisitionUI");
+        // this.registeredModules.push("employeeUI");
+        // this.registeredModules.push("payrollScheduleUI");
+        // this.registeredModules.push("purchaseOrderUI");
+        // this.registeredModules.push("salesOrderUI");
+        // this.registeredModules.push("inventoryUI");
+        // this.registeredModules.push("accountingUI");
+        // this.registeredModules.push("hospitalUI");
+        // this.registeredModules.push("governmentUI");
+        // this.registeredModules.push("reportUI");
+        // this.registeredModules.push("conferenceUI");
+        // this.registeredModules.push("facultyMeetingUI");
+        // this.registeredModules.push("schoolUI");
 
         $(document).on('changeModule', function(evt) {
             globalEvents.triggerChangeModule(evt);
@@ -243,7 +243,7 @@ class GlobalEvents {
     triggerMainSearch(evt) {
         console.log("triggerMainSearch");
         console.log(evt);
-        $(this.registeredModules).each(function (index, data) {
+        $(registeredModules).each(function (index, data) {
             var areEqual = data.toUpperCase() == evt.detail.text().toUpperCase();
             if (areEqual) {
                 var objEval = data+".doMainSearchData(evt)";
@@ -258,7 +258,7 @@ class GlobalEvents {
         var recordId = dynamikoCache.getLastRecordId();
         $(mainId).val(recordId);
 
-        $(this.registeredModules).each(function (index, data) {
+        $(registeredModules).each(function (index, data) {
             var useModule = null;
             if ($(obj).attr("module")==null || $(obj).attr("module")==undefined) {
                 useModule = localStorage.latestModule;
@@ -278,7 +278,7 @@ class GlobalEvents {
     triggerChangeRecord(obj) {
         console.log("triggerChangeRecord");
         console.log(obj);
-        $(this.registeredModules).each(function (index, data) {
+        $(registeredModules).each(function (index, data) {
             var areEqual = data.toUpperCase() == $(obj).attr("module").toUpperCase();
             if (areEqual) {
                 var objEval = data+".changeMainId(obj)";
