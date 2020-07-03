@@ -1,6 +1,14 @@
 class GradesUI extends AbstractSubUI {
     constructor() {
         super("GradesUI");
+        var context = this;
+        $(document).on('change', `.HiddenAutoComplete[scheduleCode="sectionCode"][module="GradesPerSectionUI"]`, function() {
+            context.changeSchedule(this);
+        });
+    }
+
+    changeSchedule(obj) {
+        console.log("CALLED changeSchedule", obj);
     }
 
     changeModule(evt) {
