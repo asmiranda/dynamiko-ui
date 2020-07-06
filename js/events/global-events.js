@@ -261,7 +261,7 @@ class GlobalEvents {
         $(registeredModules).each(function (index, data) {
             var useModule = null;
             if ($(obj).attr("module")==null || $(obj).attr("module")==undefined) {
-                useModule = localStorage.latestModule;
+                useModule = storage.getLatestModule();
             }
             else {
                 useModule = $(obj).attr("module");
@@ -289,15 +289,18 @@ class GlobalEvents {
 }
 
 $(function () {
-    globalEventsHr = new GlobalEventsHr();    
-    globalEventsHr.initializeGlobalEvents();
+    globalEvents = new GlobalEvents();
+    globalEvents.initializeGlobalEvents();
 
-    globalEventsAccounting = new GlobalEventsAccounting();    
-    globalEventsAccounting.initializeGlobalEvents();
+    // globalEventsHr = new GlobalEventsHr();    
+    // globalEventsHr.initializeGlobalEvents();
 
-    globalEventsGovernment = new GlobalEventsGovernment();    
-    globalEventsGovernment.initializeGlobalEvents();
+    // globalEventsAccounting = new GlobalEventsAccounting();    
+    // globalEventsAccounting.initializeGlobalEvents();
+
+    // globalEventsGovernment = new GlobalEventsGovernment();    
+    // globalEventsGovernment.initializeGlobalEvents();
     
-    globalEventsOthers = new GlobalEventsOthers();    
-    globalEventsOthers.initializeGlobalEvents();
+    // globalEventsOthers = new GlobalEventsOthers();    
+    // globalEventsOthers.initializeGlobalEvents();
 })

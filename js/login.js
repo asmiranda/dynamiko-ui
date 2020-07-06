@@ -15,9 +15,10 @@ function LoginJS() {
             contentType: 'application/json',
             success: function (data) {
                 console.log(data.token);
-                sessionStorage.uname = context.uname;
-                sessionStorage.token = data.token;
-                sessionStorage.companyCode = data.companyCode;
+                storage.storeAccountToken(uname, data);
+                // sessionStorage.uname = context.uname;
+                // sessionStorage.token = data.token;
+                // sessionStorage.companyCode = data.companyCode;
                 //redirect
                 setTimeout(function() {
                     window.location.href = redUrl;

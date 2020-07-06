@@ -74,7 +74,7 @@ class ConstructMainForm {
                 constructMainForm.loadRecord(recordId);
             }
         }
-        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => localStorage.latestModule } }))
+        document.dispatchEvent(new CustomEvent('changeModule', { bubbles: true, detail: { text: () => storage.getLatestModule() } }))
 
         formRule.init(constructMainForm.moduleName);
         profilePicLoader.init(constructMainForm.moduleName);
@@ -98,7 +98,7 @@ class ConstructMainForm {
                 utils.loadJsonAddInfo(data);
     
                 childTabs.reloadAllDisplayTabs();
-                localStorage.latestModuleId = recordId;
+                storage.setLatestModuleId(recordId);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
@@ -107,7 +107,7 @@ class ConstructMainForm {
             utils.loadJsonAddInfo(searchData);
 
             childTabs.reloadAllDisplayTabs();
-            localStorage.latestModuleId = recordId;
+            storage.setLatestModuleId(recordId);
         }
     }
 }
@@ -378,7 +378,7 @@ class FormControlButton {
         var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function(data) {
-            localStorage.latestModule = moduleName;
+            storage.setLatestModule(moduleName);
             registerDatatable.clearRegister();
         
             constructMainForm.construct(moduleName);
@@ -450,7 +450,7 @@ class SearchTable {
                 for (const [key, value] of dynaRegister.saasMap) {
                     value.loadToForm(searchTable);
                 }
-                localStorage.latestModuleId = mainDataTable.selectedId;
+                storage.setLatestModuleId(mainDataTable.selectedId);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
         }
@@ -462,7 +462,7 @@ class SearchTable {
             for (const [key, value] of dynaRegister.saasMap) {
                 value.loadToForm(searchTable);
             }
-            localStorage.latestModuleId = mainDataTable.selectedId;
+            storage.setLatestModuleId(mainDataTable.selectedId);
         }
     };
 

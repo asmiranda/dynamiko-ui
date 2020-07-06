@@ -69,14 +69,14 @@ class UIService {
 
     loadUI(myui) {
         var moduleName = myui;
-        localStorage.latestModule = moduleName;
+        Storage.putLatestModule(moduleName);
         registerDatatable.clearRegister();
     
         constructMainForm.construct(moduleName);
     }    
 
     initCompany() {
-        var url = MAIN_URL + '/api/ui/any/company';
+        var url = MAIN_URL + '/api/ui/'+sessionStorage.companyCode+'/company';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         $(".chooseCompanyList").empty();
         var successCallback = function(data) {
@@ -106,7 +106,7 @@ class UIService {
         $("#useCompany").empty();
         $("#useCompany").append(useCompanyStr);
 
-        if (localStorage.latestModule) {
+        if (storage.getLatestModule()) {
             leftMenu.loadLatestUI();
         }
     }
@@ -123,7 +123,7 @@ class UIService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/ui/any/profile';
+        var url = MAIN_URL + '/api/ui/'+sessionStorage.companyCode+'/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function(data) {
             console.log("profile ==");
@@ -186,15 +186,15 @@ class LeftMenu {
     }
 
     loadUI(obj) {
-        localStorage.latestModule = $(obj).attr("data");
-        localStorage.latestModuleCode = $(obj).attr("code");
+        storage.putLatestModule($(obj).attr("data"));
+        storage.putLatestModuleCode($(obj).attr("code"));
         leftMenu.loadLatestUI();
     }    
 
     loadLatestUI() {
         registerDatatable.clearRegister();
     
-        constructMainForm.construct(localStorage.latestModule, localStorage.latestModuleCode);
+        constructMainForm.construct(storage.getLatestModule(), storage.getLatestModuleCode());
     }    
 }
 

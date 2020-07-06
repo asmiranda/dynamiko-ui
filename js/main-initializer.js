@@ -3,3 +3,8 @@ class MainInitializer {
         uiService.initHome();
     }
 } 
+
+$(function() {
+    mainInitializer = new MainInitializer();
+    mainInitializer.initialize();
+})

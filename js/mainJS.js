@@ -64,34 +64,8 @@ $(function () {
         //this keeps jquery happy
         enumerable: false
     });
-    
-    lStorage = {
-        set: function (key, value) {
-            window.localStorage.setItem( key, JSON.stringify(value) );
-        },
-        get: function (key) {
-            try {
-                return JSON.parse( window.localStorage.getItem(key) );
-            } catch (e) {
-                return null;
-            }
-        }
-    };
-    sStorage = {
-        set: function (key, value) {
-            window.sessionStorage.setItem( key, JSON.stringify(value) );
-        },
-        get: function (key) {
-            try {
-                return JSON.parse( window.sessionStorage.getItem(key) );
-            } catch (e) {
-                return null; 
-            }
-        }
-    };
 
     allTable = [];
-    config = new Config();
     dynamikoFullScreen = new DynamikoFullScreen();
     dynaButtonAction = new DynaButtonAction();
     childFieldConstructor = new ChildFieldConstructor();
@@ -156,11 +130,4 @@ $(function () {
     realEstateBuildingPermitUI = new RealEstateBuildingPermitUI();
     realEstateElectricalPermitUI = new RealEstateElectricalPermitUI();
     realEstatePlumbingPermitUI = new RealEstatePlumbingPermitUI();
-
-    // #####################Initializers
-    mainInitializer = new MainInitializer();
-    mainInitializer.initialize();
-
-    globalEvents = new GlobalEvents();
-    globalEvents.initializeGlobalEvents();
 });
