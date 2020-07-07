@@ -213,94 +213,94 @@
     <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-
-  </div>
-  <!-- ./wrapper -->
-
-  <div style="position: absolute; top: 50px; right: 10px; display: flex;"> 
-    <div style="flex: 1;">
-      <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;" autoplay playsinline></video>
+    <div style="position: absolute; top: 50px; right: 10px; display: flex;"> 
+      <div style="flex: 1;">
+        <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;" autoplay playsinline></video>
+      </div>
+      <div style="flex: 1; margin-left: 10px;">
+        <a href="#" class="pull-right btnToggleMiniVideo">
+          <i class="glyphicon glyphicon-facetime-video icon-flipped"></i><span style="padding-left: 15px;"></span>
+        </a>
+      </div>
     </div>
-    <div style="flex: 1; margin-left: 10px;">
-      <a href="#" class="pull-right btnToggleMiniVideo">
-        <i class="glyphicon glyphicon-facetime-video icon-flipped"></i><span style="padding-left: 15px;"></span>
-      </a>
-    </div>
-  </div>
-
-  <div class="allModal" style="display: none;">
-    <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-            <h3 class="modal-title autoModalReportTitle">Report Viewer</h3>
-          </div>
-          <div class="modal-body">
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <a href="#" class="pull-right btn-box-tool btnCustomReportFullScreen" report="AutoReport">Full
-                  Screen</a>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;" report="AutoReport"
-                    webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
+  
+    <div class="allModal" style="display: none;">
+      <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+              <h3 class="modal-title autoModalReportTitle">Report Viewer</h3>
+            </div>
+            <div class="modal-body">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <a href="#" class="pull-right btn-box-tool btnCustomReportFullScreen" report="AutoReport">Full
+                    Screen</a>
                 </div>
-              </div>
-              <div class="box-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="box-body">
+                  <div class="row">
+                    <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;" report="AutoReport"
+                      webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
+                  </div>
+                </div>
+                <div class="box-footer text-center">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div id="calendarQuickUpdater">
-      <div class="input-group date">
-        <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
-          name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput"
-          style="width: 100px;" callback="##CALLBACK##">
-        <div class="input-group-addon displayEdit">
-          <i class="fa fa-calendar"></i>
+      <div id="calendarQuickUpdater">
+        <div class="input-group date">
+          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
+            name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput"
+            style="width: 100px;" callback="##CALLBACK##">
+          <div class="input-group-addon displayEdit">
+            <i class="fa fa-calendar"></i>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="textQuickUpdater">
-      <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
-        name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;"
-        callback="##CALLBACK##">
-    </div>
-    <div id="autoCompleteQuickUpdater">
-      <div class="input-group">
+      <div id="textQuickUpdater">
         <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
-          name="##FIELDNAME##" autoName="##FIELDNAME##" type="text"
-          class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;"
+          name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;"
           callback="##CALLBACK##">
-        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
       </div>
-      <div class="input-group">
-        <select quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
-          fieldName="##FIELDNAME##" autoName="##FIELDNAME##" size="3"
-          class="form-control autoCompleteQuickUpdaterSelect" style="width: 250px;" callback="##CALLBACK##">
-        </select>
+      <div id="autoCompleteQuickUpdater">
+        <div class="input-group">
+          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
+            name="##FIELDNAME##" autoName="##FIELDNAME##" type="text"
+            class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;"
+            callback="##CALLBACK##">
+          <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+        </div>
+        <div class="input-group">
+          <select quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+            fieldName="##FIELDNAME##" autoName="##FIELDNAME##" size="3"
+            class="form-control autoCompleteQuickUpdaterSelect" style="width: 250px;" callback="##CALLBACK##">
+          </select>
+        </div>
+        <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##"
+          mainmodule="##MODULE##" autoNameField="##FIELDNAME##">
       </div>
-      <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##"
-        mainmodule="##MODULE##" autoNameField="##FIELDNAME##">
-    </div>
-    <div id="quickMainSearcher">
-      <div class="input-group" style="min-width: 350px;">
-        <input module="##MODULE##" type="text" placeholder="Please type for search"
-          class="form-control displayEdit quickMainSearcherInput">
-        <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
-      </div>
-      <div class="box-body">
-        <div module="##MODULE##" class="quickMainSearcherResult" style="max-height: 700px; overflow-y: auto;">
+      <div id="quickMainSearcher">
+        <div class="input-group" style="min-width: 350px;">
+          <input module="##MODULE##" type="text" placeholder="Please type for search"
+            class="form-control displayEdit quickMainSearcherInput">
+          <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+        </div>
+        <div class="box-body">
+          <div module="##MODULE##" class="quickMainSearcherResult" style="max-height: 700px; overflow-y: auto;">
+          </div>
         </div>
       </div>
     </div>
+  
   </div>
+  <!-- ./wrapper -->
+
 
 
   <!-- jQuery 3 -->
