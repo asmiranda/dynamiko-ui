@@ -253,8 +253,13 @@ class AbstractSubUI {
             utils.hideSpin();
             autoSaveSubRecord = true;
             context.initFieldListener();
+            context.onProfileLoaded(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    onProfileLoaded(data) {
+        console.log("On Profile Loaded called.");
     }
 
     arrangeRecordProfile(data, clsName) {

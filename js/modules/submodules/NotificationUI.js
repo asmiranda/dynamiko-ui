@@ -3,6 +3,20 @@ class NotificationUI extends AbstractSubUI {
         super("NotificationUI");
     }
 
+    onProfileLoaded(data) {
+        console.log("On Profile Loaded called.", data);
+
+        var recordId = data.NotificationId;
+        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/NotificationUI/getMessageThread/${recordId}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        var successFunction = function(ret) {
+            console.log("onProfileLoaded", url, ret);
+            $("#messageThread").html(ret.value);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
     newRecord() {   
         this.clearModuleInputs(this.moduleName);
     }
@@ -18,15 +32,10 @@ class NotificationUI extends AbstractSubUI {
         var NotificationId = obj.getProp("NotificationId");
         var str = `
             <div style="display: flex; flex-wrap: wrap;">
-                <div style="flex: 100%;">
-                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${NotificationId}" module="${this.moduleName}" tabName="${tabName}">${fromEmail}</a></span>
-                    <span class="pull-right" style="font-size: 14px;">${receivedDate}</span><br/>
-                </div>
-                <div style="flex: 100%;">
-                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${NotificationId}" module="${this.moduleName}" tabName="${tabName}">
-                        To: ${emailReceiver}</a></span>
-                    <p>${message}...</p>
-                </div>
+                <div style="flex: 2;"><a href="#" class="${this.selectSearchRecord}" recordId="${NotificationId}" module="${this.moduleName}" tabName="${tabName}">${fromEmail}</a></div>
+                <div style="flex: 2;">${emailReceiver}</div>
+                <div style="flex: 1;">${receivedDate}</div>
+                <div style="flex: 4;">${message}</div>
             </div>
             <hr style="margin-top: 5px; width: 98%">
         `;
