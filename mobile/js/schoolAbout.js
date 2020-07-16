@@ -17,12 +17,12 @@ class SchoolAbout {
 
         if (navigator.appVersion.includes('Android')) {
             document.addEventListener("message", function (data) {
-                alert("you are in android OS " + data);
+                document.getElementById("objectRequest").innerHTML = "you are in android OS " + data;
             });
         }
         else {
             window.addEventListener("message", function (data) {
-                alert("you are in android OS " + data);
+                document.getElementById("objectRequest").innerHTML = "you are in IOS " + data;
             });
         }
     }
