@@ -4,13 +4,14 @@ class SchoolAbout {
     }
 
     loadAnnouncements(data) {
-        utils.showSpin();
+        alert("called loadAnnouncements 1");
         var context = this;
         var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
+        alert(`called loadAnnouncements 2 ${url}`);
         var successFunction = function (data) {
-            console.log("loadAnnouncements", url, data);
+            alert(`called loadAnnouncements 3 ${url} ${data}`);
             $("#announcementList").empty();
             $(data).each(function (index, obj) {
                 var SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
@@ -34,9 +35,10 @@ class SchoolAbout {
                 `;
                 $("#announcementList").append(str);
             });
-            utils.hideSpin();
         };
+        alert(`called loadAnnouncements 4`);
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        alert(`called loadAnnouncements 5`);
     }
 
     onReactMessage(data) {
