@@ -5,23 +5,22 @@ class SchoolAbout {
 
     loadAnnouncements(data) {
         alert("called loadAnnouncements 1");
-        var context = this;
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-
-        alert(`called loadAnnouncements 2 ${url}`);
-        var successFunction = function (data) {
-            alert(`called loadAnnouncements 3 ${url} ${data}`);
+        let url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
+        alert(`called loadAnnouncements 2`);
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        alert(`called loadAnnouncements 3`);
+        let successFunction = function (data) {
+            alert(`called loadAnnouncements 4 ${url} ${data}`);
             $("#announcementList").empty();
             $(data).each(function (index, obj) {
-                var SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
-                var announcement = obj.getPropDefault("announcement", "--");
-                var announcementDate = obj.getPropDefault("announcementDate", "--");
-                var announcementUrl = obj.getPropDefault("announcementUrl", "--");
-                var imageCss = "width: 444px; height: 350px;";
-                var boxCss = "width: 500px;";
-                var profileUrl = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
-                var str = `
+                let SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
+                let announcement = obj.getPropDefault("announcement", "--");
+                let announcementDate = obj.getPropDefault("announcementDate", "--");
+                let announcementUrl = obj.getPropDefault("announcementUrl", "--");
+                let imageCss = "width: 444px; height: 350px;";
+                let boxCss = "width: 500px;";
+                let profileUrl = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let str = `
                     <div class="box box-widget" style="margin: 15px; ${boxCss}">
                         <div class="box-body">
                             <img class="img-responsive pad" src="${profileUrl}" alt="Photo" style="${imageCss}">
@@ -36,7 +35,6 @@ class SchoolAbout {
                 $("#announcementList").append(str);
             });
         };
-        alert(`called loadAnnouncements 4`);
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         alert(`called loadAnnouncements 5`);
     }
