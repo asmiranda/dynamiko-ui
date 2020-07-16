@@ -9,8 +9,7 @@ class SchoolAbout {
 
     init() {
         let context = this;
-        let request = new MobileRequestDTO("Loaded", "");
-        window.ReactNativeWebView.postMessage(JSON.stringify(request));
+        window.ReactNativeWebView.postMessage("Loaded");
 
         window.addEventListener("message", message => {
             context.onReactMessage(message.data);
