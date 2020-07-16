@@ -5,6 +5,8 @@ class SchoolAbout {
 
     onReactMessage(receivedMessage) {
         console.log("receivedMessage", receivedMessage.key, receivedMessage.value)
+        document.getElementById("callingMobile").innerHTML = receivedMessage.key;
+        document.getElementById("mobileResponse").innerHTML = receivedMessage.value;
     }
 
     init() {
