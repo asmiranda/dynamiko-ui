@@ -9,5 +9,5 @@ class SchoolHome {
 }
 
 $(function () {
-    var schoolHome = new SchoolHome();
+    schoolHome = new SchoolHome();
 })

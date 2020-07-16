@@ -9,5 +9,5 @@ class SchoolSchedules {
 }
 
 $(function () {
-    var schoolSchedules = new SchoolSchedules();
+    schoolSchedules = new SchoolSchedules();
 })

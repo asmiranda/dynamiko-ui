@@ -14,5 +14,5 @@ class SchoolAbout {
 }
 
 $(function () {
-    var schoolAbout = new SchoolAbout();
+    schoolAbout = new SchoolAbout();
 })
