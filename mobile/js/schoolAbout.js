@@ -11,9 +11,20 @@ class SchoolAbout {
     }
 
     init() {
-        var context = this;
+        let context = this;
         window.ReactNativeWebView.postMessage("loaded");
-        window.addEventListener("message", receivedMessage => { context.onReactMessage(receivedMessage) });
+        // window.addEventListener("message", receivedMessage => { context.onReactMessage(receivedMessage) });
+
+        if (navigator.appVersion.includes('Android')) {
+            document.addEventListener("message", function (data) {
+                alert("you are in android OS " + data);
+            });
+        }
+        else {
+            window.addEventListener("message", function (data) {
+                alert("you are in android OS " + data);
+            });
+        }
     }
 }
 
