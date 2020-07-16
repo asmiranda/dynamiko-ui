@@ -4,21 +4,13 @@ class SchoolAbout {
     }
 
     onReactMessage(receivedMessage) {
-        console.log("receivedMessage", receivedMessage.key, receivedMessage.value);
+        console.log("receivedMessage", receivedMessage.key, receivedMessage.value)
     }
 
     init() {
         var context = this;
-        let postMessage = {};
-        postMessage["key"] = "loaded";
-        postMessage["value"] = "loaded";
-
-        window.ReactNativeWebView.postMessage(JSON.stringify(postMessage));
+        window.ReactNativeWebView.postMessage("loaded");
         window.addEventListener("message", receivedMessage => { context.onReactMessage(receivedMessage) });
-        // document.getElementById("callingMobile").innerHTML = "The javascript works?";
-        // window.addEventListener("message", message => {
-        //     document.getElementById("mobileResponse").innerHTML += `${message.data}`;
-        // });
     }
 }
 
