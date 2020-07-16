@@ -3,28 +3,18 @@ class SchoolAbout {
 
     }
 
-    onReactMessage(receivedMessage) {
-        document.getElementById("objectRequest").innerHTML = receivedMessage;
-        document.getElementById("stringify").innerHTML = JSON.stringify(receivedMessage);
-        document.getElementById("callingMobile").innerHTML = receivedMessage.key;
-        document.getElementById("mobileResponse").innerHTML = receivedMessage.value;
+    onReactMessage(data) {
+        document.getElementById("mobileResponse").innerHTML = data;
     }
 
     init() {
-        let context = this;
-        window.ReactNativeWebView.postMessage("loaded");
-        // window.addEventListener("message", receivedMessage => { context.onReactMessage(receivedMessage) });
+        var context = this;
+        window.ReactNativeWebView.postMessage("Loaded");
 
-        if (navigator.appVersion.includes('Android')) {
-            document.addEventListener("message", function (data) {
-                document.getElementById("objectRequest").innerHTML = "you are in android OS " + data;
-            });
-        }
-        else {
-            window.addEventListener("message", function (data) {
-                document.getElementById("objectRequest").innerHTML = "you are in IOS " + data;
-            });
-        }
+        window.addEventListener("message", message => {
+            context.onReactMessage(message.data);
+            // document.getElementById("mobileResponse").innerHTML += `${message.data}`;
+        });
     }
 }
 
