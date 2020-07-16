@@ -4,22 +4,26 @@ class SchoolAbout {
     }
 
     loadAnnouncements(data) {
-        alert("called loadAnnouncements 1");
         let url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
-        alert(`called loadAnnouncements 2`);
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        alert(`called loadAnnouncements 3`);
         let successFunction = function (data) {
-            alert(`called loadAnnouncements 4 ${url} ${data}`);
             $("#announcementList").empty();
             $(data).each(function (index, obj) {
+                alert(`called loadAnnouncements 11`);
                 let SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
+                alert(`called loadAnnouncements 12`);
                 let announcement = obj.getPropDefault("announcement", "--");
+                alert(`called loadAnnouncements 13`);
                 let announcementDate = obj.getPropDefault("announcementDate", "--");
+                alert(`called loadAnnouncements 14`);
                 let announcementUrl = obj.getPropDefault("announcementUrl", "--");
+                alert(`called loadAnnouncements 15`);
                 let imageCss = "width: 444px; height: 350px;";
+                alert(`called loadAnnouncements 16`);
                 let boxCss = "width: 500px;";
+                alert(`called loadAnnouncements 17`);
                 let profileUrl = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                alert(`called loadAnnouncements 18`);
                 let str = `
                     <div class="box box-widget" style="margin: 15px; ${boxCss}">
                         <div class="box-body">
@@ -32,11 +36,11 @@ class SchoolAbout {
                         </div>
                     </div>
                 `;
+                alert(`called loadAnnouncements 19`);
                 $("#announcementList").append(str);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-        alert(`called loadAnnouncements 5`);
     }
 
     onReactMessage(data) {
