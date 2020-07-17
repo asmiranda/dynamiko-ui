@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamiko</title>
 
     <!-- Bootstrap 3.3.7 -->
@@ -24,26 +25,28 @@
 
     <!-- datepicker -->
     <script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="../js/mainObj.js"></script>
+    <script src="../js/ajaxCaller.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="js/mobileConfig.js"></script>
 </head>
 
 <body>
     <div id="main">
-        Home Dynamiko School : Todo
+        <h1>Home Dynamiko School : Todo</h1>
     </div>
+    <h1 id="mobileResponse">Sample</h1>
+    <div id="announcementList"></div>
     <!-- ./wrapper -->
 
     <link rel="stylesheet" href="css/mobile.css">
-    <script src="../js/config.js"></script>
     <script src="js/schoolHome.js"></script>
 
     <script>
         $(function () {
             sessionStorage.clear();
-            var vtoken = utils.getUrlParamValue(window.location.href, "token");
-
-            $("#main").html(vtoken);
-            console.log(`vtoken == ${vtoken}`);
-            schoolHome.init(vtoken);
+            schoolHome.init();
         });
     </script>
 </body>
