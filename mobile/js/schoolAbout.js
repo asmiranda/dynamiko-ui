@@ -35,7 +35,6 @@ class SchoolAbout {
     }
 
     onReactMessage(data) {
-        document.getElementById("mobileResponse").innerHTML = data;
         sessionStorage.companyCode = "TEST";
         sessionStorage.token = data;
         this.loadAnnouncements("");

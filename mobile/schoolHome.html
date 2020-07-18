@@ -28,17 +28,16 @@
     <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
 
     <!-- jQuery 3 -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
-
     <!-- Bootstrap 3.3.7 -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
     <script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-
     <!-- datepicker -->
     <script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
@@ -60,10 +59,10 @@
 
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">Your Modules</h3>
+                <h3 class="box-title">My Modules</h3>
             </div>
             <div class="box-body">
-                <div style="display: flex; flex-wrap: wrap;">
+                <div style="display: flex; flex-wrap: wrap;" id="moduleList">
                     <div style="flex: 45%">
                         <!-- small box -->
                         <div class="small-box bg-aqua" style="margin: 10px;">
@@ -165,8 +164,7 @@
 
     <script>
         $(function () {
-            sessionStorage.clear();
-            // schoolHome.init();
+            schoolHome.init();
         });
     </script>
 </body>

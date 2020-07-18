@@ -35,13 +35,13 @@ class SchoolHome {
     }
 
     onReactMessage(data) {
-        document.getElementById("mobileResponse").innerHTML = data;
         sessionStorage.companyCode = "TEST";
         sessionStorage.token = data;
         this.loadAnnouncements("");
     }
 
     init() {
+        alert("12");
         let context = this;
         window.ReactNativeWebView.postMessage("Loaded");
 
