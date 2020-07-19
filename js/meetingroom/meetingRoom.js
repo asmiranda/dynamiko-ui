@@ -1,67 +1,67 @@
 class MeetingRoom {
     constructor() {
-        $(document).on('click', `#btnSendChatMessage`, function() {
+        $(document).on('click', `#btnSendChatMessage`, function () {
             meetingRoom.sendChatMessage(this);
         });
-        $(document).on('keyup', `#txtChatMessage`, function(e) {
+        $(document).on('keyup', `#txtChatMessage`, function (e) {
             if (e.key === 'Enter') {
                 meetingRoom.sendChatMessage(this);
             }
         });
-        $(document).on('click', `.changeSendTo`, function() {
+        $(document).on('click', `.changeSendTo`, function () {
             meetingRoom.changeSendTo(this);
         });
-        
 
-        $(document).on('click', `.btnMeetingSignOut`, function() {
+
+        $(document).on('click', `.btnMeetingSignOut`, function () {
             meetingRoom.clickSignOut(this);
         });
-        $(document).on('click', `.btnEndMeeting`, function() {
+        $(document).on('click', `.btnEndMeeting`, function () {
             meetingRoom.clickEndMeeting(this);
         });
 
-        $(document).on('click', `.btnShareVideo`, function() {
+        $(document).on('click', `.btnShareVideo`, function () {
             meetingRoom.clickShareVideo(this);
         });
-        $(document).on('click', `.btnUnShareVideo`, function() {
+        $(document).on('click', `.btnUnShareVideo`, function () {
             meetingRoom.clickUnShareVideo(this);
         });
-        $(document).on('click', `.btnShareAudio`, function() {
+        $(document).on('click', `.btnShareAudio`, function () {
             meetingRoom.clickShareAudio(this);
         });
-        $(document).on('click', `.btnUnShareAudio`, function() {
+        $(document).on('click', `.btnUnShareAudio`, function () {
             meetingRoom.clickUnShareAudio(this);
         });
-        $(document).on('click', `.btnShareContent`, function() {
+        $(document).on('click', `.btnShareContent`, function () {
             meetingRoom.clickShareContent(this);
         });
-        $(document).on('click', `.btnUnShareContent`, function() {
+        $(document).on('click', `.btnUnShareContent`, function () {
             meetingRoom.clickUnShareContent(this);
         });
 
-        $(document).on('click', `.miniVideoStream`, function() {
+        $(document).on('click', `.miniVideoStream`, function () {
             meetingRoom.focusMiniVideoStream(this);
         });
 
-        $(document).on('click', `.btnToggleChat`, function() {
+        $(document).on('click', `.btnToggleChat`, function () {
             meetingRoom.toggleChat(this);
         });
-        $(document).on('click', `.btnToggleOtherUsers`, function() {
+        $(document).on('click', `.btnToggleOtherUsers`, function () {
             meetingRoom.toggleOtherUsers(this);
         });
 
-        $(document).on('click', `.btnMinimizeToRight`, function() {
+        $(document).on('click', `.btnMinimizeToRight`, function () {
             meetingRoom.minimizeToRight(this);
         });
-        $(document).on('click', `.btnToggleMiniVideo`, function() {
+        $(document).on('click', `.btnToggleMiniVideo`, function () {
             meetingRoom.toggleMiniVideo(this);
         });
-        $(document).on('click', `#myVideoMinimize`, function() {
+        $(document).on('click', `#myVideoMinimize`, function () {
             meetingRoom.myVideoMaximize(this);
         });
-        
+
     }
-    
+
     myVideoMaximize() {
         alertConfirmActiveModal.toggle();
         $("#myVideoMinimize").hide();
@@ -80,7 +80,7 @@ class MeetingRoom {
         var minimizeVideoElem = document.querySelectorAll(`video#myVideoMinimize`)[0];
 
         minimizeVideoElem.srcObject = activeVideoElem.srcObject;
-        
+
         alertConfirmActiveModal.toggle();
         $("#myVideoMinimize").show();
     }
@@ -94,7 +94,7 @@ class MeetingRoom {
     }
 
     toggleChat() {
-        if ($("#myChatBox").is(":visible")){
+        if ($("#myChatBox").is(":visible")) {
             $("#myChatBox").hide();
         } else {
             $("#myChatBox").show();
@@ -136,7 +136,7 @@ class MeetingRoom {
             chatMessageWriter.writeToChatFromSender(sentFrom, msg);
         }
     }
-    
+
     messageCallback(msg) {
         var context = this;
         console.log("Got message", msg.data);
@@ -146,44 +146,44 @@ class MeetingRoom {
         var from = jsonMsg.from;
         var data = jsonMsg.data;
 
-        if ("do-end-meeting"==action) {
+        if ("do-end-meeting" == action) {
             meetingRoom.doEndMeeting(from);
         }
-        else if ("do-sign-out"==action) {
+        else if ("do-sign-out" == action) {
             meetingRoom.doSignOut(from);
         }
-        else if ("do-active-users"==action) {
+        else if ("do-active-users" == action) {
             meetingRoom.doActiveUsers(data);
         }
-        else if ("do-offer"==action) {
+        else if ("do-offer" == action) {
             meetingRoom.doOffer(from, data);
         }
-        else if ("do-offer-change"==action) {
+        else if ("do-offer-change" == action) {
             meetingRoom.doOfferChange(from, data);
         }
-        else if ("do-answer"==action) {
+        else if ("do-answer" == action) {
             meetingRoom.doAnswer(from, data);
         }
-        else if ("do-answer-change"==action) {
+        else if ("do-answer-change" == action) {
             meetingRoom.doAnswerChange(from, data);
         }
-        else if ("do-ice"==action) {
+        else if ("do-ice" == action) {
             meetingRoom.doIce(from, data);
         }
     }
 
     join(roomName, conCompany, conRoom) {
         this.roomName = roomName;
-        this.conCompany = conCompany; 
+        this.conCompany = conCompany;
         this.conRoom = conRoom;
         var title = `Joining Room ${roomName} [C${conCompany} - R${conRoom}]`;
         console.log(title);
         var context = this;
 
         var successRoomPopup = function (data) {
-            mediaStream.initMedia(function() {
+            mediaStream.initMedia(function () {
                 roomSignal.init(conCompany, conRoom, context.messageCallback);
-                roomSignal.send("req-join", "all", PROFILENAME);
+                roomSignal.send("req-join", "all", sessionStorage.profileName);
             });
         }
         var successCallback = function (data) {
@@ -198,25 +198,25 @@ class MeetingRoom {
         this.conRoom = conRoom;
         var context = this;
 
-        mediaStream.initMedia(function() {
+        mediaStream.initMedia(function () {
             roomSignal.init(conCompany, conRoom, context.messageCallback);
-            roomSignal.send("req-join", "all", PROFILENAME);
+            roomSignal.send("req-join", "all", sessionStorage.profileName);
         });
     }
-    
+
     doActiveUsers(data) {
         var context = this;
         console.log(data);
         $(".selectChatTo").empty();
         $(".selectChatTo").append(`<option value="All">All</option>`);
         allP2P = new Map();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var email = obj.key;
-            if  (email!=USERNAME) {
+            if (email != sessionStorage.uname) {
                 var profile = obj.value;
                 var opt = `<option value="${email}">${profile}</option>`;
                 $(".selectChatTo").append(opt);
-    
+
                 context.newP2P(email, profile);
             }
         });
@@ -227,8 +227,8 @@ class MeetingRoom {
         var p2p = new P2P(email, profile, context.dataChannelCallback);
         allP2P.set(email, p2p);
         p2p.initP2P(
-            function(event) {
-                if (event.candidate!=null) {
+            function (event) {
+                if (event.candidate != null) {
                     roomSignal.send("req-ice", email, JSON.stringify({ 'ice': event.candidate }));
                 }
                 else {
@@ -237,7 +237,7 @@ class MeetingRoom {
             }
         );
         p2p.startOffer(
-            function() {
+            function () {
                 roomSignal.send("req-offer", email, JSON.stringify({ 'sdp': p2p.peerConnection.localDescription }));
             }
         );
@@ -254,9 +254,9 @@ class MeetingRoom {
         var context = this;
         var p2p = new P2P(email, profile, context.dataChannelCallback);
         p2p.initP2P();
-        p2p.doOffer(data, function() {
+        p2p.doOffer(data, function () {
             console.log(`Sending answer to ${email} with sdp = `, p2p.peerConnection.localDescription);
-            roomSignal.send("req-answer", email, JSON.stringify({ 'sdp': p2p.peerConnection.localDescription}));
+            roomSignal.send("req-answer", email, JSON.stringify({ 'sdp': p2p.peerConnection.localDescription }));
             console.log(`Answer sent.`);
         });
         allP2P.set(email, p2p);
@@ -264,9 +264,9 @@ class MeetingRoom {
 
     doOfferChange(from, data) {
         var p2p = allP2P.get(from);
-        p2p.doOffer(data, function() {
+        p2p.doOffer(data, function () {
             console.log(`Sending change answer to ${from} with sdp = `, p2p.peerConnection.localDescription);
-            var strMessage = JSON.stringify({ 'sdp': p2p.peerConnection.localDescription});
+            var strMessage = JSON.stringify({ 'sdp': p2p.peerConnection.localDescription });
 
             var chunkSize = 2000;
             dataChunkSender.sendToSocket(roomSignal, chunkSize, 'req-answer-change', from, strMessage);
@@ -294,23 +294,23 @@ class MeetingRoom {
     };
 
     clickUnShareVideo() {
-        mediaStream.localStream.getVideoTracks()[0].enabled=false;
+        mediaStream.localStream.getVideoTracks()[0].enabled = false;
     }
 
     clickShareVideo() {
-        mediaStream.localStream.getVideoTracks()[0].enabled=true;
+        mediaStream.localStream.getVideoTracks()[0].enabled = true;
     }
 
     clickUnShareAudio() {
-        mediaStream.localStream.getAudioTracks()[0].enabled=false;
+        mediaStream.localStream.getAudioTracks()[0].enabled = false;
     }
 
     clickShareAudio() {
-        mediaStream.localStream.getAudioTracks()[0].enabled=true;
+        mediaStream.localStream.getAudioTracks()[0].enabled = true;
     }
 
     clickUnShareContent() {
-        screenShare.localStream.getVideoTracks()[0].enabled=false;
+        screenShare.localStream.getVideoTracks()[0].enabled = false;
     }
 
     clickShareContent() {
@@ -336,7 +336,7 @@ class MeetingRoom {
         $(`#messageAlert`).html(`${from} signed out.`);
 
         var p2p = allP2P.get(from);
-        if (p2p!=null) {
+        if (p2p != null) {
             p2p.removeBox();
         }
         allP2P.delete(from);

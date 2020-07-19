@@ -3,10 +3,10 @@ class TasksWidget {
         var context = this;
         console.log("Testing Task Widget");
 
-        $(document).on('click', '.btnStartTask', function() {
+        $(document).on('click', '.btnStartTask', function () {
             context.startTask();
         });
-        $(document).on('click', '.taskLinker', function() {
+        $(document).on('click', '.taskLinker', function () {
             context.taskLinker(this);
         });
         this.loadTask();
@@ -21,14 +21,14 @@ class TasksWidget {
     loadTask() {
         var context = this;
         var companyCode = sessionStorage.companyCode;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/TasksWidget/all';
+        var url = MAIN_URL + '/api/generic/' + sessionStorage.companyCode + '/widget/TasksWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             context.clearInbox();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
-                console.log(USERNAME);
+                console.log(sessionStorage.uname);
                 var wfMessageId = obj.getProp("WfMessageId");
                 var fromAssignee = obj.getProp("fromAssignee");
                 var toAssignee = obj.getProp("toAssignee");
@@ -58,18 +58,18 @@ class TasksWidget {
                 // console.log(str);
                 if (latestWfStatus == 'COMPLETED') {
                     str = str.replace("__personId__", senderId);
-                    str = str.replace("__personname__", "Completed By: "+senderName);
+                    str = str.replace("__personname__", "Completed By: " + senderName);
                     $(".forCompletedMessage").append(str);
                 }
                 else {
-                    if (USERNAME == toAssignee) {
+                    if (sessionStorage.uname == toAssignee) {
                         str = str.replace("__class__", "right");
                         str = str.replace("__personId__", receiverId);
                     }
                     else {
                         str = str.replace("__personId__", senderId);
                     }
-                    str = str.replace("__personname__", "FROM: "+senderName+" ==> "+receiverName);
+                    str = str.replace("__personname__", "FROM: " + senderName + " ==> " + receiverName);
 
                     if (latestWfStatus == 'SUBMIT') {
                         $(".forEndorsementMessage").append(str);

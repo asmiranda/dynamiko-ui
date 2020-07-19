@@ -26,7 +26,7 @@ class P2P {
         $("#messageAlert").html(`${context.profile} joined!`);
 
         context.peerConnection = new RTCPeerConnection(context.peerConnectionConfig);
-        context.dataChannel = context.peerConnection.createDataChannel(USERNAME, context.dataChannelOptions);
+        context.dataChannel = context.peerConnection.createDataChannel(sessionStorage.uname, context.dataChannelOptions);
 
         var track = mediaStream.localStream.getTracks()[0];
         context.peerConnection.addTrack(track, mediaStream.localStream);
@@ -36,7 +36,7 @@ class P2P {
             context.peerConnection.addTrack(trackScreen, screenShare.localStream);
         }
 
-        context.peerConnection.onnegotiationneeded = function() {
+        context.peerConnection.onnegotiationneeded = function () {
             context.peerConnection.createOffer(function (description) {
                 context.peerConnection.setLocalDescription(description);
                 var strMessage = JSON.stringify({
@@ -59,7 +59,7 @@ class P2P {
 
         context.peerConnection.onicecandidate = iceCallback;
 
-        context.peerConnection.ontrack = function(ev) {
+        context.peerConnection.ontrack = function (ev) {
             if (ev.streams && ev.streams[0]) {
                 if (this.videoReceived) {
                     context.onTrackScreen(ev.streams[0]);
@@ -75,7 +75,7 @@ class P2P {
             var remoteDC = e.channel;
             remoteDC.onmessage = context.dataChannelCallback;
 
-            remoteDC.onopen = function(event) {
+            remoteDC.onopen = function (event) {
                 console.debug('Data Channel Open:', event);
                 // context.dataChannel.send("chat|All|Data Channel Open!");
             };
@@ -93,7 +93,7 @@ class P2P {
         console.log("remote video track.")
         // meetingRoom.log("remote video track.");
         var videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
-        if (videoElem==undefined) {
+        if (videoElem == undefined) {
             context.createVideoBox();
             videoElem = document.querySelectorAll(`video.miniVideoStream[email="${context.email}"]`)[0];
         }

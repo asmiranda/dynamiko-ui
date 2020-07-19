@@ -1,31 +1,31 @@
 class UIService {
     constructor() {
         this.profileName;
-        $(document).on('click', '.manageUserRoles', function() {
+        $(document).on('click', '.manageUserRoles', function () {
             uiService.manageUserRoles();
         });
-        $(document).on('click', '.manageDepartment', function() {
+        $(document).on('click', '.manageDepartment', function () {
             uiService.manageDepartment();
         });
-        $(document).on('click', '.manageTaxCategory', function() {
+        $(document).on('click', '.manageTaxCategory', function () {
             uiService.manageTaxCategory();
         });
-        $(document).on('click', '.manageAccountChart', function() {
+        $(document).on('click', '.manageAccountChart', function () {
             uiService.manageAccountChart();
         });
-        $(document).on('click', '.manageBenefit', function() {
+        $(document).on('click', '.manageBenefit', function () {
             uiService.manageBenefit();
         });
-        $(document).on('click', '.manageEmployee', function() {
+        $(document).on('click', '.manageEmployee', function () {
             uiService.manageEmployee();
         });
-        $(document).on('click', '.manageSupplier', function() {
+        $(document).on('click', '.manageSupplier', function () {
             uiService.manageSupplier();
         });
-        $(document).on('click', '.manageProduct', function() {
+        $(document).on('click', '.manageProduct', function () {
             uiService.manageProduct();
         });
-        $(document).on('click', '.choiceCompany', function() {
+        $(document).on('click', '.choiceCompany', function () {
             uiService.changeCompany($(this).attr("companyCode"), $(this).attr("companyName"));
         });
     }
@@ -71,17 +71,17 @@ class UIService {
         var moduleName = myui;
         Storage.putLatestModule(moduleName);
         registerDatatable.clearRegister();
-    
+
         constructMainForm.construct(moduleName);
-    }    
+    }
 
     initCompany() {
-        var url = MAIN_URL + '/api/ui/'+sessionStorage.companyCode+'/company';
+        var url = MAIN_URL + '/api/ui/' + sessionStorage.companyCode + '/company';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         $(".chooseCompanyList").empty();
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var companyCode = obj.getProp("code");
                 var companyName = obj.getProp("name");
                 var str = `
@@ -112,9 +112,9 @@ class UIService {
     }
 
     initLogo() {
-        var url = MAIN_URL + '/api/ui/'+sessionStorage.companyCode+'/logo';
+        var url = MAIN_URL + '/api/ui/' + sessionStorage.companyCode + '/logo';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log("logo ==");
             console.log(data);
             $(".logo").html(data);
@@ -123,14 +123,14 @@ class UIService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/ui/'+sessionStorage.companyCode+'/profile';
+        var url = MAIN_URL + '/api/ui/' + sessionStorage.companyCode + '/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log("profile ==");
             console.log(data);
-            USERNAME = data.getProp("userName");
-            PROFILENAME = data.getProp("profileName");
-            $(".profileName").html(PROFILENAME);
+            sessionStorage.uname = data.getProp("userName");
+            sessionStorage.profileName = data.getProp("profileName");
+            $(".profileName").html(sessionStorage.profileName);
 
             meetingLoader.loadMeetings();
         };
@@ -141,24 +141,24 @@ class UIService {
 class LeftMenu {
     constructor() {
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
-        $(document).on('click', '.leftDashboardItem', function() {
+        $(document).on('click', '.leftDashboardItem', function () {
             dashboard.load(this);
         });
-        $(document).on('click', '.leftMenuItem[report="true"]', function() {
+        $(document).on('click', '.leftMenuItem[report="true"]', function () {
             mainReport.constructMainReport(this);
         });
-        $(document).on('click', '.leftMenuItem[report="false"]', function() {
+        $(document).on('click', '.leftMenuItem[report="false"]', function () {
             leftMenu.loadUI(this);
         });
 
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/getLeftMenu';
+        var url = MAIN_URL + '/api/generic/' + sessionStorage.companyCode + '/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log("Left Menu Extracted");
             leftMenu.addDashboard(data);
-            
+
             var menus = ["School", "Admin", "HR", "Accounting", "Procurement", "Production", "Supply Chain", "Marketing", "CRM", "Reference"];
-            $.each(menus, function(i, obj) {
+            $.each(menus, function (i, obj) {
                 leftMenu.addMenu(obj, data);
             });
         };
@@ -167,9 +167,9 @@ class LeftMenu {
 
     addMenu(menu, data) {
         var counter = 0;
-        $.each(data, function(i, obj) {
-            if (obj.getProp("group")==menu) {
-                var menuId = menu.replace(/ /g,'')
+        $.each(data, function (i, obj) {
+            if (obj.getProp("group") == menu) {
+                var menuId = menu.replace(/ /g, '')
                 counter++;
                 var str = `<li><a href="#" class="leftMenuItem ${obj.getProp("name")}" data="${obj.getProp("name")}" code="${obj.getProp("code")}" report="false"><i class="${obj.getProp("icon")}"></i> <span>${obj.getProp("label")}</span></a></li>`;
                 $(".mysidemenu").append(str);
@@ -178,9 +178,9 @@ class LeftMenu {
     }
 
     addDashboard(data) {
-        $.each(data, function(i, obj) {
+        $.each(data, function (i, obj) {
             if (obj.getProp("dashboard")) {
-                $(".mysidemenu").append('<li><a href="#" class="leftDashboardItem" data="'+obj.getProp("name")+'"><i class="'+obj.getProp("icon")+'"></i> <span>'+obj.getProp("label")+'</span></a></li>');
+                $(".mysidemenu").append('<li><a href="#" class="leftDashboardItem" data="' + obj.getProp("name") + '"><i class="' + obj.getProp("icon") + '"></i> <span>' + obj.getProp("label") + '</span></a></li>');
             }
         });
     }
@@ -189,23 +189,23 @@ class LeftMenu {
         storage.putLatestModule($(obj).attr("data"));
         storage.putLatestModuleCode($(obj).attr("code"));
         leftMenu.loadLatestUI();
-    }    
+    }
 
     loadLatestUI() {
         registerDatatable.clearRegister();
-    
+
         constructMainForm.construct(storage.getLatestModule(), storage.getLatestModuleCode());
-    }    
+    }
 }
 
 class ToggleForm {
     readOnly() {
         console.log("ToggleForm readOnly");
         setTimeout(
-            function() {
-                $('.displayEdit').each(function(index, obj){
+            function () {
+                $('.displayEdit').each(function (index, obj) {
                     console.log(index);
-//                    $(obj).addClass("displayMode");
+                    //                    $(obj).addClass("displayMode");
                     if ($(obj).is("span")) {
                         $(obj).css("display", "none")
                     }
@@ -228,19 +228,19 @@ class RegisterDatatable {
         if (datatable) {
             console.log("register datatable");
             allTable.push(datatable);
-            console.log("length : "+allTable.length);
+            console.log("length : " + allTable.length);
         }
     }
 
     clearRegister() {
         console.log("clearRegister");
-        $.each(allTable, function(index, obj) {
+        $.each(allTable, function (index, obj) {
             console.log(index);
             console.log(obj);
             try {
                 $(obj).destroy();
             }
-            catch(err) {
+            catch (err) {
                 console.log(err);
             }
         });
@@ -250,32 +250,32 @@ class RegisterDatatable {
 
 class UICache {
     getUIHtml(uiName) {
-        var storedHTML = sStorage.get(uiName+"-HTML");
+        var storedHTML = sStorage.get(uiName + "-HTML");
         return storedHTML;
     }
 
     setUIHtml(uiName, uiHtml) {
-        sStorage.set(uiName+"-HTML", uiHtml);
+        sStorage.set(uiName + "-HTML", uiHtml);
     }
 }
 
 class SearchCache {
     initSearchCache() {
         var allCache = sStorage.get("allCache");
-        if (allCache=="true") {
+        if (allCache == "true") {
             return;
         }
         else {
             sStorage.set("allCache", "true");
             var url = MAIN_URL + '/api/clientcache/all/search';
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 console.log(data);
-        
-                $.each(data, function(index, obj) {
+
+                $.each(data, function (index, obj) {
                     var uiName = obj.getProp("key");
                     var clientCache = obj.getProp("value");
-    
+
                     searchCache.setCacheConfig(uiName, clientCache);
                 });
             };
@@ -284,14 +284,14 @@ class SearchCache {
     }
 
     setCacheConfig(uiName, clientCache) {
-        sStorage.set(uiName+"-SearchCache", clientCache);
+        sStorage.set(uiName + "-SearchCache", clientCache);
     }
 
     getSearchCache(uiName, uri) {
         searchCache.initSearchCache();
         var searchData = "";
-        var canCache = sStorage.get(uiName+"-SearchCache");
-        if (canCache=="true") {
+        var canCache = sStorage.get(uiName + "-SearchCache");
+        if (canCache == "true") {
             searchData = sStorage.get(uri);
         }
         return searchData;
@@ -299,14 +299,14 @@ class SearchCache {
 
     setNewSearchCache(uiName, uri, searchData) {
         searchCache.initSearchCache();
-        var canCache = sStorage.get(uiName+"-SearchCache");
-        if (canCache=="true") {
+        var canCache = sStorage.get(uiName + "-SearchCache");
+        if (canCache == "true") {
             sStorage.set(uri, searchData);
         }
     }
 }
 
-$(function() {
+$(function () {
     uiService = new UIService();
     leftMenu = new LeftMenu();
     toggleForm = new ToggleForm();

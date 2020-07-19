@@ -5,10 +5,7 @@ var MAIN_URL = `https://${server}:${dynamikoPort}`;
 var MAIN_SIGNAL_URL = `wss://${server}:${roomSignalPort}`;
 var MAIN_SIGNAL_HTTP_URL = `https://${server}:${roomSignalPort}`;
 
-var TOKEN;
-var USERNAME;
-var PROFILENAME;
-var dynaRegister; 
+var dynaRegister;
 
 class Config {
     getDateFormat() {
@@ -16,6 +13,6 @@ class Config {
     }
 }
 
-$(function() {
+$(function () {
     config = new Config();
 })
