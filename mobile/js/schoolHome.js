@@ -1,10 +1,6 @@
-class SchoolHome {
-    constructor() {
-
-    }
-
-    loadAnnouncements(data) {
-        let url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
+class SchoolHome extends AbstractMobile {
+    loadSchedules(data) {
+        let url = `${MOBILE_MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             $("#announcementList").empty();
@@ -15,19 +11,54 @@ class SchoolHome {
                 let announcementUrl = obj.getPropDefault("announcementUrl", "--");
                 let imageCss = "width: 444px; height: 350px;";
                 let boxCss = "width: 500px;";
-                let profileUrl = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let profileUrl = `${MOBILE_MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
                 let str = `
-                    <div class="box box-widget" style="margin: 15px; ${boxCss}">
-                        <div class="box-body">
-                            <img class="img-responsive pad" src="${profileUrl}" alt="Photo" style="${imageCss}">
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <i class="fa fa-text-width"></i>
 
-                            <p style="padding: 20px;">${announcementDate} - ${announcement}</p>
+                            <h3 class="box-title">${announcementDate}</h3>
                         </div>
-                        <div class="box-footer box-comments">
-                            <a href="${announcementUrl}" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Read More</a>
+                        <div class="box-body">
+                            <blockquote>
+                                <p>${announcement}</p>
+                                <small>Read more <a href="${announcementUrl}"><cite title="Source Title">${announcementUrl}</cite></a></small>
+                            </blockquote>
                         </div>
-                    </div>
-                `;
+                    </div>`;
+                $("#announcementList").append(str);
+            });
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadAnnouncements(data) {
+        let url = `${MOBILE_MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let successFunction = function (data) {
+            $("#announcementList").empty();
+            $(data).each(function (index, obj) {
+                let SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
+                let announcement = obj.getPropDefault("announcement", "--");
+                let announcementDate = obj.getPropDefault("announcementDate", "--");
+                let announcementUrl = obj.getPropDefault("announcementUrl", "--");
+                let imageCss = "width: 444px; height: 350px;";
+                let boxCss = "width: 500px;";
+                let profileUrl = `${MOBILE_MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let str = `
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <i class="fa fa-text-width"></i>
+
+                            <h3 class="box-title">${announcementDate}</h3>
+                        </div>
+                        <div class="box-body">
+                            <blockquote>
+                                <p>${announcement}</p>
+                                <small>Read more <a href="${announcementUrl}"><cite title="Source Title">${announcementUrl}</cite></a></small>
+                            </blockquote>
+                        </div>
+                    </div>`;
                 $("#announcementList").append(str);
             });
         };
@@ -35,19 +66,8 @@ class SchoolHome {
     }
 
     onReactMessage(data) {
-        sessionStorage.companyCode = "TEST";
-        sessionStorage.token = data;
+        config.loadProfile(data);
         this.loadAnnouncements("");
-    }
-
-    init() {
-        alert("12");
-        let context = this;
-        window.ReactNativeWebView.postMessage("Loaded");
-
-        window.addEventListener("message", message => {
-            context.onReactMessage(message.data);
-        });
     }
 }
 
