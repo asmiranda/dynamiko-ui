@@ -31,19 +31,19 @@ class Config {
     }
 
     loadProfile(token) {
-        // alert("loadProfile 1");
         sessionStorage.token = token;
+        // alert(`loadProfile token = ${sessionStorage.token}`);
         let url = `${MAIN_URL}/api/auth/getProfile`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
-            // alert("loadProfile 2");
+            // alert(`loadProfile success = ${data}`);
             sessionStorage.companyCode = data.getPropDefault("companyCode", "--");
+            // alert(`loadProfile companyCode = ${sessionStorage.companyCode}`);
             USER = data.getPropDefault("user", "--");
             PERSON = data.getPropDefault("person", "--");
             ROLES = data.getPropDefault("roles", "--");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-        // alert("loadProfile 3");
     }
 }
 
