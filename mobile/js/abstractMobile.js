@@ -8,16 +8,25 @@ class AbstractMobile {
 
             window.ReactNativeWebView.postMessage("Loaded");
             window.addEventListener("message", message => {
-                context.onReactMessage(message.data);
+                if (message.data) {
+                    context.onReactMessageWithLogin(message.data);
+                }
+                else {
+                    context.onReactMessageWithNoLogin(message.data);
+                }
             });
         }
         else {
             var user = utils.getUrlParamValue(window.location.href, "user");
             // alert(`User == ${user}`);
-
-            loginJS.testLogin(user, function () {
-                context.onReactMessage(sessionStorage.token);
-            });
+            if (user && user != '') {
+                loginJS.testLogin(user, function () {
+                    context.onReactMessageWithLogin(sessionStorage.token);
+                });
+            }
+            else {
+                context.onReactMessageWithNoLogin(sessionStorage.token);
+            }
         }
     }
 }

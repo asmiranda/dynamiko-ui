@@ -1,4 +1,14 @@
 class SchoolHome extends AbstractMobile {
+    loadProfile() {
+        let personObj = sStorage.get("PersonObj");
+        console.log(personObj);
+        if (personObj && personObj.firstName) {
+            $(".box-welcome").hide();
+            $(".box-profile").show();
+            $("#myProfileName").html(personObj.getPropDefault("firstName", "--"))
+        }
+    }
+
     loadSchedules() {
         let url = "";
         if (loginJS.hasRole("Faculty")) {
@@ -9,6 +19,7 @@ class SchoolHome extends AbstractMobile {
         }
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
+            $(".my-module").show();
             $("#moduleList").empty();
             var boxBackGrounds = ['bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red'];
             $(data).each(function (index, obj) {
@@ -19,7 +30,7 @@ class SchoolHome extends AbstractMobile {
                 let endTime = obj.getPropDefault("endTime", "--");
                 let nextColor = boxBackGrounds[index];
                 let str = `
-                    <div style="flex: 45%">
+                    <div style="flex: 40%">
                         <!-- small box -->
                         <div class="small-box ${nextColor}" style="margin: 10px;">
                             <div class="inner">
@@ -40,7 +51,7 @@ class SchoolHome extends AbstractMobile {
     }
 
     loadAnnouncements() {
-        let url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements`;
+        let url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/StudentScheduleUI/getAnnouncements`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             $("#announcementList").empty();
@@ -72,10 +83,15 @@ class SchoolHome extends AbstractMobile {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    onReactMessage(data) {
+    onReactMessageWithLogin(data) {
         loginJS.loadProfile(data);
+        this.loadProfile();
         this.loadAnnouncements();
         this.loadSchedules();
+    }
+
+    onReactMessageWithNoLogin() {
+        this.loadAnnouncements();
     }
 }
 

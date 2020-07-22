@@ -57,14 +57,16 @@
 <body>
     <div id="main" style="display: flex; flex-direction: column; margin: 10px;">
         <div class="box box-primary">
-            <div class="box-body box-profile">
-                <h3 class="profile-username text-center">Welcome Nina Mcintire</h3>
-
-                <p class="text-muted text-center">Software Engineer</p>
+            <div class="box-body box-welcome">
+                <h3 class="text-center">Dynamiko Virtual School</h3>
+                <p class="text-muted text-center">Please Log In</p>
+            </div>
+            <div class="box-body box-profile" style="display: none;">
+                <h3 class="profile-username text-center">Welcome <span id="myProfileName"></span>!</h3>
             </div>
         </div>
 
-        <div class="box box-success">
+        <div class="box box-success my-module" style="display: none;">
             <div class="box-header with-border">
                 <h3 class="box-title">My Modules</h3>
             </div>
@@ -74,35 +76,6 @@
             </div>
         </div>
         <div id="announcementList">
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <i class="fa fa-text-width"></i>
-
-                    <h3 class="box-title">Announcement</h3>
-                </div>
-                <div class="box-body">
-                    <blockquote>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                    </blockquote>
-                </div>
-            </div>
-
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <i class="fa fa-text-width"></i>
-
-                    <h3 class="box-title">Announcement</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body clearfix">
-                    <blockquote class="pull-right">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                    </blockquote>
-                </div>
-                <!-- /.box-body -->
-            </div>
         </div>
     </div>
 
