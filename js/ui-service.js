@@ -31,7 +31,7 @@ class UIService {
     }
 
     initHome() {
-        uiService.initCompany();
+        // uiService.initCompany();
         uiService.initProfile();
     }
 

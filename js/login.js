@@ -27,9 +27,12 @@ function LoginJS() {
             data: vdata,
             contentType: 'application/json',
             success: function (data) {
+                if (data.token == undefined) {
+                    data.token = data.Authorization;
+                }
                 console.log(data.token);
                 storage.storeAccountToken(uname, data);
-                loginJS.loadProfile(sessionStorage.token);
+                // loginJS.loadProfile(sessionStorage.token);
                 setTimeout(function () {
                     if (redUrl) {
                         window.location.href = redUrl;
