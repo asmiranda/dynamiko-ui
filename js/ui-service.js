@@ -128,8 +128,8 @@ class UIService {
         var successCallback = function (data) {
             console.log("profile ==");
             console.log(data);
-            localStorage.uname = data.getProp("userName");
-            localStorage.profileName = data.getProp("profileName");
+            localStorage.uname = data.getProp("email");
+            localStorage.profileName = data.getProp("firstName");
             $(".profileName").html(localStorage.profileName);
 
             meetingLoader.loadMeetings();
