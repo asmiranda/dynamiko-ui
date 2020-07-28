@@ -93,12 +93,17 @@
     <script src="js/storage.js"></script>
     <script>
         $(function () {
-            localStorage.clear();
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' /* optional */
-            });
+            if (localStorage.token) {
+                window.location.href = "home.html";
+            }
+            else {
+                localStorage.clear();
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' /* optional */
+                });
+            }
         });
         $('.logInput').keypress(function (e) {
             if (e.which == 13) {

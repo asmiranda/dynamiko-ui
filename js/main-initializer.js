@@ -1,10 +1,16 @@
 class MainInitializer {
     initialize() {
-        uiService.initHome();
+        if (localStorage.token) {
+            leftMenu.init();
+            uiService.initHome();
+        }
+        else {
+            window.location.href = "login.html";
+        }
     }
-} 
+}
 
-$(function() {
+$(function () {
     mainInitializer = new MainInitializer();
     mainInitializer.initialize();
 })

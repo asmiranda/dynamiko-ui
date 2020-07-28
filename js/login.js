@@ -1,14 +1,4 @@
 function LoginJS() {
-    this.checkToken = function () {
-        if (localStorage.token) {
-            alert("Token found");
-            leftMenu.init();
-        }
-        else {
-            alert("Token not found");
-        }
-    }
-
     this.token = function () {
         console.log(sessionStorage.token);
         return sessionStorage.token;
