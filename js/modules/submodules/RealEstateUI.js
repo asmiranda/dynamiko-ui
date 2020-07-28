@@ -1,23 +1,23 @@
-class RealEstateUI { 
+class RealEstateUI {
     constructor() {
         this.lastGeoResult;
     }
 
     loadRealEstateTransfer(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstateTransfer/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateTransfer/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-    
-        var successCallback = function(data) {
+
+        var successCallback = function (data) {
             realEstateUI.arrangeSelectedRealEstateTransfer(data, "dashboard");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
-    
+
     arrangeSelectedRealEstateTransfer(data, tabName) {
         console.log(data);
         var divName = `.RealEstateUI_TransferRecords[tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var transferDate = obj.getPropDefault("transferDate", "--");
             var realEstateTransferId = obj.getPropDefault("realEstateTransferId", "--");
             var transferIssuerName = obj.getPropDefault("transferIssuerName", "--");
@@ -45,25 +45,25 @@ class RealEstateUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 
     loadRealEstateFieldInspection(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstateFieldInspection/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateFieldInspection/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-    
-        var successCallback = function(data) {
+
+        var successCallback = function (data) {
             realEstateUI.arrangeSelectedRealEstateFieldInspection(data, "dashboard");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
-    
+
     arrangeSelectedRealEstateFieldInspection(data, tabName) {
         console.log(data);
         var divName = `.RealEstateUI_FieldInspectionRecords[tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var inspectionDate = obj.getPropDefault("inspectionDate", "--");
             var realEstateFieldInspectionId = obj.getPropDefault("realEstateFieldInspectionId", "--");
             var inspectorName = obj.getPropDefault("inspectorName", "--");
@@ -91,15 +91,15 @@ class RealEstateUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
-    
+
     loadRealEstateBuildingPermit(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstateBuildingPermit/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateBuildingPermit/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateUI.arrangeSelectedRealEstateBuildingPermit(data, "dashboard");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -109,7 +109,7 @@ class RealEstateUI {
         console.log(data);
         var divName = `.RealEstateUI_BuildingPermitRecords[tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var permitDate = obj.getPropDefault("PermitDate", "--");
             var realEstateBuildingPermitId = obj.getPropDefault("realEstateBuildingPermitId", "--");
             var permitIssuerName = obj.getPropDefault("permitIssuerName", "--");
@@ -146,15 +146,15 @@ class RealEstateUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 
     loadRealEstateAssessment(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstateAssessment/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateAssessment/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateUI.arrangeSelectedRealEstateAssessment(data, "dashboard");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -164,7 +164,7 @@ class RealEstateUI {
         console.log(data);
         var divName = `.RealEstateUI_AssessmentRecords[tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var assessmentDate = obj.getPropDefault("assessmentDate", "--");
             var realEstateAssessmentId = obj.getPropDefault("realEstateAssessmentId", "--");
             var assessorName = obj.getPropDefault("assessorName", "--");
@@ -201,12 +201,12 @@ class RealEstateUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 
     loadLastSelectedRealEstate() {
-        if (localStorage.latestRealEstateId>0) {
+        if (localStorage.latestRealEstateId > 0) {
             realEstateUI.loadRealEstateProfile(localStorage.latestRealEstateId);
             realEstateUI.loadSelectedRealEstateMap(localStorage.latestRealEstateId);
             realEstateUI.loadRealEstateAssessment(localStorage.latestRealEstateId);
@@ -217,10 +217,10 @@ class RealEstateUI {
     }
 
     loadSelectedRealEstateMap(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstate/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstate/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateUI.arrangeSelectedRealEstateMap(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -249,42 +249,42 @@ class RealEstateUI {
             L.marker(result.latlng).addTo(myMap).bindPopup(str).openPopup();
         };
 
-        var mapClicked = function(e) {
-            geocodeService.reverse().latlng(e.latlng).run(marker);                  
-        }        
+        var mapClicked = function (e) {
+            geocodeService.reverse().latlng(e.latlng).run(marker);
+        }
         myMap.on('click', mapClicked);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(myMap);
         L.Control.geocoder().addTo(myMap);
-        geocodeService.reverse().latlng(latlng).run(marker);                  
+        geocodeService.reverse().latlng(latlng).run(marker);
     }
 
     updateRealEstateLocation(obj) {
         var recordId = $(obj).attr("recordId");
-        console.log("RECORD ID == "+recordId);
+        console.log("RECORD ID == " + recordId);
         console.log(realEstateUI.lastGeoResult);
 
         var tmp = {};
         tmp["recordId"] = recordId;
         tmp["location"] = realEstateUI.lastGeoResult;
-        
+
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/post/updateRealEstateLocation`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/post/updateRealEstateLocation`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
         };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     loadRealEstateProfile(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getRealEstateProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             var address = `${data.getPropDefault("streetNumber", "")} ${data.getPropDefault("streetName")} ${data.getPropDefault("zipCode")}`;
             var zipCode = data.getPropDefault("zipCode", "--");
@@ -295,14 +295,14 @@ class RealEstateUI {
             var contact = data.getPropDefault("contact", "--");
             var email = data.getPropDefault("email", "--");
 
-            $(".RealEstateUI_RealEstateAddress").html(address);    
-            $(".RealEstateUI_RealEstateZipCode").html(zipCode);    
-            $(".RealEstateUI_RealEstateLatitude").html(latitude);    
-            $(".RealEstateUI_RealEstateLongitude").html(longitude); 
-            $(".RealEstateUI_RealEstateResidingCompany").html(residingCompany);  
-            $(".RealEstateUI_RealEstateHQAddress").html(hqAddress);  
-            $(".RealEstateUI_RealEstateContact").html(contact);  
-            $(".RealEstateUI_RealEstateEmail").html(email);  
+            $(".RealEstateUI_RealEstateAddress").html(address);
+            $(".RealEstateUI_RealEstateZipCode").html(zipCode);
+            $(".RealEstateUI_RealEstateLatitude").html(latitude);
+            $(".RealEstateUI_RealEstateLongitude").html(longitude);
+            $(".RealEstateUI_RealEstateResidingCompany").html(residingCompany);
+            $(".RealEstateUI_RealEstateHQAddress").html(hqAddress);
+            $(".RealEstateUI_RealEstateContact").html(contact);
+            $(".RealEstateUI_RealEstateEmail").html(email);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -313,7 +313,7 @@ class RealEstateUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="dashboard") {
+        if (tabName == "dashboard") {
             realEstateUI.loadLastSelectedRealEstate();
         }
     }
@@ -324,10 +324,10 @@ class RealEstateUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/filterRealEstate/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/filterRealEstate/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateUI.arrangeSearchedRealEstates(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -335,10 +335,10 @@ class RealEstateUI {
 
     loadTopRealEstate() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateUI/getTopRealEstates`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getTopRealEstates`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateUI.arrangeSearchedRealEstates(data, "dashboard");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -348,8 +348,8 @@ class RealEstateUI {
         console.log(data);
         var divName = `.searchRealEstates[module="RealEstateUI"][tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
-            var RealEstateName = obj.getProp("streetNumber")+" "+obj.getProp("streetName");
+        $(data).each(function (index, obj) {
+            var RealEstateName = obj.getProp("streetNumber") + " " + obj.getProp("streetName");
             var zipCode = obj.getPropDefault("zipCode", "");
             var companyName = obj.getPropDefault("companyName", "");
             var hqAddress = obj.getPropDefault("hqAddress", "");
@@ -387,7 +387,7 @@ class RealEstateUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 }

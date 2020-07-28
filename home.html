@@ -115,16 +115,18 @@
             <li class="dropdown messages-menu quickCall">
               <div class="input-group margin" style="width: 250px;  margin-top: 5px; margin-right: 15px;">
                 <div class="input-group" style="width: 100%;">
-                  <input rowindex="0" type="text" class="form-control autocomplete" name="quickCallByCode" placeholder="Type user here" 
-                    module="QuickCallUI" autoname="quickCallByCode" helptitle="quickCallByCode" style="border-radius: 10px 0px 0px 10px;">
-                    <span class="input-group-btn">
-                      <button type="button" id="btnQuickCall" class="btn btn-info btn-flat" style="border-radius: 0px 10px 10px 0px;">
-                        <i class="fa fa-phone"></i><span style="padding-left: 5px;">Call</span>
-                      </button>
-                    </span>
+                  <input rowindex="0" type="text" class="form-control autocomplete" name="quickCallByCode"
+                    placeholder="Type user here" module="QuickCallUI" autoname="quickCallByCode"
+                    helptitle="quickCallByCode" style="border-radius: 10px 0px 0px 10px;">
+                  <span class="input-group-btn">
+                    <button type="button" id="btnQuickCall" class="btn btn-info btn-flat"
+                      style="border-radius: 0px 10px 10px 0px;">
+                      <i class="fa fa-phone"></i><span style="padding-left: 5px;">Call</span>
+                    </button>
+                  </span>
                   </input>
-                  <input rowindex="0" id="quickCallCode" class="form-control editRecord HiddenAutoComplete" name="quickCallByCode" type="hidden" module="QuickCallUI" 
-                    autonamefield="quickCallByCode" value="">
+                  <input rowindex="0" id="quickCallCode" class="form-control editRecord HiddenAutoComplete"
+                    name="quickCallByCode" type="hidden" module="QuickCallUI" autonamefield="quickCallByCode" value="">
                   <div class="autocomplete-items" rowindex="0" module="QuickCallUI" autoname="quickCallByCode"></div>
                 </div>
               </div>
@@ -133,7 +135,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-users"></i><span style="padding-left: 5px;">Video Con</span>
               </a>
-              <ul class="dropdown-menu sidebar-menu tree" data-widget="tree" id="myMeetings" style="max-height:700px; overflow-y:auto;">
+              <ul class="dropdown-menu sidebar-menu tree" data-widget="tree" id="myMeetings"
+                style="max-height:700px; overflow-y:auto;">
               </ul>
             </li>
             <!-- User Account: style can be found in dropdown.less -->
@@ -213,9 +216,10 @@
     <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-    <div style="position: absolute; top: 50px; right: 10px; display: flex;"> 
+    <div style="position: absolute; top: 50px; right: 10px; display: flex;">
       <div style="flex: 1;">
-        <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;" autoplay playsinline></video>
+        <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;"
+          autoplay playsinline></video>
       </div>
       <div style="flex: 1; margin-left: 10px;">
         <a href="#" class="pull-right btnToggleMiniVideo">
@@ -223,9 +227,10 @@
         </a>
       </div>
     </div>
-  
+
     <div class="allModal" style="display: none;">
-      <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel" aria-hidden="true">
+      <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -241,8 +246,8 @@
                 </div>
                 <div class="box-body">
                   <div class="row">
-                    <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;" report="AutoReport"
-                      webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
+                    <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;"
+                      report="AutoReport" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
                   </div>
                 </div>
                 <div class="box-footer text-center">
@@ -255,9 +260,10 @@
       </div>
       <div id="calendarQuickUpdater">
         <div class="input-group date">
-          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
-            name="##FIELDNAME##" type="text" class="form-control calendar displayEdit calendarQuickUpdaterInput"
-            style="width: 100px;" callback="##CALLBACK##">
+          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+            fieldName="##FIELDNAME##" name="##FIELDNAME##" type="text"
+            class="form-control calendar displayEdit calendarQuickUpdaterInput" style="width: 100px;"
+            callback="##CALLBACK##">
           <div class="input-group-addon displayEdit">
             <i class="fa fa-calendar"></i>
           </div>
@@ -270,8 +276,8 @@
       </div>
       <div id="autoCompleteQuickUpdater">
         <div class="input-group">
-          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
-            name="##FIELDNAME##" autoName="##FIELDNAME##" type="text"
+          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+            fieldName="##FIELDNAME##" name="##FIELDNAME##" autoName="##FIELDNAME##" type="text"
             class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;"
             callback="##CALLBACK##">
           <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
@@ -297,7 +303,7 @@
         </div>
       </div>
     </div>
-  
+
   </div>
   <!-- ./wrapper -->
 
@@ -516,6 +522,11 @@
   <script src="js/events/global-events-government.js"></script>
   <script src="js/events/global-events.js"></script>
 
+  <script>
+    $(function () {
+      loginJS.checkToken();
+    })
+  </script>
 </body>
 
 </html>

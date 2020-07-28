@@ -3,7 +3,7 @@ class HrEventsWidget {
         console.log("HrEventsWidget");
         var context = this;
 
-        $(document).on('click', '.showHrEvent', function() {
+        $(document).on('click', '.showHrEvent', function () {
             context.showHrEvent(this);
         });
 
@@ -12,12 +12,12 @@ class HrEventsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrEventsWidget/all';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrEventsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $("#HrEventsWidgetList").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var docId = obj.getProp("hrDocumentId");
                 var icon = obj.getProp("icon");
@@ -61,7 +61,7 @@ class HrEventsWidget {
 
     showHrEvent(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrEventsWidget/showHrEvent/'+recId;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrEventsWidget/showHrEvent/' + recId;
         console.log(url);
     }
 }

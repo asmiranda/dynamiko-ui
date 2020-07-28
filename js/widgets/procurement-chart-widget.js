@@ -8,10 +8,10 @@ class ProcurementChartWidget {
             var cashChart = document.getElementById("procurementChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/ProcurementChartWidget";
+            ajaxRequestDTO.url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/widget/ProcurementChartWidget";
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
                 widgetChartRule.doChart("#procurementChart", data, data.chartType);
             };

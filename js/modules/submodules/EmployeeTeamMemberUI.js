@@ -19,16 +19,16 @@ class EmployeeTeamMemberUI {
     reloadMembers(recordId) {
         console.log("loadTeamMember");
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/EmployeeTeamMemberUI/getTeamMember/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/EmployeeTeamMemberUI/getTeamMember/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         $(".employeeIdForTeamMember").attr("recordId", recordId);
         $(`.autoCompleteQuickUpdaterInput[module="EmployeeTeamMemberUI"][autoName="teamMemberCode"]`).attr("recordId", recordId);
-        var successFunction = function(data) {
-            console.log(data);            
+        var successFunction = function (data) {
+            console.log(data);
 
             $(".EmployeeTeamMemberUI_TeamMembers").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var employeeName = obj.getProp("employeeName");
                 var employeeDesignation = obj.getProp("employeeDesignation");
                 var teamMemberId = obj.getProp("teamMemberId");
@@ -40,30 +40,30 @@ class EmployeeTeamMemberUI {
 
                 var str = `
                     <li>
-                        <img class="profile-user-img img-responsive img-circle" module="EmployeeUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${teamMemberId}/${utils.nowString()}">
+                        <img class="profile-user-img img-responsive img-circle" module="EmployeeUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${teamMemberId}/${utils.nowString()}">
                         <a class="teamMemberSelect" href="#" module="EmployeeTeamMemberUI" recordId="${teamMemberId}">${teamMemberName}</a>
                         <span class="users-list-date">${teamMemberDesignation}</span>
                     </li>
                 `;
-                if (teamMemberId!=undefined) {
+                if (teamMemberId != undefined) {
                     $(".EmployeeTeamMemberUI_TeamMembers").append(str);
                 }
-                if (index==0) {
+                if (index == 0) {
                     $(".EmployeeTeamMemberUI_EmployeeName").html(employeeName);
-                    if (supervisorId!=undefined) {
+                    if (supervisorId != undefined) {
                         $(".EmployeeTeamMemberUI_Supervisor").show();
-                        $(".EmployeeTeamMemberUI_SupervisorName").html(supervisorEmployeeName);                    
+                        $(".EmployeeTeamMemberUI_SupervisorName").html(supervisorEmployeeName);
                         $(".EmployeeTeamMemberUI_SupervisorName").attr("recordId", supervisorId);
                         $(".EmployeeTeamMemberUI_SupervisorDesignation").html("Supervisor/Manager");
-                        $(".EmployeeTeamMemberUI_SupervisorPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/EmployeeUI/${supervisorId}/${utils.nowString()}`);                    
+                        $(".EmployeeTeamMemberUI_SupervisorPic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/EmployeeUI/${supervisorId}/${utils.nowString()}`);
                     }
                     else {
                         $(".EmployeeTeamMemberUI_Supervisor").hide();
-                    }                    
+                    }
                 }
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
-    
+
 }

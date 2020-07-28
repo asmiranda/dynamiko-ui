@@ -8,10 +8,10 @@ class SalesChartWidget {
             var cashChart = document.getElementById("salesChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/SalesChartWidget";
+            ajaxRequestDTO.url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/widget/SalesChartWidget";
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
                 widgetChartRule.doChart("#salesChart", data, data.chartType);
             };

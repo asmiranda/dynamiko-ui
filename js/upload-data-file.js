@@ -72,21 +72,21 @@ class UploadDataFile {
         var reader = new FileReader();
         // Closure to capture the file information.
         reader.readAsText(file);
-        reader.onload = function() {
+        reader.onload = function () {
             var allRecs = reader.result.split("\n");
             var titles = allRecs[0].split("\t");
             $("#tblCsvHeader").empty();
-            $(titles).each(function(index, obj) {
+            $(titles).each(function (index, obj) {
                 var colHead = `<th scope="col">${obj}</th>`;
                 console.log(colHead);
                 $("#tblCsvHeader").append(colHead);
             });
             $("#tblCsvBody").empty();
-            $(allRecs).each(function(ind, tmp) {
+            $(allRecs).each(function (ind, tmp) {
                 if (ind > 0) {
                     var records = tmp.split("\t");
                     var rowData = "<tr>";
-                    $(records).each(function(index, obj) {
+                    $(records).each(function (index, obj) {
                         var colData = `<td>${obj}</td>`;
                         rowData += colData;
                     });
@@ -112,13 +112,13 @@ class UploadDataFile {
     }
 
     downloadTemplate() {
-        window.open(MAIN_URL + '/api/utils/getUploadTemplate/' + sessionStorage.companyCode + '/' + sessionStorage.chosenReport, '_blank');
+        window.open(MAIN_URL + '/api/utils/getUploadTemplate/' + localStorage.companyCode + '/' + localStorage.chosenReport, '_blank');
     }
 
     loadAllUploadDataTemplate() {
         console.log("LOAD ALL REPORTS...");
 
-        var url = MAIN_URL + '/api/utils/getAllTemplate/' + sessionStorage.companyCode;
+        var url = MAIN_URL + '/api/utils/getAllTemplate/' + localStorage.companyCode;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -135,7 +135,7 @@ class UploadDataFile {
     }
 
     useChosenTemplate(chosen) {
-        sessionStorage.chosenReport = $(chosen).attr("value");
+        localStorage.chosenReport = $(chosen).attr("value");
         var chosenReportLabel = $(chosen).attr("label");
         $("#chosenTemplate").html("<b>" + chosenReportLabel + "</b>");
     }

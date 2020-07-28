@@ -1,6 +1,6 @@
-class GovernmentPrintingUI { 
+class GovernmentPrintingUI {
     displayForPrintingReport(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/GovernmentPrintingUI/displayForGovernmentPrintingReport/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/GovernmentPrintingUI/displayForGovernmentPrintingReport/${recordId}`;
         $(`iframe[report="ForGovernmentPrintingReport"]`).attr("src", url);
     }
 
@@ -13,10 +13,10 @@ class GovernmentPrintingUI {
 
     loadTopPrintingQueue() {
         var printingQueueId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentPrintingUI/getTopPrintingQueues`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentPrintingUI/getTopPrintingQueues`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             governmentPrintingUI.arrangeSearchedPrintingQueues(data, "GovernmentPrinting");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -24,10 +24,10 @@ class GovernmentPrintingUI {
 
     loadPrintingQueueProfile(obj, tabName) {
         var printingQueueId = $(obj).attr("PrintingQueueId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentPrintingUI/getPrintingQueueProfile/${printingQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentPrintingUI/getPrintingQueueProfile/${printingQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             governmentPrintingUI.arrangePrintingQueueProfile(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -63,10 +63,10 @@ class GovernmentPrintingUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentPrintingUI/filterPrintingQueue/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentPrintingUI/filterPrintingQueue/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             governmentPrintingUI.arrangeSearchedPrintingQueues(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -76,7 +76,7 @@ class GovernmentPrintingUI {
         console.log(data);
         var divName = `.searchGovernmentPrintings[module="GovernmentPrintingUI"][tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var recordId = obj.getProp("PrintingQueueId");
             var title = obj.getProp("title");
             var queueNumber = obj.getPropDefault("queueNumber", "");
@@ -89,7 +89,7 @@ class GovernmentPrintingUI {
                 <hr>
             `;
             $(divName).append(str);
-            
+
         });
     }
 }

@@ -3,7 +3,7 @@ class HrNewsWidget {
         var context = this;
         console.log("HrNewsWidget");
 
-        $(document).on('click', '.showHrNews', function() {
+        $(document).on('click', '.showHrNews', function () {
             context.showHrNews(this);
         });
         this.loadTask();
@@ -11,12 +11,12 @@ class HrNewsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrNewsWidget/all';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrNewsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $("HrNewsWidgetList").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var docId = obj.getProp("hrDocumentId");
                 var icon = obj.getProp("icon");
@@ -60,7 +60,7 @@ class HrNewsWidget {
 
     showHrNews(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrNewsWidget/showHrNews/'+recId;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrNewsWidget/showHrNews/' + recId;
         console.log(url);
     }
 }

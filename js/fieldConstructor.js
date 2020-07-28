@@ -1,36 +1,36 @@
 class FieldGenerator {
     generate() {
         console.log("FieldGenerator generate CALLED");
-        $("field").each(function(index, obj) {
+        $("field").each(function (index, obj) {
             var type = $(obj).attr("type");
-            if (type=="TextFieldGen") {
+            if (type == "TextFieldGen") {
                 fieldGenerator.generateTextField(obj);
             }
-            else if (type=="TextAreaGen") {
+            else if (type == "TextAreaGen") {
                 fieldGenerator.generateTextArea(obj);
             }
-            else if (type=="AutoCompleteGen") {
+            else if (type == "AutoCompleteGen") {
                 fieldGenerator.generateAutoComplete(obj);
             }
-            else if (type=="ComboGen") {
+            else if (type == "ComboGen") {
                 fieldGenerator.generateCombo(obj);
             }
-            else if (type=="IntegerGen") {
+            else if (type == "IntegerGen") {
                 fieldGenerator.generateInteger(obj);
             }
-            else if (type=="DoubleGen") {
+            else if (type == "DoubleGen") {
                 fieldGenerator.generateDouble(obj);
             }
-            else if (type=="SqlComboGen") {
+            else if (type == "SqlComboGen") {
                 fieldGenerator.generateSqlCombo(obj);
             }
-            else if (type=="CalendarGen") {
+            else if (type == "CalendarGen") {
                 fieldGenerator.generateCalendar(obj);
             }
-            else if (type=="CheckBoxGen") {
+            else if (type == "CheckBoxGen") {
                 fieldGenerator.generateCheckbBox(obj);
             }
-            else if (type=="MoneyGen") {
+            else if (type == "MoneyGen") {
                 fieldGenerator.generateMoney(obj);
             }
         });
@@ -44,7 +44,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateDouble for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group">
                     <label class="control-label">${label}</label>
@@ -84,7 +84,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group">
                     <input type="checkbox" module="${moduleName}" submodule="${moduleName}" name="${name}" placeholder="${label}" class="displayEdit">
@@ -113,7 +113,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateCalendar for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group date">
                     <label class="control-label">${label}</label>
@@ -146,7 +146,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateSqlCombo for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             var txtOptions = "";
             // var theArray = modelCombo.split(",");
             // $(theArray).each(function(index, obj) {
@@ -182,7 +182,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateDouble for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group">
                     <label class="control-label">${label}</label>
@@ -212,7 +212,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateInteger for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group">
                     <label class="control-label">${label}</label>
@@ -243,10 +243,10 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             var txtOptions = "";
             var theArray = modelCombo.split(",");
-            $(theArray).each(function(index, obj) {
+            $(theArray).each(function (index, obj) {
                 txtOptions += `<option value="${obj}">${obj}</option>`;
             });
             str = `
@@ -281,8 +281,8 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
-            if (enabled=="false") {
+        if (editable == "true") {
+            if (enabled == "false") {
                 str = `
                     <div class="form-group">
                         <label class="control-label" module="${moduleName}" submodule="${moduleName}" autoName="${name}" name="${name}" title="Click for help">
@@ -343,7 +343,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group">
                     <label class="control-label">${label}</label>
@@ -372,7 +372,7 @@ class FieldGenerator {
 
         console.log(`FieldGenerator generateTextFieldGen for ${name} of ${moduleName}`);
         var str = "";
-        if (editable=="true") {
+        if (editable == "true") {
             str = `
                 <div class="form-group">
                     <label class="control-label">${label}</label>
@@ -423,7 +423,7 @@ class FieldMultiSelect {
         $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("name");
             console.log("MULTI SELECT FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/" + moduleName + "/" + fieldLabelName + "/" + recordId;
+            var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/multiselect/" + moduleName + "/" + fieldLabelName + "/" + recordId;
             console.log("url = " + url);
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function (data) {
@@ -449,7 +449,7 @@ class FieldMultiSelect {
     clickDisplayAdd(moduleName, btn) {
         var fieldName = $(btn).attr("name");
         console.log("multiSelectDisplayAdd fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/" + moduleName + "/" + fieldName;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/multiselect/options/" + moduleName + "/" + fieldName;
         console.log("multiSelectDisplayAdd url = " + url);
         var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
         var varr = [];
@@ -503,7 +503,7 @@ class FieldMultiSelect {
         var fieldName = $(btn).attr("name");
         var fieldValue = $(btn).val();
         console.log("multiSelectTextFilter fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/multiselect/options/filter/" + moduleName + "/" + fieldName + "/" + fieldValue;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/multiselect/options/filter/" + moduleName + "/" + fieldName + "/" + fieldValue;
         console.log("multiSelectTextFilter url = " + url);
         var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
         var varr = [];
@@ -541,7 +541,7 @@ class FieldAutoComplete {
         $(".autocomplete[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
             console.log("AUTO COMPLETE FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/"+sessionStorage.companyCode+"/autocomplete/" + moduleName + "/" + fieldLabelName;
+            var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/autocomplete/" + moduleName + "/" + fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $("[autoNameField='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");

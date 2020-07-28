@@ -18,11 +18,11 @@ class QuickUpdater {
         var value = $(obj).val();
         var textValue = obj.options[obj.selectedIndex].text;
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
-            if (callback==null || callback==undefined || callback=="") {
+            if (callback == null || callback == undefined || callback == "") {
                 $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(textValue);
             }
             else {
@@ -30,7 +30,7 @@ class QuickUpdater {
                 eval(callback);
             }
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     quickUpdateInput(obj) {
@@ -44,11 +44,11 @@ class QuickUpdater {
         var value = $(obj).val();
         var callback = $(obj).attr("callback");
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
-            if (callback==null || callback==undefined || callback=="") {
+            if (callback == null || callback == undefined || callback == "") {
                 $(`.quickUpdaterTarget[quickUpdaterId="${quickUpdaterId}"]`).html(value);
             }
             else {
@@ -56,7 +56,7 @@ class QuickUpdater {
                 eval(callback);
             }
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     displayTextUpdate(obj) {
@@ -85,7 +85,7 @@ class QuickUpdater {
         var fieldName = $(obj).attr("fieldName");
         var quickUpdaterId = $(obj).attr("quickUpdaterId");
         var callback = $(obj).attr("callback");
-        if (callback==null || callback==undefined) {
+        if (callback == null || callback == undefined) {
             callback = "";
         }
 
@@ -97,31 +97,31 @@ class QuickUpdater {
         str = utils.replaceAll(str, "##CALLBACK##", callback);
 
         var placement = $(obj).attr("placement");
-        if (placement==null||placement==undefined) {
+        if (placement == null || placement == undefined) {
             placement = "right";
         }
         console.log(str);
         var pop = $(obj);
 
         pop.popover({
-            placement : placement,
-            trigger : 'manual',
-            html : true,
-            title : updaterTitle,
-            content : str,
-            sanitize : false,
-        }).on('shown.bs.popover', function(e) {
+            placement: placement,
+            trigger: 'manual',
+            html: true,
+            title: updaterTitle,
+            content: str,
+            sanitize: false,
+        }).on('shown.bs.popover', function (e) {
             //console.log('shown triggered');
             // 'aria-describedby' is the id of the current popover
             var current_popover = '#' + $(e.target).attr('aria-describedby');
             var cur_pop = $(current_popover);
-          
-            cur_pop.find('.close').click(function(){
+
+            cur_pop.find('.close').click(function () {
                 //console.log('close triggered');
                 pop.popover('hide');
             });
-          
-            cur_pop.find('.OK').click(function(){
+
+            cur_pop.find('.OK').click(function () {
                 //console.log('OK triggered');
                 pop.popover('hide');
             });
@@ -136,13 +136,13 @@ class QuickUpdater {
         $(obj).attr("quickUpdaterId", QUICK_UPDATER_COUNTER);
 
         var updater = $(obj).attr("updater");
-        if (updater=="calendar") {
+        if (updater == "calendar") {
             quickUpdater.displayCalendarUpdate(obj);
         }
-        else if (updater=="text") {
+        else if (updater == "text") {
             quickUpdater.displayTextUpdate(obj);
         }
-        if (updater=="autoComplete") {
+        if (updater == "autoComplete") {
             quickUpdater.displayAutoCompleteUpdate(obj);
         }
     }
@@ -156,13 +156,13 @@ class QuickUpdater {
         }
         var fileType = $(obj).attr("fileType");
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/QuickDownloader/${moduleName}/${recordId}/${fileType}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/QuickDownloader/${moduleName}/${recordId}/${fileType}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
-            window.open(MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/attachment/download/'+data, '_blank');
+            window.open(MAIN_URL + '/api/generic/' + localStorage.companyCode + '/attachment/download/' + data, '_blank');
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     quickAttachment(obj) {
@@ -174,7 +174,7 @@ class QuickUpdater {
         }
         var fileType = $(obj).attr("fileType");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             showModalAny.show("Success", "File uploaded successfully!");
         };

@@ -9,9 +9,9 @@ class FormLinker {
     }
 
     linkChildToForm(moduleName, submodule, fieldname, recordId, childid) {
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/childtoformlink/"+moduleName+"/"+submodule+"/"+fieldname+"/"+recordId+"/"+childid;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/childtoformlink/" + moduleName + "/" + submodule + "/" + fieldname + "/" + recordId + "/" + childid;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
 
             var formModule = data.getProp("moduleName");

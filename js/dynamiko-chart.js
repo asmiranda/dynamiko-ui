@@ -4,7 +4,7 @@ class ChartRule {
         console.log("doRule called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/chartrule/' + moduleName;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/chartrule/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -43,9 +43,9 @@ class ChartRule {
 
     doAreaChart(index, data) {
         var offset = index + 1;
-        var chartTitle = $('.chartTitle'+offset+":visible");
+        var chartTitle = $('.chartTitle' + offset + ":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
-        var lineChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
+        var lineChartCanvas = $('canvas.chart' + offset + ":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
@@ -59,9 +59,9 @@ class ChartRule {
 
     doLineChart(index, data) {
         var offset = index + 1;
-        var chartTitle = $('.chartTitle'+offset+":visible");
+        var chartTitle = $('.chartTitle' + offset + ":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
-        var lineChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
+        var lineChartCanvas = $('canvas.chart' + offset + ":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var lineChartData = this.getLineData(chartData);
@@ -75,9 +75,9 @@ class ChartRule {
 
     doBarChart(index, data) {
         var offset = index + 1;
-        var chartTitle = $('.chartTitle'+offset+":visible");
+        var chartTitle = $('.chartTitle' + offset + ":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
-        var barChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
+        var barChartCanvas = $('canvas.chart' + offset + ":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var barChartData = this.getLineData(chartData);
@@ -91,9 +91,9 @@ class ChartRule {
 
     doPieChart(index, data) {
         var offset = index + 1;
-        var chartTitle = $('.chartTitle'+offset+":visible");
+        var chartTitle = $('.chartTitle' + offset + ":visible");
         $(chartTitle).html(data.getProp("chartTitle"));
-        var pieChartCanvas = $('canvas.chart'+offset+":visible").get(0).getContext('2d')
+        var pieChartCanvas = $('canvas.chart' + offset + ":visible").get(0).getContext('2d')
 
         var chartData = data.chartData;
         var color = Chart.helpers.color;

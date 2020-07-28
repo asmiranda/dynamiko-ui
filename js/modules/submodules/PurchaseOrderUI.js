@@ -18,13 +18,13 @@ class PurchaseOrderUI {
         $("#dynamikoMainSearch").hide();
     }
 
-    
+
     selectProduct(obj) {
         // var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="POProduct") {
+        if (tabName == "POProduct") {
             productUI.loadProductProfile(obj);
             purchaseOrderUI.loadActivePoForProduct(obj);
         }
@@ -35,19 +35,19 @@ class PurchaseOrderUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="POSupplier") {
+        if (tabName == "POSupplier") {
             supplierUI.loadSupplierProfile(obj);
             purchaseOrderUI.loadActivePoForSupplier(obj);
         }
     }
-    
+
     searchPurchaseOrderFilter(obj) {
         var value = $(obj).val();
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PurchaseOrderUI/getFilteredPO/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getFilteredPO/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             purchaseOrderUI.arrangePO(data, "Dashboard");
             purchaseOrderUI.arrangePO(data, "NewPO");
@@ -56,10 +56,10 @@ class PurchaseOrderUI {
     }
 
     loadTopPO() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PurchaseOrderUI/getTopPO`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getTopPO`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             purchaseOrderUI.arrangePO(data, "Dashboard");
             purchaseOrderUI.arrangePO(data, "NewPO");
@@ -70,7 +70,7 @@ class PurchaseOrderUI {
     arrangePO(data, tabName) {
         var divSelector = `.PurchaseOrderUI_SearchPurchaseOrder[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var supplierName = obj.getProp("supplierName");
             var poPrice = obj.getProp("poPrice");
             var poQuantity = obj.getProp("poQuantity");
@@ -109,16 +109,16 @@ class PurchaseOrderUI {
             $(divSelector).append(str);
             $(".SupplierPurchaseOrderUI_supplierName").html(supplierName);
         });
-        
+
     }
 
     loadActivePoForSupplier(obj) {
         var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PurchaseOrderUI/getSupplierPO/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getSupplierPO/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             purchaseOrderUI.arrangePurchaseOrderForSupplier(data, tabName);
         };
@@ -128,7 +128,7 @@ class PurchaseOrderUI {
     arrangePurchaseOrderForSupplier(data, tabName) {
         var divSelector = `.SupplierPurchaseOrderUI_SearchSuppliers[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var supplierName = obj.getProp("supplierName");
             var poPrice = obj.getProp("poPrice");
             var poQuantity = obj.getProp("poQuantity");
@@ -167,16 +167,16 @@ class PurchaseOrderUI {
             $(divSelector).append(str);
             $(".SupplierPurchaseOrderUI_supplierName").html(supplierName);
         });
-        
+
     }
 
     loadActivePoForProduct(obj) {
         var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PurchaseOrderUI/getProductPO/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getProductPO/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             purchaseOrderUI.arrangePurchaseOrderForProduct(data, tabName);
         };
@@ -186,7 +186,7 @@ class PurchaseOrderUI {
     arrangePurchaseOrderForProduct(data, tabName) {
         var divSelector = `.ProductPurchaseOrderUI_SearchProducts[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var supplierName = obj.getProp("supplierName");
             var poPrice = obj.getProp("poPrice");
             var poQuantity = obj.getProp("poQuantity");
@@ -225,6 +225,6 @@ class PurchaseOrderUI {
             $(divSelector).append(str);
             $(".ProductPurchaseOrderUI_productName").html(productName);
         });
-        
+
     }
 }

@@ -45,7 +45,7 @@ class FacultyMeetingUI extends AbstractUI {
 
     loadMeetings(moduleName) {
         utils.showSpin();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${moduleName}/getMeetings`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${moduleName}/getMeetings`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;
@@ -77,7 +77,7 @@ class FacultyMeetingUI extends AbstractUI {
     }
 
     initFab() {
-        $('.btn-group-fab').on('click', '.btn', function() {
+        $('.btn-group-fab').on('click', '.btn', function () {
             $('.btn-group-fab').toggleClass('active');
         });
         $('has-tooltip').tooltip();

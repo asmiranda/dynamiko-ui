@@ -1,15 +1,15 @@
-class HospitalUI { 
+class HospitalUI {
     changeMainId(obj) {
         utils.loadRecordToForm(obj, hospitalUI);
     }
 
     doMainSearchData(evt) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HospitalUI/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HospitalUI/quickMainSearcher/${localStorage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".quickMainSearcherResult").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var recordId = obj.getPropDefault("id", "0");
                 var lastName = obj.getPropDefault("lastName", "");
                 var firstName = obj.getPropDefault("firstName", "");
@@ -27,7 +27,7 @@ class HospitalUI {
                 $(".quickMainSearcherResult").append(str);
             });
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     changeModule(evt) {

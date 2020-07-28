@@ -76,7 +76,7 @@ class UIService {
     }
 
     initCompany() {
-        var url = MAIN_URL + '/api/ui/' + sessionStorage.companyCode + '/company';
+        var url = MAIN_URL + '/api/ui/' + localStorage.companyCode + '/company';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         $(".chooseCompanyList").empty();
         var successCallback = function (data) {
@@ -98,8 +98,8 @@ class UIService {
     }
 
     changeCompany(companyCode, companyName) {
-        sessionStorage.companyCode = companyCode;
-        sessionStorage.companyName = companyName;
+        localStorage.companyCode = companyCode;
+        localStorage.companyName = companyName;
         var useCompanyStr = `
             <span style="padding-right: 15px;">${companyName}</span><i class="fa fa-bank"></i>
         `;
@@ -112,7 +112,7 @@ class UIService {
     }
 
     initLogo() {
-        var url = MAIN_URL + '/api/ui/' + sessionStorage.companyCode + '/logo';
+        var url = MAIN_URL + '/api/ui/' + localStorage.companyCode + '/logo';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("logo ==");
@@ -123,14 +123,14 @@ class UIService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/ui/' + sessionStorage.companyCode + '/profile';
+        var url = MAIN_URL + '/api/ui/' + localStorage.companyCode + '/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("profile ==");
             console.log(data);
-            sessionStorage.uname = data.getProp("userName");
-            sessionStorage.profileName = data.getProp("profileName");
-            $(".profileName").html(sessionStorage.profileName);
+            localStorage.uname = data.getProp("userName");
+            localStorage.profileName = data.getProp("profileName");
+            $(".profileName").html(localStorage.profileName);
 
             meetingLoader.loadMeetings();
         };
@@ -139,7 +139,7 @@ class UIService {
 }
 
 class LeftMenu {
-    constructor() {
+    init() {
         console.log("LEFT MENU CALLED WITH DASHBOARD...");
         $(document).on('click', '.leftDashboardItem', function () {
             dashboard.load(this);
@@ -151,7 +151,7 @@ class LeftMenu {
             leftMenu.loadUI(this);
         });
 
-        var url = MAIN_URL + '/api/generic/' + sessionStorage.companyCode + '/getLeftMenu';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("Left Menu Extracted");

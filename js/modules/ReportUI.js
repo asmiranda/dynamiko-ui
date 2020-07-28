@@ -1,4 +1,4 @@
-class ReportUI { 
+class ReportUI {
     changeMainId(obj) {
     }
 
@@ -15,17 +15,17 @@ class ReportUI {
 
     loadReportList(tabName) {
         console.log("loadReportList", tabName);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ReportUI/getReports/${tabName}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReportUI/getReports/${tabName}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
 
             var divSelector = `select[module="ReportUI"][name="report"]`;
             $(divSelector).empty();
             $(divSelector).append(`<option value="">--</option>`);
             const groups = new Set();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var group = obj.getProp("group");
                 groups.add(group);
             });
@@ -34,9 +34,9 @@ class ReportUI {
             for (let groupName of groups) {
                 console.log(groupName);
                 var str = `<optgroup label="${groupName}">`;
-                $(data).each(function(index, obj) {
+                $(data).each(function (index, obj) {
                     var group = obj.getProp("group");
-                    if (group==groupName) {
+                    if (group == groupName) {
                         var name = obj.getProp("name");
                         var title = obj.getProp("title");
                         str += `<option value="${name}">${title}</option>`;
@@ -62,7 +62,7 @@ class ReportUI {
         var divSelector = `select[module="ReportUI"][name="report"]`;
         var reportName = $(divSelector).val();
         var queryStr = "";
-        $(".reportColumn").each(function(index, obj) {
+        $(".reportColumn").each(function (index, obj) {
             var checked = $(obj).is(":checked");
             if (checked) {
                 var name = $(obj).attr("name");
@@ -70,11 +70,11 @@ class ReportUI {
             }
         });
         var displayReport = true;
-        $(".reportParam").each(function(index, obj) {
+        $(".reportParam").each(function (index, obj) {
             var paramName = $(obj).attr("paramName");
             var value = $(obj).val();
             var isRequired = $(obj).attr("isRequired");
-            if (isRequired=="true" && value=="") {
+            if (isRequired == "true" && value == "") {
                 showModalAny.show("Required Report Parameter", `${paramName} is required.`);
                 displayReport = false;
             }
@@ -87,9 +87,9 @@ class ReportUI {
             var dt = new Date();
             var milliSec = dt.getMilliseconds();
             console.log(queryStr);
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/${reportType}/${milliSec}?${queryStr}`;
+            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/${reportType}/${milliSec}?${queryStr}`;
             console.log(url);
-            if (reportType=='pdf') {
+            if (reportType == 'pdf') {
                 $("#reportFrame").attr("src", url);
             }
             else {
@@ -103,11 +103,11 @@ class ReportUI {
         console.log("changeParameters");
         var reportName = $(obj).val();
         console.log(`reportName == ${reportName}`);
-        if (reportName!="") {
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ReportUI/getParameters/${reportName}`;
+        if (reportName != "") {
+            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReportUI/getParameters/${reportName}`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-    
-            var successCallback = function(data) {
+
+            var successCallback = function (data) {
                 console.log(data);
                 var params = data.getProp("params");
                 var columns = data.getProp("columns");
@@ -135,7 +135,7 @@ class ReportUI {
     arrangeReportParams(params) {
         console.log(params);
         $(".reportParameters").empty();
-        $(params).each(function(index, obj) {
+        $(params).each(function (index, obj) {
             var title = obj.getProp("title");
             var name = obj.getProp("name");
             var type = obj.getProp("type");
@@ -143,35 +143,35 @@ class ReportUI {
             var dropDownLst = obj.getProp("dropDownLst");
             console.log(title, name, type, dropDownLst);
             var str = "";
-            if (type=="STRING") {
+            if (type == "STRING") {
                 str = reportUI.createStringParam(name, title, required);
             }
-            else if (type=="INT") {
+            else if (type == "INT") {
                 str = reportUI.createIntParam(name, title, required);
             }
-            else if (type=="DOUBLE") {
+            else if (type == "DOUBLE") {
                 str = reportUI.createDoubleParam(name, title, required);
             }
-            else if (type=="DATE") {
+            else if (type == "DATE") {
                 str = reportUI.createDateParam(name, title, required);
             }
-            else if (type=="DATEYEAR") {
+            else if (type == "DATEYEAR") {
                 str = reportUI.createDateYearParam(name, title, required);
             }
-            else if (type=="DROPDOWN") {
+            else if (type == "DROPDOWN") {
                 str = reportUI.createDropDownParam(name, title, dropDownLst, required);
             }
-            else if (type=="AUTOCOMPLETE") {
+            else if (type == "AUTOCOMPLETE") {
                 str = reportUI.createAutoCompleteParam(name, title, required);
             }
             $(".reportParameters").append(str);
         });
     }
-    
+
     arrangeReportColumnInclusion(columns) {
         console.log(columns);
         $(".reportColumns").empty();
-        $(columns).each(function(index, obj) {
+        $(columns).each(function (index, obj) {
             var key = obj.getProp("key");
             var value = obj.getProp("value");
             console.log(key, value);
@@ -192,7 +192,7 @@ class ReportUI {
         $(".reportParam[name='paperSize']").empty();
 
         var selections = "";
-        $(papers).each(function(index, obj) {
+        $(papers).each(function (index, obj) {
             var name = obj.getProp("name");
             var width = obj.getProp("width");
             var height = obj.getProp("height");
@@ -205,7 +205,7 @@ class ReportUI {
     createAutoCompleteParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="flex: 3; margin-left: 15px;">
-                <label class="control-label">${isRequired?"*":""}${title}</label>
+                <label class="control-label">${isRequired ? "*" : ""}${title}</label>
                 <div class="input-group" style="width: 100%;">
 
                     <div class="input-group">
@@ -221,17 +221,17 @@ class ReportUI {
         `;
         return str;
     }
- 
+
     createDropDownParam(name, title, dropDownLst, isRequired) {
         var selections = "";
-        $(dropDownLst).each(function(index, obj) {
+        $(dropDownLst).each(function (index, obj) {
             var key = obj.getProp("key");
             var value = obj.getProp("value");
             selections += `<option value="${key}">${value}</option>`;
         });
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${isRequired?"*":""}${title}</label>
+                <label>${isRequired ? "*" : ""}${title}</label>
                 <select isRequired="${isRequired}" paramName="${title}" class="form-control reportParam" rowindex="0" module="ReportUI" name="${name}">
                     <option></option>
                     ${selections}
@@ -244,7 +244,7 @@ class ReportUI {
     createDoubleParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${isRequired?"*":""}${title}</label>
+                <label>${isRequired ? "*" : ""}${title}</label>
                 <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
@@ -254,7 +254,7 @@ class ReportUI {
     createStringParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${isRequired?"*":""}${title}</label>
+                <label>${isRequired ? "*" : ""}${title}</label>
                 <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
@@ -264,7 +264,7 @@ class ReportUI {
     createIntParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${isRequired?"*":""}${title}</label>
+                <label>${isRequired ? "*" : ""}${title}</label>
                 <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
@@ -274,7 +274,7 @@ class ReportUI {
     createDateParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${isRequired?"*":""}${title}</label>
+                <label>${isRequired ? "*" : ""}${title}</label>
                 <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control calendar reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
@@ -284,7 +284,7 @@ class ReportUI {
     createDateYearParam(name, title, isRequired) {
         var str = `
             <div class="form-group" style="margin-left: 15px;">
-                <label>${isRequired?"*":""}${title}</label>
+                <label>${isRequired ? "*" : ""}${title}</label>
                 <input isRequired="${isRequired}" paramName="${title}" type="text" rowindex="0" class="form-control calendarYear reportParam" module="ReportUI" name="${name}" tabname="Report">
             </div>
         `;
@@ -292,7 +292,7 @@ class ReportUI {
     }
 }
 
-$(function() {
+$(function () {
     reportUI = new ReportUI();
 })
 

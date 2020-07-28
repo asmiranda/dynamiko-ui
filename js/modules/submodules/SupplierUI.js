@@ -1,21 +1,21 @@
 class SupplierUI {
     loadSupplierProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/SupplierUI/getSupplierProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SupplierUI/getSupplierProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             var recordId = data.getProp("SupplierId");
             var name = data.getProp("name");
             var email = data.getProp("email");
             var contact = data.getProp("contact");
 
-            $(".SupplierUI_SupplierName").html(name);    
-            $(".SupplierUI_Supplier_Email").html(email);    
-            $(".SupplierUI_Supplier_Contact").html(contact);   
-            $(".SupplierUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/SupplierUI/${recordId}/${utils.nowString()}`);   
-            $(".SupplierUI_ProfilePic").attr("recordId", recordId);   
+            $(".SupplierUI_SupplierName").html(name);
+            $(".SupplierUI_Supplier_Email").html(email);
+            $(".SupplierUI_Supplier_Contact").html(contact);
+            $(".SupplierUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SupplierUI/${recordId}/${utils.nowString()}`);
+            $(".SupplierUI_ProfilePic").attr("recordId", recordId);
             $(".SupplierUI_ProfilePic").show();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -27,10 +27,10 @@ class SupplierUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/SupplierUI/getFilteredSuppliers/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SupplierUI/getFilteredSuppliers/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             supplierUI.arrangeSearchedSuppliers(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -38,10 +38,10 @@ class SupplierUI {
 
     loadTopSuppliers(tabName) {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/SupplierUI/getTopSuppliers`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SupplierUI/getTopSuppliers`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             supplierUI.arrangeSearchedSuppliers(data, tabName);
         };
@@ -51,7 +51,7 @@ class SupplierUI {
     arrangeSearchedSuppliers(data, tabName) {
         var divSelector = `.SupplierUI_SearchSuppliers[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var supplierName = obj.getProp("name");
             var email = obj.getPropDefault("email", "");
             var contact = obj.getPropDefault("contact", "");
@@ -65,6 +65,6 @@ class SupplierUI {
             `;
             $(divSelector).append(str);
         });
-        
+
     }
 }

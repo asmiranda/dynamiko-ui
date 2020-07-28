@@ -2,7 +2,7 @@ class NotificationUI extends AbstractSubUI {
     constructor() {
         super("NotificationUI");
         var context = this;
-        $(document).on('click', `.btnReplyToNotification`, function() {
+        $(document).on('click', `.btnReplyToNotification`, function () {
             context.btnReplyToNotification(this);
         });
     }
@@ -18,12 +18,12 @@ class NotificationUI extends AbstractSubUI {
         tmp["message"] = message;
 
         console.log(tmp);
-        var vdata = JSON.stringify(tmp); 
+        var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/NotificationUI/post/replyMessageThread`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/NotificationUI/post/replyMessageThread`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
-        var successFunction = function(ret) {
+        var successFunction = function (ret) {
             console.log("btnReplyToNotification", url, ret);
             context.arrangeNotificationThread(ret);
         };
@@ -35,10 +35,10 @@ class NotificationUI extends AbstractSubUI {
         var context = this;
         var recordId = data.NotificationId;
         $(".btnReplyToNotification").attr("recordId", recordId);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/NotificationUI/getMessageThread/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/NotificationUI/getMessageThread/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(ret) {
+        var successFunction = function (ret) {
             console.log("onProfileLoaded", url, ret);
             context.arrangeNotificationThread(ret);
         };
@@ -47,12 +47,12 @@ class NotificationUI extends AbstractSubUI {
 
     arrangeNotificationThread(data) {
         $("#messageThread").empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             console.log(obj);
             var messageType = obj.getPropDefault("messageType", "");
             var message = obj.getPropDefault("message", "");
             var strChat = "";
-            if  (messageType=="Receive") {
+            if (messageType == "Receive") {
                 var fromEmail = obj.getPropDefault("fromEmail", "");
                 var receivedDate = obj.getPropDefault("receivedDate", "");
                 strChat = `
@@ -86,7 +86,7 @@ class NotificationUI extends AbstractSubUI {
         });
     }
 
-    newRecord() {   
+    newRecord() {
         this.clearModuleInputs(this.moduleName);
     }
 
@@ -95,7 +95,7 @@ class NotificationUI extends AbstractSubUI {
         var emailReceiver = obj.getPropDefault("emailReceiver", "");
         var receivedDate = obj.getPropDefault("receivedDate", "");
         var message = obj.getPropDefault("message", "--");
-        if (message.length>30) {
+        if (message.length > 30) {
             message = message.substr(0, 30);
         }
         var NotificationId = obj.getProp("NotificationId");

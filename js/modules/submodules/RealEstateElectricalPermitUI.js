@@ -8,23 +8,23 @@ class RealEstateElectricalPermitUI {
         var tmp = utils.collectDataForSaving("editRealEstateElectricalPermit", "RealEstateElectricalPermitUI", "0");
 
         console.log(tmp);
-        var vdata = JSON.stringify(tmp); 
+        var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateElectricalPermitUI/post/saveElectricalPermitForCashier`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateElectricalPermitUI/post/saveElectricalPermitForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             showModalAny.show("Save Electrical Permit Message", data.value);
         };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     changeValue(obj) {
         var name = $(obj).attr("name");
         var type = $(obj).attr("type");
         var value = $(obj).val();
-        if (type=="checkbox") {
-            if($(obj).prop("checked") == true){
+        if (type == "checkbox") {
+            if ($(obj).prop("checked") == true) {
                 $(`input.editRealEstateElectricalPermit[type="text"][name="${name}"]`).val(value);
             }
             else {
@@ -37,10 +37,10 @@ class RealEstateElectricalPermitUI {
     }
 
     loadTopRealEstateElectricalPermits() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateElectricalPermitUI/getTopRealEstateElectricalPermits`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateElectricalPermitUI/getTopRealEstateElectricalPermits`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateElectricalPermitUI.arrangeSearchedRealEstateElectricalPermits(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -50,15 +50,15 @@ class RealEstateElectricalPermitUI {
         console.log(data);
         var divName = `.searchRealEstateElectricalPermits[module="RealEstateElectricalPermitUI"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var RealEstateElectricalPermitId = obj.getProp("RealEstateElectricalPermitId");
 
             var realEstateName = obj.getProp("realEstateName");
             var customerName = obj.getProp("citizenName");
-            var years = obj.getProp("startYear")+"-"+obj.getProp("endYear");
+            var years = obj.getProp("startYear") + "-" + obj.getProp("endYear");
 
-            var employeeName = obj.getPropDefault("firstName", "")+" "+obj.getPropDefault("lastName", "");
-            var totalAmount = obj.getPropDefault("totalAmount", ""); 
+            var employeeName = obj.getPropDefault("firstName", "") + " " + obj.getPropDefault("lastName", "");
+            var totalAmount = obj.getPropDefault("totalAmount", "");
             var str = `
                 <div style="display: flex; flex-wrap: wrap;">
                     <div style="flex: 90%;">
@@ -79,17 +79,17 @@ class RealEstateElectricalPermitUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 
     loadRealEstateElectricalPermitProfile(obj) {
         console.log(`loadRealEstateElectricalPermitProfile`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateElectricalPermitUI/getRealEstateElectricalPermitProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateElectricalPermitUI/getRealEstateElectricalPermitProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             realEstateElectricalPermitUI.arrangeRealEstateElectricalPermitProfile(data, "editRealEstateElectricalPermit");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -101,7 +101,7 @@ class RealEstateElectricalPermitUI {
 
     selectRealEstateElectricalPermit(obj) {
         console.log("selectRealEstateElectricalPermit");
-        console.log("Record ID == "+$(obj).attr("recordId"));
+        console.log("Record ID == " + $(obj).attr("recordId"));
         realEstateElectricalPermitUI.loadRealEstateElectricalPermitProfile(obj, "RealEstateElectricalPermit");
     }
 }

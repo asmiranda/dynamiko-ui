@@ -1,11 +1,11 @@
-class CommunityTaxCertificateUI { 
+class CommunityTaxCertificateUI {
     selectCommunityTaxCertificate(obj) {
         communityTaxCertificateUI.loadCommunityTaxCertificateProfile(obj, "");
     }
 
     changeCTCValues(obj) {
         var name = $(obj).attr("name");
-        if (name=="amountA"||name=="amountB1"||name=="amountB2"||name=="amountB3") {
+        if (name == "amountA" || name == "amountB1" || name == "amountB2" || name == "amountB3") {
             var totalAmount = utils.parseFloatOrZero($(`.editCtc[name="amountA"]`).val());
             totalAmount += utils.parseFloatOrZero($(`.editCtc[name="amountB1"]`).val());
             totalAmount += utils.parseFloatOrZero($(`.editCtc[name="amountB2"]`).val());
@@ -24,15 +24,15 @@ class CommunityTaxCertificateUI {
             tmp[name] = value;
         });
         console.log(tmp);
-        var vdata = JSON.stringify(tmp); 
+        var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/post/saveCTCForCashier`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/post/saveCTCForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             showModalAny.show("Save CTC Message", data.value);
         };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     newCTC(obj) {
@@ -41,10 +41,10 @@ class CommunityTaxCertificateUI {
 
     loadTopCommunityTaxCertificate() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/getTopCommunityTaxCertificates`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/getTopCommunityTaxCertificates`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             communityTaxCertificateUI.arrangeSearchedCommunityTaxCertificates(data, "CommunityTaxCertificate");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -52,10 +52,10 @@ class CommunityTaxCertificateUI {
 
     loadCommunityTaxCertificateProfile(obj, tabName) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/getCommunityTaxCertificateProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/getCommunityTaxCertificateProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             var CommunityTaxCertificateId = data.getProp("CommunityTaxCertificateId");
             var ctcNumber = data.getProp("ctcNumber");
@@ -69,21 +69,21 @@ class CommunityTaxCertificateUI {
             var amountB1 = data.getProp("amountB1");
             var amountB2 = data.getProp("amountB2");
             var amountB3 = data.getProp("amountB3");
-            var totalAmount = utils.parseFloatOrZero(amountA)+utils.parseFloatOrZero(amountB1)+utils.parseFloatOrZero(amountB2)+utils.parseFloatOrZero(amountB3);
+            var totalAmount = utils.parseFloatOrZero(amountA) + utils.parseFloatOrZero(amountB1) + utils.parseFloatOrZero(amountB2) + utils.parseFloatOrZero(amountB3);
 
-            $(`.editCtc[name="CommunityTaxCertificateId"]`).val(CommunityTaxCertificateId);    
-            $(`.editCtc[name="ctcNumber"]`).val(ctcNumber);    
-            $(`.editCtc[name="invoiceNumber"]`).val(invoiceNumber);    
-            $(`.editCtc[name="issuerCode"]`).val(issuerCode);    
-            $(`.editCtc[name="ctcDate"]`).val(ctcDate);    
-            $(`.editCtc[name="ctcPurpose"]`).val(ctcPurpose);    
-            $(`.editCtc[name="citizen"]`).val(citizen);    
-            $(`.editCtc[name="address"]`).val(address);    
-            $(`.editCtc[name="amountA"]`).val(amountA);    
-            $(`.editCtc[name="amountB1"]`).val(amountB1);    
-            $(`.editCtc[name="amountB2"]`).val(amountB2);    
-            $(`.editCtc[name="amountB3"]`).val(amountB3);    
-            $(`.editCtc[name="totalAmount"]`).val(totalAmount);    
+            $(`.editCtc[name="CommunityTaxCertificateId"]`).val(CommunityTaxCertificateId);
+            $(`.editCtc[name="ctcNumber"]`).val(ctcNumber);
+            $(`.editCtc[name="invoiceNumber"]`).val(invoiceNumber);
+            $(`.editCtc[name="issuerCode"]`).val(issuerCode);
+            $(`.editCtc[name="ctcDate"]`).val(ctcDate);
+            $(`.editCtc[name="ctcPurpose"]`).val(ctcPurpose);
+            $(`.editCtc[name="citizen"]`).val(citizen);
+            $(`.editCtc[name="address"]`).val(address);
+            $(`.editCtc[name="amountA"]`).val(amountA);
+            $(`.editCtc[name="amountB1"]`).val(amountB1);
+            $(`.editCtc[name="amountB2"]`).val(amountB2);
+            $(`.editCtc[name="amountB3"]`).val(amountB3);
+            $(`.editCtc[name="totalAmount"]`).val(totalAmount);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -94,10 +94,10 @@ class CommunityTaxCertificateUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/CommunityTaxCertificateUI/filterCommunityTaxCertificate/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/filterCommunityTaxCertificate/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             communityTaxCertificateUI.arrangeSearchedCommunityTaxCertificates(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -107,8 +107,8 @@ class CommunityTaxCertificateUI {
         console.log(data);
         var divName = `.searchCommunityTaxCertificates[module="CommunityTaxCertificateUI"][tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
-            var CommunityTaxCertificateName = obj.getProp("firstName")+" "+obj.getProp("lastName");
+        $(data).each(function (index, obj) {
+            var CommunityTaxCertificateName = obj.getProp("firstName") + " " + obj.getProp("lastName");
             var email = obj.getPropDefault("email", "");
             var recordId = obj.getProp("CommunityTaxCertificateId");
             var str = `
@@ -119,7 +119,7 @@ class CommunityTaxCertificateUI {
                 <hr>
             `;
             $(divName).append(str);
-            
+
         });
     }
 }

@@ -89,7 +89,7 @@
     <script src="js/constants.js"></script>
     <script>
         $(function () {
-            sessionStorage.clear();
+            localStorage.clear();
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
@@ -101,7 +101,7 @@
                 login();
             }
         });
-        $("#btnSubmit").click(function() {
+        $("#btnSubmit").click(function () {
             login();
         });
         function login() {

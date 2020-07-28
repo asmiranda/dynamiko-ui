@@ -2,26 +2,26 @@ class MyInbox {
     init() {
         var context = this;
         console.log("Testing Inbox");
-        
-        $(document).on('click', '.workStarted', function() {
+
+        $(document).on('click', '.workStarted', function () {
             context.loadWorkStarted();
         });
-        $(document).on('click', '.taskForMe', function() {
+        $(document).on('click', '.taskForMe', function () {
             context.loadTask('me');
         });
-        $(document).on('click', '.taskForOpen', function() {
+        $(document).on('click', '.taskForOpen', function () {
             context.loadTask('open');
         });
-        $(document).on('click', '.taskForCompleted', function() {
+        $(document).on('click', '.taskForCompleted', function () {
             context.loadTask('completed');
         });
-        $(document).on('click', '.taskForRejected', function() {
+        $(document).on('click', '.taskForRejected', function () {
             context.loadTask('rejected');
         });
-        $(document).on('click', '.taskForCancelled', function() {
+        $(document).on('click', '.taskForCancelled', function () {
             context.loadTask('cancelled');
         });
-        $(document).on('click', '.mailbox-star', function() {
+        $(document).on('click', '.mailbox-star', function () {
             e.preventDefault();
             //detect type
             var $this = $(this).find("a > i");
@@ -44,12 +44,12 @@ class MyInbox {
 
     loadTask(action) {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/InboxWidget/task/'+action;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/InboxWidget/task/' + action;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             context.clearInbox();
             console.log(data);
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var approvalMapId = obj.getProp("WfApprovalMapId");
                 var processInstanceId = obj.getProp("processInstanceId");
@@ -64,10 +64,10 @@ class MyInbox {
 
                 var str = "<tr>";
                 str += '<td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>';
-                str += '<td class="mailbox-star">'+employeeName+'</td>';
-                str += '<td class="mailbox-star"><a href="#" class="inboxRecord" mapId="'+approvalMapId+'"><b>'+subject+'</b></a><br>'+description+'</td>';
-                str += '<td class="mailbox-star">'+createdDate+'</td>';
-                str += '<td class="mailbox-star">'+status+'</td>';
+                str += '<td class="mailbox-star">' + employeeName + '</td>';
+                str += '<td class="mailbox-star"><a href="#" class="inboxRecord" mapId="' + approvalMapId + '"><b>' + subject + '</b></a><br>' + description + '</td>';
+                str += '<td class="mailbox-star">' + createdDate + '</td>';
+                str += '<td class="mailbox-star">' + status + '</td>';
                 str += '<td class="mailbox-star">';
                 str += '<div class="btn-group pull-right">';
                 str += '<button class="btn btn-primary btn-sm" type="button" title="Approve request"><i class="fa fa-thumbs-o-up"></i></button>';
@@ -85,12 +85,12 @@ class MyInbox {
 
     loadWorkStarted() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/widget/InboxWidget/work/';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/InboxWidget/work/';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             context.clearInbox();
             console.log(data);
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var approvalMapId = obj.getProp("WfApprovalMapId");
                 var processInstanceId = obj.getProp("processInstanceId");
@@ -102,13 +102,13 @@ class MyInbox {
                 var startedBy = obj.getProp("assignee");
                 var createdDate = obj.getProp("createdDate");
                 var status = obj.getProp("actionStr");
-                
+
                 var str = "<tr>";
                 str += '<td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>';
-                str += '<td class="mailbox-star">'+employeeName+'</td>';
-                str += '<td class="mailbox-star"><a href="#" class="inboxRecord" mapId="'+approvalMapId+'"><b>'+subject+'</b></a><br>'+description+'</td>';
-                str += '<td class="mailbox-star">'+createdDate+'</td>';
-                str += '<td class="mailbox-star">'+status+'</td>';
+                str += '<td class="mailbox-star">' + employeeName + '</td>';
+                str += '<td class="mailbox-star"><a href="#" class="inboxRecord" mapId="' + approvalMapId + '"><b>' + subject + '</b></a><br>' + description + '</td>';
+                str += '<td class="mailbox-star">' + createdDate + '</td>';
+                str += '<td class="mailbox-star">' + status + '</td>';
                 str += '<td class="mailbox-star">';
                 str += '<div class="btn-group pull-right">';
                 str += '<button class="btn btn-primary btn-sm" type="button" title="Approve request"><i class="fa fa-thumbs-o-up"></i></button>';

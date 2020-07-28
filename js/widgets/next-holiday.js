@@ -8,15 +8,15 @@ class NextHolidayWidget {
 
         if ($(".birthdays")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/NextHolidayWidget";
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/NextHolidayWidget";
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
                 console.log("Complete Called.");
-                $.each(data, function(i, obj) {
+                $.each(data, function (i, obj) {
                     //use obj.id and obj.name here, for example:
-                    $(".next-holiday").append( '<a class="users-list-name" href="#">'+obj.name+'</a><span>'+obj.nextHoliday+'</span>' );
+                    $(".next-holiday").append('<a class="users-list-name" href="#">' + obj.name + '</a><span>' + obj.nextHoliday + '</span>');
                 });
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);

@@ -63,7 +63,7 @@
     <script src="js/utils.js"></script>
     <script>
         $(function () {
-            sessionStorage.clear();
+            localStorage.clear();
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
@@ -74,7 +74,7 @@
             var name = utils.getUrlParamValue(window.location.href, "name");
             $("#autoLoginName").html(name);
             console.log(`User == ${vusername}`);
-            loginJS.login(vusername+"@test.com", 'password', "home.html");
+            loginJS.login(vusername + "@test.com", 'password', "home.html");
         });
     </script>
 </body>

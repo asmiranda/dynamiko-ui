@@ -3,11 +3,11 @@ class PayrollUI {
         var dt = new Date();
         this.chosenYear = dt.getFullYear();
         this.chosenMonth = dt.getMonth();
-        this.monthNames = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+        this.monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     }
 
     changePayrollPeriod(obj, typeSelected) {
-        if (typeSelected=="month") {
+        if (typeSelected == "month") {
             this.chosenMonth = parseInt($(obj).attr("month"));
         }
         else {
@@ -30,27 +30,27 @@ class PayrollUI {
         $("#dynamikoMainSearch").hide();
 
         $("#selectPayrollYear").empty();
-        var str1 = `<option value="${this.chosenYear-1}">${this.chosenYear-1}</option>`;
+        var str1 = `<option value="${this.chosenYear - 1}">${this.chosenYear - 1}</option>`;
         var str2 = `<option value="${this.chosenYear}" selected>${this.chosenYear}</option>`;
-        var str3 = `<option value="${this.chosenYear+1}">${this.chosenYear+1}</option>`;
+        var str3 = `<option value="${this.chosenYear + 1}">${this.chosenYear + 1}</option>`;
         $("#selectPayrollYear").append(str1);
         $("#selectPayrollYear").append(str2);
         $("#selectPayrollYear").append(str3);
     }
 
     displayEmployeePayslipPreview() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/PayrollScheduleUI/displayEmployeePayslipPreview/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/PayrollScheduleUI/displayEmployeePayslipPreview/${localStorage.lastEmployeePayrollId}`;
         $(`iframe[report="EmployeePayslipPreview"]`).attr("src", url);
     }
 
     loadEmployeePayrollLoan() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollLoan/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollLoan/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI-ListEmployeePayrollLoan").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var employeePayrollId = obj.getProp("EmployeePayrollId");
                 var employeePayrollLoanId = obj.getProp("employeePayrollLoanId");
                 var loanAmount = obj.getPropDefault("loanAmount", "0");
@@ -73,13 +73,13 @@ class PayrollUI {
     }
 
     loadEmployeePayrollDeduction() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDeduction/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDeduction/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI-ListEmployeePayrollDeduction").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var employeePayrollId = obj.getProp("EmployeePayrollId");
                 var employeePayrollDeductionId = obj.getProp("employeePayrollDeductionId");
                 var totalDeductionAmount = obj.getPropDefault("totalDeductionAmount", "0");
@@ -101,13 +101,13 @@ class PayrollUI {
     }
 
     loadEmployeePayrollBenefit() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollBenefit/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollBenefit/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI-ListEmployeePayrollBenefit").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var employeePayrollId = obj.getProp("EmployeePayrollId");
                 var employeePayrollBenefitId = obj.getProp("employeePayrollBenefitId");
                 var totalBenefitAmount = obj.getPropDefault("totalBenefitAmount", "0");
@@ -129,13 +129,13 @@ class PayrollUI {
     }
 
     loadEmployeePayrollWorkHours() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollWorkHours/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollWorkHours/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI-ListEmployeePayrollDetail").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var employeePayrollId = obj.getProp("EmployeePayrollId");
                 var employeeTimeSheetId = obj.getProp("employeeTimeSheetId");
                 var employeePayrollDetailId = obj.getProp("employeePayrollDetailId");
@@ -150,7 +150,7 @@ class PayrollUI {
                 var dayName = obj.getPropDefault("attendanceType", "GENERATED");
 
                 var background = "bg-aqua";
-                var isWeekend = ([0,6].indexOf(workD.getDay()) != -1);
+                var isWeekend = ([0, 6].indexOf(workD.getDay()) != -1);
                 if (isWeekend) {
                     attendanceType = moment(workD).format("ddd");
                     background = "bg-yellow";
@@ -160,11 +160,11 @@ class PayrollUI {
                 }
 
                 var colorHours = "gray";
-                if (totalHours==8 || totalHours==0) {
+                if (totalHours == 8 || totalHours == 0) {
                     colorHours = "white";
                 }
                 var colorOTHours = "gray";
-                if (totalOtHours==0) {
+                if (totalOtHours == 0) {
                     colorOTHours = "white";
                 }
                 var str = `  
@@ -227,14 +227,14 @@ class PayrollUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/post/saveEmployeePayrollDetail`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/post/saveEmployeePayrollDetail`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             payrollScheduleUI.arrangeEmployeePayrollDetails(data);
             showModalAny.show("Save Employee Payroll", "Saved Employee Payroll Detail!");
         };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     updateEmployeePayrolDetailAmount(obj) {
@@ -245,9 +245,9 @@ class PayrollUI {
         var totalAdjustmentAmount = $(`.editEmployeePayrollDetail[name="totalAdjustmentAmount"]`).val();
         var totalTaxAmount = $(`.editEmployeePayrollDetail[name="totalTaxAmount"]`).val();
 
-        var totalGrossAmount = utils.parseFloatOrZero(basicPay)+utils.parseFloatOrZero(totalOtAmount);
-        var totalDeductionAmount = utils.parseFloatOrZero(totalSSSAmount)+utils.parseFloatOrZero(totalAdjustmentAmount)+utils.parseFloatOrZero(totalTaxAmount);
-        var totalNetAmount = totalGrossAmount-totalDeductionAmount;
+        var totalGrossAmount = utils.parseFloatOrZero(basicPay) + utils.parseFloatOrZero(totalOtAmount);
+        var totalDeductionAmount = utils.parseFloatOrZero(totalSSSAmount) + utils.parseFloatOrZero(totalAdjustmentAmount) + utils.parseFloatOrZero(totalTaxAmount);
+        var totalNetAmount = totalGrossAmount - totalDeductionAmount;
 
         $(`.editEmployeePayrollDetail[name="totalGrossAmount"]`).val(totalGrossAmount);
         $(`.editEmployeePayrollDetail[name="totalDeductionAmount"]`).val(totalDeductionAmount);
@@ -255,10 +255,10 @@ class PayrollUI {
     }
 
     loadEmployeePayrollDetails() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${localStorage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             payrollScheduleUI.arrangeEmployeePayrollDetails(data);
         };
@@ -274,9 +274,9 @@ class PayrollUI {
         var totalAdjustmentAmount = data.getProp("totalAdjustmentAmount");
         var totalTaxAmount = data.getProp("totalTaxAmount");
 
-        var totalGrossAmount = utils.parseFloatOrZero(basicPay)+utils.parseFloatOrZero(totalOtAmount);
-        var totalDeductionAmount = utils.parseFloatOrZero(totalSSSAmount)+utils.parseFloatOrZero(totalAdjustmentAmount)+utils.parseFloatOrZero(totalTaxAmount);
-        var totalNetAmount = totalGrossAmount-totalDeductionAmount;
+        var totalGrossAmount = utils.parseFloatOrZero(basicPay) + utils.parseFloatOrZero(totalOtAmount);
+        var totalDeductionAmount = utils.parseFloatOrZero(totalSSSAmount) + utils.parseFloatOrZero(totalAdjustmentAmount) + utils.parseFloatOrZero(totalTaxAmount);
+        var totalNetAmount = totalGrossAmount - totalDeductionAmount;
 
         $(`.editEmployeePayrollDetail[name="employeePayrollId"]`).val(employeePayrollId);
 
@@ -294,13 +294,13 @@ class PayrollUI {
 
     choosePayrollSchedule(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollList/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollList/${recordId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI-ListEmployeeForUpdate").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var recordId = obj.getProp("EmployeePayrollId");
                 var firstName = obj.getProp("firstName");
                 var lastName = obj.getProp("lastName");
@@ -330,13 +330,13 @@ class PayrollUI {
     }
 
     loadChoosePayrollList() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth + 1}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI-ChoosePayrollList2").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var name = obj.getProp("name");
                 var startDate = obj.getProp("cutOffStartDate");
                 var endDate = obj.getProp("cutOffEndDate");
@@ -353,7 +353,7 @@ class PayrollUI {
                 `;
                 $(".PayrollScheduleUI-ChoosePayrollList2").append(str);
             });
-            $(".chosenYearAndMonth").html(payrollScheduleUI.chosenYear+"-"+payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
+            $(".chosenYearAndMonth").html(payrollScheduleUI.chosenYear + "-" + payrollScheduleUI.monthNames[payrollScheduleUI.chosenMonth]);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -365,10 +365,10 @@ class PayrollUI {
         payrollObj.startDate = $(`.displayEdit[name="startDate"]`).val();
         payrollObj.endDate = $(`.displayEdit[name="endDate"]`).val();
         payrollObj.chosenYear = payrollScheduleUI.chosenYear;
-        payrollObj.chosenMonth = payrollScheduleUI.chosenMonth+1;
+        payrollObj.chosenMonth = payrollScheduleUI.chosenMonth + 1;
 
         var payrollTypes = [];
-        $(".EmployeePayrollType_CheckBox:checked").each(function(index, obj) {
+        $(".EmployeePayrollType_CheckBox:checked").each(function (index, obj) {
             var payrollType = $(obj).val();
             if (payrollType) {
                 payrollTypes.push(payrollType);
@@ -377,7 +377,7 @@ class PayrollUI {
         payrollObj.payrollTypes = payrollTypes;
 
         var employees = [];
-        $(".AllEmployee_CheckBox:checked").each(function(index, obj) {
+        $(".AllEmployee_CheckBox:checked").each(function (index, obj) {
             var employee = $(obj).val();
             if (employee) {
                 employees.push(employee);
@@ -386,10 +386,10 @@ class PayrollUI {
         payrollObj.employees = employees;
 
         var vdata = JSON.stringify(payrollObj);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/post/runPayroll`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/post/runPayroll`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
@@ -397,21 +397,21 @@ class PayrollUI {
 
     loadEmployeesForSelectedPayrollTypes() {
         var payrollTypes = [];
-        $(".EmployeePayrollType_CheckBox:checked").each(function(index, obj) {
+        $(".EmployeePayrollType_CheckBox:checked").each(function (index, obj) {
             var payrollType = $(obj).val();
             if (payrollType) {
                 payrollTypes.push(payrollType);
             }
         });
         var vdata = JSON.stringify(payrollTypes);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/post/getEmployeesForSelectedPayrollTypes`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/post/getEmployeesForSelectedPayrollTypes`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI_EmployeePayrollList").empty();
-            $(data).each(function(index, obj) {
-                var employeeName = obj.getProp("lastName")+", "+obj.getProp("firstName");
+            $(data).each(function (index, obj) {
+                var employeeName = obj.getProp("lastName") + ", " + obj.getProp("firstName");
                 var personId = obj.getProp("personId");
                 var str = `
                     <div class="checkbox col-md-4" style="flex: 1; margin: auto;">
@@ -428,13 +428,13 @@ class PayrollUI {
     }
 
     loadPayrollTypes() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollTypes`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollTypes`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".PayrollScheduleUI_EmployeePayrollTypes").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var str = `
                     <div class="checkbox" style="flex: 1; margin: auto;">
                         <label>
@@ -451,26 +451,26 @@ class PayrollUI {
 
     loadActiveMonth() {
         console.log("Called Load Active Month");
-        var months = ["0","1","2","3","4","5","6","7","8","9","10","11"];
+        var months = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
 
         var dt = new Date();
         var currentMonth = months[dt.getMonth()];
-        var prevMonth = months[(dt.getMonth() > 0)?dt.getMonth()-1:-1];
-        var nextMonth = months[(dt.getMonth() > 11)?1:dt.getMonth()+1];
-        $(months).each(function(index, obj) {
+        var prevMonth = months[(dt.getMonth() > 0) ? dt.getMonth() - 1 : -1];
+        var nextMonth = months[(dt.getMonth() > 11) ? 1 : dt.getMonth() + 1];
+        $(months).each(function (index, obj) {
             $(`[module="PayrollScheduleUI"][month="${obj}"]`).removeClass("bg-active-month");
             $(`[module="PayrollScheduleUI"][month="${obj}"]`).removeClass("bg-inactive-month");
             $(`[module="PayrollScheduleUI"][month="${obj}"]`).removeClass("bg-before-active-month");
             $(`[module="PayrollScheduleUI"][month="${obj}"]`).removeClass("bg-after-active-month");
-            if (currentMonth==obj) {
+            if (currentMonth == obj) {
                 $(`[module="PayrollScheduleUI"][month="${obj}"]`).addClass("bg-active-month");
-                $(`[module="PayrollScheduleUI"][month="${obj}"] a.status-display`).html("Current"); 
+                $(`[module="PayrollScheduleUI"][month="${obj}"] a.status-display`).html("Current");
             }
-            else if (prevMonth==obj) {
+            else if (prevMonth == obj) {
                 $(`[module="PayrollScheduleUI"][month="${obj}"]`).addClass("bg-before-active-month");
                 $(`[module="PayrollScheduleUI"][month="${obj}"] a.status-display`).html("Past");
             }
-            else if (nextMonth==obj) {
+            else if (nextMonth == obj) {
                 $(`[module="PayrollScheduleUI"][month="${obj}"]`).addClass("bg-after-active-month");
                 $(`[module="PayrollScheduleUI"][month="${obj}"] a.status-display`).html("Next");
             }
@@ -485,10 +485,10 @@ class PayrollUI {
     }
 
     loadPayrollDetailForMonth() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PayrollScheduleUI/loadPayrollDetailForMonth/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth+1}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/loadPayrollDetailForMonth/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth + 1}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);

@@ -1,10 +1,10 @@
 class ProductUI {
     loadProductProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getProductProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getProductProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             var recordId = data.getProp("productId");
             var name = data.getProp("name");
@@ -12,12 +12,12 @@ class ProductUI {
             var quantity = data.getProp("quantity");
             var unitPrice = data.getProp("unitPrice");
 
-            $(".ProductUI_ProductName").html(name);    
-            $(".ProductUI_Product_Type").html(type);    
-            $(".ProductUI_Product_UnitPrice").html(quantity);    
-            $(".ProductUI_Product_Quantity").html(unitPrice);   
-            $(".ProductUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/ProductUI/${recordId}/${utils.nowString()}`);   
-            $(".ProductUI_ProfilePic").attr("recordId", recordId);   
+            $(".ProductUI_ProductName").html(name);
+            $(".ProductUI_Product_Type").html(type);
+            $(".ProductUI_Product_UnitPrice").html(quantity);
+            $(".ProductUI_Product_Quantity").html(unitPrice);
+            $(".ProductUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/ProductUI/${recordId}/${utils.nowString()}`);
+            $(".ProductUI_ProfilePic").attr("recordId", recordId);
             $(".ProductUI_ProfilePic").show();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -29,10 +29,10 @@ class ProductUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getFilteredProducts/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getFilteredProducts/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             productUI.arrangeSearchedProducts(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -40,10 +40,10 @@ class ProductUI {
 
     loadTopProducts(tabName) {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getTopProducts`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getTopProducts`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             productUI.arrangeSearchedProducts(data, tabName);
         };
@@ -53,7 +53,7 @@ class ProductUI {
     arrangeSearchedProducts(data, tabName) {
         var divSelector = `.ProductUI_SearchProducts[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var name = obj.getProp("name");
             var category = obj.getProp("productCategory");
             var unitPrice = obj.getProp("unitPrice");
@@ -82,6 +82,6 @@ class ProductUI {
             `;
             $(divSelector).append(str);
         });
-        
+
     }
 }

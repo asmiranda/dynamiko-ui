@@ -3,35 +3,35 @@ class MyLinksWidget {
         var context = this;
         console.log("MyLinksWidget");
 
-        $(document).on('click', '.myLink.attendance', function() {
+        $(document).on('click', '.myLink.attendance', function () {
             context.showAttendance();
         });
-        $(document).on('click', '.myLink.payslip', function() {
+        $(document).on('click', '.myLink.payslip', function () {
             context.showPayslip();
         });
-        $(document).on('click', '.myLink.holiday', function() {
+        $(document).on('click', '.myLink.holiday', function () {
             context.showHoliday();
         });
-        $(document).on('click', '.myLink.travel', function() {
+        $(document).on('click', '.myLink.travel', function () {
             context.showTravel();
         });
-        $(document).on('click', '.myLink.projects', function() {
+        $(document).on('click', '.myLink.projects', function () {
             context.showProjects();
         });
-        $(document).on('click', '.myLink.training', function() {
+        $(document).on('click', '.myLink.training', function () {
             context.showTraining();
         });
-        $(document).on('click', '.myLink.accounting', function() {
+        $(document).on('click', '.myLink.accounting', function () {
             context.showAccounting();
         });
-        $(document).on('click', '.myLink.helpdesk', function() {
+        $(document).on('click', '.myLink.helpdesk', function () {
             context.showHelpdesk();
         });
     }
 
     showAttendance() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/widget/MyLinksWidget/attendance';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/MyLinksWidget/attendance';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -74,10 +74,10 @@ class MyLinksWidget {
         var myframe = "myPayslipFrame";
         $("#MyLinksBody").empty();
         var str = `<iframe id="${myframe}" src="${url}" style="width: 100%; height: 100%"></iframe>`;
-        $("#MyLinksBody").append(str); 
+        $("#MyLinksBody").append(str);
 
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/widget/MyLinksWidget/payslip';
-        var successCallback = function(data_url) {
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/MyLinksWidget/payslip';
+        var successCallback = function (data_url) {
             document.querySelector('#myPayslipFrame').src = data_url;
             $('#myLinksModal').modal();
         };
@@ -86,7 +86,7 @@ class MyLinksWidget {
 
     showHoliday() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/widget/MyLinksWidget/holiday';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/MyLinksWidget/holiday';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -134,7 +134,7 @@ class MyLinksWidget {
 
     showTraining() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/widget/MyLinksWidget/training';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/MyLinksWidget/training';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -157,7 +157,7 @@ class MyLinksWidget {
                 var title = obj.getProp("title");
                 var location = obj.getProp("location");
                 var facilitator = obj.getProp("facilitator");
-                var startDate = obj.getProp("startDate")?obj.getProp("startDate"):"";
+                var startDate = obj.getProp("startDate") ? obj.getProp("startDate") : "";
 
                 var trStr = `
                 <tr>

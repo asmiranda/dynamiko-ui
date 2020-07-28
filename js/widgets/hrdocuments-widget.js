@@ -1,7 +1,7 @@
 class HrDocumentsWidget {
     constructor() {
         var context = this;
-        $(document).on('click', '.showHrDocument', function() {
+        $(document).on('click', '.showHrDocument', function () {
             context.showHrDocument(this);
         });
     }
@@ -14,12 +14,12 @@ class HrDocumentsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrDocumentsWidget/all';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrDocumentsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $("#HrDocumentsWidgetList").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var docId = obj.getProp("hrDocumentId");
                 var icon = obj.getProp("icon");
@@ -44,7 +44,7 @@ class HrDocumentsWidget {
 
     showHrDocument(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrDocumentsWidget/showHrDocument/'+recId;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrDocumentsWidget/showHrDocument/' + recId;
         console.log(url);
     }
 }

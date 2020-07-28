@@ -1,14 +1,14 @@
 class Utils {
     collectSubRecordDataForSaving(clsName, moduleName) {
         var tmp = [];
-        for (var i=1; i<=10; i++) {
+        for (var i = 1; i <= 10; i++) {
             var rec = utils.collectDataForSaving(clsName, moduleName, i);
             tmp.push(rec);
         }
         return tmp;
     }
 
-    collectDataForSaving(clsName, moduleName, rowIndex) { 
+    collectDataForSaving(clsName, moduleName, rowIndex) {
         var tmp = {};
         $(`select[module="${moduleName}"][rowIndex="${rowIndex}"]`).each(function (index, myObj) {
             var name = $(myObj).attr("name");
@@ -57,14 +57,14 @@ class Utils {
 
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }     
+    }
     replaceAll(str, term, replacement) {
-      return str.replace(new RegExp(this.escapeRegExp(term), 'g'), replacement);
+        return str.replace(new RegExp(this.escapeRegExp(term), 'g'), replacement);
     }
     clearForm(form) {
-        $(form).each(function(){
+        $(form).each(function () {
             var allFields = $(this).find(':input');
-            $(allFields).each( function(a, b) {
+            $(allFields).each(function (a, b) {
                 $(b).val("");
             });
         });
@@ -90,10 +90,10 @@ class Utils {
         var moduleName = $(form).attr("module");
         var entityName = $(form).attr("bean");
         if ($(field).hasClass("profilePic")) {
-            var recordId = $(form + " [name='"+entityName+"Id']").val();
-            console.log("RECORD ID = "+recordId);
-            var profilePicUrl = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/profilePic/"+moduleName+"/"+recordId;
-            console.log("profilePicUrl = "+profilePicUrl);
+            var recordId = $(form + " [name='" + entityName + "Id']").val();
+            console.log("RECORD ID = " + recordId);
+            var profilePicUrl = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/profilePic/" + moduleName + "/" + recordId;
+            console.log("profilePicUrl = " + profilePicUrl);
             $(field).attr("src", profilePicUrl);
         }
         else if ($(field).hasClass("textOnly")) {
@@ -122,12 +122,12 @@ class Utils {
     loadRecordToForm(obj, classToUse) {
         var moduleName = $(obj).attr("module");
         var selectedId = $(obj).attr("recordId");
-        if (selectedId==null || selectedId=="" || selectedId==undefined) {
+        if (selectedId == null || selectedId == "" || selectedId == undefined) {
             selectedId = $(obj).val();
         }
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log('loadRecordToForm called', url, data);
             dynamikoCache.setLastRecordId(selectedId);
 
@@ -149,39 +149,39 @@ class Utils {
         console.log("loadJsonToForm == " + innerForm);
         this.clearForm(innerForm);
 
-        $.each(innerData, function(k, v) {
+        $.each(innerData, function (k, v) {
             // set id value first
-            if (k == entityName+"Id") {
-                var field = $(innerForm + " [name='"+k+"']");
+            if (k == entityName + "Id") {
+                var field = $(innerForm + " [name='" + k + "']");
                 if (field) {
-                    console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                    console.log("loadJsonToForm ==== " + k + ":" + v + ":" + innerForm);
                     console.log(field);
                     utils.setFieldValue(form, field, v);
                 }
             }
         });
 
-        $.each(innerData, function(k, v) {
-            var fields = $(innerForm + " [name='"+k+"'].textOnly");
+        $.each(innerData, function (k, v) {
+            var fields = $(innerForm + " [name='" + k + "'].textOnly");
             if (fields) {
-                $.each(fields, function(k, field) {
-                    console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                $.each(fields, function (k, field) {
+                    console.log("loadJsonToForm ==== " + k + ":" + v + ":" + innerForm);
                     console.log(field);
                     utils.setFieldValue(form, field, v);
                 });
             }
 
-            var field = $(innerForm + " [name='"+k+"']:not(.textOnly)");
+            var field = $(innerForm + " [name='" + k + "']:not(.textOnly)");
             if (field) {
-                console.log("loadJsonToForm ==== "+k+":"+v+":"+innerForm);
+                console.log("loadJsonToForm ==== " + k + ":" + v + ":" + innerForm);
                 console.log(field);
                 utils.setFieldValue(form, field, v);
                 if ($(field).hasClass("PopSearch")) {
-                    console.log("PopSearch ==== "+k+" == "+v);
+                    console.log("PopSearch ==== " + k + " == " + v);
                     utils.loadPopSearchLabel(innerForm, field, k);
                 }
                 else if ($(field).hasClass("HiddenAutoComplete")) {
-                    console.log("AutoComplete ==== "+k+" == "+v);
+                    console.log("AutoComplete ==== " + k + " == " + v);
                     utils.loadAutoCompleteLabel(innerForm, field, k, v);
                 }
             }
@@ -189,26 +189,26 @@ class Utils {
     }
 
     loadAutoCompleteLabel(form, field, name) {
-        console.log("loadAutoCompleteLabel == " + form + " [autoname='"+name+"'] == ");
-        var tmpLabel = $(form + " [class~='autocomplete'][autoname='"+name+"']");
+        console.log("loadAutoCompleteLabel == " + form + " [autoname='" + name + "'] == ");
+        var tmpLabel = $(form + " [class~='autocomplete'][autoname='" + name + "']");
         tmpLabel.val("");
 
         var moduleName = $(field).attr("module");
         var subModuleName = $(field).attr("submodule");
         var value = $(field).val();
 
-        if (value!=null && value!="") {
-            var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + moduleName + '/' + name + '/' + value;
+        if (value != null && value != "") {
+            var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/autocompletelabel/' + moduleName + '/' + name + '/' + value;
             if (subModuleName) {
-                url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
+                url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
             }
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var innerForm = form;
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 console.log('loadAutoCompleteLabel called', innerForm, url, data);
-                var divDescAutoComplete = $(innerForm + " [class~='DivAutoComplete'][autoname='"+data.getProp("fieldName")+"']");
+                var divDescAutoComplete = $(innerForm + " [class~='DivAutoComplete'][autoname='" + data.getProp("fieldName") + "']");
                 divDescAutoComplete.html(data.getProp("value"));
-                var fieldAutoComplete = $(innerForm + " [class~='autocomplete'][autoname='"+data.getProp("fieldName")+"']");
+                var fieldAutoComplete = $(innerForm + " [class~='autocomplete'][autoname='" + data.getProp("fieldName") + "']");
                 fieldAutoComplete.val(data.getProp("value"));
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -217,36 +217,36 @@ class Utils {
 
     loadDataAndAutoComplete(clsName, data, dRowIndex, dModuleName) {
         // benchMark.start(`loadDataAndAutoComplete`);
-        $(`.${clsName}[module="${dModuleName}"][rowIndex="${dRowIndex}"]`).each(function(index, obj) {
+        $(`.${clsName}[module="${dModuleName}"][rowIndex="${dRowIndex}"]`).each(function (index, obj) {
             var key = $(obj).attr("name");
             var inputType = $(obj).attr("type");
             if (key) {
                 var value = data.getProp(key);
                 // console.log(key + " -> " + value);
-                if (inputType=="checkbox") {
-                    if (value==null || value==undefined || value=="" || value==false) {
+                if (inputType == "checkbox") {
+                    if (value == null || value == undefined || value == "" || value == false) {
                         $(obj).attr("checked", false);
                         $(obj).val("");
                     }
                     else {
                         $(obj).attr("checked", true);
-                        $(obj).val(value);    
+                        $(obj).val(value);
                     }
                 }
-                else if (inputType=="html") {
-                    $(obj).html(value);    
+                else if (inputType == "html") {
+                    $(obj).html(value);
                 }
                 else {
-                    $(obj).val(value);    
+                    $(obj).val(value);
                 }
             }
         });
 
-        $(`.${clsName}.HiddenAutoComplete`).each(function(index, obj) {
+        $(`.${clsName}.HiddenAutoComplete`).each(function (index, obj) {
             var field = $(this).attr("autoNameField");
             var rowIndex = $(this).attr("rowIndex");
             var moduleName = $(this).attr("module");
-            if (field && rowIndex==dRowIndex && moduleName==dModuleName) {
+            if (field && rowIndex == dRowIndex && moduleName == dModuleName) {
                 utils.loadAutoCompleteRowLabel(field, rowIndex, obj);
             }
         });
@@ -261,12 +261,12 @@ class Utils {
         var hiddenAutoComplete = `.HiddenAutoComplete[module='${moduleName}'][name="${field}"][rowIndex='${rowIndex}']`;
         var value = $(hiddenAutoComplete).val();
 
-        if (value!=null && value!="") {
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
+        if (value != null && value != "") {
+            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
             var data = sStorage.get(url);
-            if (data==null || data=="") {
+            if (data == null || data == "") {
                 var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-                var successCallback = function(data) {
+                var successCallback = function (data) {
                     console.log(url, `server loadAutoCompleteRowLabel == [autoname=${field}] == [value=${value}]`, data);
                     sStorage.set(url, data);
                     utils.arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data);
@@ -294,26 +294,26 @@ class Utils {
     }
 
     loadPopSearchLabel(form, field, name) {
-        var tmpLabel = $(this.form + " [class~='labelPopSearch'][tmpname='"+this.name+"']");
+        var tmpLabel = $(this.form + " [class~='labelPopSearch'][tmpname='" + this.name + "']");
         tmpLabel.val("");
 
         var moduleName = $(this.field).attr("module");
         var value = $(this.field).val();
 
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var innerForm = this.form;
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log('loadPopSearchLabel called', url, innerForm, data);
-            var fieldPopSearchLabel = $(innerForm + " [class~='labelPopSearch'][tmpname='"+data.POPSEARCHFIELDNAME+"']");
+            var fieldPopSearchLabel = $(innerForm + " [class~='labelPopSearch'][tmpname='" + data.POPSEARCHFIELDNAME + "']");
             fieldPopSearchLabel.val(data.POPSEARCHVALLABEL);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     };
 
-    extractArray(arr, columnName) { 
+    extractArray(arr, columnName) {
         var retArr = [];
-        $(arr).each(function(i, obj) {
+        $(arr).each(function (i, obj) {
             retArr.push(obj[columnName]);
         });
         return retArr;
@@ -321,7 +321,7 @@ class Utils {
 
     extractArrayMinMax(arr, minCol, maxCol) {
         var retArr = [];
-        $(arr).each(function(i, obj) {
+        $(arr).each(function (i, obj) {
             retArr.push({
                 min: obj[minCol],
                 max: obj[maxCol]
@@ -343,14 +343,14 @@ class Utils {
             $(str).show();
         }
     }
-    
-    convertToQueryString(json) { 
-        return '?' + 
-            Object.keys(json).map(function(key) { 
-                return encodeURIComponent(key) + '=' + 
-                    encodeURIComponent(json[key]); 
-            }).join('&'); 
-    } 
+
+    convertToQueryString(json) {
+        return '?' +
+            Object.keys(json).map(function (key) {
+                return encodeURIComponent(key) + '=' +
+                    encodeURIComponent(json[key]);
+            }).join('&');
+    }
 
     showSpin() {
         $("#waitingContainer").show();
@@ -362,11 +362,11 @@ class Utils {
     loadTab(moduleName, tabUrl, divSelector) {
         var url = `displaytabs/tabs/${moduleName}/${tabUrl}.html`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             $(divSelector).html(data);
         };
-        var errorCallback = function(jqXHR, textStatus, errorThrown) {
-            if (errorThrown=="Not Found") {
+        var errorCallback = function (jqXHR, textStatus, errorThrown) {
+            if (errorThrown == "Not Found") {
                 $(divSelector).html(url + " Not Found!");
             }
         };
@@ -376,8 +376,8 @@ class Utils {
     getTabHtml(moduleName, tabUrl, successCallback) {
         var url = `displaytabs/tabs/${moduleName}/${tabUrl}.html`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var errorCallback = function(jqXHR, textStatus, errorThrown) {
-            if (errorThrown=="Not Found") {
+        var errorCallback = function (jqXHR, textStatus, errorThrown) {
+            if (errorThrown == "Not Found") {
                 alert(url + " Not Found!");
             }
         };
@@ -402,7 +402,7 @@ class Utils {
         var vars = query.split('&');
         for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split('=');
-            if  (key==pair[0]) {
+            if (key == pair[0]) {
                 value = decodeURIComponent(pair[1]);
                 break;
             }

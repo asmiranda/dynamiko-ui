@@ -17,10 +17,10 @@ class PersonTaskUI {
     deleteTask(obj) {
         var taskId = $(obj).attr("recordId");
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PersonTaskUI/deleteTask/${taskId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonTaskUI/deleteTask/${taskId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             personTaskUI.arrangeTodoList(data);
         };
@@ -36,16 +36,16 @@ class PersonTaskUI {
         tmp["taskId"] = taskId;
         tmp["name"] = taskName;
         tmp["taskDate"] = taskDate;
-        
+
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PersonTaskUI/post/saveTask`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonTaskUI/post/saveTask`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             PersonTaskUI.arrangeTodoList(data);
-            if (nextAction=="CLOSE") {
+            if (nextAction == "CLOSE") {
                 $('#PersonTaskUI_TaskDialog').modal('toggle');
             }
             else {
@@ -60,10 +60,10 @@ class PersonTaskUI {
         console.log("loadTodoList");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/PersonTaskUI/loadTodoList`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonTaskUI/loadTodoList`;
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             personTaskUI.arrangeTodoList(data);
         };
@@ -72,9 +72,9 @@ class PersonTaskUI {
 
     arrangeTodoList(data) {
         $(".divToDoList").empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var personTaskId = obj.getProp("personTaskId");
-            var taskDate = obj.getProp("taskDate");            
+            var taskDate = obj.getProp("taskDate");
             var taskName = obj.getProp("name");
 
             var strHtml = `

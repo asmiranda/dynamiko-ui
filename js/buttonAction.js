@@ -11,9 +11,9 @@ class DynaButtonAction {
         tmp.push(parentRecord);
         tmp.push(subRecord);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/saveaddinfo/${moduleName}/${addInfo}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/saveaddinfo/${moduleName}/${addInfo}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
-        var successCallback = function(data, status, hqr) {
+        var successCallback = function (data, status, hqr) {
             console.log(data);
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
@@ -33,9 +33,9 @@ class DynaButtonAction {
         tmp.push(parentRecord);
         tmp.push(subRecord);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/savesubrecord/${moduleName}/${submodule}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/savesubrecord/${moduleName}/${submodule}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(tmp));
-        var successCallback = function(data, status, hqr) {
+        var successCallback = function (data, status, hqr) {
             $(dynaButtonAction.modalId).modal('hide');
             moduleScript.saveChild(moduleName, submodule);
             var childTab = new ChildTab(moduleName, submodule);

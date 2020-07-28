@@ -3,7 +3,7 @@ class HrFormsWidget {
         console.log("HrFormsWidget");
 
         var context = this;
-        $(document).on('click', '.downloadHrForm', function() {
+        $(document).on('click', '.downloadHrForm', function () {
             context.downloadForm(this);
         });
 
@@ -12,12 +12,12 @@ class HrFormsWidget {
 
     loadTask() {
         var context = this;
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrFormsWidget/all';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrFormsWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $("#HrFormsWidgetList").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var docId = obj.getProp("hrDocumentId");
                 var icon = obj.getProp("icon");
@@ -42,7 +42,7 @@ class HrFormsWidget {
 
     downloadForm(obj) {
         var recId = $(obj).attr("recId");
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/pwidget/HrFormsWidget/getFile/'+recId;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pwidget/HrFormsWidget/getFile/' + recId;
         console.log(url);
         window.open(url, '_blank');
     }

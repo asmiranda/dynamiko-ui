@@ -7,17 +7,17 @@ class AttendanceSearchWidget {
     loadData() {
         console.log("LOAD ATTENDANCE SEARCH");
         var context = this;
-        $("#filterAttendanceSearch").change(function() {
+        $("#filterAttendanceSearch").change(function () {
             context.loadTableData($(this).val());
         });
 
         var widgetId = $("#attendanceSearchTable");
         if ($(widgetId).attr("id")) {
-            this.mainDataTable = $(widgetId).DataTable( {
+            this.mainDataTable = $(widgetId).DataTable({
                 "searching": false,
                 "bLengthChange": false,
                 "pageLength": 5
-            } );
+            });
             context.loadTableData("");
         }
     }
@@ -26,19 +26,19 @@ class AttendanceSearchWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/AttendanceSearchWidget";
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceSearchWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/AttendanceSearchWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceSearchWidget/" + val;
         }
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             context.mainDataTable.clear();
-            $.each(data, function(i, obj) {
+            $.each(data, function (i, obj) {
                 var record = [];
-                record.push(obj["lastName"]+", "+obj["firstName"]);
+                record.push(obj["lastName"] + ", " + obj["firstName"]);
                 record.push(obj["age"]);
                 record.push(obj["position"]);
                 record.push(obj["supervisor"]);

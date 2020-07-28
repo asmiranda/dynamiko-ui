@@ -2,10 +2,10 @@ class ProductRequestUI {
     searchProductRequestFilter(obj) {
         var value = $(obj).val();
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getFilteredProductRequest/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getFilteredProductRequest/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             productRequestUI.arrangeProductRequest(data, tabName);
         };
@@ -13,10 +13,10 @@ class ProductRequestUI {
     }
 
     loadTopProductRequest() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/ProductUI/getProductRequest`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getProductRequest`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             productRequestUI.arrangeProductRequest(data, "Dashboard");
             productRequestUI.arrangeProductRequest(data, "NewPO");
@@ -27,7 +27,7 @@ class ProductRequestUI {
     arrangeProductRequest(data, tabName) {
         var divSelector = `.ProductUI_SearchProductRequests[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var productRequestId = obj.getProp("productRequestId");
             var productName = obj.getProp("productName");
             var quantity = obj.getProp("quantity");

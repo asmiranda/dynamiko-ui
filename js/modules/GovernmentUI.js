@@ -1,15 +1,15 @@
-class GovernmentUI { 
+class GovernmentUI {
     changeMainId(obj) {
         utils.loadRecordToForm(obj, governmentUI);
     }
 
     doMainSearchData(evt) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentUI/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentUI/quickMainSearcher/${localStorage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".quickMainSearcherResult").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var recordId = obj.getPropDefault("id", "0");
                 var lastName = obj.getPropDefault("lastName", "");
                 var firstName = obj.getPropDefault("firstName", "");
@@ -27,28 +27,28 @@ class GovernmentUI {
                 $(".quickMainSearcherResult").append(str);
             });
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     changeModule(evt) {
         governmentUI.init();
 
-        realEstatePlumbingPermitUI.loadTopRealEstatePlumbingPermits(); 
-        realEstateElectricalPermitUI.loadTopRealEstateElectricalPermits(); 
-        realEstateBuildingPermitUI.loadTopRealEstateBuildingPermits(); 
+        realEstatePlumbingPermitUI.loadTopRealEstatePlumbingPermits();
+        realEstateElectricalPermitUI.loadTopRealEstateElectricalPermits();
+        realEstateBuildingPermitUI.loadTopRealEstateBuildingPermits();
 
         personTaskUI.loadTodoList();
 
-        realEstateTaxUI.loadTopRealEstateTaxes(); 
-        realEstateTaxUI.loadLastSelectedRealEstateTax(); 
+        realEstateTaxUI.loadTopRealEstateTaxes();
+        realEstateTaxUI.loadLastSelectedRealEstateTax();
 
-        communityTaxCertificateUI.loadTopCommunityTaxCertificate(); 
-        businessPermitUI.loadTopBusinessPermit(); 
+        communityTaxCertificateUI.loadTopCommunityTaxCertificate();
+        businessPermitUI.loadTopBusinessPermit();
         governmentCashierUI.loadTopCashierQueue();
         governmentPrintingUI.loadTopPrintingQueue()
 
-        realEstateUI.loadTopRealEstate(); 
-        realEstateUI.loadLastSelectedRealEstate();  
+        realEstateUI.loadTopRealEstate();
+        realEstateUI.loadLastSelectedRealEstate();
     }
 
     init() {
@@ -57,19 +57,19 @@ class GovernmentUI {
 
     selectCedula(obj) {
         console.log("selectSedula");
-        console.log("Record ID == "+$(obj).attr("recordId"));
+        console.log("Record ID == " + $(obj).attr("recordId"));
         citizenUI.loadCitizenProfile(obj, "Cedula");
     }
 
     selectBusinessPermit(obj) {
         console.log("selectBusinessPermit");
-        console.log("Record ID == "+$(obj).attr("recordId"));
+        console.log("Record ID == " + $(obj).attr("recordId"));
         citizenUI.loadCitizenProfile(obj, "BusinessPermit");
     }
 
     selectGovernmentCashier(obj) {
         console.log("selectGovernmentCashier");
-        console.log("Record ID == "+$(obj).attr("recordId"));
+        console.log("Record ID == " + $(obj).attr("recordId"));
         citizenUI.loadCitizenProfile(obj, "GovernmentCashier");
     }
 

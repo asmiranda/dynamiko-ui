@@ -1,4 +1,4 @@
-class HrRequisitionUI { 
+class HrRequisitionUI {
     changeMainId(obj) {
         utils.loadRecordToForm(obj, hrRequisitionUI);
         hrRequisitionUI.reArrange(obj);
@@ -6,12 +6,12 @@ class HrRequisitionUI {
     }
 
     doMainSearchData(evt) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".quickMainSearcherResult").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var title = obj.getPropDefault("title", "Title Not Specified");
                 var recruiter = obj.getPropDefault("recruiter", "Recruiter not chosen");
                 var manager = obj.getPropDefault("manager", "Manager not chosen");
@@ -37,7 +37,7 @@ class HrRequisitionUI {
                 $(".quickMainSearcherResult").append(str);
             });
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     changeModule(evt) {
@@ -55,7 +55,7 @@ class HrRequisitionUI {
     }
 
 
-    init() { 
+    init() {
         $("#dynamikoMainSearch").hide();
     }
 
@@ -63,44 +63,44 @@ class HrRequisitionUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="JobListing") {
+        if (tabName == "JobListing") {
             utils.loadRecordToForm(obj, hrRequisitionUI);
         }
-        else if (tabName=="Fulfilled") {
+        else if (tabName == "Fulfilled") {
             hrRequisitionUI.loadFulfilled(obj);
         }
     }
-    
+
     loadTopFulfilledJobs() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopFulfilled`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopFulfilled`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log("Arrange Top Fulfilled Requisition");
             hrRequisitionUI.arrangeFulfilled(data, "Fulfilled");
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadFulfilled(obj) {
         var tabName = $(obj).attr("tabName");
-        var hrRequisitionId = $(obj).val()==""?$(obj).attr("recordId"):$(obj).val();
-        console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
+        var hrRequisitionId = $(obj).val() == "" ? $(obj).attr("recordId") : $(obj).val();
+        console.log("Arrange Fulfilled Requisition for record ID === " + hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getFulfilled/${hrRequisitionId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getFulfilled/${hrRequisitionId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
-            console.log("Arrange Fulfilled Requisition for record ID === "+hrRequisitionId);
+        var successCallback = function (data) {
+            console.log("Arrange Fulfilled Requisition for record ID === " + hrRequisitionId);
             hrRequisitionUI.arrangeFulfilled(data, tabName);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     arrangeFulfilled(data, tabName) {
         console.log(data);
         var divName = `.HrRequisitionUI_FulfilledList`;
         $(divName).empty();
-        var lastIndex = data.length-1;
-        $(data).each(function(index, obj) {
+        var lastIndex = data.length - 1;
+        $(data).each(function (index, obj) {
             var requisitionId = obj.getProp("hrRequisitionId");
             var applicantId = obj.getProp("hrApplicantId");
             var title = obj.getProp("requisitionTitle");
@@ -116,10 +116,10 @@ class HrRequisitionUI {
             var strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
 
             var marginAdditional = null;
-            if (index==0) {
+            if (index == 0) {
                 marginAdditional = "margin-left: 0px;";
             }
-            else if (lastIndex==index) {
+            else if (lastIndex == index) {
                 marginAdditional = "margin-right: 0px;";
             }
             var strHtml = `
@@ -153,12 +153,12 @@ class HrRequisitionUI {
 
     loadTopJobs() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopJobs`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopJobs`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
-            hrRequisitionUI.arrangeSearchedJobs(data, "JobListing");            
-            hrRequisitionUI.arrangeSearchedJobs(data, "Fulfilled");            
+        var successCallback = function (data) {
+            hrRequisitionUI.arrangeSearchedJobs(data, "JobListing");
+            hrRequisitionUI.arrangeSearchedJobs(data, "Fulfilled");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -166,7 +166,7 @@ class HrRequisitionUI {
     arrangeSearchedJobs(data, tabName) {
         var divSelector = `.HrRequisitionUI_SearchJobs[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var numberOfOpening = obj.getProp("numberOfOpening");
             var recruiterName = obj.getProp("recruiterName");
             var managerName = obj.getProp("managerName");
@@ -203,7 +203,7 @@ class HrRequisitionUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="RecruitersAndManagers") {
+        if (tabName == "RecruitersAndManagers") {
             employeeUI.loadEmployeeProfile(obj);
             hrRequisitionUI.loadEmployeeRequisition(obj);
             hrRequisitionUI.loadEmployeeInterviewSchedule(obj);
@@ -215,7 +215,7 @@ class HrRequisitionUI {
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
-        if (tabName=="Applicants") {
+        if (tabName == "Applicants") {
             hrRequisitionUI.loadApplicantProfile(obj);
             hrRequisitionUI.loadApplicantReference(obj);
             hrRequisitionUI.loadApplicantExperience(obj);
@@ -225,12 +225,12 @@ class HrRequisitionUI {
 
     loadEmployeeRequisition(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getEmployeeRequisition/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getEmployeeRequisition/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
-            if (data.length==0) {
+            if (data.length == 0) {
                 var divSelector = `.HrRequisitionUI_EmployeeJobList[tabName="RecruitersAndManagers"]`;
                 $(divSelector).empty();
                 $(divSelector).append("<b>No  Schedule Found!</b>");
@@ -245,7 +245,7 @@ class HrRequisitionUI {
     arrangeEmployeeRequisition(divName, tabName, data) {
         var divSelector = `${divName}[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var numberOfOpening = obj.getProp("numberOfOpening");
             var recruiterName = obj.getProp("recruiterName");
             var managerName = obj.getProp("managerName");
@@ -278,12 +278,12 @@ class HrRequisitionUI {
 
     loadEmployeeInterviewSchedule(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getEmployeeInterviewSchedule/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getEmployeeInterviewSchedule/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
-            if (data.length==0) {
+            if (data.length == 0) {
                 var divSelector = `.HrRequisitionUI_ScheduleList[tabName="RecruitersAndManagers"]`;
                 $(divSelector).empty();
                 $(divSelector).append("<b>No  Schedule Found!</b>");
@@ -297,12 +297,12 @@ class HrRequisitionUI {
 
     loadApplicantInterviewSchedule(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantInterviewSchedule/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantInterviewSchedule/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
-            if (data.length==0) {
+            if (data.length == 0) {
                 var divSelector = `.HrRequisitionUI_ScheduleList[tabName="Applicants"]`;
                 $(divSelector).empty();
                 $(divSelector).append("<b>No  Schedule Found!</b>");
@@ -317,7 +317,7 @@ class HrRequisitionUI {
     arrangePersonSchedule(divName, tabName, data) {
         var divSelector = `${divName}[tabName="${tabName}"]`;
         $(divSelector).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var applicantName = obj.getProp("applicantName");
             var recruiterName = obj.getProp("recruiterName");
             var managerName = obj.getProp("managerName");
@@ -331,7 +331,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -362,10 +362,10 @@ class HrRequisitionUI {
 
     loadApplicantExperience(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantExperience/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantExperience/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $(".HrRequisitionUI_ApplicantExperienceList").empty();
             $(data).each(function (index, obj) {
@@ -404,10 +404,10 @@ class HrRequisitionUI {
 
     loadApplicantReference(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantReference/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantReference/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $(".HrRequisitionUI_Applicants_Reference").empty();
             $(data).each(function (index, obj) {
@@ -417,7 +417,7 @@ class HrRequisitionUI {
                 var company = obj.getPropDefault("company", "");
                 var email = obj.getPropDefault("email", "");
                 var contact = obj.getPropDefault("contact", "");
-                var referenceName = firstName+" "+lastName;
+                var referenceName = firstName + " " + lastName;
                 var referenceContact = email;
                 var str = `
                     <li class="list-group-item">
@@ -437,22 +437,22 @@ class HrRequisitionUI {
 
     loadApplicantProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getApplicantProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
-            var applicantName = data.getProp("firstName")+" "+data.getProp("lastName");
+            var applicantName = data.getProp("firstName") + " " + data.getProp("lastName");
             var job = data.getProp("specialization");
             var email = data.getProp("email");
             var contact = data.getProp("contact");
 
-            $(".HrRequisitionUI_Applicants_ApplicantName").html(applicantName);    
-            $(".HrRequisitionApplicantUI_Applicants_ApplicantJob").html(job);    
-            $(".HrRequisitionApplicantUI_Applicants_ApplicantEmail").html(email);    
-            $(".HrRequisitionApplicantUI_Applicants_ApplicantContact").html(contact);   
-            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${recordId}/${utils.nowString()}`);   
-            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("recordId", recordId);   
+            $(".HrRequisitionUI_Applicants_ApplicantName").html(applicantName);
+            $(".HrRequisitionApplicantUI_Applicants_ApplicantJob").html(job);
+            $(".HrRequisitionApplicantUI_Applicants_ApplicantEmail").html(email);
+            $(".HrRequisitionApplicantUI_Applicants_ApplicantContact").html(contact);
+            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${recordId}/${utils.nowString()}`);
+            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("recordId", recordId);
             $(".HrRequisitionUI_Applicants_ApplicantPic").show();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -464,20 +464,20 @@ class HrRequisitionUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             hrRequisitionUI.arrangeSearchedApplicant(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadApplicants() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             hrRequisitionUI.arrangeSearchedApplicant(data);
         };
@@ -488,8 +488,8 @@ class HrRequisitionUI {
         var divName = `.HrRequisitionUI_ApplicantSearchList`;
         $(divName).empty();
         var tabName = $(divName).attr("tabName");
-        $(data).each(function(index, obj) {
-            var applicantName = obj.getProp("firstName")+" "+obj.getProp("lastName");
+        $(data).each(function (index, obj) {
+            var applicantName = obj.getProp("firstName") + " " + obj.getProp("lastName");
             var email = obj.getPropDefault("email", "");
             var specialization = obj.getPropDefault("specialization", "");
             var recordId = obj.getProp("hrApplicantId");
@@ -514,19 +514,19 @@ class HrRequisitionUI {
                 <input type="text" class="form-control displayEdit" name="HrRequisitionUI_ReasonForCancelling" placeholder="Reason" module="HrRequisitionUI" mainmodule="HrRequisitionUI">
             </div>
         `;
-        var success = function() {
+        var success = function () {
             var reason = $(`input[name="HrRequisitionUI_ReasonForCancelling"]`).val();
-            console.log(recordId+"\t"+reason);
+            console.log(recordId + "\t" + reason);
 
             var tmp = {};
             tmp["recordId"] = recordId;
             tmp["remarks"] = reason;
-    
-            var vdata = JSON.stringify(tmp);    
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/cancelInterviewSchedule`;
+
+            var vdata = JSON.stringify(tmp);
+            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/cancelInterviewSchedule`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-    
-            var successFunction = function(data) {
+
+            var successFunction = function (data) {
                 console.log(data);
                 hrRequisitionUI.arrangeForInterviewSchedule(data);
             };
@@ -538,21 +538,21 @@ class HrRequisitionUI {
     gotoApplicantProfile(obj) {
         console.log("Called gotoApplicantProfile");
         var recordId = $(obj).attr("recordId");
-        console.log("RecordId == "+recordId);
+        console.log("RecordId == " + recordId);
         $(`.nav-tabs a[href="#Applicants"]`).tab('show');
         hrRequisitionUI.selectApplicant(obj);
     }
     gotoRecruitersAndManagersProfile(obj) {
         console.log("Called gotoRecruitersAndManagersProfile");
         var recordId = $(obj).attr("recordId");
-        console.log("RecordId == "+recordId);
+        console.log("RecordId == " + recordId);
         $(`.nav-tabs a[href="#RecruitersAndManagers"]`).tab('show');
         hrRequisitionUI.selectEmployee(obj);
     }
     gotoJobListing(obj) {
         console.log("Called gotoJobListing");
         var recordId = $(obj).attr("recordId");
-        console.log("RecordId == "+recordId);
+        console.log("RecordId == " + recordId);
         $(`.nav-tabs a[href="#JobListing"]`).tab('show');
         utils.loadRecordToForm(obj, hrRequisitionUI);
     }
@@ -573,10 +573,10 @@ class HrRequisitionUI {
 
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/addInterviewSchedule`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/addInterviewSchedule`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             hrRequisitionUI.arrangeForInterviewSchedule(data);
             $('#HrRequisitionUI_AddInterviewScheduleDialog').modal('toggle');
@@ -585,10 +585,10 @@ class HrRequisitionUI {
     }
 
     loadForInterview() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getForInterview`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getForInterview`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             hrRequisitionUI.arrangeForInterviewSchedule(data);
         };
@@ -597,7 +597,7 @@ class HrRequisitionUI {
 
     arrangeForInterviewSchedule(data) {
         $(".HrRequisitionUI_InterviewScheduleList").empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var applicantName = obj.getProp("applicantName");
             var recruiterName = obj.getProp("recruiterName");
             var managerName = obj.getProp("managerName");
@@ -611,7 +611,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -641,14 +641,14 @@ class HrRequisitionUI {
     }
 
     loadForOffer() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getForOffer`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getForOffer`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
 
             $(".HrRequisitionUI_OfferScheduleList").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var applicantName = obj.getProp("applicantName");
                 var recruiterName = obj.getProp("recruiterName");
                 var managerName = obj.getProp("managerName");
@@ -662,7 +662,7 @@ class HrRequisitionUI {
                 var str = `
                     <div style="display: flex;">
                         <div class="text-center" style="flex: 10%">
-                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
+                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                         </div>
                         <div style="flex: 50%">
                             <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -689,10 +689,10 @@ class HrRequisitionUI {
     }
 
     loadStages() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/getRecruitmentStages`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getRecruitmentStages`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $(".HrRequisitionUI_CandidateCount").html("0");
             $(".HrRequisitionUI_OpenJobsCount").html("0");
@@ -703,28 +703,28 @@ class HrRequisitionUI {
             $(".HrRequisitionUI_TotalForOffer").html("0");
             $(".HrRequisitionUI_TotalFulfilled").html("0");
 
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var key = obj.getProp("key");
                 var value = obj.getProp("value");
-                if (key=="INTERVIEW") {
+                if (key == "INTERVIEW") {
                     $(".HrRequisitionUI_TotalForInterview").html(value);
                 }
-                else if (key=="OFFER") {
+                else if (key == "OFFER") {
                     $(".HrRequisitionUI_TotalForOffer").html(value);
                 }
-                else if (key=="NEW") {
+                else if (key == "NEW") {
                     $(".HrRequisitionUI_TotalNewApplication").html(value);
                 }
-                else if (key=="FULFILLED") {
+                else if (key == "FULFILLED") {
                     $(".HrRequisitionUI_TotalFulfilled").html(value);
                 }
-                else if (key=="APPLICANT_COUNT") {
+                else if (key == "APPLICANT_COUNT") {
                     $(".HrRequisitionUI_CandidateCount").html(value);
                 }
-                else if (key=="OPEN_JOBS") {
+                else if (key == "OPEN_JOBS") {
                     $(".HrRequisitionUI_OpenJobsCount").html(value);
                 }
-                else if (key=="SCHEDULE_THIS_WEEK") {
+                else if (key == "SCHEDULE_THIS_WEEK") {
                     $(".HrRequisitionUI_ScheduleThisWeek").html(value);
                 }
             });
@@ -750,10 +750,10 @@ class HrRequisitionUI {
     deleteTask(obj) {
         var taskId = $(obj).attr("recordId");
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/deleteTask/${taskId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/deleteTask/${taskId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             hrRequisitionUI.arrangeTodoList(data);
         };
@@ -769,16 +769,16 @@ class HrRequisitionUI {
         tmp["taskId"] = taskId;
         tmp["name"] = taskName;
         tmp["taskDate"] = taskDate;
-        
+
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/saveTask`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/saveTask`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             hrRequisitionUI.arrangeTodoList(data);
-            if (nextAction=="CLOSE") {
+            if (nextAction == "CLOSE") {
                 $('#HrRequisitionUI_TaskDialog').modal('toggle');
             }
             else {
@@ -793,10 +793,10 @@ class HrRequisitionUI {
         console.log("loadTodoList");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadTodoList`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadTodoList`;
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             hrRequisitionUI.arrangeTodoList(data);
         };
@@ -805,9 +805,9 @@ class HrRequisitionUI {
 
     arrangeTodoList(data) {
         $(".divToDoList").empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var personTaskId = obj.getProp("personTaskId");
-            var taskDate = obj.getProp("taskDate");            
+            var taskDate = obj.getProp("taskDate");
             var taskName = obj.getProp("name");
 
             var strHtml = `
@@ -835,52 +835,52 @@ class HrRequisitionUI {
         tmp["recruiterCode"] = recruiterCode;
         tmp["managerCode"] = managerCode;
         tmp["numberOfOpening"] = numberOfOpening;
-        
+
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/post/createJob`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/createJob`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             hrRequisitionUI.loadTeamRequisition();
         };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     removeApplicant(obj) {
         var hrRequisitionId = $(obj).attr("requisitionId");
         var hrRequisitionApplicantId = $(obj).attr("hrRequisitionApplicantId");
-        console.log("Remove Applicant for record ID === "+hrRequisitionId);
+        console.log("Remove Applicant for record ID === " + hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/removeApplicant/${hrRequisitionId}/${hrRequisitionApplicantId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/removeApplicant/${hrRequisitionId}/${hrRequisitionApplicantId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             hrRequisitionUI.arrangeStages(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     moveApplicant(requisitionId, applicantId, applicationStatus) {
-        console.log("Rearrange for record ID === "+requisitionId);
+        console.log("Rearrange for record ID === " + requisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/moveApplicant/${requisitionId}/${applicantId}/${applicationStatus}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/moveApplicant/${requisitionId}/${applicantId}/${applicationStatus}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             hrRequisitionUI.arrangeStages(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     reArrange(obj) {
-        var hrRequisitionId = $(obj).val()==""?$(obj).attr("recordId"):$(obj).val();
-        console.log("Rearrange for record ID === "+hrRequisitionId);
+        var hrRequisitionId = $(obj).val() == "" ? $(obj).attr("recordId") : $(obj).val();
+        console.log("Rearrange for record ID === " + hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             hrRequisitionUI.arrangeStages(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     arrangeStages(data) {
@@ -888,9 +888,9 @@ class HrRequisitionUI {
         $(".newApplicant").empty();
         $(".interviewApplicant").empty();
         $(".offerApplicant").empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var requisitionId = obj.getProp("hrRequisitionId");
-            var hrRequisitionApplicantId = obj.getProp("hrRequisitionApplicantId");            
+            var hrRequisitionApplicantId = obj.getProp("hrRequisitionApplicantId");
             var applicationStatus = obj.getProp("applicationStatus");
             var applicantId = obj.getProp("hrApplicantId");
             var applicant = obj.getProp("applicant");
@@ -916,17 +916,17 @@ class HrRequisitionUI {
             var strRemove = "";
             var strUpload = "";
             var strDownload = "";
-            if (applicationStatus=="NEW") {
+            if (applicationStatus == "NEW") {
                 strRemove = `<a href="#" class="btn btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i> Remove</a>`;
                 strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
                 strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
             }
-            else if (applicationStatus=="INTERVIEW") {
+            else if (applicationStatus == "INTERVIEW") {
                 strRemove = `<a href="#" class="btn btn-box-tool btnRemoveApplicant" module="HrRequisitionUI" requisitionId="${requisitionId}" hrRequisitionApplicantId="${hrRequisitionApplicantId}" title="Remove Applicant"><i class="fa fa-remove"></i> Remove</a>`;
                 strUpload = `<a href="#" class="btn btn-box-tool quickAttachmentTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Upload Resume"><i class="fa fa-paperclip"> </i> </a>`;
                 strDownload = `<a href="#" class="btn btn-box-tool quickDownloaderTarget" module="HrApplicantUI" recordId="${applicantId}" fileType="RESUME" title="Download Resume"><i class="fa fa-download"> </i> </a>`;
             }
-            else if (applicationStatus=="OFFER") {
+            else if (applicationStatus == "OFFER") {
                 strAccept = `<a href="#" class="btn btn-box-tool btnAcceptApplicant" module="HrRequisitionApplicantUI" recordId="${hrRequisitionApplicantId}" title="Accept Applicant"><i class="fa fa-thumbs-o-up"></i> Accept</a>`;
             }
 
@@ -961,13 +961,13 @@ class HrRequisitionUI {
                     </div>
                 </div>
             `;
-            if (applicationStatus=="NEW") {
+            if (applicationStatus == "NEW") {
                 $(".newApplicant").append(strHtml);
             }
-            else if (applicationStatus=="INTERVIEW") {
+            else if (applicationStatus == "INTERVIEW") {
                 $(".interviewApplicant").append(strHtml);
             }
-            else if (applicationStatus=="OFFER") {
+            else if (applicationStatus == "OFFER") {
                 $(".offerApplicant").append(strHtml);
             }
         })
@@ -982,9 +982,9 @@ class HrRequisitionUI {
         var requisitionId = ev.dataTransfer.getData("requisitionId");
         var applicantId = ev.dataTransfer.getData("applicantId");
         var applicationStage = $(obj).attr("applicationStage");
-        console.log("applicantId "+applicantId);
-        console.log("requisitionId "+requisitionId);
-        console.log("applicationStage "+applicationStage);
+        console.log("applicantId " + applicantId);
+        console.log("requisitionId " + requisitionId);
+        console.log("applicationStage " + applicationStage);
 
         this.moveApplicant(requisitionId, applicantId, applicationStage);
     }
@@ -996,15 +996,15 @@ class HrRequisitionUI {
         console.log("loadTeamRequisition");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadTeamRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadTeamRequisition`;
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $(".myTeamRequisition").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var requisitionId = obj.getProp("reqId");
-                var jobTitle = obj.getProp("title");            
+                var jobTitle = obj.getProp("title");
                 var recruiter = obj.getProp("recruiter");
                 var manager = obj.getProp("manager");
                 var status = obj.getProp("status");
@@ -1031,15 +1031,15 @@ class HrRequisitionUI {
         console.log("loadOpenRequisition");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadOpenRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadOpenRequisition`;
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $(".myOpenRequisition").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var requisitionId = obj.getProp("reqId");
-                var jobTitle = obj.getProp("title");            
+                var jobTitle = obj.getProp("title");
                 var recruiter = obj.getProp("recruiter");
                 var manager = obj.getProp("manager");
                 var status = obj.getProp("status");
@@ -1066,15 +1066,15 @@ class HrRequisitionUI {
         console.log("loadMyAssignedRequisition");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/loadMyAssignedRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadMyAssignedRequisition`;
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $(".myAssignedRequisition").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 var requisitionId = obj.getProp("reqId");
-                var jobTitle = obj.getProp("title");            
+                var jobTitle = obj.getProp("title");
                 var recruiter = obj.getProp("recruiter");
                 var manager = obj.getProp("manager");
                 var status = obj.getProp("status");
@@ -1104,12 +1104,12 @@ class HrRequisitionUI {
             var recruitmentPerformanceChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/recruitmentPerformanceChart`;
+            ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/recruitmentPerformanceChart`;
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
-                widgetChartRule.doChart("#recruitmentPerformanceChart", data, data.chartType, function(evt) {
+                widgetChartRule.doChart("#recruitmentPerformanceChart", data, data.chartType, function (evt) {
                     hrRequisitionUI.recruitmentPerformanceChartClickHandler(evt, recruitmentPerformanceChart, this.getElementsAtEvent(evt), this);
                 });
             };
@@ -1131,10 +1131,10 @@ class HrRequisitionUI {
         console.log(moduleName);
         console.log(hrRequisitionApplicantId);
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/HrRequisitionUI/acceptForEmployment/${hrRequisitionApplicantId}`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/acceptForEmployment/${hrRequisitionApplicantId}`;
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             $('.nav-tabs a[href="#Tab4"]').tab('show');
             // var key = data.getProp("key");

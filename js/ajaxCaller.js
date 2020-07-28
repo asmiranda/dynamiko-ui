@@ -5,10 +5,10 @@ class AjaxCaller {
             url: dto.url,
             data: dto.data,
             contentType: 'application/json',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
             error: errorCallback,
@@ -21,14 +21,14 @@ class AjaxCaller {
             url: dto.url,
             data: dto.data,
             contentType: 'application/json',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if ("Access Denied"==jqXHR.responseJSON.message) {
+            error: function (jqXHR, textStatus, errorThrown) {
+                if ("Access Denied" == jqXHR.responseJSON.message) {
                     window.location.href = "login.html";
                 }
                 else {
@@ -49,13 +49,13 @@ class AjaxCaller {
             url: dto.url,
             data: dto.data,
             contentType: 'application/json',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR:');
                 console.log(jqXHR);
                 console.log('textStatus:');
@@ -73,7 +73,7 @@ class AjaxCaller {
         });
     }
     uploadCSV(callback, formUploadData) {
-        var vurl = MAIN_URL+'/api/utils/uploadData/'+sessionStorage.companyCode+'/'+sessionStorage.chosenReport;
+        var vurl = MAIN_URL + '/api/utils/uploadData/' + localStorage.companyCode + '/' + localStorage.chosenReport;
 
         console.log(vurl);
         $.ajax({
@@ -83,10 +83,10 @@ class AjaxCaller {
             processData: false,
             contentType: false,
             enctype: 'multipart/form-data',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
             success: callback,
@@ -95,13 +95,13 @@ class AjaxCaller {
     getAllFiles(callback, moduleName, recordId) {
         $.ajax({
             type: 'GET',
-            url: `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/${moduleName}/${recordId}`,
+            url: `${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/${moduleName}/${recordId}`,
             data: "",
             contentType: 'application/json',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
             success: callback
@@ -109,11 +109,11 @@ class AjaxCaller {
     }
     displayReport(reportName, vdata) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/report/${reportName}`, true);
+        xhr.open('GET', `${MAIN_URL}/api/generic/${localStorage.companyCode}/report/${reportName}`, true);
         xhr.responseType = 'arraybuffer';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
 
-        xhr.onload = function(e) {
+        xhr.onload = function (e) {
             if (this.status == 200) {
                 var file = new Blob([xhr.response], { type: 'application/pdf' });
                 var fileURL = URL.createObjectURL(file);
@@ -124,11 +124,11 @@ class AjaxCaller {
     }
     displayDynamicReport(entity, selectedValue) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/report/dynamic/${entity}/${selectedValue}`, true);
+        xhr.open('GET', `${MAIN_URL}/api/generic/${localStorage.companyCode}/report/dynamic/${entity}/${selectedValue}`, true);
         xhr.responseType = 'arraybuffer';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
 
-        xhr.onload = function(e) {
+        xhr.onload = function (e) {
             if (this.status == 200) {
                 var file = new Blob([xhr.response], { type: 'application/pdf' });
                 var fileURL = URL.createObjectURL(file);
@@ -139,7 +139,7 @@ class AjaxCaller {
     }
     uploadFile(callback, moduleName, recordId, uploadType, formUploadData) {
         var callback = this.ajaxCallback;
-        var vurl = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/upload/${uploadType}/${moduleName}/${recordId}`;
+        var vurl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/upload/${uploadType}/${moduleName}/${recordId}`;
         console.log(vurl);
         $.ajax({
             url: vurl,
@@ -148,25 +148,25 @@ class AjaxCaller {
             processData: false,
             contentType: false,
             enctype: 'multipart/form-data',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
             success: callback,
         });
-    } 
+    }
     deleteFile(callback, fileUploadId) {
         $.ajax({
-            url: MAIN_URL+"/api/generic/attachment/delete/"+fileUploadId,
+            url: MAIN_URL + "/api/generic/attachment/delete/" + fileUploadId,
             type: "GET",
             data: "",
             contentType: 'application/json',
-            beforeSend: function(xhr) {
-                if (sessionStorage.token) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
-                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + sessionStorage.token);
+            beforeSend: function (xhr) {
+                if (localStorage.token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
+                    console.log("Sending token headers " + 'Authorization', 'Bearer ' + localStorage.token);
                 }
             },
             success: callback,
@@ -176,7 +176,7 @@ class AjaxCaller {
         var xhr = new XMLHttpRequest();
 
         xhr.open('GET', url);
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (this.readyState === this.DONE) {
                 if (this.status === 200) {
                     // this.response is a Blob, because we set responseType above
@@ -188,14 +188,14 @@ class AjaxCaller {
             }
         };
         xhr.responseType = 'blob';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
         xhr.send();
     }
     loadPostBytes(callback, url, vdata) {
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', url);
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (this.readyState === this.DONE) {
                 if (this.status === 200) {
                     // this.response is a Blob, because we set responseType above
@@ -207,7 +207,7 @@ class AjaxCaller {
             }
         };
         xhr.responseType = 'blob';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.send(vdata);
     }

@@ -8,21 +8,21 @@ class WorkAnniversaryWidget {
 
         if ($(".birthdays")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/WorkAnniversaryWidget";
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/WorkAnniversaryWidget";
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
                 console.log("Complete Called.");
-                $.each(data, function(i, obj) {
+                $.each(data, function (i, obj) {
                     //use obj.id and obj.name here, for example:
-                    $(".work-anniversary").append( '<li><img src="/api/generic/'+sessionStorage.companyCode+'/profilePic/Person/'+obj.personId+'" alt="User Image" class="profile-img" data-name="'+obj.firstName+' '+obj.lastName+'"><a class="users-list-name" href="#">'+obj.firstName+' '+obj.lastName+'</a><span class="users-list-date">'+obj.annivCount+'</span></li>' );
+                    $(".work-anniversary").append('<li><img src="/api/generic/' + localStorage.companyCode + '/profilePic/Person/' + obj.personId + '" alt="User Image" class="profile-img" data-name="' + obj.firstName + ' ' + obj.lastName + '"><a class="users-list-name" href="#">' + obj.firstName + ' ' + obj.lastName + '</a><span class="users-list-date">' + obj.annivCount + '</span></li>');
                 });
-                $('.profile-img').on('error',function(){
+                $('.profile-img').on('error', function () {
                     /* Fire your image resize code here */
                     console.log("Images Not Loaded");
                     $(this).initial({
-                        charCount:2,
+                        charCount: 2,
                     });
                 });
             };

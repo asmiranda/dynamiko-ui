@@ -71,7 +71,7 @@ class DataVisualizer {
     updateData() {
         var val = $("#dataVisualizer").val();
 
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/visualizer/' + val;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/visualizer/' + val;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (vdata) {
             console.log(vdata);
@@ -87,7 +87,7 @@ class DataVisualizer {
     loadAllDataVisualizers() {
         console.log("LOAD ALL VISUALIZERS...");
 
-        var url = MAIN_URL + '/api/generic/'+sessionStorage.companyCode+'/visualizer/all';
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/visualizer/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -148,7 +148,7 @@ class DataVisualizer {
 
         $("div.chartContainer").children().hide();
         $("div.chartContainer").empty();
-        $("div.chartContainer").append('<canvas id="wdr-chart"></canvas>');        
+        $("div.chartContainer").append('<canvas id="wdr-chart"></canvas>');
 
         if ($("#dataVisualizer").val() != "") {
             if (dataVisualizer.serverData.chartType == 'polarArea') {
@@ -156,14 +156,14 @@ class DataVisualizer {
                     slice: dataVisualizer.slice,
                 }, drawPolar, rewritePolar);
             }
-            else if (dataVisualizer.serverData.chartType == 'pie' || 
+            else if (dataVisualizer.serverData.chartType == 'pie' ||
                 dataVisualizer.serverData.chartType == 'doughnut') {
-                    dataVisualizer.pivot.getData({
+                dataVisualizer.pivot.getData({
                     slice: dataVisualizer.slice,
                 }, drawPie, rewritePie);
             }
-            else if (dataVisualizer.serverData.chartType == 'bar' || 
-                dataVisualizer.serverData.chartType == 'area' || 
+            else if (dataVisualizer.serverData.chartType == 'bar' ||
+                dataVisualizer.serverData.chartType == 'area' ||
                 dataVisualizer.serverData.chartType == 'line') {
                 dataVisualizer.pivot.getData({
                     slice: dataVisualizer.slice,

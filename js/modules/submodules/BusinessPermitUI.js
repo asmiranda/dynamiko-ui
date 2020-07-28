@@ -1,4 +1,4 @@
-class BusinessPermitUI { 
+class BusinessPermitUI {
 
     saveBusinessPermitForCashier(obj) {
         console.log("saveBusinessPermitForCashier called");
@@ -10,15 +10,15 @@ class BusinessPermitUI {
             tmp[name] = value;
         });
         console.log(tmp);
-        var vdata = JSON.stringify(tmp); 
+        var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BusinessPermitUI/post/saveBusinessPermitForCashier`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/post/saveBusinessPermitForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             showModalAny.show("Save Business Permit Message", data.value);
         };
-        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback); 
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
     }
 
     changeBusinessPermitValues(obj) {
@@ -39,10 +39,10 @@ class BusinessPermitUI {
 
     loadTopBusinessPermit() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BusinessPermitUI/getTopBusinessPermits`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, ""); 
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/getTopBusinessPermits`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             businessPermitUI.arrangeSearchedBusinessPermits(data, "BusinessPermit");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -50,16 +50,16 @@ class BusinessPermitUI {
 
     loadBusinessPermitProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BusinessPermitUI/getBusinessPermitProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/getBusinessPermitProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
-            $(".editBusinessPermit").each(function(index, obj) {
+            $(".editBusinessPermit").each(function (index, obj) {
                 var key = $(obj).attr("name");
                 var value = data.getProp(key);
                 console.log(key + " -> " + value);
-                $(`.editBusinessPermit[name="${key}"]`).val(value);    
+                $(`.editBusinessPermit[name="${key}"]`).val(value);
             });
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -71,10 +71,10 @@ class BusinessPermitUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/BusinessPermitUI/filterBusinessPermit/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/filterBusinessPermit/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             businessPermitUI.arrangeSearchedBusinessPermits(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -84,7 +84,7 @@ class BusinessPermitUI {
         console.log(data);
         var divName = `.searchBusinessPermits[module="BusinessPermitUI"][tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var businessName = obj.getProp("businessName");
             var email = obj.getPropDefault("email", "");
             var recordId = obj.getProp("BusinessPermitId");
@@ -96,7 +96,7 @@ class BusinessPermitUI {
                 <hr>
             `;
             $(divName).append(str);
-            
+
         });
     }
 }

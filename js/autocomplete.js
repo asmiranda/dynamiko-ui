@@ -1,18 +1,18 @@
 class DynaAutoComplete {
     constructor() {
-        $(document).on('keyup', '.autocomplete', function() {
+        $(document).on('keyup', '.autocomplete', function () {
             dynaAutoComplete.doAutoComplete(this);
         });
-        $(document).on('click', '.autocomplete', function() {
+        $(document).on('click', '.autocomplete', function () {
             dynaAutoComplete.doAutoComplete(this);
         });
-        $(document).on('click', '.autocomplete-choice', function() {
+        $(document).on('click', '.autocomplete-choice', function () {
             dynaAutoComplete.putAutoComplete(this);
         });
-        $(document).on('click', '.btnCloseAutoComplete', function() {
+        $(document).on('click', '.btnCloseAutoComplete', function () {
             dynaAutoComplete.closeAutoComplete(this);
         });
-        $(document).on('click', '.btnAutoClearSelected', function() {
+        $(document).on('click', '.btnAutoClearSelected', function () {
             dynaAutoComplete.clearSelected(this);
         });
     }
@@ -26,7 +26,7 @@ class DynaAutoComplete {
         // var submodule = $(obj).attr("submodule");
         var fieldName = $(obj).attr("autoName");
         $(`.autocomplete[module="${moduleName}"][autoName="${fieldName}"][rowIndex='${rowIndex}']`).val(html);
-        $(`.DivAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"][rowIndex='${rowIndex}']`).html(html);        
+        $(`.DivAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"][rowIndex='${rowIndex}']`).html(html);
         $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).empty();
 
         $(`.HiddenAutoComplete[module="${moduleName}"][autoName="${fieldName}"][name="${fieldName}"][rowIndex='${rowIndex}']`).val(value);
@@ -46,20 +46,20 @@ class DynaAutoComplete {
 
     doAutoComplete(obj) {
         var value = $(obj).val();
-        var moduleName = $(obj).attr("module"); 
+        var moduleName = $(obj).attr("module");
         var fieldName = $(obj).attr("autoName");
         var rowIndex = $(obj).attr("rowIndex");
         $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).show();
         var isAutoCompleteQuickUpdaterInput = $(obj).hasClass("autoCompleteQuickUpdaterInput");
 
-        console.log("Autocomplete typed "+value);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocomplete/${moduleName}/${fieldName}/${value}`;
+        console.log("Autocomplete typed " + value);
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocomplete/${moduleName}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             if (isAutoCompleteQuickUpdaterInput) {
                 $(`.autoCompleteQuickUpdaterSelect`).empty();
-                $.each(data, function(index, obj) {
+                $.each(data, function (index, obj) {
                     var key = obj.getProp("key");
                     var value = obj.getProp("value");
                     var strHtml = `<option value="${key}">${value}</option>`;
@@ -68,11 +68,11 @@ class DynaAutoComplete {
             }
             else {
                 $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).empty();
-                $.each(data, function(index, obj) {
+                $.each(data, function (index, obj) {
                     var key = obj.getProp("key");
                     var value = obj.getProp("value");
 
-                    if (index==0) {
+                    if (index == 0) {
                         var strHtmlClose = `<div title="Close" style="float: right;" class="btnCloseAutoComplete" autoName="${fieldName}" module="${moduleName}" rowIndex="${rowIndex}"><i style="position:fixed;margin-top: -5px;margin-left: -5px;" class="fa fa-close"></i></div>`;
                         $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).append(strHtmlClose);
                     }
@@ -85,14 +85,14 @@ class DynaAutoComplete {
     }
 
     closeAutoComplete(obj) {
-        var moduleName = $(obj).attr("module"); 
+        var moduleName = $(obj).attr("module");
         var fieldName = $(obj).attr("autoName");
         var rowIndex = $(obj).attr("rowIndex");
         $(`.autocomplete-items[autoName='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).hide();
     }
 
     clearSelected(obj) {
-        var moduleName = $(obj).attr("module"); 
+        var moduleName = $(obj).attr("module");
         var fieldName = $(obj).attr("autoName");
         var rowIndex = $(obj).attr("rowIndex");
         $(`.HiddenAutoComplete[name='${fieldName}'][module='${moduleName}'][rowIndex='${rowIndex}']`).val("");
@@ -100,6 +100,6 @@ class DynaAutoComplete {
     }
 }
 
-$(function() {
+$(function () {
     dynaAutoComplete = new DynaAutoComplete();
 })

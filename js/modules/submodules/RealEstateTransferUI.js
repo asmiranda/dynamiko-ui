@@ -4,10 +4,10 @@ class RealEstateTransferUI {
     }
 
     loadTopRealEstateTransfers() {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTransferUI/getTopRealEstateTransfers`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTransferUI/getTopRealEstateTransfers`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             realEstateTransferUI.arrangeSearchedRealEstateTransfers(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -17,7 +17,7 @@ class RealEstateTransferUI {
         console.log(data);
         var divName = `.searchRealEstateTransfers[module="RealEstateTransferUI"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var RealEstateTransferId = obj.getProp("RealEstateTransferId");
 
             var customerName = obj.getProp("customerName");
@@ -42,7 +42,7 @@ class RealEstateTransferUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 
@@ -50,7 +50,7 @@ class RealEstateTransferUI {
         console.log(data);
         var divName = `.searchRealEstateTransfer[module="RealEstateTransferUI"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var customerName = obj.getProp("customerName");
             var customerEmail = obj.getProp("customerEmail");
             var customerId = obj.getProp("customerId");
@@ -74,40 +74,40 @@ class RealEstateTransferUI {
                 </div>
                 <hr style="margin-top: 5px; width: 98%">
             `;
-            $(divName).append(str);            
+            $(divName).append(str);
         });
     }
 
     loadRealEstateTransferProfile(obj, tabName) {
         console.log(`loadRealEstateTransferProfile for ${tabName}`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTransferUI/getRealEstateTransferProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTransferUI/getRealEstateTransferProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             realEstateTransferUI.arrangeRealEstateTransferProfile(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     arrangeRealEstateTransferProfile(data, clsName) {
-        $(`.edit${clsName}`).each(function(index, obj) {
+        $(`.edit${clsName}`).each(function (index, obj) {
             var key = $(obj).attr("name");
             if (key) {
                 var value = data.getProp(key);
                 console.log(key + " -> " + value);
-                $(`.edit${clsName}[name="${key}"]`).val(value);    
+                $(`.edit${clsName}[name="${key}"]`).val(value);
             }
         });
         realEstateTransferUI.loadAutoCompleteRowLabel("customerCode", 1);
 
         var recordId = $(`.edit${clsName}[name="RealEstateTransferId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/RealEstateTransferUI/getRealEstateTransferItems/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTransferUI/getRealEstateTransferItems/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
-            $(data).each(function(index, obj) {
-                realEstateTransferUI.arrangeRealEstateTransferItem(index+100, obj, clsName);
+        var successFunction = function (data) {
+            $(data).each(function (index, obj) {
+                realEstateTransferUI.arrangeRealEstateTransferItem(index + 100, obj, clsName);
             })
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -120,10 +120,10 @@ class RealEstateTransferUI {
         var quantity = data.getProp("quantity");
         var totalAmount = data.getProp("totalAmount");
 
-        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="productCode"]`).val(productCode);    
-        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="unitPrice"]`).val(unitPrice);    
-        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);    
-        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);    
+        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="productCode"]`).val(productCode);
+        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="unitPrice"]`).val(unitPrice);
+        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="quantity"]`).val(quantity);
+        $(`.edit${clsName}[module="RealEstateTransferItemUI"][rowIndex="${rowIndex}"][name="totalAmount"]`).val(totalAmount);
     }
 
     loadAutoCompleteRowLabel(field, rowIndex) {
@@ -135,10 +135,10 @@ class RealEstateTransferUI {
         var moduleName = $(hiddenAutoComplete).attr("module");
         var value = $(hiddenAutoComplete).val();
 
-        if (value!=null && value!="") {
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
+        if (value != null && value != "") {
+            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 console.log(data);
                 var divDescAutoComplete = $(`[class~='DivAutoComplete'][autoname='${data.getProp("fieldName")}'][rowIndex='${rowIndex}']`);
                 divDescAutoComplete.html(data.getProp("value"));
@@ -151,13 +151,13 @@ class RealEstateTransferUI {
 
     selectRealEstateTransfer(obj) {
         console.log("selectRealEstateTransfer");
-        console.log("Record ID == "+$(obj).attr("recordId"));
+        console.log("Record ID == " + $(obj).attr("recordId"));
         realEstateTransferUI.loadRealEstateTransferProfile(obj, "RealEstateTransfer");
     }
 
     selectRealEstateTransfer(obj) {
         console.log("selectRealEstateTransfer");
-        console.log("Record ID == "+$(obj).attr("recordId"));
+        console.log("Record ID == " + $(obj).attr("recordId"));
         realEstateTransferUI.loadRealEstateTransferProfile(obj, "Sale");
     }
 }

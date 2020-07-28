@@ -2,9 +2,9 @@ class ConstructMainForm {
     construct(moduleName, recordId) {
         this.moduleName = moduleName;
 
-        var url = "displaytabs/"+constructMainForm.moduleName+"-MainTemplate.html";
+        var url = "displaytabs/" + constructMainForm.moduleName + "-MainTemplate.html";
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             $("#content-main").html(data);
             constructMainForm.replaceDisplayTabs(recordId);
             var funcName = moduleName.charAt(0).toLowerCase() + moduleName.slice(1)
@@ -17,7 +17,7 @@ class ConstructMainForm {
     loadTab(obj, moduleName, cls, tabUrl, tabName, notFoundCallback) {
         var url = `displaytabs/tabs/${moduleName}/${tabUrl}.html`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             var strHtml = utils.replaceAll(data, "_TABNAME_", tabName);
             $(obj).replaceWith(strHtml);
             var displayTabs = document.getElementsByClassName(cls);
@@ -26,12 +26,12 @@ class ConstructMainForm {
                 constructMainForm.cacheConstruct();
             }
         };
-        var errorCallback = function(jqXHR, textStatus, errorThrown) {
+        var errorCallback = function (jqXHR, textStatus, errorThrown) {
             if (notFoundCallback) {
                 notFoundCallback();
             }
             else {
-                if (errorThrown=="Not Found") {
+                if (errorThrown == "Not Found") {
                     $(obj).replaceWith(url + " Not Found!");
                 }
                 var displayTabs = document.getElementsByClassName(cls);
@@ -46,15 +46,15 @@ class ConstructMainForm {
 
     replaceDisplayTabs(recordId) {
         var context = this;
-        $(".DisplayTab").each(function(index, obj) {
+        $(".DisplayTab").each(function (index, obj) {
             var tabUrl = $(obj).attr("tabUrl");
             var tabName = $(obj).attr("tabName");
             var module2 = $(obj).attr("module2");
-            context.loadTab(obj, constructMainForm.moduleName, 'DisplayTab', tabUrl, tabName, function() {
+            context.loadTab(obj, constructMainForm.moduleName, 'DisplayTab', tabUrl, tabName, function () {
                 context.loadTab(obj, module2, 'DisplayTab', tabUrl, tabName);
             });
         });
-        $(".DisplayTabCommon").each(function(index, obj) {
+        $(".DisplayTabCommon").each(function (index, obj) {
             var tabUrl = $(obj).attr("tabUrl");
             var tabName = $(obj).attr("tabName");
             context.loadTab(obj, 'common', 'DisplayTabCommon', tabUrl, tabName);
@@ -64,13 +64,13 @@ class ConstructMainForm {
     cacheConstruct(recordId) {
         $('[data-mask]').inputmask();
 
-        if (recordId>0) {
+        if (recordId > 0) {
             dynamikoCache.setLastRecordId(recordId);
             constructMainForm.loadRecord(recordId);
         }
         else {
             recordId = dynamikoCache.getLastRecordId();
-            if (recordId>0) {
+            if (recordId > 0) {
                 constructMainForm.loadRecord(recordId);
             }
         }
@@ -86,17 +86,17 @@ class ConstructMainForm {
     };
 
     loadRecord(recordId) {
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + constructMainForm.moduleName + '/' + recordId;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/findRecord/' + constructMainForm.moduleName + '/' + recordId;
 
         var searchData = searchCache.getSearchCache(constructMainForm.moduleName, url);
-        if (searchData==null || searchData=="") {
+        if (searchData == null || searchData == "") {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 searchCache.setNewSearchCache(constructMainForm.moduleName, url, data);
 
                 utils.loadJsonToForm(mainForm, data);
                 utils.loadJsonAddInfo(data);
-    
+
                 childTabs.reloadAllDisplayTabs();
                 storage.setLatestModuleId(recordId);
             };
@@ -122,9 +122,9 @@ class FormRule {
         console.log("doRule called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/formrule/' + formRule.moduleName;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/formrule/' + formRule.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             formRule.setupButtons(data);
         };
@@ -140,7 +140,7 @@ class FormRule {
     }
 
     disableHideSelector(selector, field, returnData) {
-        var dispComp = returnData.getProp("componentDisplays").filter(display => field==display.name)[0];
+        var dispComp = returnData.getProp("componentDisplays").filter(display => field == display.name)[0];
         if (dispComp.getProp("display")) {
             $(selector).show();
         }
@@ -162,11 +162,11 @@ class ProfilePicLoader {
         this.moduleName = moduleName;
 
         console.log("ProfilePicLoader init called");
-        $(mainId).on('change', function() {
+        $(mainId).on('change', function () {
             console.log("ProfilePicLoader change called");
             var recordId = $(this).val();
             if (recordId && recordId > 0) {
-                var imageLink = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/profilePic/${profilePicLoader.moduleName}/${recordId}/`;
+                var imageLink = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/${profilePicLoader.moduleName}/${recordId}/`;
                 console.log(`ProfilePicLoader src="${imageLink}"`);
                 $("#profilePic").attr("src", imageLink);
                 $("#profilePic").show();
@@ -183,28 +183,28 @@ class FormControlButton {
     initButtons(moduleName) {
         this.moduleName = moduleName;
         this.formUploadData = new FormData();
-        $(document).on('click', '.btnToggleSearch', function() {
+        $(document).on('click', '.btnToggleSearch', function () {
             formControlButton.toggleSearch();
         });
-        $(document).on('click', '.btnNew', function() {
+        $(document).on('click', '.btnNew', function () {
             formControlButton.newRecord(this);
         });
-        $(document).on('click', '.btnUpdate', function() {
+        $(document).on('click', '.btnUpdate', function () {
             formControlButton.showModalUpdateRecord(this);
         });
-        $(document).on('click', '.btnSave', function() {
+        $(document).on('click', '.btnSave', function () {
             formControlButton.saveRecord(this);
         });
-        $(document).on('click', '.btnDelete', function() {
+        $(document).on('click', '.btnDelete', function () {
             formControlButton.deleteRecord(this);
         });
-        $(document).on('click', 'li.btnUpload', function() {
+        $(document).on('click', 'li.btnUpload', function () {
             formControlButton.listFileAttachments(this);
         });
-        $(document).on('click', 'button.btnSaveUpload', function() {
+        $(document).on('click', 'button.btnSaveUpload', function () {
             formControlButton.saveUpload(this);
         });
-        $(document).on('click', '.myReport', function() {
+        $(document).on('click', '.myReport', function () {
             formControlButton.displayReport(this);
         });
 
@@ -214,11 +214,11 @@ class FormControlButton {
     };
 
     initReport() {
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/report/dynamic/"+formControlButton.moduleName;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/report/dynamic/" + formControlButton.moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var code = obj.getProp("key");
                 var name = obj.getProp("value");
@@ -244,7 +244,7 @@ class FormControlButton {
         console.log("displayReport");
         console.log(value);
         var xhr = new XMLHttpRequest();
-        xhr.onload = function(e) {
+        xhr.onload = function (e) {
             if (this.status == 200) {
                 var file = new Blob([xhr.response], { type: 'application/pdf' });
                 var fileURL = URL.createObjectURL(file);
@@ -263,10 +263,10 @@ class FormControlButton {
                 showModuleHelp.show("Information", str);
             }
         };
-        var myurl = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/report/dynamic/'+formControlButton.moduleName+"/"+value+"/"+recordId;
+        var myurl = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/report/dynamic/' + formControlButton.moduleName + "/" + value + "/" + recordId;
         xhr.responseType = 'arraybuffer';
         xhr.open('GET', myurl, true);
-        xhr.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.token);
         xhr.send("");
     }
 
@@ -277,12 +277,12 @@ class FormControlButton {
         catch (e) {
             console.log(e);
         }
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             console.log(obj);
             var fileName = obj.filename;
             var fileSize = obj.filesize;
             var fileId = obj.fileuploadid;
-            $(".fileAttachments").append('<li class="list-group-item align-middle"><span class="pull-right align-top" style="margin-left: 10px;"><button class="btn btn-link" onclick="FormControlButton.deleteFile('+fileId+')">Delete</button></span><span class="badge"><a onclick="FormControlButton.downloadFile('+fileId+')" style="color:white;cursor: pointer;" target="_blank">Size : '+fileSize+'</a></span>'+fileName+'</li>');
+            $(".fileAttachments").append('<li class="list-group-item align-middle"><span class="pull-right align-top" style="margin-left: 10px;"><button class="btn btn-link" onclick="FormControlButton.deleteFile(' + fileId + ')">Delete</button></span><span class="badge"><a onclick="FormControlButton.downloadFile(' + fileId + ')" style="color:white;cursor: pointer;" target="_blank">Size : ' + fileSize + '</a></span>' + fileName + '</li>');
         });
     }
 
@@ -307,7 +307,7 @@ class FormControlButton {
         if (this.mandatorySelectRecord()) {
             $('#fileUploadDialog').modal('show');
             var context = this;
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 console.log(data);
                 context.listFileToTable(data);
             };
@@ -317,12 +317,12 @@ class FormControlButton {
 
     static downloadFile(fileId) {
         console.log("downloadFile = " + fileId);
-        window.open(MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/attachment/download/'+fileId, '_blank');
+        window.open(MAIN_URL + '/api/generic/' + localStorage.companyCode + '/attachment/download/' + fileId, '_blank');
     }
 
     static deleteFile(fileId) {
         console.log("deletedFile = " + fileId);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             formControlButton.listFileToTable(data);
         };
@@ -330,7 +330,7 @@ class FormControlButton {
     }
 
     saveUpload(myButton) {
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             formControlButton.listFileToTable(data);
         };
@@ -354,9 +354,9 @@ class FormControlButton {
         console.log("newRecord called");
         var moduleName = $(myButton).attr("module");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/new/' + moduleName;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/new/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
 
@@ -375,16 +375,16 @@ class FormControlButton {
         var moduleName = $(myButton).attr("module");
         console.log("deleteRecord called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/delete/' + moduleName;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/delete/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             storage.setLatestModule(moduleName);
             registerDatatable.clearRegister();
-        
+
             constructMainForm.construct(moduleName);
             fileUpload.initUpload();
         };
-        var confirmDelete = function() {
+        var confirmDelete = function () {
             ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
         }
         deleteRecordConfirm.confirm(confirmDelete);
@@ -396,9 +396,9 @@ class FormControlButton {
         $('.multiSelect option').prop('selected', true);
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/save/' + moduleName;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/save/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
             childTabs.reloadAllDisplayTabs();
@@ -414,19 +414,19 @@ class SearchTable {
         this.successCallback;
 
         var mainDataTable = dynaRegister.createMainTable(searchTable.moduleName, mainSearchForm, this);
-        $(document).on('click', '.setFileProfile', function() {
+        $(document).on('click', '.setFileProfile', function () {
             searchTable.setFileProfile(this);
-        });               
-        $(document).on('click', '.attachFileRemove', function() {
+        });
+        $(document).on('click', '.attachFileRemove', function () {
             searchTable.removeAttachedFile(this);
-        });               
-        $(document).on('keyup', 'input[class~="filter"]', function() {
+        });
+        $(document).on('keyup', 'input[class~="filter"]', function () {
             searchTable.reloadSearch();
         });
-        $(document).on('click', 'select.specialSearch', function() {
+        $(document).on('click', 'select.specialSearch', function () {
             searchTable.reloadSpecialSearch();
         });
-        $(document).on('click', 'btnImage', function() {
+        $(document).on('click', 'btnImage', function () {
             searchTable.displayLargeImageFullScreen(this);
         });
 
@@ -435,17 +435,17 @@ class SearchTable {
 
     loadToForm() {
         var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/findRecord/' + searchTable.moduleName + '/' + mainDataTable.selectedId;
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/findRecord/' + searchTable.moduleName + '/' + mainDataTable.selectedId;
 
         var searchData = searchCache.getSearchCache(searchTable.moduleName, url);
-        if (searchData==null || searchData=="") {
+        if (searchData == null || searchData == "") {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 searchCache.setNewSearchCache(searchTable.moduleName, url, data);
 
                 utils.loadJsonToForm(mainForm, data);
                 utils.loadJsonAddInfo(data);
-    
+
                 childTabs.reloadAllDisplayTabs();
                 for (const [key, value] of dynaRegister.saasMap) {
                     value.loadToForm(searchTable);
@@ -468,12 +468,12 @@ class SearchTable {
 
     displayAllFiles() {
         var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/"+searchTable.moduleName+"/"+mainDataTable.selectedId;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/" + searchTable.moduleName + "/" + mainDataTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             $(".recordFiles").empty();
-            $(data).each(function(index, obj) {
+            $(data).each(function (index, obj) {
                 console.log(obj);
                 var fileUploadId = obj.getProp("fileUploadId");
                 var fileName = obj.getProp("fileName");
@@ -482,7 +482,7 @@ class SearchTable {
                 if (uploadType == 'Profile') {
                     str = `
                     <div class='thumbnail' style='display:inline-block; border-width: 5px;'>
-                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
                         <div class='text-center' style='margin-top: 20px;'>
                             <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
                             <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
@@ -492,7 +492,7 @@ class SearchTable {
                 else {
                     str = `
                     <div class='thumbnail' style='display:inline-block'>
-                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${sessionStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
                         <div class='text-center' style='margin-top: 20px;'>
                             <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
                             <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
@@ -500,7 +500,7 @@ class SearchTable {
                     </div>`;
                 }
                 $(".recordFiles").append(str);
-                
+
                 var html = `
                     <div id="myModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">                    
@@ -524,8 +524,8 @@ class SearchTable {
                         </div>
                     </div>
                 `;
-                html = html.replace("myModal", "imgModal_"+fileUploadId);
-                html = html.replace("myImage", MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/download/"+fileUploadId);
+                html = html.replace("myModal", "imgModal_" + fileUploadId);
+                html = html.replace("myImage", MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/download/" + fileUploadId);
                 $(".recordFiles").append(html);
             });
         };
@@ -534,9 +534,9 @@ class SearchTable {
 
     setFileProfile(obj) {
         var fileId = $(obj).attr("data");
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/setprofile/"+fileId;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/setprofile/" + fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             searchTable.displayAllFiles();
         };
@@ -545,9 +545,9 @@ class SearchTable {
 
     removeAttachedFile(obj) {
         var fileId = $(obj).attr("data");
-        var url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/attachment/delete/"+fileId;
+        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/delete/" + fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log(data);
             searchTable.displayAllFiles();
         };
@@ -557,13 +557,13 @@ class SearchTable {
     displayLargeImageFullScreen(btn) {
         var val = $(btn).attr("value");
         console.log(val);
-        $("#"+val).fullScreen(true);
+        $("#" + val).fullScreen(true);
     }
 
     reloadSpecialSearch() {
         console.log("reloadSpecialSearch");
         var input = $('select.specialSearch');
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/special/' + this.moduleName + '/' + input.val();
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/search/special/' + this.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         ajaxCaller.ajaxGet(ajaxRequestDTO, this.successCallback);
@@ -577,7 +577,7 @@ class SearchTable {
         // console.log(columns);
         var firstRec = Object.keys(data[0]);
         var keys = columns.split(',');
-        $.each(data, function(index, obj) {
+        $.each(data, function (index, obj) {
             var keyId = obj.getProp(firstRec[0]);
             var record = [];
             for (var key of keys) {
@@ -591,21 +591,21 @@ class SearchTable {
             }
             var node = mainDataTable.row.add(record).node();
             node.id = keyId;
-            $(node).addClass("rec"+keyId);
+            $(node).addClass("rec" + keyId);
             // console.log(node);
             mainDataTable.draw(false);
-        });""
+        }); ""
         // console.log(data);
     }
 
     reloadSearch() {
         console.log("reloadSearch");
-        var input = $('input[class~="filter"][module="'+searchTable.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + searchTable.moduleName + '/' + input.val();
+        var input = $('input[class~="filter"][module="' + searchTable.moduleName + '"]');
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/search/' + searchTable.moduleName + '/' + input.val();
         var searchData = searchCache.getSearchCache(searchTable.moduleName, url);
-        if (searchData==null || searchData=="") {
+        if (searchData == null || searchData == "") {
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 searchCache.setNewSearchCache(searchTable.moduleName, url, data);
                 searchTable.loadSearchData(data);
             };
@@ -619,18 +619,18 @@ class SearchTable {
     clearSearch() {
         console.log("reloadSearch");
         var mainDataTable = dynaRegister.getDataTable(searchTable.moduleName);
-        $('input[class~="filter"][module="'+searchTable.moduleName+'"]').val("");
-        var input = $('input[class~="filter"][module="'+searchTable.moduleName+'"]');
-        var url = MAIN_URL+'/api/generic/'+sessionStorage.companyCode+'/search/' + searchTable.moduleName + '/' + input.val();
+        $('input[class~="filter"][module="' + searchTable.moduleName + '"]').val("");
+        var input = $('input[class~="filter"][module="' + searchTable.moduleName + '"]');
+        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/search/' + searchTable.moduleName + '/' + input.val();
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             console.log("Reload Search");
             mainDataTable.clear();
             var columns = $(mainSearchForm).attr("columns");
             console.log(columns);
             var firstRec = Object.keys(data[0]);
             var keys = columns.split(',');
-            $.each(data, function(index, obj) {
+            $.each(data, function (index, obj) {
                 var keyId = obj.getProp(firstRec[0]);
                 var record = [];
                 for (var key of keys) {
@@ -644,7 +644,7 @@ class SearchTable {
                 }
                 var node = mainDataTable.row.add(record).node();
                 node.id = keyId;
-                $(node).addClass("rec"+keyId);
+                $(node).addClass("rec" + keyId);
                 // console.log(node);
                 mainDataTable.draw(false);
 
@@ -659,7 +659,7 @@ class SearchTable {
     };
 };
 
-$(function() {
+$(function () {
     constructMainForm = new ConstructMainForm();
     searchTable = new SearchTable();
     formControlButton = new FormControlButton();

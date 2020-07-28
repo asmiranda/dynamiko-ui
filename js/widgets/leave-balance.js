@@ -8,15 +8,15 @@ class LeaveBalanceWidget {
 
         if ($(".leave-balance")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/LeaveBalanceWidget";
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/LeaveBalanceWidget";
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
                 console.log("Complete Called.");
-                $.each(data, function(i, obj) {
+                $.each(data, function (i, obj) {
                     //use obj.id and obj.name here, for example:
-                    $(".leave-balance").append( '<a class="users-list-name" href="#">'+obj.firstName+' '+obj.lastName+'</a><span>SL : '+obj.slBenefitDaysCount+' - VL : '+obj.vlBenefitDaysCount+'</span>' );
+                    $(".leave-balance").append('<a class="users-list-name" href="#">' + obj.firstName + ' ' + obj.lastName + '</a><span>SL : ' + obj.slBenefitDaysCount + ' - VL : ' + obj.vlBenefitDaysCount + '</span>');
                 });
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);

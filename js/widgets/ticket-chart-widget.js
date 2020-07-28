@@ -3,15 +3,15 @@ class TicketChartWidget {
     }
 
     init() {
-        console.log("LOAD TICKET CHART"); 
+        console.log("LOAD TICKET CHART");
         if ($("#ticketChart")) {
             var cashChart = document.getElementById("ticketChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL+"/api/generic/"+sessionStorage.companyCode+"/widget/TicketChartWidget";
+            ajaxRequestDTO.url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/widget/TicketChartWidget";
             ajaxRequestDTO.data = "";
 
-            var successFunction = function(data) {
+            var successFunction = function (data) {
                 console.log(data);
                 didgetChartRule.doChart("#ticketChart", data, data.chartType);
             };

@@ -1,10 +1,10 @@
-class GovernmentCashierUI { 
+class GovernmentCashierUI {
     acceptPayment() {
         var CashierQueueId = $(`[module="GovernmentCashierUI"][name="CashierQueueId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentCashierUI/acceptPayment/${CashierQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/acceptPayment/${CashierQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             governmentCashierUI.arrangeGovernmentCashierProfile(data, "GovernmentCashier");
             governmentCashierUI.displayInvoiceReport(CashierQueueId);
             showModalAny.show("Accept Payment", "Please print INVOICE, then wait for Printing.");
@@ -13,7 +13,7 @@ class GovernmentCashierUI {
     }
 
     displayInvoiceReport(recordId) {
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/GovernmentCashierUI/displayInvoiceReport/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/GovernmentCashierUI/displayInvoiceReport/${recordId}`;
         $(`iframe[report="CashierInvoiceReport"]`).attr("src", url);
     }
 
@@ -26,10 +26,10 @@ class GovernmentCashierUI {
 
     loadTopCashierQueue() {
         var CashierQueueId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentCashierUI/getTopCashierQueue`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/getTopCashierQueue`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             governmentCashierUI.arrangeSearchedGovernmentCashiers(data, "GovernmentCashier");
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -37,10 +37,10 @@ class GovernmentCashierUI {
 
     loadGovernmentCashierProfile(obj, tabName) {
         var CashierQueueId = $(obj).attr("CashierQueueId");
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentCashierUI/getCashierQueueProfile/${CashierQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/getCashierQueueProfile/${CashierQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             governmentCashierUI.arrangeGovernmentCashierProfile(data);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -76,10 +76,10 @@ class GovernmentCashierUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/GovernmentCashierUI/filterGovernmentCashier/${value}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/filterGovernmentCashier/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successCallback = function(data) {
+        var successCallback = function (data) {
             GovernmentCashierUI.arrangeSearchedGovernmentCashiers(data, tabName);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -89,7 +89,7 @@ class GovernmentCashierUI {
         console.log(data);
         var divName = `.searchGovernmentCashiers[module="GovernmentCashierUI"][tabName="${tabName}"]`;
         $(divName).empty();
-        $(data).each(function(index, obj) {
+        $(data).each(function (index, obj) {
             var recordId = obj.getProp("CashierQueueId");
             var title = obj.getProp("title");
             var queueNumber = obj.getPropDefault("queueNumber", "");
@@ -102,7 +102,7 @@ class GovernmentCashierUI {
                 <hr>
             `;
             $(divName).append(str);
-            
+
         });
     }
 }

@@ -1,4 +1,4 @@
-class GovernmentReportsUI { 
+class GovernmentReportsUI {
     showGovernmentReport(obj) {
         console.log("called showGovernmentReport");
         var reportName = $(`.chooseGovernmentReport`).val();
@@ -9,7 +9,7 @@ class GovernmentReportsUI {
         console.log(startDate);
         console.log(endDate);
 
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/pwidget/GovernmentReportsUI/displayGovernmentReport/${reportName}/${startDate}/${endDate}`;
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/GovernmentReportsUI/displayGovernmentReport/${reportName}/${startDate}/${endDate}`;
         $(`iframe[report="ForGovernmentReport"]`).attr("src", url);
     }
 

@@ -7,17 +7,17 @@ class AttendanceLog30DaysWidget {
     loadData() {
         console.log("LOAD ATTENDANCE LOG 30 DAYS");
         var context = this;
-        $("#filterAttendanceLog30Days").change(function() {
+        $("#filterAttendanceLog30Days").change(function () {
             context.loadTableData($(this).val());
         });
 
         var widgetId = $("#attendanceLog30DaysTable");
         if ($(widgetId).attr("id")) {
-            this.mainDataTable = $(widgetId).DataTable( {
+            this.mainDataTable = $(widgetId).DataTable({
                 "searching": false,
                 "bLengthChange": false,
                 "pageLength": 5
-            } );
+            });
             context.loadTableData("");
         }
     }
@@ -26,19 +26,19 @@ class AttendanceLog30DaysWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/AttendanceLog30DaysWidget";
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceLog30DaysWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/"+sessionStorage.companyCode+"/widget/AttendanceLog30DaysWidget/"+val;
+            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceLog30DaysWidget/" + val;
         }
         ajaxRequestDTO.data = "";
 
-        var successFunction = function(data) {
+        var successFunction = function (data) {
             console.log(data);
             context.mainDataTable.clear();
-            $.each(data, function(i, obj) {
+            $.each(data, function (i, obj) {
                 var record = [];
-                record.push(obj["lastName"]+", "+obj["firstName"]);
+                record.push(obj["lastName"] + ", " + obj["firstName"]);
                 record.push(obj["age"]);
                 record.push(obj["position"]);
                 record.push(obj["supervisor"]);

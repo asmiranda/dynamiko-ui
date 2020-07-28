@@ -183,7 +183,7 @@ class MeetingRoom {
         var successRoomPopup = function (data) {
             mediaStream.initMedia(function () {
                 roomSignal.init(conCompany, conRoom, context.messageCallback);
-                roomSignal.send("req-join", "all", sessionStorage.profileName);
+                roomSignal.send("req-join", "all", localStorage.profileName);
             });
         }
         var successCallback = function (data) {
@@ -200,7 +200,7 @@ class MeetingRoom {
 
         mediaStream.initMedia(function () {
             roomSignal.init(conCompany, conRoom, context.messageCallback);
-            roomSignal.send("req-join", "all", sessionStorage.profileName);
+            roomSignal.send("req-join", "all", localStorage.profileName);
         });
     }
 
@@ -212,7 +212,7 @@ class MeetingRoom {
         allP2P = new Map();
         $(data).each(function (index, obj) {
             var email = obj.key;
-            if (email != sessionStorage.uname) {
+            if (email != localStorage.uname) {
                 var profile = obj.value;
                 var opt = `<option value="${email}">${profile}</option>`;
                 $(".selectChatTo").append(opt);

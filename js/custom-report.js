@@ -11,11 +11,11 @@ class CustomReport {
 
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
-        var successCallback = function(data_url) {
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
+        var successCallback = function (data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='AutoReport']`;
             console.log(iframeViewer);
-            document.querySelector(iframeViewer).src=data_url;
+            document.querySelector(iframeViewer).src = data_url;
         };
         ajaxCaller.loadPostBytes(successCallback, url, vdata);
     }
@@ -27,13 +27,13 @@ class CustomReport {
         console.log(allSelect);
         console.log("reload ");
         console.log(this);
-        console.log("Main ID == "+storage.getLatestModuleId());
+        console.log("Main ID == " + storage.getLatestModuleId());
 
         var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
         console.log(iframeViewer);
-        document.querySelector(iframeViewer).src="";
+        document.querySelector(iframeViewer).src = "";
 
-        $(allSelect).each(function(index) {
+        $(allSelect).each(function (index) {
             var currentSelect = this;
             var inputName = $(this).attr("name");
 
@@ -42,22 +42,22 @@ class CustomReport {
             myData["report"] = reportName;
             myData["inputName"] = inputName;
             myData["recordId"] = storage.getLatestModuleId();
-            
+
             var vdata = JSON.stringify(myData);
             console.log(vdata);
-            var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/widget/${moduleName}/post`;
+            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${moduleName}/post`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
-            var successCallback = function(data) {
+            var successCallback = function (data) {
                 $(currentSelect).empty();
                 console.log(data);
-                $(data).each(function(ind) {
+                $(data).each(function (ind) {
                     var optionId = this.getProp("id");
                     var optionDisplay = this.getProp("recordTitle");
                     var opt = `<option value='${optionId}'>${optionDisplay}</option>`;
                     $(currentSelect).append(opt);
                 });
             };
-            ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);                            
+            ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
         });
     }
 
@@ -65,9 +65,9 @@ class CustomReport {
         console.log("btnCustomReportToggleCriteria");
         var reportName = $(obj).attr("reportName");
         var myCustomReportCriteria = $(`.myCustomReportCriteria[reportName='${reportName}']`);
-        if($(myCustomReportCriteria).is(":visible")){
+        if ($(myCustomReportCriteria).is(":visible")) {
             $(myCustomReportCriteria).hide();
-        } else{
+        } else {
             $(myCustomReportCriteria).show();
         }
     }
@@ -86,7 +86,7 @@ class CustomReport {
         var reportCriteria = {};
         var reportCriteriaSelectors = `.reportCriteriaInput[module='${moduleName}'][report='${reportName}']`;
         console.log(reportCriteriaSelectors);
-        $(reportCriteriaSelectors).each(function(index) {
+        $(reportCriteriaSelectors).each(function (index) {
             var name = $(this).attr("name");
             var value = $(this).val();
             reportCriteria[name] = value;
@@ -96,11 +96,11 @@ class CustomReport {
 
         var vdata = JSON.stringify(reportCriteria);
         console.log(vdata);
-        var url = `${MAIN_URL}/api/generic/${sessionStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
-        ajaxCaller.ajaxPost(url, function(data_url) {
+        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/customReport/${moduleName}/${reportName}/post`;
+        ajaxCaller.ajaxPost(url, function (data_url) {
             var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
             console.log(iframeViewer);
-            document.querySelector(iframeViewer).src=data_url;
+            document.querySelector(iframeViewer).src = data_url;
         }, vdata);
     }
 }
