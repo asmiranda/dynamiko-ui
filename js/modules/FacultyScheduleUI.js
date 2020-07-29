@@ -5,12 +5,12 @@ class FacultyScheduleUI extends AbstractUI {
 
     btnJoinVirtualRoom(obj) {
         console.log("Called btnJoinVirtualRoom");
-        var code = $(obj).attr("code");
+        let code = $(obj).attr("code");
         meetingRoom.join("Join Room", localStorage.companyCode, code);
     }
 
     loadedCallback(data) {
-        var context = this;
+        let context = this;
         $(document).on('click', `.btnJoinVirtualRoom[module="FacultyScheduleUI"]`, function () {
             context.btnJoinVirtualRoom(this);
         });
@@ -25,19 +25,19 @@ class FacultyScheduleUI extends AbstractUI {
 
     loadStudents(data) {
         utils.showSpin();
-        var context = this;
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getStudents/${data}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let context = this;
+        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getStudents/${data}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function (data) {
+        let successFunction = function (data) {
             console.log("loadStudents", url, data);
             $(".studentImageRoster").empty();
             $(data).each(function (index, obj) {
-                var PersonId = obj.getPropDefault("PersonId", "--");
-                var profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${PersonId}`;
-                var fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
-                var birthDate = `${obj.getPropDefault("birthDate", "--")}`;
-                var str = `
+                let code = obj.getPropDefault("code", "--");
+                let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${code}`;
+                let fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
+                let birthDate = `${obj.getPropDefault("birthDate", "--")}`;
+                let str = `
                     <li>
                         <img src="${profileUrl}" alt="User Image">
                         <a class="users-list-name" href="#">${fullName}</a>
@@ -54,22 +54,22 @@ class FacultyScheduleUI extends AbstractUI {
 
     loadAnnouncements(data) {
         utils.showSpin();
-        var context = this;
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getAnnouncements/${data}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let context = this;
+        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getAnnouncements/${data}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function (data) {
+        let successFunction = function (data) {
             console.log("loadAnnouncements", url, data);
             $("#announcementList").empty();
             $(data).each(function (index, obj) {
-                var SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
-                var announcement = obj.getPropDefault("announcement", "--");
-                var announcementDate = obj.getPropDefault("announcementDate", "--");
-                var announcementUrl = obj.getPropDefault("announcementUrl", "--");
-                var imageCss = "width: 444px; height: 350px;";
-                var boxCss = "width: 500px;";
-                var profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
-                var str = `
+                let code = obj.getPropDefault("code", "--");
+                let announcement = obj.getPropDefault("announcement", "--");
+                let announcementDate = obj.getPropDefault("announcementDate", "--");
+                let announcementUrl = obj.getPropDefault("announcementUrl", "--");
+                let imageCss = "width: 444px; height: 350px;";
+                let boxCss = "width: 500px;";
+                let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SchoolAnnouncementUI/${code}`;
+                let str = `
                     <div class="box box-widget" style="margin: 15px; ${boxCss}">
                         <div class="box-body">
                             <img class="img-responsive pad" src="${profileUrl}" alt="Photo" style="${imageCss}">
@@ -90,19 +90,19 @@ class FacultyScheduleUI extends AbstractUI {
 
     loadActivities(data) {
         utils.showSpin();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getActivities/${data}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getActivities/${data}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function (data) {
+        let successFunction = function (data) {
             console.log("loadActivities", url, data);
             $(".ActivityList").empty();
             $(data).each(function (index, obj) {
-                var SchoolScheduleTaskId = obj.getPropDefault("SchoolScheduleTaskId", "");
-                var startDate = obj.getPropDefault("taskDate", "");
-                var endDate = obj.getPropDefault("endDate", "");
-                var taskType = obj.getPropDefault("taskType", "");
-                var detail = obj.getPropDefault("detail", "");
-                var str = `
+                let SchoolScheduleTaskId = obj.getPropDefault("SchoolScheduleTaskId", "");
+                let startDate = obj.getPropDefault("taskDate", "");
+                let endDate = obj.getPropDefault("endDate", "");
+                let taskType = obj.getPropDefault("taskType", "");
+                let detail = obj.getPropDefault("detail", "");
+                let str = `
                     <li class="time-label">
                         <span class="bg-red">
                             ${startDate}
@@ -132,25 +132,26 @@ class FacultyScheduleUI extends AbstractUI {
 
     loadFacultyHost(data) {
         utils.showSpin();
-        var context = this;
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getHostProfile/${data}`;
-        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let context = this;
+        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getHostProfile/${data}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        var successFunction = function (data) {
+        let successFunction = function (data) {
             console.log("loadFacultyHost", url, data);
-            var profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${data.getProp("personId")}`;
+            let code = data.getProp("code");
+            let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${code}`;
             $(".hostProfile").attr("src", profileUrl);
 
-            var profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;
+            let profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;
             $(".profile-username").html(profileName);
 
-            var subjectScheduleProfile = data.getProp("schedConfName");
+            let subjectScheduleProfile = data.getProp("schedConfName");
             $(".subjectScheduleProfile").html(subjectScheduleProfile);
 
-            var totalStudents = data.getProp("studentCount");
+            let totalStudents = data.getProp("studentCount");
             $(".totalStudents").html(totalStudents);
 
-            var schoolScheduleCode = data.getProp("schoolScheduleCode");
+            let schoolScheduleCode = data.getProp("schoolScheduleCode");
             $(`.btnJoinVirtualRoom[module="FacultyScheduleUI"]`).attr("code", schoolScheduleCode);
             utils.hideSpin();
         };
