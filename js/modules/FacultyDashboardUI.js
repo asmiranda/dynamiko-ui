@@ -25,11 +25,33 @@ class FacultyDashboardUI extends AbstractUI {
 
         console.log("loadedCallback not implemented.")
         personTaskUI.loadTodoList();
-        // this.loadFacultyHost(data);
-        // this.loadActivities(data);
-        // this.loadAnnouncements(data);
-        // this.loadStudents(data);
+        this.loadProfile(data);
+        this.loadAnnouncements();
     }
+
+    loadAnnouncements() {
+        $("#announcementsContent").load(ANNOUNCEMENT_URL);
+    }
+
+    loadProfile(data) {
+        utils.showSpin();
+        let context = this;
+        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonUI/getProfile`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        let successFunction = function (data) {
+            console.log("loadFacultyHost", url, data);
+            let code = data.getProp("code");
+            let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${code}`;
+            $(".hostProfile").attr("src", profileUrl);
+
+            let profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;
+            $(".profile-username").html(profileName);
+            utils.hideSpin();
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
 }
 
 $(function () {

@@ -5,117 +5,39 @@
   </h1>
 </section>
 <section class="content">
-  <!-- Main row -->
   <div style="display: flex;">
-    <!-- Left col -->
-    <div style="flex: 3; display: flex; flex-direction: column;">
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">School Updates</h3>
+    <div style="flex: 1; display: flex; flex-direction: column; min-width: 400px;">
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <img class="profile-user-img img-responsive img-circle hostProfile" src="" alt="User profile picture">
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <div class="btn-group">
-              <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-wrench"></i></button>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </div>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-        </div>
-        <!-- ./box-body -->
-        <div class="box-footer">
+          <h3 class="profile-username text-center">Nina Mcintire</h3>
+          <p class="text-muted text-center">Faculty</p>
         </div>
       </div>
-      <div style="display: flex;">
-        <div class="box box-default" style="flex: 1;">
-          <div class="box-header ui-sortable-handle" style="cursor: move;">
-            <i class="ion ion-clipboard"></i>
-            <h3 class="box-title">To Do List</h3>
-            <button type="button" class="btn btn-default pull-right PersonTaskUI_btnShowAddTask" data-toggle="modal"
-              data-target="#PersonTaskUI_TaskDialog"><i class="fa fa-plus"></i> Add Task</button>
-          </div>
-          <div class="box-body">
-            <ul class="todo-list ui-sortable divToDoList">
-            </ul>
-          </div>
+      <div class="box box-success with-border" style="flex: 1;">
+        <div class="box-header ui-sortable-handle" style="cursor: move;">
+          <i class="ion ion-clipboard"></i>
+          <h3 class="box-title">To Do List</h3>
+          <button type="button" class="btn btn-default pull-right PersonTaskUI_btnShowAddTask" data-toggle="modal"
+            data-target="#PersonTaskUI_TaskDialog"><i class="fa fa-plus"></i> Add Task</button>
+        </div>
+        <div class="box-body">
+          <ul class="todo-list ui-sortable divToDoList">
+          </ul>
         </div>
       </div>
     </div>
 
-    <div style="flex: 1; display: flex; flex-direction: column; margin-left: 15px;">
-      <div class="box box-primary">
-        <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg"
-            alt="User profile picture">
-
-          <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-          <p class="text-muted text-center">Software Engineer</p>
-
-          <ul class="list-group list-group-unbordered">
-            <li class="list-group-item">
-              <b>Followers</b> <a class="pull-right">1,322</a>
-            </li>
-            <li class="list-group-item">
-              <b>Following</b> <a class="pull-right">543</a>
-            </li>
-            <li class="list-group-item">
-              <b>Friends</b> <a class="pull-right">13,287</a>
-            </li>
-          </ul>
-
-          <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <div class="box box-primary">
+    <div style="flex: 3; display: flex; flex-direction: column; margin-left: 15px;">
+      <div class="box box-warning">
         <div class="box-header with-border">
-          <h3 class="box-title">About Me</h3>
+          <h3 class="box-title">Announcements</h3>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-
-          <p class="text-muted">
-            B.S. in Computer Science from the University of Tennessee at Knoxville
-          </p>
-
-          <hr>
-
-          <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-          <p class="text-muted">Malibu, California</p>
-
-          <hr>
-
-          <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-          <p>
-            <span class="label label-danger">UI Design</span>
-            <span class="label label-success">Coding</span>
-            <span class="label label-info">Javascript</span>
-            <span class="label label-warning">PHP</span>
-            <span class="label label-primary">Node.js</span>
-          </p>
-
-          <hr>
-
-          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+        <div class="box-body" id="announcementsContent">
         </div>
-        <!-- /.box-body -->
+        <div class="box-footer">
+        </div>
       </div>
     </div>
   </div>

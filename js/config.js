@@ -7,6 +7,8 @@ var MOBILE_MAIN_URL = `http://10.0.2.2:5000`;
 var MOBILE_MAIN_SIGNAL_URL = `ws://10.0.2.2:5000`;
 var MOBILE_MAIN_SIGNAL_HTTP_URL = `http://10.0.2.2:5000`;
 
+var ANNOUNCEMENT_URL = "http://mobilewebui.dynamikosoft.com/"
+
 var dynaRegister;
 
 class Config {

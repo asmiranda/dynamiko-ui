@@ -7,6 +7,8 @@ var MOBILE_MAIN_URL = `https://${server}:8443`;
 var MOBILE_MAIN_SIGNAL_URL = `wss://${server}:4343`;
 var MOBILE_MAIN_SIGNAL_HTTP_URL = `https://${server}:4343`;
 
+var ANNOUNCEMENT_URL = "http://mobilewebui.dynamikosoft.com/"
+
 var dynaRegister;
 
 class Config {
