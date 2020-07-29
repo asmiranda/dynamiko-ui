@@ -19,7 +19,7 @@ class FacultyScheduleUI extends AbstractUI {
         personTaskUI.loadTodoList();
         this.loadFacultyHost(data);
         this.loadActivities(data);
-        this.loadAnnouncements(data);
+        schoolUI.loadAnnouncements(data);
         this.loadStudents(data);
     }
 
@@ -50,44 +50,6 @@ class FacultyScheduleUI extends AbstractUI {
             utils.hideSpin();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-    }
-
-    loadAnnouncements(data) {
-        $("#announcementsContent").load(ANNOUNCEMENT_URL);
-
-        // utils.showSpin();
-        // let context = this;
-        // let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getAnnouncements/${data}`;
-        // let ajaxRequestDTO = new AjaxRequestDTO(url, "");
-
-        // let successFunction = function (data) {
-        //     console.log("loadAnnouncements", url, data);
-        //     $("#announcementList").empty();
-        //     $(data).each(function (index, obj) {
-        //         let code = obj.getPropDefault("code", "--");
-        //         let announcement = obj.getPropDefault("announcement", "--");
-        //         let announcementDate = obj.getPropDefault("announcementDate", "--");
-        //         let announcementUrl = obj.getPropDefault("announcementUrl", "--");
-        //         let imageCss = "width: 444px; height: 350px;";
-        //         let boxCss = "width: 500px;";
-        //         let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SchoolAnnouncementUI/${code}`;
-        //         let str = `
-        //             <div class="box box-widget" style="margin: 15px; ${boxCss}">
-        //                 <div class="box-body">
-        //                     <img class="img-responsive pad" src="${profileUrl}" alt="Photo" style="${imageCss}">
-
-        //                     <p style="padding: 20px;">${announcementDate} - ${announcement}</p>
-        //                 </div>
-        //                 <div class="box-footer box-comments">
-        //                     <a href="${announcementUrl}" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Read More</a>
-        //                 </div>
-        //             </div>
-        //         `;
-        //         $("#announcementList").append(str);
-        //     });
-        //     utils.hideSpin();
-        // };
-        // ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     loadActivities(data) {

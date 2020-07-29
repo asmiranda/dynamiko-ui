@@ -26,11 +26,7 @@ class FacultyDashboardUI extends AbstractUI {
         console.log("loadedCallback not implemented.")
         personTaskUI.loadTodoList();
         this.loadProfile(data);
-        this.loadAnnouncements();
-    }
-
-    loadAnnouncements() {
-        $("#announcementsContent").load(ANNOUNCEMENT_URL);
+        schoolUI.loadAnnouncements();
     }
 
     loadProfile(data) {
