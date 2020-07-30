@@ -6,7 +6,8 @@ class FacultyScheduleUI extends AbstractUI {
     btnJoinVirtualRoom(obj) {
         console.log("Called btnJoinVirtualRoom");
         let code = $(obj).attr("code");
-        meetingRoom.join("Join Room", localStorage.companyCode, code);
+        // meetingRoom.join("Join Room", localStorage.companyCode, code);
+        socketIOMeetingRoom.join("Join Room", code);
     }
 
     loadedCallback(data) {
