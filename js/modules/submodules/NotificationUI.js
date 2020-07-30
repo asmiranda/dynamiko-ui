@@ -20,7 +20,7 @@ class NotificationUI extends AbstractSubUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/NotificationUI/post/replyMessageThread`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/NotificationUI/post/replyMessageThread`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
         var successFunction = function (ret) {
@@ -35,7 +35,7 @@ class NotificationUI extends AbstractSubUI {
         var context = this;
         var recordId = data.NotificationId;
         $(".btnReplyToNotification").attr("recordId", recordId);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/NotificationUI/getMessageThread/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/NotificationUI/getMessageThread/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (ret) {

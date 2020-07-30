@@ -47,7 +47,7 @@ class GlobalEvents {
             reportUI.changeParameters(this);
         });
         $(document).on('click', '.btnSignOut', function () {
-            localStorage.clear();
+            storage.clear();
             window.location.href = "login.html";
         });
 

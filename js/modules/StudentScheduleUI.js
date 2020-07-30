@@ -6,7 +6,7 @@ class StudentScheduleUI extends AbstractUI {
     btnJoinVirtualRoom(obj) {
         console.log("Called btnJoinVirtualRoom");
         var code = $(obj).attr("code");
-        meetingRoom.join("Join Room", localStorage.companyCode, code);
+        meetingRoom.join("Join Room", storage.getCompanyCode(), code);
     }
 
     loadedCallback(data) {
@@ -26,7 +26,7 @@ class StudentScheduleUI extends AbstractUI {
     loadStudents(data) {
         utils.showSpin();
         var context = this;
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/StudentScheduleUI/getStudents/${data}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getStudents/${data}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -34,7 +34,7 @@ class StudentScheduleUI extends AbstractUI {
             $(".studentImageRoster").empty();
             $(data).each(function (index, obj) {
                 var PersonId = obj.getPropDefault("PersonId", "--");
-                var profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${PersonId}`;
+                var profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${PersonId}`;
                 var fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
                 var birthDate = `${obj.getPropDefault("birthDate", "--")}`;
                 var str = `
@@ -55,7 +55,7 @@ class StudentScheduleUI extends AbstractUI {
     loadAnnouncements(data) {
         utils.showSpin();
         var context = this;
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getAnnouncements/${data}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -68,7 +68,7 @@ class StudentScheduleUI extends AbstractUI {
                 var announcementUrl = obj.getPropDefault("announcementUrl", "--");
                 var imageCss = "width: 444px; height: 350px;";
                 var boxCss = "width: 500px;";
-                var profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                var profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
                 var str = `
                     <div class="box box-widget" style="margin: 15px; ${boxCss}">
                         <div class="box-body">
@@ -90,7 +90,7 @@ class StudentScheduleUI extends AbstractUI {
 
     loadActivities(data) {
         utils.showSpin();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/StudentScheduleUI/getActivities/${data}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getActivities/${data}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -133,12 +133,12 @@ class StudentScheduleUI extends AbstractUI {
     loadFacultyHost(data) {
         utils.showSpin();
         var context = this;
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/StudentScheduleUI/getHostProfile/${data}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getHostProfile/${data}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
             console.log("loadFacultyHost", url, data);
-            var profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${data.getProp("personId")}`;
+            var profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${data.getProp("personId")}`;
             $(".hostProfile").attr("src", profileUrl);
 
             var profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;

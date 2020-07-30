@@ -6,7 +6,7 @@ class FacultyScheduleUI extends AbstractUI {
     btnJoinVirtualRoom(obj) {
         console.log("Called btnJoinVirtualRoom");
         let code = $(obj).attr("code");
-        // meetingRoom.join("Join Room", localStorage.companyCode, code);
+        // meetingRoom.join("Join Room", storage.getCompanyCode(), code);
         socketIOMeetingRoom.join("Join Room", code);
     }
 
@@ -27,7 +27,7 @@ class FacultyScheduleUI extends AbstractUI {
     loadStudents(data) {
         utils.showSpin();
         let context = this;
-        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getStudents/${data}`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/FacultyScheduleUI/getStudents/${data}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let successFunction = function (data) {
@@ -35,7 +35,7 @@ class FacultyScheduleUI extends AbstractUI {
             $(".studentImageRoster").empty();
             $(data).each(function (index, obj) {
                 let code = obj.getPropDefault("code", "--");
-                let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${code}`;
+                let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${code}`;
                 let fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
                 let birthDate = `${obj.getPropDefault("birthDate", "--")}`;
                 let str = `
@@ -55,7 +55,7 @@ class FacultyScheduleUI extends AbstractUI {
 
     loadActivities(data) {
         utils.showSpin();
-        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getActivities/${data}`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/FacultyScheduleUI/getActivities/${data}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let successFunction = function (data) {
@@ -98,13 +98,13 @@ class FacultyScheduleUI extends AbstractUI {
     loadFacultyHost(data) {
         utils.showSpin();
         let context = this;
-        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getHostProfile/${data}`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/FacultyScheduleUI/getHostProfile/${data}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let successFunction = function (data) {
             console.log("loadFacultyHost", url, data);
             let code = data.getProp("code");
-            let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${code}`;
+            let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${code}`;
             $(".hostProfile").attr("src", profileUrl);
 
             let profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;

@@ -4,7 +4,7 @@ class GovernmentUI {
     }
 
     doMainSearchData(evt) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentUI/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentUI/quickMainSearcher/${storage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);

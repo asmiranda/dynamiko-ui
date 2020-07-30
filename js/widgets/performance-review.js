@@ -26,10 +26,10 @@ class PerformanceReviewWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/PerformanceReviewWidget";
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/PerformanceReviewWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/PerformanceReviewWidget/" + val;
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/PerformanceReviewWidget/" + val;
         }
         ajaxRequestDTO.data = "";
 

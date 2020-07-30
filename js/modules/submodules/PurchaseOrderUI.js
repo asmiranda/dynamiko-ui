@@ -44,7 +44,7 @@ class PurchaseOrderUI {
     searchPurchaseOrderFilter(obj) {
         var value = $(obj).val();
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getFilteredPO/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PurchaseOrderUI/getFilteredPO/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -56,7 +56,7 @@ class PurchaseOrderUI {
     }
 
     loadTopPO() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getTopPO`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PurchaseOrderUI/getTopPO`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -115,7 +115,7 @@ class PurchaseOrderUI {
     loadActivePoForSupplier(obj) {
         var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getSupplierPO/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PurchaseOrderUI/getSupplierPO/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -173,7 +173,7 @@ class PurchaseOrderUI {
     loadActivePoForProduct(obj) {
         var recordId = $(obj).attr("recordId");
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PurchaseOrderUI/getProductPO/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PurchaseOrderUI/getProductPO/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {

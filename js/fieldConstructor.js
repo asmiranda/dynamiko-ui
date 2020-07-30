@@ -423,7 +423,7 @@ class FieldMultiSelect {
         $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("name");
             console.log("MULTI SELECT FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/multiselect/" + moduleName + "/" + fieldLabelName + "/" + recordId;
+            var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/multiselect/" + moduleName + "/" + fieldLabelName + "/" + recordId;
             console.log("url = " + url);
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function (data) {
@@ -449,7 +449,7 @@ class FieldMultiSelect {
     clickDisplayAdd(moduleName, btn) {
         var fieldName = $(btn).attr("name");
         console.log("multiSelectDisplayAdd fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/multiselect/options/" + moduleName + "/" + fieldName;
+        var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/multiselect/options/" + moduleName + "/" + fieldName;
         console.log("multiSelectDisplayAdd url = " + url);
         var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
         var varr = [];
@@ -503,7 +503,7 @@ class FieldMultiSelect {
         var fieldName = $(btn).attr("name");
         var fieldValue = $(btn).val();
         console.log("multiSelectTextFilter fieldName = " + fieldName);
-        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/multiselect/options/filter/" + moduleName + "/" + fieldName + "/" + fieldValue;
+        var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/multiselect/options/filter/" + moduleName + "/" + fieldName + "/" + fieldValue;
         console.log("multiSelectTextFilter url = " + url);
         var myInput = $(".multiSelect[module='" + moduleName + "'][mainmodule='" + moduleName + "'][name='" + fieldName + "']");
         var varr = [];
@@ -541,7 +541,7 @@ class FieldAutoComplete {
         $(".autocomplete[module='" + moduleName + "'][mainmodule='" + moduleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
             console.log("AUTO COMPLETE FIELD " + fieldLabelName);
-            var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/autocomplete/" + moduleName + "/" + fieldLabelName;
+            var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/autocomplete/" + moduleName + "/" + fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $("[autoNameField='" + fieldLabelName + "'][name='" + fieldLabelName + "']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");

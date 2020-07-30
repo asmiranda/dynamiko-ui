@@ -3,7 +3,7 @@ class EmployeeTimeSheetUI {
         console.log("loadTimeSheet");
         var recordId = $(obj).attr("recordId");
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/EmployeeTimeSheetUI/getTimeSheet/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/EmployeeTimeSheetUI/getTimeSheet/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {

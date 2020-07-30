@@ -8,7 +8,7 @@ class NextHolidayWidget {
 
         if ($(".birthdays")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/NextHolidayWidget";
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/NextHolidayWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function (data) {

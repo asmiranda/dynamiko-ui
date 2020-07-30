@@ -26,10 +26,10 @@ class AttendanceLog30DaysWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceLog30DaysWidget";
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/AttendanceLog30DaysWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceLog30DaysWidget/" + val;
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/AttendanceLog30DaysWidget/" + val;
         }
         ajaxRequestDTO.data = "";
 

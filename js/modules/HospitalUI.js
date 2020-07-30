@@ -4,7 +4,7 @@ class HospitalUI {
     }
 
     doMainSearchData(evt) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HospitalUI/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HospitalUI/quickMainSearcher/${storage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);

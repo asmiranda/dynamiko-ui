@@ -6,7 +6,7 @@ class HrRequisitionUI {
     }
 
     doMainSearchData(evt) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/quickMainSearcher/${localStorage.filterText}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/quickMainSearcher/${storage.filterText}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -72,7 +72,7 @@ class HrRequisitionUI {
     }
 
     loadTopFulfilledJobs() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopFulfilled`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getTopFulfilled`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("Arrange Top Fulfilled Requisition");
@@ -86,7 +86,7 @@ class HrRequisitionUI {
         var hrRequisitionId = $(obj).val() == "" ? $(obj).attr("recordId") : $(obj).val();
         console.log("Arrange Fulfilled Requisition for record ID === " + hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getFulfilled/${hrRequisitionId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getFulfilled/${hrRequisitionId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("Arrange Fulfilled Requisition for record ID === " + hrRequisitionId);
@@ -153,7 +153,7 @@ class HrRequisitionUI {
 
     loadTopJobs() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopJobs`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getTopJobs`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -225,7 +225,7 @@ class HrRequisitionUI {
 
     loadEmployeeRequisition(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getEmployeeRequisition/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getEmployeeRequisition/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -278,7 +278,7 @@ class HrRequisitionUI {
 
     loadEmployeeInterviewSchedule(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getEmployeeInterviewSchedule/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getEmployeeInterviewSchedule/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -297,7 +297,7 @@ class HrRequisitionUI {
 
     loadApplicantInterviewSchedule(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantInterviewSchedule/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getApplicantInterviewSchedule/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -331,7 +331,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -362,7 +362,7 @@ class HrRequisitionUI {
 
     loadApplicantExperience(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantExperience/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getApplicantExperience/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -404,7 +404,7 @@ class HrRequisitionUI {
 
     loadApplicantReference(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantReference/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getApplicantReference/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -437,7 +437,7 @@ class HrRequisitionUI {
 
     loadApplicantProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getApplicantProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getApplicantProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -451,7 +451,7 @@ class HrRequisitionUI {
             $(".HrRequisitionApplicantUI_Applicants_ApplicantJob").html(job);
             $(".HrRequisitionApplicantUI_Applicants_ApplicantEmail").html(email);
             $(".HrRequisitionApplicantUI_Applicants_ApplicantContact").html(contact);
-            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${recordId}/${utils.nowString()}`);
+            $(".HrRequisitionUI_Applicants_ApplicantPic").attr("src", `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/HrApplicantUI/${recordId}/${utils.nowString()}`);
             $(".HrRequisitionUI_Applicants_ApplicantPic").attr("recordId", recordId);
             $(".HrRequisitionUI_Applicants_ApplicantPic").show();
         };
@@ -464,7 +464,7 @@ class HrRequisitionUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getTopApplicants/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -474,7 +474,7 @@ class HrRequisitionUI {
     }
 
     loadApplicants() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getTopApplicants`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getTopApplicants`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -523,7 +523,7 @@ class HrRequisitionUI {
             tmp["remarks"] = reason;
 
             var vdata = JSON.stringify(tmp);
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/cancelInterviewSchedule`;
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/post/cancelInterviewSchedule`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
             var successFunction = function (data) {
@@ -573,7 +573,7 @@ class HrRequisitionUI {
 
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/addInterviewSchedule`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/post/addInterviewSchedule`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
         var successFunction = function (data) {
@@ -585,7 +585,7 @@ class HrRequisitionUI {
     }
 
     loadForInterview() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getForInterview`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getForInterview`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -611,7 +611,7 @@ class HrRequisitionUI {
             var str = `
                 <div style="display: flex;">
                     <div class="text-center" style="flex: 10%">
-                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
+                        <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                     </div>
                     <div style="flex: 50%">
                         <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -641,7 +641,7 @@ class HrRequisitionUI {
     }
 
     loadForOffer() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getForOffer`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getForOffer`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -662,7 +662,7 @@ class HrRequisitionUI {
                 var str = `
                     <div style="display: flex;">
                         <div class="text-center" style="flex: 10%">
-                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
+                            <img class="img-circle img-bordered-sm profilePic" name="profilePic" module="HrApplicantUI" src="${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/HrApplicantUI/${hrApplicantId}/${utils.nowString()}" alt="user image" style="width: 40px; height: 40px;"/>
                         </div>
                         <div style="flex: 50%">
                             <a href="#" class="HrRequisitionUI_btnGotoApplicantProfile" recordId="${hrApplicantId}">${applicantName}</a></span> look for 
@@ -689,7 +689,7 @@ class HrRequisitionUI {
     }
 
     loadStages() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/getRecruitmentStages`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/getRecruitmentStages`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -750,7 +750,7 @@ class HrRequisitionUI {
     deleteTask(obj) {
         var taskId = $(obj).attr("recordId");
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/deleteTask/${taskId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/deleteTask/${taskId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -772,7 +772,7 @@ class HrRequisitionUI {
 
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/saveTask`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/post/saveTask`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
         var successFunction = function (data) {
@@ -793,7 +793,7 @@ class HrRequisitionUI {
         console.log("loadTodoList");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadTodoList`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/loadTodoList`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function (data) {
@@ -838,7 +838,7 @@ class HrRequisitionUI {
 
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/post/createJob`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/post/createJob`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -852,7 +852,7 @@ class HrRequisitionUI {
         var hrRequisitionApplicantId = $(obj).attr("hrRequisitionApplicantId");
         console.log("Remove Applicant for record ID === " + hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/removeApplicant/${hrRequisitionId}/${hrRequisitionApplicantId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/removeApplicant/${hrRequisitionId}/${hrRequisitionApplicantId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             hrRequisitionUI.arrangeStages(data);
@@ -863,7 +863,7 @@ class HrRequisitionUI {
     moveApplicant(requisitionId, applicantId, applicationStatus) {
         console.log("Rearrange for record ID === " + requisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/moveApplicant/${requisitionId}/${applicantId}/${applicationStatus}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/moveApplicant/${requisitionId}/${applicantId}/${applicationStatus}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             hrRequisitionUI.arrangeStages(data);
@@ -875,7 +875,7 @@ class HrRequisitionUI {
         var hrRequisitionId = $(obj).val() == "" ? $(obj).attr("recordId") : $(obj).val();
         console.log("Rearrange for record ID === " + hrRequisitionId);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/loadApplicants/${hrRequisitionId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             hrRequisitionUI.arrangeStages(data);
@@ -996,7 +996,7 @@ class HrRequisitionUI {
         console.log("loadTeamRequisition");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadTeamRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/loadTeamRequisition`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function (data) {
@@ -1031,7 +1031,7 @@ class HrRequisitionUI {
         console.log("loadOpenRequisition");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadOpenRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/loadOpenRequisition`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function (data) {
@@ -1066,7 +1066,7 @@ class HrRequisitionUI {
         console.log("loadMyAssignedRequisition");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/loadMyAssignedRequisition`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/loadMyAssignedRequisition`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function (data) {
@@ -1104,7 +1104,7 @@ class HrRequisitionUI {
             var recruitmentPerformanceChart = document.getElementById("recruitmentPerformanceChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/recruitmentPerformanceChart`;
+            ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/recruitmentPerformanceChart`;
             ajaxRequestDTO.data = "";
 
             var successFunction = function (data) {
@@ -1131,7 +1131,7 @@ class HrRequisitionUI {
         console.log(moduleName);
         console.log(hrRequisitionApplicantId);
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/HrRequisitionUI/acceptForEmployment/${hrRequisitionApplicantId}`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/HrRequisitionUI/acceptForEmployment/${hrRequisitionApplicantId}`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function (data) {

@@ -1,6 +1,6 @@
 class GovernmentPrintingUI {
     displayForPrintingReport(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/GovernmentPrintingUI/displayForGovernmentPrintingReport/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/GovernmentPrintingUI/displayForGovernmentPrintingReport/${recordId}`;
         $(`iframe[report="ForGovernmentPrintingReport"]`).attr("src", url);
     }
 
@@ -13,7 +13,7 @@ class GovernmentPrintingUI {
 
     loadTopPrintingQueue() {
         var printingQueueId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentPrintingUI/getTopPrintingQueues`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentPrintingUI/getTopPrintingQueues`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -24,7 +24,7 @@ class GovernmentPrintingUI {
 
     loadPrintingQueueProfile(obj, tabName) {
         var printingQueueId = $(obj).attr("PrintingQueueId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentPrintingUI/getPrintingQueueProfile/${printingQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentPrintingUI/getPrintingQueueProfile/${printingQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -63,7 +63,7 @@ class GovernmentPrintingUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentPrintingUI/filterPrintingQueue/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentPrintingUI/filterPrintingQueue/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

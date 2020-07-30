@@ -6,7 +6,7 @@ function LoginJS() {
 
     this.hasRole = function (role) {
         var withRole = false;
-        let roles = sStorage.get("RolesObj");
+        let roles = storage.get("RolesObj");
         $(roles).each(function (index, obj) {
             var authority = obj.getPropDefault("authority", "--");
             if (authority.toUpperCase() == role.toUpperCase()) {
@@ -99,9 +99,9 @@ function LoginJS() {
             // alert(`loadProfile success = ${data}`);
             sessionStorage.companyCode = data.getPropDefault("companyCode", "--");
             // alert(`loadProfile companyCode = ${sessionStorage.companyCode}`);
-            sStorage.set("UserObj", data.getPropDefault("user", "--"));
-            sStorage.set("PersonObj", data.getPropDefault("person", "--"));
-            sStorage.set("RolesObj", data.getPropDefault("roles", "--"));
+            storage.set("UserObj", data.getPropDefault("user", "--"));
+            storage.set("PersonObj", data.getPropDefault("person", "--"));
+            storage.set("RolesObj", data.getPropDefault("roles", "--"));
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }

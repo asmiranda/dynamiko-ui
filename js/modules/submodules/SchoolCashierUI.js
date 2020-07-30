@@ -38,7 +38,7 @@ class SchoolCashierUI extends AbstractSubUI {
 
     acceptPayment() {
         var CashierQueueId = $(`[module="SchoolCashierUI"][name="CashierQueueId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SchoolCashierUI/acceptPayment/${CashierQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolCashierUI/acceptPayment/${CashierQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -50,7 +50,7 @@ class SchoolCashierUI extends AbstractSubUI {
     }
 
     displayInvoiceReport(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/SchoolCashierUI/displayInvoiceReport/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/SchoolCashierUI/displayInvoiceReport/${recordId}`;
         $(`iframe[report="CashierInvoiceReport"]`).attr("src", url);
     }
 
@@ -63,7 +63,7 @@ class SchoolCashierUI extends AbstractSubUI {
 
     // loadTopCashierQueue() {
     //     var CashierQueueId = $(mainId).val();
-    //     var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SchoolCashierUI/getTopCashierQueue`;
+    //     var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolCashierUI/getTopCashierQueue`;
     //     var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
     //     var successCallback = function(data) {
@@ -74,7 +74,7 @@ class SchoolCashierUI extends AbstractSubUI {
 
     // loadSchoolCashierProfile(obj, tabName) {
     //     var CashierQueueId = $(obj).attr("CashierQueueId");
-    //     var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SchoolCashierUI/getCashierQueueProfile/${CashierQueueId}`;
+    //     var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolCashierUI/getCashierQueueProfile/${CashierQueueId}`;
     //     var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
     //     var successFunction = function(data) {
@@ -113,7 +113,7 @@ class SchoolCashierUI extends AbstractSubUI {
     //     console.log(value);
 
     //     var recordId = $(mainId).val();
-    //     var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SchoolCashierUI/filterSchoolCashier/${value}`;
+    //     var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolCashierUI/filterSchoolCashier/${value}`;
     //     var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
     //     var successCallback = function(data) {

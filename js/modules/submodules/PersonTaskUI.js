@@ -17,7 +17,7 @@ class PersonTaskUI {
     deleteTask(obj) {
         var taskId = $(obj).attr("recordId");
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonTaskUI/deleteTask/${taskId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonTaskUI/deleteTask/${taskId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -39,7 +39,7 @@ class PersonTaskUI {
 
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonTaskUI/post/saveTask`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonTaskUI/post/saveTask`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
 
         var successFunction = function (data) {
@@ -60,7 +60,7 @@ class PersonTaskUI {
         console.log("loadTodoList");
 
         var ajaxRequestDTO = new AjaxRequestDTO();
-        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonTaskUI/loadTodoList`;
+        ajaxRequestDTO.url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonTaskUI/loadTodoList`;
         ajaxRequestDTO.data = "";
 
         var successFunction = function (data) {

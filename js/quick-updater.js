@@ -18,7 +18,7 @@ class QuickUpdater {
         var value = $(obj).val();
         var textValue = obj.options[obj.selectedIndex].text;
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -44,7 +44,7 @@ class QuickUpdater {
         var value = $(obj).val();
         var callback = $(obj).attr("callback");
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/QuickUpdater/${moduleName}/${recordId}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -156,11 +156,11 @@ class QuickUpdater {
         }
         var fileType = $(obj).attr("fileType");
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/QuickDownloader/${moduleName}/${recordId}/${fileType}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/QuickDownloader/${moduleName}/${recordId}/${fileType}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
-            window.open(MAIN_URL + '/api/generic/' + localStorage.companyCode + '/attachment/download/' + data, '_blank');
+            window.open(MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/attachment/download/' + data, '_blank');
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

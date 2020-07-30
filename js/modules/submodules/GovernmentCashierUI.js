@@ -1,7 +1,7 @@
 class GovernmentCashierUI {
     acceptPayment() {
         var CashierQueueId = $(`[module="GovernmentCashierUI"][name="CashierQueueId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/acceptPayment/${CashierQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentCashierUI/acceptPayment/${CashierQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -13,7 +13,7 @@ class GovernmentCashierUI {
     }
 
     displayInvoiceReport(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/GovernmentCashierUI/displayInvoiceReport/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/GovernmentCashierUI/displayInvoiceReport/${recordId}`;
         $(`iframe[report="CashierInvoiceReport"]`).attr("src", url);
     }
 
@@ -26,7 +26,7 @@ class GovernmentCashierUI {
 
     loadTopCashierQueue() {
         var CashierQueueId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/getTopCashierQueue`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentCashierUI/getTopCashierQueue`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -37,7 +37,7 @@ class GovernmentCashierUI {
 
     loadGovernmentCashierProfile(obj, tabName) {
         var CashierQueueId = $(obj).attr("CashierQueueId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/getCashierQueueProfile/${CashierQueueId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentCashierUI/getCashierQueueProfile/${CashierQueueId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -76,7 +76,7 @@ class GovernmentCashierUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/GovernmentCashierUI/filterGovernmentCashier/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/GovernmentCashierUI/filterGovernmentCashier/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

@@ -68,7 +68,7 @@ class AbstractSubUI {
 
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/post/saveAcctTransactionGL`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/saveAcctTransactionGL`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveRecord", url, data);
@@ -83,7 +83,7 @@ class AbstractSubUI {
         var rowIndex = $(obj).attr("rowIndex");
         var moduleName = $(obj).html();
         var moduleCode = $(`.editRecord[rowIndex="${rowIndex}"][name="moduleCode"]`).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${context.moduleName}/getAcctTransactionGL/${moduleName}/${moduleCode}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${context.moduleName}/getAcctTransactionGL/${moduleName}/${moduleCode}`;
 
         var successLoadGLData = function (data) {
             console.log("editAcctTransaction", url, data);
@@ -118,7 +118,7 @@ class AbstractSubUI {
         var tmp = utils.collectDataForSaving(`searchFilter`, `${this.moduleName}`, "0");
         var param = utils.convertToQueryString(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/${this.moduleName}/downloadRecordCSV${param}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/${this.moduleName}/downloadRecordCSV${param}`;
         window.open(url, "_blank");
     }
 
@@ -130,7 +130,7 @@ class AbstractSubUI {
         tmp[mainRecordName] = mainRecordId;
         var param = utils.convertToQueryString(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/${this.moduleName}/downloadSubRecordCSV/${subModule}${param}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/${this.moduleName}/downloadSubRecordCSV/${subModule}${param}`;
         window.open(url, "_blank");
     }
 
@@ -179,7 +179,7 @@ class AbstractSubUI {
 
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/post/saveRecord`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/saveRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveRecord", url, data);
@@ -201,7 +201,7 @@ class AbstractSubUI {
         tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/post/deleteSubRecord`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/deleteSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("deleteSubRecord", tmpParent, url, data);
@@ -228,7 +228,7 @@ class AbstractSubUI {
         tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/post/saveSubRecord`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/saveSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveSubRecord", tmpParent, url, data);
@@ -243,7 +243,7 @@ class AbstractSubUI {
         utils.showSpin();
         var context = this;
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/getRecordProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/getRecordProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -273,7 +273,7 @@ class AbstractSubUI {
         var tmp = utils.collectDataForSaving(`searchFilter`, `${this.moduleName}`, "0");
         var param = utils.convertToQueryString(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/filterRecord${param}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/filterRecord${param}`;
         console.log("searchRecordFilter", url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
@@ -296,7 +296,7 @@ class AbstractSubUI {
         tmp[mainRecordName] = mainRecordId;
         var param = utils.convertToQueryString(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/filterSubRecord/${subModule}${param}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/filterSubRecord/${subModule}${param}`;
         console.log("searchSubRecordFilter", url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
@@ -314,7 +314,7 @@ class AbstractSubUI {
     loadTopRecords(tabName) {
         utils.showSpin();
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${this.moduleName}/getTopRecords`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/getTopRecords`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;

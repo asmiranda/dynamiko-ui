@@ -4,7 +4,7 @@ class SchoolAbout {
     }
 
     loadAnnouncements(data) {
-        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/StudentScheduleUI/getAnnouncements/${data}`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getAnnouncements/${data}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             $("#announcementList").empty();
@@ -15,7 +15,7 @@ class SchoolAbout {
                 let announcementUrl = obj.getPropDefault("announcementUrl", "--");
                 let imageCss = "width: 444px; height: 350px;";
                 let boxCss = "width: 500px;";
-                let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
                 let str = `
                     <div class="box box-widget" style="margin: 15px; ${boxCss}">
                         <div class="box-body">
@@ -35,8 +35,8 @@ class SchoolAbout {
     }
 
     onReactMessage(data) {
-        localStorage.companyCode = "TEST";
-        localStorage.token = data;
+        storage.getCompanyCode() = "TEST";
+        storage.getToken() = data;
         this.loadAnnouncements("");
     }
 

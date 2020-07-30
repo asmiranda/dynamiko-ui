@@ -8,7 +8,7 @@ class OutTodayWidget {
 
         if ($(".out-today")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/OutTodayWidget";
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/OutTodayWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function (data) {
@@ -16,7 +16,7 @@ class OutTodayWidget {
                 console.log("Complete Called.");
                 $.each(data, function (i, obj) {
                     //use obj.id and obj.name here, for example:
-                    $(".out-today").append('<li><img src="/api/generic/' + localStorage.companyCode + '/profilePic/Person/' + obj.employeeId + '" alt="User Image" class="profile-img" data-name="' + obj.firstName + ' ' + obj.lastName + '"><a class="users-list-name" href="#">' + obj.firstName + ' ' + obj.lastName + '</a></li>');
+                    $(".out-today").append('<li><img src="/api/generic/' + storage.getCompanyCode() + '/profilePic/Person/' + obj.employeeId + '" alt="User Image" class="profile-img" data-name="' + obj.firstName + ' ' + obj.lastName + '"><a class="users-list-name" href="#">' + obj.firstName + ' ' + obj.lastName + '</a></li>');
                 });
                 $('.profile-img').on('error', function () {
                     /* Fire your image resize code here */

@@ -32,13 +32,13 @@ class FacultyDashboardUI extends AbstractUI {
     loadProfile(data) {
         utils.showSpin();
         let context = this;
-        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PersonUI/getProfile`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfile`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let successFunction = function (data) {
             console.log("loadFacultyHost", url, data);
             let code = data.getProp("code");
-            let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/PersonUI/${code}`;
+            let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${code}`;
             $(".hostProfile").attr("src", profileUrl);
 
             let profileName = `${data.getProp("firstName")} ${data.getProp("lastName")}`;

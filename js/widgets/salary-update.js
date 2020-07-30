@@ -8,7 +8,7 @@ class SalaryUpdateWidget {
 
         if ($(".out-today")) {
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/SalaryUpdateWidget";
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/SalaryUpdateWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function (data) {

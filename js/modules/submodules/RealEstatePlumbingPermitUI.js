@@ -10,7 +10,7 @@ class RealEstatePlumbingPermitUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstatePlumbingPermitUI/post/savePlumbingPermitForCashier`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstatePlumbingPermitUI/post/savePlumbingPermitForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -37,7 +37,7 @@ class RealEstatePlumbingPermitUI {
     }
 
     loadTopRealEstatePlumbingPermits() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstatePlumbingPermitUI/getTopRealEstatePlumbingPermits`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstatePlumbingPermitUI/getTopRealEstatePlumbingPermits`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -86,7 +86,7 @@ class RealEstatePlumbingPermitUI {
     loadRealEstatePlumbingPermitProfile(obj) {
         console.log(`loadRealEstatePlumbingPermitProfile`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstatePlumbingPermitUI/getRealEstatePlumbingPermitProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstatePlumbingPermitUI/getRealEstatePlumbingPermitProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {

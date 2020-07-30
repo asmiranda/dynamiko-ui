@@ -93,11 +93,11 @@
     <script src="js/storage.js"></script>
     <script>
         $(function () {
-            if (localStorage.token) {
+            if (storage.getToken()) {
                 window.location.href = "home.html";
             }
             else {
-                localStorage.clear();
+                storage.clear();
                 $('input').iCheck({
                     checkboxClass: 'icheckbox_square-blue',
                     radioClass: 'iradio_square-blue',

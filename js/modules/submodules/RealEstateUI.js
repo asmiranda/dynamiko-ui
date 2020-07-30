@@ -4,7 +4,7 @@ class RealEstateUI {
     }
 
     loadRealEstateTransfer(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateTransfer/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getRealEstateTransfer/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -50,7 +50,7 @@ class RealEstateUI {
     }
 
     loadRealEstateFieldInspection(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateFieldInspection/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getRealEstateFieldInspection/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -96,7 +96,7 @@ class RealEstateUI {
     }
 
     loadRealEstateBuildingPermit(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateBuildingPermit/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getRealEstateBuildingPermit/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -151,7 +151,7 @@ class RealEstateUI {
     }
 
     loadRealEstateAssessment(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateAssessment/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getRealEstateAssessment/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -206,18 +206,18 @@ class RealEstateUI {
     }
 
     loadLastSelectedRealEstate() {
-        if (localStorage.latestRealEstateId > 0) {
-            realEstateUI.loadRealEstateProfile(localStorage.latestRealEstateId);
-            realEstateUI.loadSelectedRealEstateMap(localStorage.latestRealEstateId);
-            realEstateUI.loadRealEstateAssessment(localStorage.latestRealEstateId);
-            realEstateUI.loadRealEstateBuildingPermit(localStorage.latestRealEstateId);
-            realEstateUI.loadRealEstateFieldInspection(localStorage.latestRealEstateId);
-            realEstateUI.loadRealEstateTransfer(localStorage.latestRealEstateId);
+        if (storage.latestRealEstateId > 0) {
+            realEstateUI.loadRealEstateProfile(storage.latestRealEstateId);
+            realEstateUI.loadSelectedRealEstateMap(storage.latestRealEstateId);
+            realEstateUI.loadRealEstateAssessment(storage.latestRealEstateId);
+            realEstateUI.loadRealEstateBuildingPermit(storage.latestRealEstateId);
+            realEstateUI.loadRealEstateFieldInspection(storage.latestRealEstateId);
+            realEstateUI.loadRealEstateTransfer(storage.latestRealEstateId);
         }
     }
 
     loadSelectedRealEstateMap(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstate/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getRealEstate/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -243,7 +243,7 @@ class RealEstateUI {
             var str = `
                 <div style="min-width: 300px; padding-bottom: 10px;">
                     <span>${result.address.Match_addr}</span><br/>
-                    <a href="#" class="pull-right btnUpdateRealEstateLocation" recordId="${localStorage.latestRealEstateId}"><i class="fa fa-pencil"></i> Update&nbsp;Location</a>
+                    <a href="#" class="pull-right btnUpdateRealEstateLocation" recordId="${storage.latestRealEstateId}"><i class="fa fa-pencil"></i> Update&nbsp;Location</a>
                 </div>
             `;
             L.marker(result.latlng).addTo(myMap).bindPopup(str).openPopup();
@@ -272,7 +272,7 @@ class RealEstateUI {
 
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/post/updateRealEstateLocation`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/post/updateRealEstateLocation`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -281,7 +281,7 @@ class RealEstateUI {
     }
 
     loadRealEstateProfile(recordId) {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getRealEstateProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getRealEstateProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -309,7 +309,7 @@ class RealEstateUI {
 
     selectRealEstate(obj) {
         var recordId = $(obj).attr("recordId");
-        localStorage.latestRealEstateId = recordId;
+        storage.latestRealEstateId = recordId;
         var tabName = $(obj).attr("tabName");
         console.log(tabName);
 
@@ -324,7 +324,7 @@ class RealEstateUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/filterRealEstate/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/filterRealEstate/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -335,7 +335,7 @@ class RealEstateUI {
 
     loadTopRealEstate() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateUI/getTopRealEstates`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateUI/getTopRealEstates`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

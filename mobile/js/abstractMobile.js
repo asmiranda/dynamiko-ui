@@ -21,11 +21,11 @@ class AbstractMobile {
             // alert(`User == ${user}`);
             if (user && user != '') {
                 loginJS.testLogin(user, function () {
-                    context.onReactMessageWithLogin(localStorage.token);
+                    context.onReactMessageWithLogin(storage.getToken());
                 });
             }
             else {
-                context.onReactMessageWithNoLogin(localStorage.token);
+                context.onReactMessageWithNoLogin(storage.getToken());
             }
         }
     }

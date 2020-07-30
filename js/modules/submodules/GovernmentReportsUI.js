@@ -9,7 +9,7 @@ class GovernmentReportsUI {
         console.log(startDate);
         console.log(endDate);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/GovernmentReportsUI/displayGovernmentReport/${reportName}/${startDate}/${endDate}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/GovernmentReportsUI/displayGovernmentReport/${reportName}/${startDate}/${endDate}`;
         $(`iframe[report="ForGovernmentReport"]`).attr("src", url);
     }
 

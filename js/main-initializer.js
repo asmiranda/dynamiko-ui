@@ -1,11 +1,12 @@
 class MainInitializer {
     initialize() {
-        if (localStorage.token) {
+        console.log("Initializer")
+        if (storage.getToken()) {
             leftMenu.init();
             uiService.initHome();
         }
         else {
-            window.location.href = "login.html";
+            // window.location.href = "login.html";
         }
     }
 }

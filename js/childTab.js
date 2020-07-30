@@ -21,7 +21,7 @@ class ChildTab {
 
     reloadDisplayTabs() {
         var context = this;
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/subrecord/' + this.moduleName + '/' + this.subModuleName;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/subrecord/' + this.moduleName + '/' + this.subModuleName;
         var cacheKey = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         var mainIdVal = $(mainId).val();
         if (mainIdVal > 0) {
@@ -33,12 +33,12 @@ class ChildTab {
                 ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
             }
             else {
-                var data = sStorage.get(cacheKey);
+                var data = storage.get(cacheKey);
                 if (data == null || data == "") {
                     var ajaxRequestDTO = new AjaxRequestDTO(url, cacheKey);
                     var successCallback = function (data) {
                         context.loadDisplayTabData(data);
-                        sStorage.set(cacheKey, data);
+                        storage.set(cacheKey, data);
                     };
                     ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
                 }
@@ -70,7 +70,7 @@ class ChildTab {
                         recordHtml = utils.replaceAll(recordHtml, "##" + key.toUpperCase() + "##", value);
                     });
                     recordHtml = utils.replaceAll(recordHtml, "##MAIN_URL##", MAIN_URL);
-                    recordHtml = utils.replaceAll(recordHtml, "##COMPANY_CODE##", localStorage.companyCode);
+                    recordHtml = utils.replaceAll(recordHtml, "##COMPANY_CODE##", storage.getCompanyCode());
 
                     $(".displayTabHtml[submodule='" + context.subModuleName + "']").append(recordHtml);
                 }
@@ -171,7 +171,7 @@ class ChildTab {
 
         var parentRecord = utils.onvertFormToJSON($(mainForm));
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/deletesubrecord/' + module + '/' + submodule + '/' + subRecordId;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/deletesubrecord/' + module + '/' + submodule + '/' + subRecordId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, JSON.stringify(parentRecord));
         var successCallback = function (data) {
             console.log("Delete success called : " + data);
@@ -191,7 +191,7 @@ class ChildTab {
         console.log("selectedId == " + childTable.selectedId);
         console.log("context.formSelector == " + this.formSelector);
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/findRecord/' + this.subModuleName + '/' + childTable.selectedId;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/findRecord/' + this.subModuleName + '/' + childTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("Record Found");
@@ -204,7 +204,7 @@ class ChildTab {
     removeAttachedFile(obj) {
         var context = this;
         var fileId = $(obj).attr("data");
-        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/delete/" + fileId;
+        var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/attachment/delete/" + fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -216,7 +216,7 @@ class ChildTab {
     setFileProfile(obj) {
         var context = this;
         var fileId = $(obj).attr("data");
-        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/setprofile/" + fileId;
+        var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/attachment/setprofile/" + fileId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -228,7 +228,7 @@ class ChildTab {
     displayAllFiles() {
         var context = this;
         var childTable = dynaRegister.getDataTable(this.subModuleName);
-        var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/" + context.subModuleName + "/" + childTable.selectedId;
+        var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/attachment/" + context.subModuleName + "/" + childTable.selectedId;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -242,7 +242,7 @@ class ChildTab {
                 if (uploadType == 'Profile') {
                     str = `
                     <div class='thumbnail' style='display:inline-block; border-width: 5px;'>
-                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${storage.getCompanyCode()}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
                         <div class='text-center' style='margin-top: 20px;'>
                             <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
                             <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
@@ -252,7 +252,7 @@ class ChildTab {
                 else {
                     str = `
                     <div class='thumbnail' style='display:inline-block'>
-                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${localStorage.companyCode}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
+                        <img title='${fileName}' src='${MAIN_URL}/api/generic/${storage.getCompanyCode()}/attachment/download/${fileUploadId}' data-toggle='modal' data-target='#imgModal_${fileUploadId}'></img>
                         <div class='text-center' style='margin-top: 20px;'>
                             <i data='${fileUploadId}' class='fa fa-picture-o setFileProfile' title='Set As Profile' style='margin-right: 10px;'></i>
                             <i data='${fileUploadId}' class='fa fa-remove attachFileRemove' title='Remove File'></i>
@@ -285,7 +285,7 @@ class ChildTab {
                     </div>
                 `;
                 html = html.replace("myModal", "imgModal_" + fileUploadId);
-                html = html.replace("myImage", MAIN_URL + "/api/generic/" + localStorage.companyCode + "/attachment/download/" + fileUploadId);
+                html = html.replace("myImage", MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/attachment/download/" + fileUploadId);
                 $(".childTabRecordFiles[submodule='" + context.subModuleName + "']").append(html);
                 $(".recordFiles").append(html);
             });

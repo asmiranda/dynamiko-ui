@@ -61,7 +61,7 @@ class UserUI {
     }
     else {
       var recordId = $(mainId).val();
-      var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/specialaction/UserUI/savereset/" + recordId;
+      var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/specialaction/UserUI/savereset/" + recordId;
       var resetPasswordDTO = new ResetPasswordDTO(oldPassword, newPassword);
       var vdata = JSON.stringify(resetPasswordDTO);
       var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);

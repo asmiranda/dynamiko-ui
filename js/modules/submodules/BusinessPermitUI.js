@@ -12,7 +12,7 @@ class BusinessPermitUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/post/saveBusinessPermitForCashier`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/BusinessPermitUI/post/saveBusinessPermitForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -39,7 +39,7 @@ class BusinessPermitUI {
 
     loadTopBusinessPermit() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/getTopBusinessPermits`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/BusinessPermitUI/getTopBusinessPermits`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -50,7 +50,7 @@ class BusinessPermitUI {
 
     loadBusinessPermitProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/getBusinessPermitProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/BusinessPermitUI/getBusinessPermitProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -71,7 +71,7 @@ class BusinessPermitUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/BusinessPermitUI/filterBusinessPermit/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/BusinessPermitUI/filterBusinessPermit/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

@@ -4,7 +4,7 @@ class RealEstateTransferUI {
     }
 
     loadTopRealEstateTransfers() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTransferUI/getTopRealEstateTransfers`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTransferUI/getTopRealEstateTransfers`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -81,7 +81,7 @@ class RealEstateTransferUI {
     loadRealEstateTransferProfile(obj, tabName) {
         console.log(`loadRealEstateTransferProfile for ${tabName}`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTransferUI/getRealEstateTransferProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTransferUI/getRealEstateTransferProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -102,7 +102,7 @@ class RealEstateTransferUI {
         realEstateTransferUI.loadAutoCompleteRowLabel("customerCode", 1);
 
         var recordId = $(`.edit${clsName}[name="RealEstateTransferId"]`).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTransferUI/getRealEstateTransferItems/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTransferUI/getRealEstateTransferItems/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -136,7 +136,7 @@ class RealEstateTransferUI {
         var value = $(hiddenAutoComplete).val();
 
         if (value != null && value != "") {
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/autocompletelabel/${moduleName}/${field}/${value}`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function (data) {
                 console.log(data);

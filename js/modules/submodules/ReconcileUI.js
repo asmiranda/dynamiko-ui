@@ -8,7 +8,7 @@ class ReconcileUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReconcileUI/post/saveReconcile`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ReconcileUI/post/saveReconcile`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -19,7 +19,7 @@ class ReconcileUI {
 
     loadReconcileProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReconcileUI/getReconcileProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ReconcileUI/getReconcileProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -51,7 +51,7 @@ class ReconcileUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReconcileUI/getFilteredReconciles/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ReconcileUI/getFilteredReconciles/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -62,7 +62,7 @@ class ReconcileUI {
 
     loadTopReconciles(tabName) {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReconcileUI/getTopReconciles`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ReconcileUI/getTopReconciles`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

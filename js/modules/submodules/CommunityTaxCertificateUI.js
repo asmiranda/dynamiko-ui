@@ -26,7 +26,7 @@ class CommunityTaxCertificateUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/post/saveCTCForCashier`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/CommunityTaxCertificateUI/post/saveCTCForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -41,7 +41,7 @@ class CommunityTaxCertificateUI {
 
     loadTopCommunityTaxCertificate() {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/getTopCommunityTaxCertificates`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/CommunityTaxCertificateUI/getTopCommunityTaxCertificates`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -52,7 +52,7 @@ class CommunityTaxCertificateUI {
 
     loadCommunityTaxCertificateProfile(obj, tabName) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/getCommunityTaxCertificateProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/CommunityTaxCertificateUI/getCommunityTaxCertificateProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -94,7 +94,7 @@ class CommunityTaxCertificateUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CommunityTaxCertificateUI/filterCommunityTaxCertificate/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/CommunityTaxCertificateUI/filterCommunityTaxCertificate/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

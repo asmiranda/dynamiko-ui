@@ -20,15 +20,15 @@ class TasksWidget {
 
     loadTask() {
         var context = this;
-        var companyCode = localStorage.companyCode;
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/widget/TasksWidget/all';
+        var companyCode = storage.getCompanyCode();
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/widget/TasksWidget/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
             context.clearInbox();
             $(data).each(function (index, obj) {
                 console.log(obj);
-                console.log(localStorage.uname);
+                console.log(storage.uname);
                 var wfMessageId = obj.getProp("WfMessageId");
                 var fromAssignee = obj.getProp("fromAssignee");
                 var toAssignee = obj.getProp("toAssignee");
@@ -62,7 +62,7 @@ class TasksWidget {
                     $(".forCompletedMessage").append(str);
                 }
                 else {
-                    if (localStorage.uname == toAssignee) {
+                    if (storage.uname == toAssignee) {
                         str = str.replace("__class__", "right");
                         str = str.replace("__personId__", receiverId);
                     }

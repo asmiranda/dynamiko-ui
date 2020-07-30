@@ -26,10 +26,10 @@ class AttendanceSearchWidget {
         var context = this;
         var ajaxRequestDTO = new AjaxRequestDTO();
         if (val == "") {
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceSearchWidget";
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/AttendanceSearchWidget";
         }
         else {
-            ajaxRequestDTO.url = "/api/generic/" + localStorage.companyCode + "/widget/AttendanceSearchWidget/" + val;
+            ajaxRequestDTO.url = "/api/generic/" + storage.getCompanyCode() + "/widget/AttendanceSearchWidget/" + val;
         }
         ajaxRequestDTO.data = "";
 

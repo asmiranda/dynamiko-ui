@@ -15,7 +15,7 @@ class ReportUI {
 
     loadReportList(tabName) {
         console.log("loadReportList", tabName);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReportUI/getReports/${tabName}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ReportUI/getReports/${tabName}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -87,7 +87,7 @@ class ReportUI {
             var dt = new Date();
             var milliSec = dt.getMilliseconds();
             console.log(queryStr);
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/ReportUI/displayReport/${reportName}/${reportType}/${milliSec}?${queryStr}`;
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/ReportUI/displayReport/${reportName}/${reportType}/${milliSec}?${queryStr}`;
             console.log(url);
             if (reportType == 'pdf') {
                 $("#reportFrame").attr("src", url);
@@ -104,7 +104,7 @@ class ReportUI {
         var reportName = $(obj).val();
         console.log(`reportName == ${reportName}`);
         if (reportName != "") {
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ReportUI/getParameters/${reportName}`;
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ReportUI/getParameters/${reportName}`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             var successCallback = function (data) {

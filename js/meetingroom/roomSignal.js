@@ -24,7 +24,7 @@ class RoomSignal {
         console.log(`***************SEND ${action}`, sendTo);
         var tmp = {};
         tmp["action"] = action;
-        tmp["from"] = localStorage.uname;
+        tmp["from"] = storage.uname;
         tmp["sendTo"] = sendTo;
         tmp["data"] = data;
 

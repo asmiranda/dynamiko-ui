@@ -10,7 +10,7 @@ class RealEstateBuildingPermitUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateBuildingPermitUI/post/saveBuildingPermitForCashier`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateBuildingPermitUI/post/saveBuildingPermitForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -37,7 +37,7 @@ class RealEstateBuildingPermitUI {
     }
 
     loadTopRealEstateBuildingPermits() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateBuildingPermitUI/getTopRealEstateBuildingPermits`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateBuildingPermitUI/getTopRealEstateBuildingPermits`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -86,7 +86,7 @@ class RealEstateBuildingPermitUI {
     loadRealEstateBuildingPermitProfile(obj) {
         console.log(`loadRealEstateBuildingPermitProfile`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateBuildingPermitUI/getRealEstateBuildingPermitProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateBuildingPermitUI/getRealEstateBuildingPermitProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {

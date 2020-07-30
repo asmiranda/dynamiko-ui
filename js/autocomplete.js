@@ -53,7 +53,7 @@ class DynaAutoComplete {
         var isAutoCompleteQuickUpdaterInput = $(obj).hasClass("autoCompleteQuickUpdaterInput");
 
         console.log("Autocomplete typed " + value);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocomplete/${moduleName}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/autocomplete/${moduleName}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);

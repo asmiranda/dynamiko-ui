@@ -1,6 +1,6 @@
 class SchoolHome extends AbstractMobile {
     loadProfile() {
-        let personObj = sStorage.get("PersonObj");
+        let personObj = storage.get("PersonObj");
         console.log(personObj);
         if (personObj && personObj.firstName) {
             $(".box-welcome").hide();
@@ -12,10 +12,10 @@ class SchoolHome extends AbstractMobile {
     loadSchedules() {
         let url = "";
         if (loginJS.hasRole("Faculty")) {
-            url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/FacultyScheduleUI/getSchedules`;
+            url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/FacultyScheduleUI/getSchedules`;
         }
         else {
-            url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/StudentScheduleUI/getSchedules`;
+            url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getSchedules`;
         }
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
@@ -51,7 +51,7 @@ class SchoolHome extends AbstractMobile {
     }
 
     loadAnnouncements() {
-        let url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/StudentScheduleUI/getAnnouncements`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/StudentScheduleUI/getAnnouncements`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             $("#announcementList").empty();
@@ -62,7 +62,7 @@ class SchoolHome extends AbstractMobile {
                 let announcementUrl = obj.getPropDefault("announcementUrl", "--");
                 let imageCss = "width: 444px; height: 350px;";
                 let boxCss = "width: 500px;";
-                let profileUrl = `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
                 let str = `
                     <div class="box box-solid">
                         <div class="box-header with-border">

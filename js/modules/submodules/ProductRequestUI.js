@@ -2,7 +2,7 @@ class ProductRequestUI {
     searchProductRequestFilter(obj) {
         var value = $(obj).val();
         var tabName = $(obj).attr("tabName");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getFilteredProductRequest/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ProductUI/getFilteredProductRequest/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -13,7 +13,7 @@ class ProductRequestUI {
     }
 
     loadTopProductRequest() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/ProductUI/getProductRequest`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/ProductUI/getProductRequest`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {

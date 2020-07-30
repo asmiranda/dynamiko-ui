@@ -92,7 +92,7 @@ class Utils {
         if ($(field).hasClass("profilePic")) {
             var recordId = $(form + " [name='" + entityName + "Id']").val();
             console.log("RECORD ID = " + recordId);
-            var profilePicUrl = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/profilePic/" + moduleName + "/" + recordId;
+            var profilePicUrl = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/profilePic/" + moduleName + "/" + recordId;
             console.log("profilePicUrl = " + profilePicUrl);
             $(field).attr("src", profilePicUrl);
         }
@@ -125,7 +125,7 @@ class Utils {
         if (selectedId == null || selectedId == "" || selectedId == undefined) {
             selectedId = $(obj).val();
         }
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/findRecord/${moduleName}/${selectedId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/findRecord/${moduleName}/${selectedId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log('loadRecordToForm called', url, data);
@@ -198,9 +198,9 @@ class Utils {
         var value = $(field).val();
 
         if (value != null && value != "") {
-            var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/autocompletelabel/' + moduleName + '/' + name + '/' + value;
+            var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/autocompletelabel/' + moduleName + '/' + name + '/' + value;
             if (subModuleName) {
-                url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
+                url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
             }
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var innerForm = form;
@@ -262,13 +262,13 @@ class Utils {
         var value = $(hiddenAutoComplete).val();
 
         if (value != null && value != "") {
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/autocompletelabel/${moduleName}/${field}/${value}`;
-            var data = sStorage.get(url);
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/autocompletelabel/${moduleName}/${field}/${value}`;
+            var data = storage.get(url);
             if (data == null || data == "") {
                 var ajaxRequestDTO = new AjaxRequestDTO(url, "");
                 var successCallback = function (data) {
                     console.log(url, `server loadAutoCompleteRowLabel == [autoname=${field}] == [value=${value}]`, data);
-                    sStorage.set(url, data);
+                    storage.set(url, data);
                     utils.arrangeLoadAutoCompleteRowLabel(moduleName, rowIndex, data);
                 };
                 ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
@@ -300,7 +300,7 @@ class Utils {
         var moduleName = $(this.field).attr("module");
         var value = $(this.field).val();
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/popsearchlabel/' + moduleName + '/' + this.name + '/' + value;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var innerForm = this.form;
         var successCallback = function (data) {

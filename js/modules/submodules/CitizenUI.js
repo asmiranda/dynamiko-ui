@@ -2,7 +2,7 @@ class CitizenUI {
 
     loadCitizenProfile(obj, tabName) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CitizenUI/getCitizenProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/CitizenUI/getCitizenProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -16,7 +16,7 @@ class CitizenUI {
             $(".CitizenUI_Citizen_Job").html(job);
             $(".CitizenUI_Citizen_Email").html(email);
             $(".CitizenUI_Citizen_Contact").html(contact);
-            $(".CitizenUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/CitizenUI/${recordId}/${utils.nowString()}`);
+            $(".CitizenUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/CitizenUI/${recordId}/${utils.nowString()}`);
             $(".CitizenUI_ProfilePic").attr("recordId", recordId);
             $(".CitizenUI_ProfilePic").show();
         };
@@ -29,7 +29,7 @@ class CitizenUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/CitizenUI/filterCitizen/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/CitizenUI/filterCitizen/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

@@ -50,7 +50,7 @@ class MyReportViewer {
         var vdata = $("#reportViewerFormCriteria").serialize();
         console.log(vdata);
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/pcustomreports/' + reportName + "/run?" + vdata;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/pcustomreports/' + reportName + "/run?" + vdata;
         $("#reportViewerFrame").attr("src", url);
     }
 
@@ -60,7 +60,7 @@ class MyReportViewer {
         $(".reportViewerTitle").html(label);
         $(".btnSubmitReportCriteria").attr("reportName", val);
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/customreports/' + val;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/customreports/' + val;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -75,7 +75,7 @@ class MyReportViewer {
     loadAllReports() {
         console.log("LOAD ALL REPORTS...");
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/customreports/all';
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/customreports/all';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);

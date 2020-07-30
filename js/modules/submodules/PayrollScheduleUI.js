@@ -50,12 +50,12 @@ class PayrollScheduleUI {
     }
 
     displayEmployeePayslipPreview() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/pwidget/PayrollScheduleUI/displayEmployeePayslipPreview/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/PayrollScheduleUI/displayEmployeePayslipPreview/${storage.lastEmployeePayrollId}`;
         $(`iframe[report="EmployeePayslipPreview"]`).attr("src", url);
     }
 
     loadEmployeePayrollLoan() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollLoan/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollLoan/${storage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -84,7 +84,7 @@ class PayrollScheduleUI {
     }
 
     loadEmployeePayrollDeduction() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDeduction/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollDeduction/${storage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -112,7 +112,7 @@ class PayrollScheduleUI {
     }
 
     loadEmployeePayrollBenefit() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollBenefit/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollBenefit/${storage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -140,7 +140,7 @@ class PayrollScheduleUI {
     }
 
     loadEmployeePayrollWorkHours() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollWorkHours/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollWorkHours/${storage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -201,7 +201,7 @@ class PayrollScheduleUI {
                 `;
                 $(".PayrollScheduleUI-ListEmployeePayrollDetail").append(str);
             });
-            $(".chosenEmployeePayroll").html(localStorage.lastEmployeePayrollTitle);
+            $(".chosenEmployeePayroll").html(storage.lastEmployeePayrollTitle);
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
@@ -210,15 +210,15 @@ class PayrollScheduleUI {
         var recordId = "";
         var recordTitle = "";
         if (obj == null || obj == undefined) {
-            recordId = localStorage.lastEmployeePayrollId;
-            recordTitle = localStorage.lastEmployeePayrollTitle;
+            recordId = storage.lastEmployeePayrollId;
+            recordTitle = storage.lastEmployeePayrollTitle;
         }
         else {
             recordId = $(obj).attr("recordId");
             recordTitle = $(obj).attr("title");
         }
-        localStorage.lastEmployeePayrollId = recordId;
-        localStorage.lastEmployeePayrollTitle = recordTitle;
+        storage.lastEmployeePayrollId = recordId;
+        storage.lastEmployeePayrollTitle = recordTitle;
         payrollScheduleUI.loadEmployeePayrollWorkHours();
         payrollScheduleUI.loadEmployeePayrollDetails();
         // payrollScheduleUI.loadEmployeePayrollDeduction();
@@ -238,7 +238,7 @@ class PayrollScheduleUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/post/saveEmployeePayrollDetail`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/post/saveEmployeePayrollDetail`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -266,7 +266,7 @@ class PayrollScheduleUI {
     }
 
     loadEmployeePayrollDetails() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${localStorage.lastEmployeePayrollId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollDetail/${storage.lastEmployeePayrollId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -305,7 +305,7 @@ class PayrollScheduleUI {
 
     choosePayrollSchedule(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollList/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollList/${recordId}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -341,7 +341,7 @@ class PayrollScheduleUI {
     }
 
     loadChoosePayrollList() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth + 1}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getPayrollList/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth + 1}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -397,7 +397,7 @@ class PayrollScheduleUI {
         payrollObj.employees = employees;
 
         var vdata = JSON.stringify(payrollObj);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/post/runPayroll`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/post/runPayroll`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
@@ -415,7 +415,7 @@ class PayrollScheduleUI {
             }
         });
         var vdata = JSON.stringify(payrollTypes);
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/post/getEmployeesForSelectedPayrollTypes`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/post/getEmployeesForSelectedPayrollTypes`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
@@ -439,7 +439,7 @@ class PayrollScheduleUI {
     }
 
     loadPayrollTypes() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/getEmployeePayrollTypes`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/getEmployeePayrollTypes`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
@@ -496,7 +496,7 @@ class PayrollScheduleUI {
     }
 
     loadPayrollDetailForMonth() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/PayrollScheduleUI/loadPayrollDetailForMonth/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth + 1}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PayrollScheduleUI/loadPayrollDetailForMonth/${payrollScheduleUI.chosenYear}/${payrollScheduleUI.chosenMonth + 1}`;
         console.log(url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {

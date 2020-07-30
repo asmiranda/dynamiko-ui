@@ -28,7 +28,7 @@ class RealEstateTaxUI {
             var startYear = $(`.editRealEstateTax[name="startYear"]`).val();
             var endYear = $(`.editRealEstateTax[name="endYear"]`).val();
             console.log("changeRealEstateTaxValues - realEstateCode", realEstateCode, startYear, endYear);
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTaxUI/getUpdateForRealEstateTax/${realEstateCode}/${startYear}/${endYear}`;
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTaxUI/getUpdateForRealEstateTax/${realEstateCode}/${startYear}/${endYear}`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             var successCallback = function (data) {
@@ -44,7 +44,7 @@ class RealEstateTaxUI {
         var realEstateCode = $(`.HiddenAutoComplete[name="realEstateCode"]`).val();
         if (realEstateCode != "") {
             console.log("changeRealEstateTaxValues - realEstateCode", realEstateCode);
-            var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTaxUI/getUpdateForRealEstateTax/${realEstateCode}`;
+            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTaxUI/getUpdateForRealEstateTax/${realEstateCode}`;
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             var successCallback = function (data) {
@@ -63,7 +63,7 @@ class RealEstateTaxUI {
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTaxUI/post/saveRealEstateTaxForCashier`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTaxUI/post/saveRealEstateTaxForCashier`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
@@ -93,7 +93,7 @@ class RealEstateTaxUI {
     }
 
     loadTopRealEstateTaxes() {
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTaxUI/getTopRealEstateTaxes`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTaxUI/getTopRealEstateTaxes`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -140,15 +140,15 @@ class RealEstateTaxUI {
     }
 
     loadLastSelectedRealEstateTax() {
-        if (localStorage.latestRealEstateTaxId > 0) {
-            realEstateTaxUI.loadRealEstateTaxProfile(localStorage.latestRealEstateTaxId);
+        if (storage.latestRealEstateTaxId > 0) {
+            realEstateTaxUI.loadRealEstateTaxProfile(storage.latestRealEstateTaxId);
         }
     }
 
     loadRealEstateTaxProfile(obj) {
         console.log(`loadRealEstateTaxProfile`);
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/RealEstateTaxUI/getRealEstateTaxProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/RealEstateTaxUI/getRealEstateTaxProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {

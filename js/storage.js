@@ -1,70 +1,64 @@
 class Storage {
+    constructor() {
+        this.myStorage = window.localStorage;
+    }
+
+    clear() {
+        this.myStorage.clear();
+    }
+
+    getToken() {
+        return this.myStorage.token;
+    }
+
+    getCompanyCode() {
+        return this.myStorage.companyCode;
+    }
+
     storeAccountToken(uname, data) {
-        localStorage.uname = uname;
-        localStorage.token = data.token;
-        localStorage.companyCode = data.companyCode;
+        this.myStorage.uname = uname;
+        this.myStorage.token = data.token;
+        this.myStorage.companyCode = data.companyCode;
     }
 
     putLatestModule(moduleName) {
-        var key = localStorage.uname + "-latestModule";
-        lStorage.set(key, moduleName);
+        this.myStorage.latestModule = moduleName;
     }
 
     getLatestModule() {
-        var key = localStorage.uname + "-latestModule";
-        var value = lStorage.get(key);
-        return value;
+        return this.myStorage.latestModule;
     }
 
     putLatestModuleId(moduleId) {
-        var key = localStorage.uname + "-latestModuleId";
-        lStorage.set(key, moduleId);
+        this.myStorage.latestModuleId = moduleId;
     }
 
     getLatestModuleId() {
-        var key = localStorage.uname + "-latestModuleId";
-        var value = lStorage.get(key);
-        return value;
+        return this.myStorage.latestModuleId;
     }
 
     putLatestModuleCode(moduleCode) {
-        var key = localStorage.uname + "-latestModuleCode";
-        lStorage.set(key, moduleCode);
+        this.myStorage.latestModuleCode = moduleCode;
     }
 
     getLatestModuleCode() {
-        var key = localStorage.uname + "-latestModuleCode";
-        var value = lStorage.get(key);
-        return value;
+        return this.myStorage.latestModuleCode;
+    }
+
+    set(key, value) {
+        this.myStorage.setItem(key, JSON.stringify(value));
+    }
+
+    get(key) {
+        try {
+            return JSON.parse(this.myStorage.getItem(key));
+        } catch (e) {
+            return null;
+        }
     }
 }
 
 $(function () {
-    lStorage = {
-        set: function (key, value) {
-            window.localStorage.setItem(key, JSON.stringify(value));
-        },
-        get: function (key) {
-            try {
-                return JSON.parse(window.localStorage.getItem(key));
-            } catch (e) {
-                return null;
-            }
-        }
-    };
-    sStorage = {
-        set: function (key, value) {
-            window.localStorage.setItem(key, JSON.stringify(value));
-        },
-        get: function (key) {
-            try {
-                return JSON.parse(window.localStorage.getItem(key));
-            } catch (e) {
-                return null;
-            }
-        }
-    };
-
     storage = new Storage();
 });
 

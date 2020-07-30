@@ -76,7 +76,7 @@ class UIService {
     }
 
     initCompany() {
-        var url = MAIN_URL + '/api/ui/' + localStorage.companyCode + '/company';
+        var url = MAIN_URL + '/api/ui/' + storage.getCompanyCode() + '/company';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         $(".chooseCompanyList").empty();
         var successCallback = function (data) {
@@ -98,8 +98,8 @@ class UIService {
     }
 
     changeCompany(companyCode, companyName) {
-        localStorage.companyCode = companyCode;
-        localStorage.companyName = companyName;
+        storage.getCompanyCode() = companyCode;
+        storage.companyName = companyName;
         var useCompanyStr = `
             <span style="padding-right: 15px;">${companyName}</span><i class="fa fa-bank"></i>
         `;
@@ -112,7 +112,7 @@ class UIService {
     }
 
     initLogo() {
-        var url = MAIN_URL + '/api/ui/' + localStorage.companyCode + '/logo';
+        var url = MAIN_URL + '/api/ui/' + storage.getCompanyCode() + '/logo';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("logo ==");
@@ -123,14 +123,14 @@ class UIService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/ui/' + localStorage.companyCode + '/profile';
+        var url = MAIN_URL + '/api/ui/' + storage.getCompanyCode() + '/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("profile ==");
             console.log(data);
-            localStorage.uname = data.getProp("email");
-            localStorage.profileName = data.getProp("firstName");
-            $(".profileName").html(localStorage.profileName);
+            storage.uname = data.getProp("email");
+            storage.profileName = data.getProp("firstName");
+            $(".profileName").html(storage.profileName);
 
             meetingLoader.loadMeetings();
         };
@@ -151,7 +151,7 @@ class LeftMenu {
             leftMenu.loadUI(this);
         });
 
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/getLeftMenu';
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("Left Menu Extracted");
@@ -250,23 +250,23 @@ class RegisterDatatable {
 
 class UICache {
     getUIHtml(uiName) {
-        var storedHTML = sStorage.get(uiName + "-HTML");
+        var storedHTML = storage.get(uiName + "-HTML");
         return storedHTML;
     }
 
     setUIHtml(uiName, uiHtml) {
-        sStorage.set(uiName + "-HTML", uiHtml);
+        storage.set(uiName + "-HTML", uiHtml);
     }
 }
 
 class SearchCache {
     initSearchCache() {
-        var allCache = sStorage.get("allCache");
+        var allCache = storage.get("allCache");
         if (allCache == "true") {
             return;
         }
         else {
-            sStorage.set("allCache", "true");
+            storage.set("allCache", "true");
             var url = MAIN_URL + '/api/clientcache/all/search';
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var successCallback = function (data) {
@@ -284,24 +284,24 @@ class SearchCache {
     }
 
     setCacheConfig(uiName, clientCache) {
-        sStorage.set(uiName + "-SearchCache", clientCache);
+        storage.set(uiName + "-SearchCache", clientCache);
     }
 
     getSearchCache(uiName, uri) {
         searchCache.initSearchCache();
         var searchData = "";
-        var canCache = sStorage.get(uiName + "-SearchCache");
+        var canCache = storage.get(uiName + "-SearchCache");
         if (canCache == "true") {
-            searchData = sStorage.get(uri);
+            searchData = storage.get(uri);
         }
         return searchData;
     }
 
     setNewSearchCache(uiName, uri, searchData) {
         searchCache.initSearchCache();
-        var canCache = sStorage.get(uiName + "-SearchCache");
+        var canCache = storage.get(uiName + "-SearchCache");
         if (canCache == "true") {
-            sStorage.set(uri, searchData);
+            storage.set(uri, searchData);
         }
     }
 }

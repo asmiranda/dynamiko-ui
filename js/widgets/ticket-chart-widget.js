@@ -8,7 +8,7 @@ class TicketChartWidget {
             var cashChart = document.getElementById("ticketChart").getContext("2d");
 
             var ajaxRequestDTO = new AjaxRequestDTO();
-            ajaxRequestDTO.url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/widget/TicketChartWidget";
+            ajaxRequestDTO.url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/widget/TicketChartWidget";
             ajaxRequestDTO.data = "";
 
             var successFunction = function (data) {

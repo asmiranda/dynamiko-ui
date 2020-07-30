@@ -26,7 +26,7 @@ class P2P {
         $("#messageAlert").html(`${context.profile} joined!`);
 
         context.peerConnection = new RTCPeerConnection(context.peerConnectionConfig);
-        context.dataChannel = context.peerConnection.createDataChannel(localStorage.uname, context.dataChannelOptions);
+        context.dataChannel = context.peerConnection.createDataChannel(storage.uname, context.dataChannelOptions);
 
         var track = mediaStream.localStream.getTracks()[0];
         context.peerConnection.addTrack(track, mediaStream.localStream);

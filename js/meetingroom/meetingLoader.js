@@ -8,7 +8,7 @@ class MeetingLoader {
     }
 
     loadMeetings() {
-        var url = `${MAIN_SIGNAL_HTTP_URL}/api/signal/${localStorage.companyCode}/getRooms`;
+        var url = `${MAIN_SIGNAL_HTTP_URL}/api/signal/${storage.getCompanyCode()}/getRooms`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;
@@ -26,7 +26,7 @@ class MeetingLoader {
         $(data).each(function (index, obj) {
             var label = obj.getProp("confName");
             var code = obj.getProp("confCode");
-            var str = `<li><a href="#" class="btnChooseMeetingRoom" conCompany="${localStorage.companyCode}" conRoom="${code}" name="${label}">${label}</a></li>`;
+            var str = `<li><a href="#" class="btnChooseMeetingRoom" conCompany="${storage.getCompanyCode()}" conRoom="${code}" name="${label}">${label}</a></li>`;
             $(divSelector).append(str);
         });
     }

@@ -45,7 +45,7 @@ class FacultyMeetingUI extends AbstractUI {
 
     loadMeetings(moduleName) {
         utils.showSpin();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/${moduleName}/getMeetings`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${moduleName}/getMeetings`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;

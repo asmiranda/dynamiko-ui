@@ -1,7 +1,7 @@
 class SupplierUI {
     loadSupplierProfile(obj) {
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SupplierUI/getSupplierProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SupplierUI/getSupplierProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -14,7 +14,7 @@ class SupplierUI {
             $(".SupplierUI_SupplierName").html(name);
             $(".SupplierUI_Supplier_Email").html(email);
             $(".SupplierUI_Supplier_Contact").html(contact);
-            $(".SupplierUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${localStorage.companyCode}/profilePic/SupplierUI/${recordId}/${utils.nowString()}`);
+            $(".SupplierUI_ProfilePic").attr("src", `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/SupplierUI/${recordId}/${utils.nowString()}`);
             $(".SupplierUI_ProfilePic").attr("recordId", recordId);
             $(".SupplierUI_ProfilePic").show();
         };
@@ -27,7 +27,7 @@ class SupplierUI {
         console.log(value);
 
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SupplierUI/getFilteredSuppliers/${value}`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SupplierUI/getFilteredSuppliers/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {
@@ -38,7 +38,7 @@ class SupplierUI {
 
     loadTopSuppliers(tabName) {
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${localStorage.companyCode}/widget/SupplierUI/getTopSuppliers`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SupplierUI/getTopSuppliers`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successCallback = function (data) {

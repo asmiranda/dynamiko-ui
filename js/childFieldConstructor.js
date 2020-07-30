@@ -10,7 +10,7 @@ class ChildFieldAutoComplete {
         var dialogWindow = "#myModal" + subModuleName;
         $(".autocomplete[submodule='" + subModuleName + "']").each(function () {
             var fieldLabelName = $(this).attr("autoName");
-            var url = MAIN_URL + "/api/generic/" + localStorage.companyCode + "/subautocomplete/" + moduleName + "/" + subModuleName + "/" + fieldLabelName;
+            var url = MAIN_URL + "/api/generic/" + storage.getCompanyCode() + "/subautocomplete/" + moduleName + "/" + subModuleName + "/" + fieldLabelName;
             var autoCompleteDisplayField = $(this);
             var autoCompleteValueField = $(".HiddenAutoComplete[submodule='" + subModuleName + "'][name='" + fieldLabelName + "']");
             var autoCompleteDescDivDefault = $(".DivAutoCompleteDefault[autoName='" + fieldLabelName + "'][name='" + fieldLabelName + "']");

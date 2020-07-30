@@ -4,7 +4,7 @@ class ChartRule {
         console.log("doRule called");
         var vdata = JSON.stringify(utils.convertFormToJSON($(mainForm)));
         console.log(vdata);
-        var url = MAIN_URL + '/api/generic/' + localStorage.companyCode + '/chartrule/' + moduleName;
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/chartrule/' + moduleName;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log(data);
