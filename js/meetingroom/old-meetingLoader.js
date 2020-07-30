@@ -35,9 +35,8 @@ class MeetingLoader {
         var roomName = $(obj).attr("name");
         var conCompany = $(obj).attr("conCompany");
         var conRoom = $(obj).attr("conRoom");
-        // $("#roomNameDisplay").html(roomName);
-        socketIOMeetingRoom.join("Join Room", conRoom);
-        // meetingRoom.join(roomName, conCompany, conRoom);
+        $("#roomNameDisplay").html(roomName);
+        meetingRoom.join(roomName, conCompany, conRoom);
     }
 }
 

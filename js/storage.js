@@ -8,6 +8,10 @@ class Storage {
         this.myStorage.clear();
     }
 
+    getUname() {
+        return this.myStorage.uname;
+    }
+
     getToken() {
         return this.myStorage.token;
     }

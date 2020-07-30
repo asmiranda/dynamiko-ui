@@ -2,7 +2,7 @@ class SocketIOMeetingRoom {
     constructor() {
         this.title
         this.roomCode
-        this.socket
+        this.socket = io.connect('http://localhost:5000')
     }
 
     openRoom() {
@@ -10,12 +10,11 @@ class SocketIOMeetingRoom {
 
         let successRoomPopup = function (data) {
             mediaStream.initMedia(function () {
-                this.socket.on('joined', function (data) {
-                    console.log("joined", data);
+                context.socket.on('offer', function (data) {
+                    console.log("offer", data);
                 });
 
-                this.socket.emit("join", { data: 'Joining!' });
-                this.socket.emit("message", { data: 'Sending Message!' });
+                context.socket.emit("join", { "email": storage.getUname(), "room": context.roomCode });
             });
         }
         let successCallback = function (data) {
@@ -27,13 +26,8 @@ class SocketIOMeetingRoom {
     join(title, roomCode) {
         this.title = `${title} [${roomCode}]`;
         this.roomCode = roomCode;
-        this.socket = io.connect('http://localhost:5000')
 
-        let context = this;
-
-        this.socket.on('connect', function () {
-            context.openRoom();
-        });
+        this.openRoom();
     }
 }
 
