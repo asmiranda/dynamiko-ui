@@ -1,46 +1,37 @@
 class SocketIOMessageHandler {
     joinRoom(mySocket, room) {
-        console.log("joinRoom", room)
+        console.log(`joinRoom ${room}`)
         mySocket.emit("joinroom", { "fromEmail": storage.getUname(), "room": room });
     }
 
     leaveRoom(mySocket, room) {
-        console.log("leaveRoom", room)
+        console.log(`leaveRoom ${room}`)
         mySocket.emit("leaveroom", { "fromEmail": storage.getUname(), "room": room });
     }
 
     onJoinedRoom(mySocket, data) {
-        console.log("onJoinedRoom", data)
-        this.sendOffer(mySocket, data);
+        socketIOP2P.sendOffer(mySocket, data);
     }
 
     onLeaveRoom(mySocket, room) {
         console.log("onLeaveRoom", room)
     }
 
-    sendOffer(mySocket, data) {
-        console.log("sendOffer")
-        socketIOP2P.sendOffer(mySocket, data);
-    }
-
-    receiveOffer(mySocket, data) {
+    onOffer(mySocket, data) {
         let fromEmail = data["fromEmail"];
         if (storage.getUname() != fromEmail) {
-            console.log("receiveOffer processing....")
-            socketIOP2P.sendAnswer(mySocket, data);
+            socketIOP2P.onOffer(mySocket, data);
         }
     }
 
-    receiveAnswer(mySocket, data) {
+    onAnswer(mySocket, data) {
         let fromEmail = data["fromEmail"];
-        console.log("receiveAnswer", fromEmail, storage.getUname())
         if (fromEmail != storage.getUname()) {
-            socketIOP2P.startSharing(mySocket, data);
+            socketIOP2P.onAnswer(mySocket, data);
         }
     }
 
-    receiveIce(mySocket, data) {
-        console.log("receiveIce", data)
-        socketIOP2P.receiveIce(mySocket, data);
+    onIce(mySocket, data) {
+        socketIOP2P.onIce(mySocket, data);
     }
 }
