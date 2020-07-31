@@ -1,56 +1,46 @@
 class SocketIOMessageHandler {
-    constructor() {
-        this.peerConnectionConfig = {
-            'iceServers': [
-                { 'urls': 'stun:stun.services.mozilla.com' },
-                { 'urls': 'stun:stun.l.google.com:19302' },
-            ]
-        };
-        this.peerConnection = new RTCPeerConnection(this.peerConnectionConfig, {
-            optional: [{
-                RtpDataChannels: true
-            }]
-        });
-        this.peerConnection.onicecandidate = this.iceCallback;
+    joinRoom(mySocket, room) {
+        console.log("joinRoom", room)
+        mySocket.emit("joinroom", { "fromEmail": storage.getUname(), "room": room });
     }
 
-    iceCallback(event) {
-        console.log(event)
-        this.peerConnection.addIceCandidate(new RTCIceCandidate(event));
+    leaveRoom(mySocket, room) {
+        console.log("leaveRoom", room)
+        mySocket.emit("leaveroom", { "fromEmail": storage.getUname(), "room": room });
     }
 
-    processNewJoiner(data) {
-        console.log("processNewJoiner", data);
-        let context = this;
-        this.peerConnection.createOffer(function (sdp) {
-            socketIOMeetingRoom.socket.emit("offer", { "email": storage.getUname(), "room": data["room"], "to_sid": data["sid"], "sdp": sdp });
-            context.peerConnection.setLocalDescription(sdp);
-        }, function (error) {
-            console.log("processNewJoiner", error)
-        });
+    onJoinedRoom(mySocket, data) {
+        console.log("onJoinedRoom", data)
+        this.sendOffer(mySocket, data);
     }
 
-    processOffer(data) {
-        console.log("processOffer", data)
-        let context = this;
-        this.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
-        this.peerConnection.createAnswer(function (answer) {
-            context.peerConnection.setLocalDescription(answer);
-            socketIOMeetingRoom.socket.emit("answer", { "email": storage.getUname(), "room": data["room"], "to_sid": data["sid"], "sdp": answer });
-        }, function (error) {
-            console.log("processOffer", error)
-        });
+    onLeaveRoom(mySocket, room) {
+        console.log("onLeaveRoom", room)
     }
 
-    processAnswer(data) {
-        console.log("processAnswer", data)
-        this.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
+    sendOffer(mySocket, data) {
+        console.log("sendOffer")
+        socketIOP2P.sendOffer(mySocket, data);
     }
 
-    processIce(data) {
-        console.log("processIce", data)
-        this.peerConnection.addIceCandidate(new RTCIceCandidate(data["sdp"]));
+    receiveOffer(mySocket, data) {
+        let fromEmail = data["fromEmail"];
+        if (storage.getUname() != fromEmail) {
+            console.log("receiveOffer processing....")
+            socketIOP2P.sendAnswer(mySocket, data);
+        }
+    }
+
+    receiveAnswer(mySocket, data) {
+        let fromEmail = data["fromEmail"];
+        console.log("receiveAnswer", fromEmail, storage.getUname())
+        if (fromEmail != storage.getUname()) {
+            socketIOP2P.startSharing(mySocket, data);
+        }
+    }
+
+    receiveIce(mySocket, data) {
+        console.log("receiveIce", data)
+        socketIOP2P.receiveIce(mySocket, data);
     }
 }
-
-socketIOMessageHandler = new SocketIOMessageHandler();

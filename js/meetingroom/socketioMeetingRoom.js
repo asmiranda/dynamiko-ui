@@ -1,24 +1,28 @@
 class SocketIOMeetingRoom {
     constructor() {
         this.title
-        this.roomCode
         this.socket = io.connect('http://localhost:5000')
 
-        this.socket.on('new_join', function (data) {
-            console.log("new_join", data);
-            socketIOMessageHandler.processNewJoiner(data);
+        let context = this;
+        this.socket.on('onjoinedroom', function (data) {
+            console.log("onjoinedroom", data);
+            socketIOMessageHandler.onJoinedRoom(context.socket, data);
         });
         this.socket.on('offer', function (data) {
             console.log("offer", data);
-            socketIOMessageHandler.processOffer(data);
+            socketIOMessageHandler.receiveOffer(context.socket, data);
         });
         this.socket.on('answer', function (data) {
             console.log("answer", data);
-            socketIOMessageHandler.processAnswer(data);
+            socketIOMessageHandler.receiveAnswer(context.socket, data);
         });
         this.socket.on('ice', function (data) {
             console.log("ice", data);
-            socketIOMessageHandler.processIce(data);
+            socketIOMessageHandler.receiveIce(context.socket, data);
+        });
+        this.socket.on('onleaveroom', function (data) {
+            console.log("onleaveroom", data);
+            socketIOMessageHandler.onLeaveRoom(context.socket, data);
         });
     }
 
@@ -27,7 +31,7 @@ class SocketIOMeetingRoom {
 
         let successRoomPopup = function (data) {
             mediaStream.initMedia(function () {
-                context.socket.emit("join", { "email": storage.getUname(), "room": context.roomCode });
+                console.log("Local Media Started");
             });
         }
         let successCallback = function (data) {
@@ -36,9 +40,18 @@ class SocketIOMeetingRoom {
         utils.getTabHtml("ConferenceUI", "SocketIOMeetingRoom", successCallback);
     }
 
+    leaveRoom() {
+        socketIOMessageHandler.leaveRoom(this.socket, storage.getRoomCode());
+    }
+
     join(title, roomCode) {
+        let context = this;
         this.title = `${title} [${roomCode}]`;
-        this.roomCode = roomCode;
+        if (storage.getRoomCode() && roomCode != storage.getRoomCode()) {
+            socketIOMessageHandler.leaveRoom(context.socket, storage.getRoomCode());
+        }
+        storage.setRoomCode(roomCode);
+        socketIOMessageHandler.joinRoom(context.socket, storage.getRoomCode());
 
         this.openRoom();
     }
@@ -46,4 +59,8 @@ class SocketIOMeetingRoom {
 
 $(function () {
     socketIOMeetingRoom = new SocketIOMeetingRoom();
+    socketIOMessageHandler = new SocketIOMessageHandler();
+    socketIOP2P = new SocketIOP2P();
+    socketIOMediaStream = new SocketIOMediaStream();
+    window.onbeforeunload = socketIOMeetingRoom.leaveRoom();
 })

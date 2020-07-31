@@ -8,6 +8,13 @@ class Storage {
         this.myStorage.clear();
     }
 
+    setRoomCode(roomCode) {
+        return this.myStorage.roomCode = roomCode;
+    }
+    getRoomCode() {
+        return this.myStorage.roomCode;
+    }
+
     getUname() {
         return this.myStorage.uname;
     }

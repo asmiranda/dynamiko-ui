@@ -2,7 +2,7 @@ class AjaxCaller {
     beforeSend(xhr) {
         if (storage.getToken()) {
             xhr.setRequestHeader('Authorization', 'Bearer ' + storage.getToken());
-            console.log("Sending token headers " + 'Authorization', 'Bearer ' + storage.getToken());
+            // console.log("Sending token headers " + 'Authorization', 'Bearer ' + storage.getToken());
         }
     }
 
