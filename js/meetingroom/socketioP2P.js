@@ -11,7 +11,7 @@ class SocketIOP2P {
         myP2P.peerConnection.createOffer(function (sdp) {
             console.log(`sendOffer to ${toEmail}`)
             myP2P.peerConnection.setLocalDescription(sdp);
-            mySocket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "sdp": sdp });
+            mySocket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "sdp": sdp, "room": storage.getRoomCode() });
         }, function (error) {
             console.log("sendOffer", error)
         });
@@ -30,7 +30,7 @@ class SocketIOP2P {
         })
             .then(function () {
                 console.log(`onOffer to ${toEmail}`)
-                mySocket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": data["room"], "sdp": pAnswer });
+                mySocket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": data["room"], "sdp": pAnswer, "room": storage.getRoomCode() });
             })
             .catch(e => console.log(e));
     }
@@ -47,6 +47,12 @@ class SocketIOP2P {
         let myP2P = this.peerConnections[toEmail]
         console.log(`onIce from ${toEmail}`)
         myP2P.peerConnection.addIceCandidate(new RTCIceCandidate(data["sdp"]));
+    }
+
+    onLeaveRoom(mySocket, data) {
+        let toEmail = data["fromEmail"];
+        let myP2P = this.peerConnections[toEmail]
+        myP2P.leaveRoom()
     }
 }
 
@@ -67,6 +73,10 @@ class MyP2P {
         this.initVideoBox();
 
         this.peerConnection.onicecandidate = this.iceCallback;
+    }
+
+    leaveRoom() {
+        $(`.miniVideo[email="${this.email}"]`).remove();
     }
 
     initVideoBox() {

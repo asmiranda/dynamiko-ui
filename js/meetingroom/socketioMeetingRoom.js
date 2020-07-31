@@ -41,17 +41,13 @@ class SocketIOMeetingRoom {
     }
 
     leaveRoom() {
-        socketIOMessageHandler.leaveRoom(this.socket, storage.getRoomCode());
+        socketIOMessageHandler.leaveRoom(this.socket);
     }
 
     join(title, roomCode) {
         let context = this;
         this.title = `${title} [${roomCode}]`;
-        if (storage.getRoomCode() && roomCode != storage.getRoomCode()) {
-            socketIOMessageHandler.leaveRoom(context.socket, storage.getRoomCode());
-        }
-        storage.setRoomCode(roomCode);
-        socketIOMessageHandler.joinRoom(context.socket, storage.getRoomCode());
+        socketIOMessageHandler.joinRoom(context.socket, roomCode);
 
         this.openRoom();
     }

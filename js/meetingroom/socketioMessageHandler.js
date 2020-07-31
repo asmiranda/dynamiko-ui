@@ -1,20 +1,26 @@
 class SocketIOMessageHandler {
     joinRoom(mySocket, room) {
         console.log(`joinRoom ${room}`)
-        mySocket.emit("joinroom", { "fromEmail": storage.getUname(), "room": room });
+        this.leaveRoom(mySocket)
+
+        storage.setRoomCode(room)
+        mySocket.emit("joinroom", { "fromEmail": storage.getUname(), "room": storage.getRoomCode() });
     }
 
-    leaveRoom(mySocket, room) {
-        console.log(`leaveRoom ${room}`)
-        mySocket.emit("leaveroom", { "fromEmail": storage.getUname(), "room": room });
+    leaveRoom(mySocket) {
+        console.log(`leaveRoom`)
+        if (storage.getRoomCode()) {
+            mySocket.emit("leaveroom", { "fromEmail": storage.getUname(), "room": storage.getRoomCode() });
+        }
     }
 
     onJoinedRoom(mySocket, data) {
         socketIOP2P.sendOffer(mySocket, data);
     }
 
-    onLeaveRoom(mySocket, room) {
-        console.log("onLeaveRoom", room)
+    onLeaveRoom(mySocket, data) {
+        console.log("onLeaveRoom", data)
+        socketIOP2P.onLeaveRoom(mySocket, data);
     }
 
     onOffer(mySocket, data) {
