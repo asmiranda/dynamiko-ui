@@ -1,7 +1,7 @@
 class SocketIOMeetingRoom {
     constructor() {
         this.title
-        this.socket = io.connect('http://localhost:5000')
+        this.socket = io.connect(MAIN_SIGNAL_URL)
 
         let context = this;
         this.socket.on('onjoinedroom', function (data) {
