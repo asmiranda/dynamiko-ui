@@ -8,6 +8,10 @@ class SocketIOMeetingRoom {
             // console.log("onjoinedroom", data);
             socketIOMessageHandler.onJoinedRoom(context.socket, data);
         });
+        this.socket.on('onwelcomejoiner', function (data) {
+            // console.log("onwelcomejoiner", data);
+            socketIOMessageHandler.onWelcomeJoiner(context.socket, data);
+        });
         this.socket.on('offer', function (data) {
             // console.log("offer", data);
             socketIOMessageHandler.onOffer(context.socket, data);
@@ -30,8 +34,9 @@ class SocketIOMeetingRoom {
         let context = this;
 
         let successRoomPopup = function (data) {
-            mediaStream.initMedia(function () {
+            socketIOMediaStream.initVideo(function () {
                 console.log("Local Media Started");
+                socketIOMessageHandler.joinRoom(context.socket);
             });
         }
         let successCallback = function (data) {
@@ -47,7 +52,8 @@ class SocketIOMeetingRoom {
     join(title, roomCode) {
         let context = this;
         this.title = `${title} [${roomCode}]`;
-        socketIOMessageHandler.joinRoom(context.socket, roomCode);
+        socketIOMessageHandler.leaveRoom(context.socket)
+        storage.setRoomCode(roomCode)
 
         this.openRoom();
     }
