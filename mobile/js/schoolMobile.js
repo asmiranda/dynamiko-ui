@@ -1,4 +1,4 @@
-class SchoolMobile extends AbstractMobile {
+class SchoolMobile {
     loadProfile() {
         let personObj = storage.get("PersonObj");
         console.log(personObj);
@@ -83,15 +83,24 @@ class SchoolMobile extends AbstractMobile {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    onReactMessageWithLogin(data) {
-        loginJS.loadProfile(data);
-        this.loadProfile();
-        this.loadAnnouncements();
-        this.loadSchedules();
-    }
+    loadData() {
+        server = "10.0.2.2";
+        MAIN_URL = `https://${server}:8888`;
+        MAIN_SIGNAL_URL = `https://${server}:8888`;
 
-    onReactMessageWithNoLogin() {
-        this.loadAnnouncements();
+        let token = utils.getUrlParamValue(window.location.href, "token");
+        alert("token == " + token);
+        if (!token || token == 'null') {
+            $("#welcome").hide();
+            $("#pleaseLogin").show();
+        }
+        else {
+            loginJS.loadProfile(token, function () {
+                $("#welcome").show();
+                $("#pleaseLogin").hide();
+                alert("load all");
+            });
+        }
     }
 }
 

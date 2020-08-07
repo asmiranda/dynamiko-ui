@@ -1,7 +1,7 @@
 function LoginJS() {
     this.token = function () {
-        console.log(sessionStorage.token);
-        return sessionStorage.token;
+        console.log(session.getToken());
+        return session.getToken();
     };
 
     this.hasRole = function (role) {
@@ -90,21 +90,23 @@ function LoginJS() {
         });
     }
 
-    this.loadProfile = function (token) {
-        sessionStorage.token = token;
+    this.loadProfile = function (token, successFunc) {
         // alert(`loadProfile token = ${sessionStorage.token}`);
         let url = `${MAIN_URL}/api/auth/getProfile`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
-            // alert(`loadProfile success = ${data}`);
-            sessionStorage.companyCode = data.getPropDefault("companyCode", "--");
-            // alert(`loadProfile companyCode = ${sessionStorage.companyCode}`);
+            storage.setCompanyCode(data.getPropDefault("companyCode", "--"));
             storage.set("UserObj", data.getPropDefault("user", "--"));
             storage.set("PersonObj", data.getPropDefault("person", "--"));
             storage.set("RolesObj", data.getPropDefault("roles", "--"));
+            storage.setToken(token);
+            if (successFunc) {
+                successFunc();
+            }
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
+
 }
 
 $(function () {
