@@ -1,7 +1,8 @@
 class Storage {
     constructor() {
-        // this.myStorage = window.localStorage;
-        this.myStorage = window.sessionStorage;
+        alert("Storage")
+        this.myStorage = window.localStorage;
+        // this.myStorage = window.sessionStorage;
     }
 
     clear() {
@@ -20,7 +21,11 @@ class Storage {
     }
 
     getToken() {
-        return this.myStorage.token;
+        return this.myStorage.getItem("token");
+    }
+
+    setToken(token) {
+        this.myStorage.setItem("token", token);
     }
 
     getCompanyCode() {

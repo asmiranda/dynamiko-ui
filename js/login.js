@@ -17,7 +17,7 @@ function LoginJS() {
         return withRole;
     }
 
-    this.login = function (uname, pword, redUrl) {
+    this.login = function (uname, pword, redUrl, successFunc) {
         var context = this;
         var vdata = JSON.stringify({ "username": uname, "password": pword });
         console.log(vdata);
@@ -32,12 +32,14 @@ function LoginJS() {
                 }
                 console.log(data.token);
                 storage.storeAccountToken(uname, data);
-                // loginJS.loadProfile(sessionStorage.token);
                 setTimeout(function () {
                     if (redUrl) {
                         window.location.href = redUrl;
                     }
                 }, 500);
+                if (successFunc) {
+                    successFunc(data);
+                }
             },
             error: function (data) {
                 console.log(data.responseJSON.message);
@@ -60,6 +62,25 @@ function LoginJS() {
                 storage.storeAccountToken(uname, data);
                 loginJS.loadProfile(sessionStorage.token);
                 successFunc();
+            },
+            error: function (data) {
+                console.log(data.responseJSON.message);
+                showModalAny.show('', data.responseJSON.message);
+            }
+        });
+    }
+
+    this.mobileLogin = function (uname, pword, successFunc) {
+        var context = this;
+        var vdata = JSON.stringify({ "username": uname, "password": pword });
+        console.log(vdata);
+        $.ajax({
+            url: MAIN_URL + '/api/auth/signin',
+            type: 'POST',
+            data: vdata,
+            contentType: 'application/json',
+            success: function (data) {
+                successFunc(data);
             },
             error: function (data) {
                 console.log(data.responseJSON.message);

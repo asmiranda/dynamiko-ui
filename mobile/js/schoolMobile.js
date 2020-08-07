@@ -1,4 +1,38 @@
 class SchoolMobile {
+    constructor() {
+        server = "10.0.2.2";
+        MAIN_URL = `https://${server}:8888`;
+        MAIN_SIGNAL_URL = `https://${server}:8888`;
+
+        // alert("SchoolMobile");
+        let context = this;
+        $(document).on('click', '#btnShowLogin', function () {
+            $("#loginScreen").show();
+        });
+        $(document).on('click', '#btnLogin', function () {
+            context.handleLogin();
+        });
+    }
+
+    handleLogin() {
+        let context = this;
+        let uname = $("#email").val();
+        let passw = $("#password").val();
+        uname = "faculty1@test.com";
+        passw = password;
+        loginJS.mobileLogin(uname, passw, function (data) {
+            alert("token == " + data.Authorization);
+            storage.setToken(data.Authorization);
+            $("#loginScreen").hide();
+
+            loginJS.loadProfile(storage.getToken(), function () {
+                $("#welcome").show();
+                $("#pleaseLogin").hide();
+            });
+            // alert(`success login ${data.Authorization}`);
+        });
+    }
+
     loadProfile() {
         let personObj = storage.get("PersonObj");
         console.log(personObj);
@@ -83,23 +117,17 @@ class SchoolMobile {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    loadData() {
-        server = "10.0.2.2";
-        MAIN_URL = `https://${server}:8888`;
-        MAIN_SIGNAL_URL = `https://${server}:8888`;
-
-        let token = utils.getUrlParamValue(window.location.href, "token");
-        alert("token == " + token);
+    updateDisplay() {
+        alert("updateDisplay");
+        let token = storage.getToken();
+        $("#loginScreen").hide();
         if (!token || token == 'null') {
             $("#welcome").hide();
             $("#pleaseLogin").show();
         }
         else {
-            loginJS.loadProfile(token, function () {
-                $("#welcome").show();
-                $("#pleaseLogin").hide();
-                alert("load all");
-            });
+            $("#welcome").show();
+            $("#pleaseLogin").hide();
         }
     }
 }
