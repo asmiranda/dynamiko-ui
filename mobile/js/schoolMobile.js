@@ -1,4 +1,4 @@
-class SchoolHome extends AbstractMobile {
+class SchoolMobile extends AbstractMobile {
     loadProfile() {
         let personObj = storage.get("PersonObj");
         console.log(personObj);
@@ -96,5 +96,5 @@ class SchoolHome extends AbstractMobile {
 }
 
 $(function () {
-    schoolHome = new SchoolHome();
+    schoolMobile = new SchoolMobile();
 })
