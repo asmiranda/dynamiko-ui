@@ -3,6 +3,7 @@ class MobileStorage {
         this.companyCode = "TEST";
         this.token = "";
         this.roles = [];
+        this.moduleCode;
     }
 }
 
