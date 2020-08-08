@@ -1,6 +1,6 @@
 class Storage {
     constructor() {
-        alert("Storage")
+        // alert("Storage")
         this.myStorage = window.localStorage;
         // this.myStorage = window.sessionStorage;
     }

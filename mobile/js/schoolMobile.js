@@ -1,6 +1,7 @@
 class SchoolMobile {
     constructor() {
-        server = "10.0.2.2";
+        // server = "10.0.2.2";
+        server = "localhost";
         MAIN_URL = `https://${server}:8888`;
         MAIN_SIGNAL_URL = `https://${server}:8888`;
 
@@ -12,6 +13,15 @@ class SchoolMobile {
         $(document).on('click', '#btnLogin', function () {
             context.handleLogin();
         });
+        window.addEventListener("message", message => {
+            mobileStorage.token = message.data;
+            $("#loginScreen").hide();
+            $("#pleaseLogin").hide();
+
+            mobileLogin.loadProfile(mobileStorage.token, function () {
+                $("#welcome").show();
+            });
+        });
     }
 
     handleLogin() {
@@ -19,37 +29,32 @@ class SchoolMobile {
         let uname = $("#email").val();
         let passw = $("#password").val();
         uname = "faculty1@test.com";
-        passw = password;
-        loginJS.mobileLogin(uname, passw, function (data) {
-            alert("token == " + data.Authorization);
-            storage.setToken(data.Authorization);
-            $("#loginScreen").hide();
-
-            loginJS.loadProfile(storage.getToken(), function () {
-                $("#welcome").show();
-                $("#pleaseLogin").hide();
-            });
-            // alert(`success login ${data.Authorization}`);
+        passw = "password";
+        mobileLogin.login(uname, passw, function (data) {
+            mobileStorage.token = data.Authorization;
+            context.updateDisplay();
         });
     }
 
     loadProfile() {
-        let personObj = storage.get("PersonObj");
-        console.log(personObj);
-        if (personObj && personObj.firstName) {
-            $(".box-welcome").hide();
-            $(".box-profile").show();
-            $("#myProfileName").html(personObj.getPropDefault("firstName", "--"))
-        }
+        let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/PersonUI/getProfile`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let successFunction = function (data) {
+            console.log(data);
+            $("#myProfileName").html(data.firstName);
+            $("#loginScreen").hide();
+            $("#pleaseLogin").hide();
+        };
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     loadSchedules() {
         let url = "";
-        if (loginJS.hasRole("Faculty")) {
-            url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/FacultyScheduleUI/getSchedules`;
+        if (mobileLogin.hasRole("Faculty")) {
+            url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/FacultyScheduleUI/getSchedules`;
         }
         else {
-            url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/StudentScheduleUI/getSchedules`;
+            url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/StudentScheduleUI/getSchedules`;
         }
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
@@ -81,11 +86,11 @@ class SchoolMobile {
                 $("#moduleList").append(str);
             });
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
-    loadAnnouncements() {
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/StudentScheduleUI/getAnnouncements`;
+    loadActivities() {
+        let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/pwidget/StudentScheduleUI/getAnnouncements`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             $("#announcementList").empty();
@@ -96,7 +101,7 @@ class SchoolMobile {
                 let announcementUrl = obj.getPropDefault("announcementUrl", "--");
                 let imageCss = "width: 444px; height: 350px;";
                 let boxCss = "width: 500px;";
-                let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let profileUrl = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
                 let str = `
                     <div class="box box-solid">
                         <div class="box-header with-border">
@@ -114,20 +119,61 @@ class SchoolMobile {
                 $("#announcementList").append(str);
             });
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    loadStudents() {
+        let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/pwidget/StudentScheduleUI/getAnnouncements`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let successFunction = function (data) {
+            $("#announcementList").empty();
+            $(data).each(function (index, obj) {
+                let SchoolAnnouncementId = obj.getPropDefault("SchoolAnnouncementId", "--");
+                let announcement = obj.getPropDefault("announcement", "--");
+                let announcementDate = obj.getPropDefault("announcementDate", "--");
+                let announcementUrl = obj.getPropDefault("announcementUrl", "--");
+                let imageCss = "width: 444px; height: 350px;";
+                let boxCss = "width: 500px;";
+                let profileUrl = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/profilePic/SchoolAnnouncementUI/${SchoolAnnouncementId}`;
+                let str = `
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <i class="fa fa-text-width"></i>
+
+                            <h3 class="box-title">${announcementDate}</h3>
+                        </div>
+                        <div class="box-body">
+                            <blockquote>
+                                <p>${announcement}</p>
+                                <small><a href="${announcementUrl}"><cite title="Source Title">Read more ${announcementUrl}</cite></a></small>
+                            </blockquote>
+                        </div>
+                    </div>`;
+                $("#announcementList").append(str);
+            });
+        };
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     updateDisplay() {
-        alert("updateDisplay");
-        let token = storage.getToken();
-        $("#loginScreen").hide();
-        if (!token || token == 'null') {
-            $("#welcome").hide();
-            $("#pleaseLogin").show();
+        if (mobileStorage.token) {
+            if (window.ReactNativeWebView) {
+                window.ReactNativeWebView.postMessage(mobileStorage.token);
+            }
+            this.loadProfile();
+            this.loadSchedules();
+            // this.loadActivities();
+            // this.loadStudents();
+        }
+    }
+
+    loadDisplay() {
+        if (window.ReactNativeWebView) {
+            $("#loginScreen").hide();
+            $("#pleaseLogin").hide();
         }
         else {
-            $("#welcome").show();
-            $("#pleaseLogin").hide();
+
         }
     }
 }

@@ -70,25 +70,6 @@ function LoginJS() {
         });
     }
 
-    this.mobileLogin = function (uname, pword, successFunc) {
-        var context = this;
-        var vdata = JSON.stringify({ "username": uname, "password": pword });
-        console.log(vdata);
-        $.ajax({
-            url: MAIN_URL + '/api/auth/signin',
-            type: 'POST',
-            data: vdata,
-            contentType: 'application/json',
-            success: function (data) {
-                successFunc(data);
-            },
-            error: function (data) {
-                console.log(data.responseJSON.message);
-                showModalAny.show('', data.responseJSON.message);
-            }
-        });
-    }
-
     this.register = function (uname, pword, firstName, lastName) {
         console.log(firstName);
         console.log(lastName);
@@ -127,7 +108,6 @@ function LoginJS() {
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
-
 }
 
 $(function () {

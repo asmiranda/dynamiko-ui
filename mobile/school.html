@@ -42,24 +42,18 @@
     <script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
     <script src="../js/mainObj.js"></script>
-    <script src="../js/ajaxCaller.js"></script>
     <script src="../js/utils.js"></script>
 
     <script src="../js/config.js"></script>
     <script src="../js/storage.js"></script>
-    <script src="../js/login.js"></script>
     <script src="../js/alertConfirm.js"></script>
 
-    <script src="js/abstractMobile.js"></script>
 </head>
 
 <body>
     <div id="main" style="display: flex; flex-direction: column; margin: 10px;">
         <div id="welcome">
             <div class="box box-primary">
-                <div class="box-body box-welcome">
-                    <h3 class="text-center">My Virtual School</h3>
-                </div>
                 <div class="box-body box-profile">
                     <h3 class="profile-username text-center">Welcome <span id="myProfileName"></span>!</h3>
                 </div>
@@ -73,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div id="loginScreen" style="display: none;">
+        <div id="loginScreen">
             <div class="login-box-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
@@ -333,11 +327,15 @@
     </div>
 
     <link rel="stylesheet" href="css/mobile.css">
+    <script src="js/mobileStorage.js"></script>
+    <script src="js/mobileUtil.js"></script>
+    <script src="js/mobileAjaxCaller.js"></script>
+    <script src="js/mobileLogin.js"></script>
     <script src="js/schoolMobile.js"></script>
 
     <script>
         $(function () {
-            schoolMobile.updateDisplay();
+            schoolMobile.loadDisplay();
         });
     </script>
 </body>
