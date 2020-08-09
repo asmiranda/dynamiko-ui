@@ -56,7 +56,7 @@ class MobileSocketIOMeetingRoom {
         let context = this;
         this.title = `${title} [${roomCode}]`;
         mobileSocketIOMessageHandler.leaveRoom(context.socket)
-        storage.setRoomCode(roomCode)
+        mobileStorage.roomCode = roomCode;
 
         this.openRoom();
     }

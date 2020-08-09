@@ -77,13 +77,11 @@ class SchoolMobile {
             $("#moduleList").empty();
             var boxBackGrounds = ['bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red'];
             $(data).each(function (index, obj) {
-                let code = obj.getPropDefault("code", "--");
+                let code = obj.getPropDefault("schoolScheduleCode", "--");
                 let subjectName = obj.getPropDefault("subjectCode", "--");
-                let sectionCode = obj.getPropDefault("sectionCode", "--");
                 let startTime = obj.getPropDefault("startTime", "--");
                 let endTime = obj.getPropDefault("endTime", "--");
                 let nextColor = boxBackGrounds[index];
-                let confCode = obj.getPropDefault("confCode", "--");
                 mobileStorage.moduleCode = code;
                 let str = `
                     <div style="flex: 40%">
@@ -92,7 +90,7 @@ class SchoolMobile {
                             <div class="inner">
                                 <h3>${subjectName}</h3>
                                 <p>${startTime} to ${endTime}</p>
-                                <p><i class="fa fa-phone btnCall" style="margin-left: 10px; font-size: x-large;" code="${confCode}"></i></p>
+                                <p><i class="fa fa-phone btnCall" style="margin-left: 10px; font-size: x-large;" code="${code}"></i></p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
