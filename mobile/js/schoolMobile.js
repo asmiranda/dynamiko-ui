@@ -16,6 +16,9 @@ class SchoolMobile {
         $(document).on('click', '.btnSchedule', function () {
             context.btnSchedule(this);
         });
+        $(document).on('click', '.btnCall', function () {
+            context.btnCall(this);
+        });
 
         window.addEventListener("message", message => {
             mobileStorage.token = message.data;
@@ -27,6 +30,10 @@ class SchoolMobile {
             });
         });
 
+    }
+
+    btnCall(obj) {
+        let confCode = $(obj).attr("code");
     }
 
     btnSchedule(obj) {
@@ -70,16 +77,18 @@ class SchoolMobile {
         let context = this;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
+            console.log(data);
             $(".my-module").show();
             $("#moduleList").empty();
             var boxBackGrounds = ['bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red'];
             $(data).each(function (index, obj) {
                 let code = obj.getPropDefault("code", "--");
-                let subjectName = obj.getPropDefault("name", "--");
+                let subjectName = obj.getPropDefault("subjectCode", "--");
                 let sectionCode = obj.getPropDefault("sectionCode", "--");
                 let startTime = obj.getPropDefault("startTime", "--");
                 let endTime = obj.getPropDefault("endTime", "--");
                 let nextColor = boxBackGrounds[index];
+                let confCode = obj.getPropDefault("confCode", "--");
                 mobileStorage.moduleCode = code;
                 let str = `
                     <div style="flex: 40%">
@@ -87,12 +96,13 @@ class SchoolMobile {
                         <div class="small-box ${nextColor}" style="margin: 10px;">
                             <div class="inner">
                                 <h3>${subjectName}</h3>
-                                <p>${sectionCode} [${startTime} to ${endTime}]</p>
+                                <p>${startTime} to ${endTime}</p>
+                                <p><i class="fa fa-phone btnCall" style="margin-left: 10px; font-size: x-large;" code="${confCode}"></i></p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="#" class="small-box-footer btnSchedule" code="${code}">Activities/Students <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer btnSchedule" code="${code}">Activities <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 `;
@@ -128,6 +138,7 @@ class SchoolMobile {
 
                 $(".studentImageRoster").append(str);
             });
+            $(".studentCount").html(`${data.length} students`);
             utils.hideSpin();
         };
         mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
@@ -148,15 +159,6 @@ class SchoolMobile {
                 let taskType = obj.getPropDefault("taskType", "");
                 let detail = obj.getPropDefault("detail", "");
                 let str = `
-                    <li class="time-label">
-                        <span class="bg-red">
-                            ${startDate}
-                        </span>
-                        <div class="box-tools pull-right" data-toggle="tooltip" title="">
-                            <a class="btn" style="padding: 2px;"><i class="fa fa-edit hand btnAddActivity" recordId="${SchoolScheduleTaskId}"></i></a>
-                            <a class="btn" style="padding: 2px;"><i class="fa fa-trash-o hand btnDeleteActivity" recordId="${SchoolScheduleTaskId}"></i></a>
-                        </div>
-                    </li>
                     <li>
                         <i class="fa fa-fw fa-gear bg-blue"></i>
                         <div class="timeline-item">
@@ -182,9 +184,6 @@ class SchoolMobile {
             }
             this.loadProfile();
             this.loadSchedules();
-            // get first schedule then load it
-            this.loadActivities();
-            this.loadStudents();
         }
     }
 

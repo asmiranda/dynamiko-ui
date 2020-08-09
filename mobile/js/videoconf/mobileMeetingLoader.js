@@ -1,4 +1,4 @@
-class MeetingLoader {
+class MobileMeetingLoader {
     constructor() {
         var context = this;
         $(document).on('click', `.btnChooseMeetingRoom`, function () {
@@ -8,7 +8,7 @@ class MeetingLoader {
     }
 
     loadMeetings() {
-        var url = `${MAIN_SIGNAL_HTTP_URL}/api/signal/${storage.getCompanyCode()}/getRooms`;
+        var url = `${MAIN_SIGNAL_HTTP_URL}/api/signal/${mobileStorage.companyCode}/getRooms`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;
@@ -16,7 +16,7 @@ class MeetingLoader {
             console.log("loadMeetings", url, data);
             context.arrangeMeetingRecords(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     arrangeMeetingRecords(data) {
@@ -26,7 +26,7 @@ class MeetingLoader {
         $(data).each(function (index, obj) {
             var label = obj.getProp("confName");
             var code = obj.getProp("confCode");
-            var str = `<li><a href="#" class="btnChooseMeetingRoom" conCompany="${storage.getCompanyCode()}" conRoom="${code}" name="${label}">${label}</a></li>`;
+            var str = `<li><a href="#" class="btnChooseMeetingRoom" conCompany="${mobileStorage.companyCode}" conRoom="${code}" name="${label}">${label}</a></li>`;
             $(divSelector).append(str);
         });
     }
@@ -35,11 +35,10 @@ class MeetingLoader {
         var roomName = $(obj).attr("name");
         var conCompany = $(obj).attr("conCompany");
         var conRoom = $(obj).attr("conRoom");
-        $("#roomNameDisplay").html(roomName);
-        meetingRoom.join(roomName, conCompany, conRoom);
+        mobileSocketIOMeetingRoom.join("Join Room", conRoom);
     }
 }
 
 $(function () {
-    meetingLoader = new MeetingLoader();
+    mobileMeetingLoader = new MobileMeetingLoader();
 });
