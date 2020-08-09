@@ -28,21 +28,24 @@ class MobileSocketIOMeetingRoom {
             // console.log("onleaveroom", data);
             mobileSocketIOMessageHandler.onLeaveRoom(context.socket, data);
         });
+
+        $(document).on('click', '.miniVideoStream', function () {
+            context.displayToMainScreen(this);
+        });
+    }
+
+    displayToMainScreen(obj) {
+        var videoElem = document.querySelectorAll(`#activeVideo`)[0];
+        videoElem.srcObject = obj.srcObject;
     }
 
     openRoom() {
         let context = this;
 
-        let successRoomPopup = function (data) {
-            mobileSocketIOMediaStream.initVideo(function () {
-                console.log("Local Media Started");
-                mobileSocketIOMessageHandler.joinRoom(context.socket);
-            });
-        }
-        let successCallback = function (data) {
-            showModalAny1200NoButtons.show(context.title, data, successRoomPopup);
-        };
-        utils.getTabHtml("ConferenceUI", "MobileSocketIOMeetingRoom", successCallback);
+        mobileSocketIOMediaStream.initVideo(function () {
+            console.log("Local Media Started");
+            mobileSocketIOMessageHandler.joinRoom(context.socket);
+        });
     }
 
     leaveRoom() {

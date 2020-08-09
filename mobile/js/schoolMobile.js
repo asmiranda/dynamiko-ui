@@ -34,6 +34,7 @@ class SchoolMobile {
 
     btnCall(obj) {
         let confCode = $(obj).attr("code");
+        mobileSocketIOMeetingRoom.join("Join Room", confCode);
     }
 
     btnSchedule(obj) {

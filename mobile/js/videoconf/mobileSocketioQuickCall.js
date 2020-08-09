@@ -1,4 +1,4 @@
-class MobileSocketIOQuickCall {
+class MobileSocketioQuickCall {
     constructor() {
         $(document).on('click', `#btnQuickCall`, function () {
             mobileSocketioquickCall.btnQuickCall(this);
