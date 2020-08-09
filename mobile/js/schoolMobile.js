@@ -19,6 +19,12 @@ class SchoolMobile {
         $(document).on('click', '.btnCall', function () {
             context.btnCall(this);
         });
+        $(document).on('click', '.btnShowProfile', function () {
+            context.btnShowProfile(this);
+        });
+        $(document).on('click', '.btnLogout', function () {
+            context.btnLogout(this);
+        });
 
         window.addEventListener("message", message => {
             mobileStorage.token = message.data;
@@ -29,6 +35,14 @@ class SchoolMobile {
                 $("#welcome").show();
             });
         });
+
+    }
+
+    btnLogout() {
+        $("#loginScreen").show();
+    }
+
+    btnShowProfile() {
 
     }
 

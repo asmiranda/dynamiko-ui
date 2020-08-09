@@ -11,7 +11,7 @@ class MobileSocketIOP2P {
 
     isMessageForMe(data) {
         let toEmail = data["toEmail"];
-        return toEmail == storage.getUname();
+        return toEmail == mobileStorage.uname;
     }
 
     initJoinedRoom(mySocket, data) {
@@ -19,7 +19,7 @@ class MobileSocketIOP2P {
         let myP2P = new MyP2P(toEmail, false);
         this.peerConnections[toEmail] = myP2P;
         myP2P.initVideoBox();
-        mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
+        mySocket.emit("welcomejoiner", { "fromEmail": mobileStorage.uname, "toEmail": toEmail, "room": mobileStorage.roomCode });
     }
 
     initWelcomeJoiner(mySocket, data) {
@@ -48,7 +48,7 @@ class MobileSocketIOP2P {
             })
                 .then(function () {
                     console.log(`onOffer to ${toEmail}`)
-                    mySocket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "sdp": pAnswer, "room": storage.getRoomCode() });
+                    mySocket.emit("answer", { "fromEmail": mobileStorage.uname, "toEmail": toEmail, "sdp": pAnswer, "room": mobileStorage.roomCode });
                 })
                 .catch(e => console.log(e));
         }
@@ -97,15 +97,16 @@ class MyP2P {
         var context = this;
         if (!$(`.miniVideo[email="${context.email}"]`).length) {
             console.log(`initVideoBox called for ${context.email}`)
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
+            let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/PersonUI/getProfileFromEmail/${context.email}`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             let successFunction = function (data) {
                 let profile = data.getProp("firstName");
                 let str = `
-                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="miniVideo" email="${context.email}">
-                        <video class="miniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                        <div class="text-center" style="width: 100px; color:white;">${profile}</div>
+                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin: 2px;" class="miniVideo" email="${context.email}">
+                        <video class="miniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline>
+                        </video>
+                        <div class="text-center" style="width: 100px; color:white; margin-top: -25px; z-index: 1000000;">${profile}</div>
                     </div>
                 `;
                 $(".videoBoxList").append(str);
@@ -140,7 +141,7 @@ class MyP2P {
             this.peerConnection.createOffer(function (sdp) {
                 console.log(`sendOffer to ${toEmail}`)
                 context.peerConnection.setLocalDescription(sdp);
-                mobileSocketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
+                mobileSocketIOMeetingRoom.socket.emit("offer", { "fromEmail": mobileStorage.uname, "toEmail": context.email, "sdp": sdp, "room": mobileStorage.roomCode });
             }, function (error) {
                 console.log("sendOffer", error)
             });
@@ -180,7 +181,7 @@ class MyP2P {
 
     sendIce(event) {
         if (event.candidate) {
-            mobileSocketIOMeetingRoom.socket.emit("ice", { "fromEmail": storage.getUname(), "toEmail": this.email, "ice": event.candidate, "room": storage.getRoomCode() });
+            mobileSocketIOMeetingRoom.socket.emit("ice", { "fromEmail": mobileStorage.uname, "toEmail": this.email, "ice": event.candidate, "room": mobileStorage.roomCode });
         }
     }
 }
