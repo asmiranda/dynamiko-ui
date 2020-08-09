@@ -110,7 +110,7 @@ class MyP2P {
                 `;
                 $(".videoBoxList").append(str);
             };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+            mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 

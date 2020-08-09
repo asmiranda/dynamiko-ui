@@ -1,8 +1,8 @@
 class MobileSocketIOMessageHandler {
     joinRoom(mySocket) {
-        console.log(`joinRoom ${storage.getRoomCode()}`)
+        console.log(`joinRoom ${mobileStorage.roomCode}`)
 
-        mySocket.emit("joinroom", { "fromEmail": storage.getUname(), "room": storage.getRoomCode() });
+        mySocket.emit("joinroom", { "fromEmail": mobileStorage.uname, "room": mobileStorage.roomCode });
     }
 
     onJoinedRoom(mySocket, data) {
@@ -15,14 +15,14 @@ class MobileSocketIOMessageHandler {
 
     onOffer(mySocket, data) {
         let fromEmail = data["fromEmail"];
-        if (storage.getUname() != fromEmail) {
+        if (mobileStorage.uname != fromEmail) {
             mobileSocketIOP2P.onOffer(mySocket, data);
         }
     }
 
     onAnswer(mySocket, data) {
         let fromEmail = data["fromEmail"];
-        if (fromEmail != storage.getUname()) {
+        if (fromEmail != mobileStorage.uname) {
             mobileSocketIOP2P.onAnswer(mySocket, data);
         }
     }
@@ -33,8 +33,8 @@ class MobileSocketIOMessageHandler {
 
     leaveRoom(mySocket) {
         console.log(`leaveRoom`)
-        if (storage.getRoomCode()) {
-            mySocket.emit("leaveroom", { "fromEmail": storage.getUname(), "room": storage.getRoomCode() });
+        if (mobileStorage.roomCode) {
+            mySocket.emit("leaveroom", { "fromEmail": mobileStorage.uname, "room": mobileStorage.roomCode });
         }
     }
 

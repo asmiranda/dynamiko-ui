@@ -34,6 +34,7 @@ class SchoolMobile {
 
     btnCall(obj) {
         let confCode = $(obj).attr("code");
+        mobileStorage.roomCode = confCode;
         mobileSocketIOMeetingRoom.join("Join Room", confCode);
     }
 
@@ -47,10 +48,9 @@ class SchoolMobile {
         let context = this;
         let uname = $("#email").val();
         let passw = $("#password").val();
-        uname = "faculty1@test.com";
-        passw = "password";
         mobileLogin.login(uname, passw, function (data) {
             mobileStorage.token = data.Authorization;
+            mobileStorage.uname = uname;
             context.updateDisplay();
         });
     }
@@ -68,13 +68,7 @@ class SchoolMobile {
     }
 
     loadSchedules() {
-        let url = "";
-        if (mobileLogin.hasRole("Faculty")) {
-            url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/FacultyScheduleUI/getSchedules`;
-        }
-        else {
-            url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/FacultyScheduleUI/getSchedules`;
-        }
+        let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/SchoolUI/getSchedule`;
         let context = this;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {

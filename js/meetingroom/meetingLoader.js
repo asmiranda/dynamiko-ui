@@ -8,7 +8,7 @@ class MeetingLoader {
     }
 
     loadMeetings() {
-        var url = `${MAIN_SIGNAL_HTTP_URL}/api/signal/${storage.getCompanyCode()}/getRooms`;
+        var url = `${MAIN_SIGNAL_URL}/api/signal/${storage.getCompanyCode()}/getRooms`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;

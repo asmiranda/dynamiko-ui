@@ -16,7 +16,6 @@ class FacultyScheduleUI extends AbstractUI {
             context.btnJoinVirtualRoom(this);
         });
 
-        console.log("loadedCallback not implemented.")
         personTaskUI.loadTodoList();
         schoolUI.loadFacultyHost(data);
         schoolUI.loadActivities(data);

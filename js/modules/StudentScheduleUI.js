@@ -12,11 +12,10 @@ class StudentScheduleUI extends AbstractUI {
 
     loadedCallback(scheduleCode) {
         let context = this;
-        $(document).on('click', `.btnJoinVirtualRoom[module="StudentScheduleUI"]`, function () {
+        $(document).on('click', `.btnJoinVirtualRoom[module="SchoolUI"]`, function () {
             context.btnJoinVirtualRoom(this);
         });
 
-        console.log("loadedCallback not implemented.")
         personTaskUI.loadTodoList();
         schoolUI.loadFacultyHost(scheduleCode);
         schoolUI.loadActivities(scheduleCode);
