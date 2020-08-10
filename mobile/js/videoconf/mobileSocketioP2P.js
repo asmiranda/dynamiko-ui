@@ -67,9 +67,9 @@ class MobileSocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
-            console.log(`onIce from ${toEmail}`, data)
+            console.log(`onIce from ${toEmail}`, data["ice"])
 
-            myP2P.peerConnection.addIceCandidate(new RTCIceCandidate(data.ice));
+            myP2P.peerConnection.addIceCandidate(new RTCIceCandidate(data["ice"]));
         }
     }
 
@@ -151,13 +151,7 @@ class MyP2P {
     onTrack(ev) {
         let context = this;
         if (ev.streams && ev.streams[0]) {
-            if (this.videoReceived) {
-                context.onReceiveScreen(ev.streams[0]);
-            }
-            else {
-                context.onReceiveVideo(ev.streams[0]);
-            }
-            this.videoReceived = true;
+            context.onReceiveVideo(ev.streams[0]);
         }
     };
 
