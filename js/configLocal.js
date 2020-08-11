@@ -1,4 +1,4 @@
-var server = "localhost";
+var server = "service.dynamikosoft.com";
 var MAIN_URL = `https://${server}:8888`;
 var MAIN_SIGNAL_URL = `https://${server}:8888`;
 
