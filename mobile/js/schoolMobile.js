@@ -1,11 +1,5 @@
 class SchoolMobile {
     constructor() {
-        // server = "10.0.2.2";
-        server = "localhost";
-        MAIN_URL = `https://${server}:8888`;
-        MAIN_SIGNAL_URL = `https://${server}:8888`;
-
-        // alert("SchoolMobile");
         let context = this;
         $(document).on('click', '#btnShowLogin', function () {
             $("#loginScreen").show();
@@ -195,13 +189,10 @@ class SchoolMobile {
     }
 
     loadDisplay() {
-        if (window.ReactNativeWebView) {
-            $("#loginScreen").hide();
-            $("#pleaseLogin").hide();
-        }
-        else {
-
-        }
+        console.log(`token = ${mobileUtil.getToken()}`);
+        server = "192.168.1.11";
+        MAIN_URL = `https://${server}:8888`;
+        MAIN_SIGNAL_URL = `https://${server}:8888`;
     }
 }
 

@@ -1,8 +1,12 @@
 class MobileUtil {
     getToken() {
-        alert(window.location.href)
-        let token = this.getUrlParamValue(window.location.href, "token");
-        return token;
+        let str = window.location.href
+        // alert(str)
+        if (str.includes("?")) {
+            let token = this.getUrlParamValue(str, "token");
+            return token;
+        }
+        return undefined;
     }
 
     getUrlParamValue(url, key) {
