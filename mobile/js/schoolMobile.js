@@ -197,13 +197,18 @@ class SchoolMobile {
 
     sendToken(token) {
         console.log(`token = ${token}`);
-        if (token.length > 20) {
-            mobileStorage.token = token;
-            this.loadProfile();
+        let locationRef = window.location.href
+        if (locationRef.includes("schoolAccount.html")) {
+            if (token.length > 20) {
+                mobileStorage.token = token;
+                this.loadProfile();
+            }
+            else {
+                $("#welcome").hide();
+                $("#loginScreen").show();
+            }
         }
-        else {
-            $("#welcome").hide();
-            $("#loginScreen").show();
+        else if (locationRef.includes("schoolSchedules.html")) {
         }
     }
 }
