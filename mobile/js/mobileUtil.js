@@ -1,10 +1,12 @@
 class MobileUtil {
     getToken() {
         let str = window.location.href
-        // alert(str)
-        if (str.includes("?")) {
+        alert(str)
+        if (str.includes("?token=")) {
             let token = this.getUrlParamValue(str, "token");
-            return token;
+            if (token.length > 10) {
+                return token;
+            }
         }
         return undefined;
     }

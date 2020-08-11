@@ -1,5 +1,10 @@
 class SchoolMobile {
     constructor() {
+        console.log(`token = ${mobileUtil.getToken()}`);
+        server = "service.dynamikosoft.com";
+        MAIN_URL = `https://${server}:8888`;
+        MAIN_SIGNAL_URL = `https://${server}:8888`;
+
         let context = this;
         $(document).on('click', '#btnShowLogin', function () {
             $("#loginScreen").show();
@@ -59,7 +64,9 @@ class SchoolMobile {
         mobileLogin.login(uname, passw, function (data) {
             mobileStorage.token = data.Authorization;
             mobileStorage.uname = uname;
-            context.updateDisplay();
+            console.log("Sending Token to Android.")
+            Android.sendToken(mobileStorage.token);
+            context.loadProfile();
         });
     }
 
@@ -189,10 +196,14 @@ class SchoolMobile {
     }
 
     loadDisplay() {
-        console.log(`token = ${mobileUtil.getToken()}`);
-        server = "service.dynamikosoft.com";
-        MAIN_URL = `https://${server}:8888`;
-        MAIN_SIGNAL_URL = `https://${server}:8888`;
+    }
+
+    handleAccountDisplay() {
+        let token = mobileUtil.getToken();
+        console.log(`token = ${token}`);
+        if (token) {
+            this.loadProfile();
+        }
     }
 }
 
