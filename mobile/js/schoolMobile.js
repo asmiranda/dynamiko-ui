@@ -76,8 +76,6 @@ class SchoolMobile {
         let successFunction = function (data) {
             console.log(data);
             $("#myProfileName").html(data.firstName);
-            $("#welcome").show();
-            $("#loginScreen").hide();
         };
         mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -88,7 +86,6 @@ class SchoolMobile {
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             console.log(data);
-            $(".my-module").show();
             $("#moduleList").empty();
             var boxBackGrounds = ['bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red', 'bg-aqua', 'bg-green', 'bg-yellow', 'bg-red'];
             $(data).each(function (index, obj) {
@@ -130,7 +127,7 @@ class SchoolMobile {
 
         let successFunction = function (data) {
             console.log("loadStudents", url, data);
-            $(".studentImageRoster").empty();
+            $("#studentImageRoster").empty();
             $(data).each(function (index, obj) {
                 let code = obj.getPropDefault("code", "--");
                 let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${code}`;
@@ -144,7 +141,7 @@ class SchoolMobile {
                     </li>
                 `;
 
-                $(".studentImageRoster").append(str);
+                $("#studentImageRoster").append(str);
             });
             $(".studentCount").html(`${data.length} students`);
             utils.hideSpin();
@@ -201,6 +198,8 @@ class SchoolMobile {
         if (locationRef.includes("schoolAccount.html")) {
             if (token.length > 20) {
                 mobileStorage.token = token;
+                $("#welcome").show();
+                $("#loginScreen").hide();
                 this.loadProfile();
             }
             else {
@@ -209,6 +208,40 @@ class SchoolMobile {
             }
         }
         else if (locationRef.includes("schoolSchedules.html")) {
+            if (token.length > 20) {
+                mobileStorage.token = token;
+                $("#pleaseLogin").hide();
+                $("#myModules").show();
+                this.loadSchedules();
+            }
+            else {
+                $("#pleaseLogin").show();
+                $("#myModules").hide();
+            }
+        }
+        else if (locationRef.includes("schoolActivities.html")) {
+            if (token.length > 20) {
+                mobileStorage.token = token;
+                $("#pleaseLogin").hide();
+                $("#activitiesList").show();
+                this.loadActivities();
+            }
+            else {
+                $("#pleaseLogin").show();
+                $("#activitiesList").hide();
+            }
+        }
+        else if (locationRef.includes("schoolStudents.html")) {
+            if (token.length > 20) {
+                mobileStorage.token = token;
+                $("#pleaseLogin").hide();
+                $("#studentsList").show();
+                this.loadStudents();
+            }
+            else {
+                $("#pleaseLogin").show();
+                $("#studentsList").hide();
+            }
         }
     }
 }
