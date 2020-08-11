@@ -200,6 +200,7 @@ class SchoolMobile {
 
     sendToken(token) {
         console.log(`token = ${token}`);
+        alert("received token - " + token);
         if (token) {
             mobileStorage.token = token;
             this.loadProfile();
