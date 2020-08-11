@@ -190,7 +190,7 @@ class SchoolMobile {
 
     loadDisplay() {
         console.log(`token = ${mobileUtil.getToken()}`);
-        server = "192.168.1.11";
+        server = "service.dynamikosoft.com";
         MAIN_URL = `https://${server}:8888`;
         MAIN_SIGNAL_URL = `https://${server}:8888`;
     }
