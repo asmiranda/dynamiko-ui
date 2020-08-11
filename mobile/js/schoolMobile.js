@@ -198,10 +198,10 @@ class SchoolMobile {
     loadDisplay() {
     }
 
-    handleAccountDisplay() {
-        let token = mobileUtil.getToken();
+    sendToken(token) {
         console.log(`token = ${token}`);
         if (token) {
+            mobileStorage.token = token;
             this.loadProfile();
         }
     }
