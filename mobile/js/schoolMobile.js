@@ -76,8 +76,8 @@ class SchoolMobile {
         let successFunction = function (data) {
             console.log(data);
             $("#myProfileName").html(data.firstName);
+            $("#welcome").show();
             $("#loginScreen").hide();
-            $("#pleaseLogin").hide();
         };
         mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
@@ -197,10 +197,13 @@ class SchoolMobile {
 
     sendToken(token) {
         console.log(`token = ${token}`);
-        alert("received token - " + token);
-        if (token) {
+        if (token.length > 20) {
             mobileStorage.token = token;
             this.loadProfile();
+        }
+        else {
+            $("#welcome").hide();
+            $("#loginScreen").show();
         }
     }
 }
