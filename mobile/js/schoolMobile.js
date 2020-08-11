@@ -195,9 +195,6 @@ class SchoolMobile {
         }
     }
 
-    loadDisplay() {
-    }
-
     sendToken(token) {
         console.log(`token = ${token}`);
         alert("received token - " + token);
@@ -210,4 +207,5 @@ class SchoolMobile {
 
 $(function () {
     schoolMobile = new SchoolMobile();
+    Android.loadComplete();
 })
