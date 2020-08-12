@@ -153,7 +153,7 @@ class SchoolMobile {
 
         let successFunction = function (data) {
             console.log("loadActivities", url, data);
-            $(".ActivityList").empty();
+            $("#ActivityList").empty();
             $(data).each(function (index, obj) {
                 let SchoolScheduleTaskId = obj.getPropDefault("SchoolScheduleTaskId", "");
                 let startDate = obj.getPropDefault("taskDate", "");
@@ -172,7 +172,7 @@ class SchoolMobile {
                         </div>
                     </li>
                 `;
-                $(".ActivityList").append(str);
+                $("#ActivityList").append(str);
             });
         };
         mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
