@@ -120,9 +120,8 @@ class SchoolMobile {
     }
 
     loadStudents(scheduleCode) {
-        utils.showSpin();
         let context = this;
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/getStudents/${scheduleCode}`;
+        let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/SchoolUI/getStudents/${scheduleCode}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let successFunction = function (data) {
@@ -130,7 +129,7 @@ class SchoolMobile {
             $("#studentImageRoster").empty();
             $(data).each(function (index, obj) {
                 let code = obj.getPropDefault("code", "--");
-                let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${code}`;
+                let profileUrl = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/profilePic/PersonUI/${code}`;
                 let fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
                 let birthDate = `${obj.getPropDefault("birthDate", "--")}`;
                 let str = `
@@ -144,14 +143,12 @@ class SchoolMobile {
                 $("#studentImageRoster").append(str);
             });
             $(".studentCount").html(`${data.length} students`);
-            utils.hideSpin();
         };
         mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     loadActivities(scheduleCode) {
-        utils.showSpin();
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/getActivities/${scheduleCode}`;
+        let url = `${MAIN_URL}/api/generic/${mobileStorage.companyCode}/widget/SchoolUI/getActivities/${scheduleCode}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let successFunction = function (data) {
@@ -176,7 +173,6 @@ class SchoolMobile {
                     </li>
                 `;
                 $(".ActivityList").append(str);
-                utils.hideSpin();
             });
         };
         mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
