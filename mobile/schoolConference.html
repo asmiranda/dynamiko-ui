@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamiko</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/AdminLTE.min.css">
+    <link rel="stylesheet" href="css/mobile.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="js/mainObj.js"></script>
+    <script src="js/config.js"></script>
+    <script src="/js/alertConfirm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+    <script src="js/mobileStorage.js"></script>
+    <script src="js/mobileUtil.js"></script>
+    <script src="js/mobileAjaxCaller.js"></script>
+    <script src="js/mobileLogin.js"></script>
+    <script src="js/schoolMobile.js"></script>
+
+    <script src="js/mobileSocketioMediaStream.js"></script>
+    <script src="js/mobileSocketioMeetingRoom.js"></script>
+    <script src="js/mobileSocketioMessageHandler.js"></script>
+    <script src="js/mobileSocketioP2P.js"></script>
+    <script src="js/mobileSocketioQuickCall.js"></script>
+    <script src="js/mobileSocketioScreenShare.js"></script>
+</head>
+
+<body style="margin: 0; padding: 0">
+    <div id="main" style="display: flex; flex-direction: column; margin: 10px;">
+        <div class="input-group input-group-sm">
+            <select class="form-control">
+                <option>Choose Meeting</option>
+                <option>option 1</option>
+                <option>option 2</option>
+                <option>option 3</option>
+                <option>option 4</option>
+                <option>option 5</option>
+            </select>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info btn-flat"
+                    style="margin-left: 10px; margin-right: 10px;">Call!</button>
+            </span>
+        </div>
+        <div class="box box-success ">
+            <div class="box-header with-border">
+                <h3 class="box-title">My Modules</h3>
+            </div>
+            <div class="box-body">
+                <div style="display: flex; flex-wrap: wrap;" id="moduleList">
+                </div>
+            </div>
+        </div>
+        <div id="meetingScreen">
+            <video id="activeVideo" style="width: 100%; height: 100vh;" autoplay playsinline></video>
+            <div style="position: absolute; top: 5px; right: 5px;">
+                <video id="myVideo" class="miniVideoStream" style="min-height: 100px; max-height: 100px;" autoplay
+                    playsinline muted="muted"></video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            schoolMobile = new ConfSchoolMobile();
+            Android.loadComplete();
+        });
+
+        class ConfSchoolMobile extends SchoolMobile {
+            sendToken(token) {
+                if (token.length > 20) {
+                    mobileStorage.token = token;
+                    $("#pleaseLogin").hide();
+                    $("#myModules").show();
+                    this.loadSchedules();
+                    mobileSocketIOMediaStream.initVideo(function () {
+                        console.log("Local Media Started");
+                        schoolMobile.loadProfile(function (data) {
+                            mobileStorage.uname = data.email;
+                            mobileSocketIOMeetingRoom.init();
+                        });
+                    });
+                }
+                else {
+                    $("#pleaseLogin").show();
+                    $("#myModules").hide();
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
