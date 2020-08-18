@@ -17,3 +17,7 @@ class DynamikoMobile {
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
+
+$(function () {
+    alert("loaded dynamiko mobile!");
+})
