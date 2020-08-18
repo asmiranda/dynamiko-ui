@@ -5,7 +5,7 @@ class DynamikoMobile {
         var successCallback = function (data) {
             $("#main").html(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 
     loadNews() {
@@ -14,6 +14,6 @@ class DynamikoMobile {
         var successCallback = function (data) {
             $("#main").html(data);
         };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
+        mobileAjaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }
 }
