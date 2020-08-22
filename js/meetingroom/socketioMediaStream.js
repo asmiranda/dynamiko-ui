@@ -26,7 +26,6 @@ class SocketIOMediaStream {
                     video.srcObject = socketIOMediaStream.localVideo;
                 })
                 .then(function () {
-                    socketIOMediaStream.initialize();
                     mediaSuccessCallback();
                 })
         }
