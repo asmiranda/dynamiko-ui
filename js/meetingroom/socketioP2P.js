@@ -19,11 +19,14 @@ class SocketIOP2P {
     }
 
     initJoinedRoom(mySocket, data) {
-        let toEmail = data["fromEmail"];
-        let myP2P = new MyP2P(toEmail, false);
-        this.peerConnections[toEmail] = myP2P;
-        myP2P.initVideoBox();
-        mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
+        let fromEmail = data["fromEmail"];
+        if (fromEmail != localStorage.uname) {
+            let toEmail = data["fromEmail"];
+            let myP2P = new MyP2P(toEmail, false);
+            this.peerConnections[toEmail] = myP2P;
+            myP2P.initVideoBox();
+            mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
+        }
     }
 
     initWelcomeJoiner(mySocket, data) {

@@ -30,8 +30,14 @@ class SocketIOMeetingRoom {
         });
     }
 
-    openRoom() {
+    leaveRoom() {
+        socketIOMessageHandler.leaveRoom(this.socket);
+    }
+
+    join(title, roomCode) {
         let context = this;
+        this.title = `${title} [${roomCode}]`;
+        storage.setRoomCode(roomCode)
 
         let successRoomPopup = function (data) {
             socketIOMediaStream.initVideo(function () {
@@ -43,19 +49,6 @@ class SocketIOMeetingRoom {
             showModalAny1200NoButtons.show(context.title, data, successRoomPopup);
         };
         utils.getTabHtml("ConferenceUI", "SocketIOMeetingRoom", successCallback);
-    }
-
-    leaveRoom() {
-        socketIOMessageHandler.leaveRoom(this.socket);
-    }
-
-    join(title, roomCode) {
-        let context = this;
-        this.title = `${title} [${roomCode}]`;
-        socketIOMessageHandler.leaveRoom(context.socket)
-        storage.setRoomCode(roomCode)
-
-        this.openRoom();
     }
 }
 

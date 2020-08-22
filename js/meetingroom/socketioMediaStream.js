@@ -22,6 +22,8 @@ class SocketIOMediaStream {
             navigator.mediaDevices.getUserMedia(socketIOMediaStream.getMediaConstraints())
                 .then(function (stream) {
                     socketIOMediaStream.localVideo = stream;
+                    let video = document.getElementById("myVideo");
+                    video.srcObject = socketIOMediaStream.localVideo;
                 })
                 .then(function () {
                     socketIOMediaStream.initialize();
@@ -57,11 +59,6 @@ class SocketIOMediaStream {
             screenShare.localVideo.getVideoTracks()[0].enabled = true;
         }
         this.screenSharing = true;
-    }
-
-    initialize(e) {
-        const video = document.getElementById("myVideo");
-        video.srcObject = socketIOMediaStream.localVideo;
     }
 
     handleError(error) {
