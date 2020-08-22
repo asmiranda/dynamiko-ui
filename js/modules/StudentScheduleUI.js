@@ -7,6 +7,7 @@ class StudentScheduleUI extends AbstractUI {
         console.log("Called btnJoinVirtualRoom");
         let scheduleCode = $(obj).attr("code");
         // meetingRoom.join("Join Room", storage.getCompanyCode(), code);
+        socketIOP2P.clearConnections();
         socketIOMeetingRoom.join("Join Room", scheduleCode);
     }
 
