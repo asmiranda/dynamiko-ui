@@ -256,7 +256,7 @@ class GlobalEvents {
     triggerChangeModule(obj) {
         console.log("triggerChangeModule");
         console.log(obj);
-        var recordId = dynamikoCache.getLastRecordId();
+        var recordId = storage.get(constructMainForm.moduleName + "_RECORDID");
         $(mainId).val(recordId);
 
         $(registeredModules).each(function (index, data) {

@@ -65,11 +65,11 @@ class ConstructMainForm {
         $('[data-mask]').inputmask();
 
         if (recordId > 0) {
-            dynamikoCache.setLastRecordId(recordId);
+            storage.set(constructMainForm.moduleName + "_RECORDID", recordId);
             constructMainForm.loadRecord(recordId);
         }
         else {
-            recordId = dynamikoCache.getLastRecordId();
+            recordId = storage.get(constructMainForm.moduleName + "_RECORDID");
             if (recordId > 0) {
                 constructMainForm.loadRecord(recordId);
             }

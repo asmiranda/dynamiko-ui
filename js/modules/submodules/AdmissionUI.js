@@ -9,7 +9,7 @@ class AdmissionUI extends AbstractSubUI {
         reportUI.loadReportList("AdmissionUI");
     }
 
-    newRecord() {   
+    newRecord() {
         this.clearModuleInputs(this.moduleName);
     }
 
@@ -18,7 +18,7 @@ class AdmissionUI extends AbstractSubUI {
         var level = obj.getPropDefault("gradeLevel", "--");
         var accountNumber = obj.getPropDefault("invoiceNumber", "--");
         var email = obj.getPropDefault("email");
-        var AdmissionId = obj.getPropDefault("AdmissionId");
+        var AdmissionId = obj.getPropDefault("Id");
         var str = `
             <div style="display: flex; flex-wrap: wrap;">
                 <div style="flex: 100%;">

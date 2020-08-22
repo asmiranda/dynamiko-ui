@@ -28,7 +28,6 @@ $(function () {
     // utils = new Utils();
     dashboard = new Dashboard();
     mainReport = new MainReport();
-    dynamikoCache = new DynamikoCache();
 
     // #################for saas and modules
     personalDashboardUI = new PersonalDashboardUI();

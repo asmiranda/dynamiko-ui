@@ -129,7 +129,7 @@ class Utils {
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log('loadRecordToForm called', url, data);
-            dynamikoCache.setLastRecordId(selectedId);
+            storage.set(constructMainForm.moduleName + "_RECORDID", selectedId);
 
             utils.loadJsonToForm(mainForm, data);
             utils.loadJsonAddInfo(data);
