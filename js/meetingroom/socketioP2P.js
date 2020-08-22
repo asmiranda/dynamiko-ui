@@ -102,7 +102,7 @@ class MyP2P {
 
     initVideoBox() {
         var context = this;
-        if (!$(`.miniVideo[email="${context.email}"]`).length) {
+        if (!$(`.remoteMiniVideoStream[email="${context.email}"]`).length) {
             console.log(`initVideoBox called for ${context.email}`)
             let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -110,8 +110,8 @@ class MyP2P {
             let successFunction = function (data) {
                 let profile = data.getProp("firstName");
                 let str = `
-                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="miniVideo" email="${context.email}">
-                        <video class="miniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                        <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
                         <div class="text-center" style="width: 100px; color:white;">${profile}</div>
                     </div>
                 `;
