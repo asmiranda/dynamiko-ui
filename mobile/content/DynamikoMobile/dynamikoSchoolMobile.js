@@ -1,7 +1,7 @@
 class DynamikoSchoolMobile extends SchoolMobile {
-    init() {
-        alert("comming from overrider!");
-    }
+    // init() {
+    //     alert("comming from overrider!");
+    // }
 }
 
 $(function () {
