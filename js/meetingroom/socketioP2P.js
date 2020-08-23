@@ -31,7 +31,9 @@ class SocketIOP2P {
 
     isMessageForMe(data) {
         let toEmail = data["toEmail"];
-        return toEmail == storage.getUname();
+        let forMe = toEmail == storage.getUname();
+        console.log(`forMe == ${forMe}`);
+        return forMe;
     }
 
     initJoinedRoom(mySocket, data) {
