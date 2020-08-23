@@ -34,7 +34,7 @@ function LoginJS() {
         }, 500);
     }
 
-    this.login = function (uname, pword, redUrl, successFunc) {
+    this.login = function (uname, pword, successFunc) {
         var context = this;
         var vdata = JSON.stringify({ "username": uname, "password": pword });
         console.log(vdata);
@@ -49,9 +49,11 @@ function LoginJS() {
                 }
                 console.log(data.token);
                 storage.storeAccountToken(uname, data);
-                loginJS.redirectHome(data.roles);
                 if (successFunc) {
                     successFunc(data);
+                }
+                else {
+                    loginJS.redirectHome(data.roles);
                 }
             },
             error: function (data) {
