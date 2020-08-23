@@ -27,17 +27,17 @@ class SocketIOP2P {
         let fromEmail = data["fromEmail"];
         let toEmail = data["toEmail"];
         let forMe = toEmail == storage.getUname();
-        forMe = forMe && fromEmail != localStorage.uname;
-        console.log(`forMe == ${forMe}`);
+        forMe = forMe && fromEmail != storage.getUname();
+        console.log(`is forMe[${storage.getUname()}] == ${forMe} from ${fromEmail}`);
         return forMe;
     }
 
     initJoinedRoom(mySocket, data) {
         let fromEmail = data["fromEmail"];
-        if (fromEmail != localStorage.uname) {
+        if (fromEmail != storage.getUname()) {
             let toEmail = data["fromEmail"];
             let myP2P = new MyP2P(toEmail, false);
-            console.log(`initJoinedRoom New P2P for ${toEmail} - ${localStorage.uname}`);
+            console.log(`initJoinedRoom New P2P for ${toEmail} - ${storage.getUname()}`);
             this.peerConnections[toEmail] = myP2P;
             mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
         }
@@ -47,7 +47,7 @@ class SocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = new MyP2P(toEmail, true);
-            console.log(`initWelcomeJoiner New P2P for ${toEmail} - ${localStorage.uname}`);
+            console.log(`initWelcomeJoiner New P2P for ${toEmail} - ${storage.getUname()}`);
             this.peerConnections[toEmail] = myP2P;
             myP2P.sendOffer();
         }
@@ -120,11 +120,11 @@ class MyP2P {
 
         let stored_profile = storage.get(`profile_${context.email}`);
         let tmp = $(`.remoteMiniVideo[email='${context.email}']`);
-        if (!tmp) {
+        if (tmp.length == 0) {
             let str = `
                 <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
                     <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center profile" style="width: 100px; color:white;" email="${context.email}">${stored_profile}</div>
+                    <div class="text-center profile" style="width: 100px; color:blue;" email="${context.email}">${stored_profile}</div>
                 </div>
             `;
             $(".videoBoxList").append(str);
