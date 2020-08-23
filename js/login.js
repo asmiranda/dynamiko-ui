@@ -20,6 +20,9 @@ function LoginJS() {
     this.redirectHome = function (roles) {
         let str = JSON.stringify(roles);
         let redUrl = "home.html";
+        if (utils.isAndroid()) {
+            redUrl = "home-android.html";
+        }
         if (str.includes("STUDENT")) {
             redUrl = "student-home.html"
         }

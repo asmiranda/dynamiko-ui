@@ -1,10 +1,6 @@
 class Storage {
     constructor() {
-        let userAgent = navigator.userAgent.toLowerCase();
-        var android = userAgent.indexOf("android") > -1;
-
-        console.log("userAgent==", userAgent);
-        if (android) {
+        if (utils.isAndroid()) {
             console.log("device is android...");
             this.myStorage = window.localStorage;
         }

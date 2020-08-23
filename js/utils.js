@@ -1,4 +1,12 @@
 class Utils {
+    isAndroid() {
+        let userAgent = navigator.userAgent.toLowerCase();
+        var isAndroidOS = userAgent.indexOf("android") > -1;
+
+        console.log("userAgent==", userAgent);
+        return isAndroidOS;
+    }
+
     collectSubRecordDataForSaving(clsName, moduleName) {
         var tmp = [];
         for (var i = 1; i <= 10; i++) {
