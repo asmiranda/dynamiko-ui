@@ -187,6 +187,10 @@ class MyP2P {
     onReceiveVideo(tmpMedia) {
         console.log(`onReceiveVideo track from ${this.email}`, tmpMedia)
         let videoElem = document.getElementById(`v_${this.email}`);
+        if (!videoElem) {
+            this.initVideoBox();
+            videoElem = document.getElementById(`v_${this.email}`);
+        }
         console.log(videoElem)
         videoElem.srcObject = tmpMedia;
     }
