@@ -94,7 +94,8 @@
     <script>
         $(function () {
             if (storage.getToken()) {
-                window.location.href = "home.html";
+                loginJS.redirectHome();
+                // window.location.href = "home.html";
             }
             else {
                 storage.clear();

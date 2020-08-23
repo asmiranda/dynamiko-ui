@@ -18,7 +18,14 @@ function LoginJS() {
     }
 
     this.redirectHome = function (roles) {
-        let str = JSON.stringify(roles);
+        let str = "";
+        if (!roles) {
+            str = storage.get("roles");
+        }
+        else {
+            str = JSON.stringify(roles);
+            storage.set("roles", str);
+        }
         let redUrl = "home.html";
         if (utils.isAndroid()) {
             redUrl = "home-android.html";
