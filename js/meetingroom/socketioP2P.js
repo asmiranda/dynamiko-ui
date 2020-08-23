@@ -140,10 +140,6 @@ class MyP2P {
     initPeerConnection() {
         let context = this;
 
-        for (const track of socketIOMediaStream.localVideo.getTracks()) {
-            this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
-        }
-
         this.peerConnection.onnegotiationneeded = function () {
             context.onNegotiationNeeded(context.email);
         }
@@ -155,6 +151,15 @@ class MyP2P {
         this.peerConnection.ontrack = function (ev) {
             context.onTrack(ev);
         };
+
+        for (const track of socketIOMediaStream.localVideo.getTracks()) {
+            try {
+                this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
     }
 
     onNegotiationNeeded(toEmail) {
