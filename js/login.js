@@ -47,11 +47,6 @@ function LoginJS() {
                 console.log(data.token);
                 storage.storeAccountToken(uname, data);
                 loginJS.redirectHome(data.roles);
-                // setTimeout(function () {
-                //     if (redUrl) {
-                //         window.location.href = redUrl;
-                //     }
-                // }, 500);
                 if (successFunc) {
                     successFunc(data);
                 }

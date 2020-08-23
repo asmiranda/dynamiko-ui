@@ -133,6 +133,7 @@ class MyP2P {
                     </div>
                 `;
                 $(".videoBoxList").append(str);
+                context.videoElem = document.getElementById(`v_${this.email}`);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
