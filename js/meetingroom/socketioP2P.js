@@ -119,15 +119,17 @@ class MyP2P {
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let stored_profile = storage.get(`profile_${context.email}`);
-        let str = `
-            <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
-                <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                <div class="text-center profile" style="width: 100px; color:white;" email="${context.email}">${stored_profile}</div>
-            </div>
-        `;
-        $(".videoBoxList").append(str);
+        let tmp = $(`.remoteMiniVideo[email='${context.email}']`);
+        if (!tmp) {
+            let str = `
+                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                    <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                    <div class="text-center profile" style="width: 100px; color:white;" email="${context.email}">${stored_profile}</div>
+                </div>
+            `;
+            $(".videoBoxList").append(str);
+        }
         context.videoElem = document.getElementById(`v_${context.email}`);
-
         if (!stored_profile) {
             let successFunction = function (data) {
                 let profile = data.getProp("firstName");
