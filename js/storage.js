@@ -1,7 +1,16 @@
 class Storage {
     constructor() {
-        // this.myStorage = window.localStorage;
-        this.myStorage = window.sessionStorage;
+        let userAgent = navigator.userAgent.toLowerCase();
+        var android = userAgent.indexOf("android") > -1;
+
+        console.log("userAgent==", userAgent);
+        if (android) {
+            console.log("device is android...");
+            this.myStorage = window.localStorage;
+        }
+        else {
+            this.myStorage = window.sessionStorage;
+        }
     }
 
     clear() {
