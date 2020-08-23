@@ -44,7 +44,7 @@ class SocketIOP2P {
             let toEmail = data["fromEmail"];
             let myP2P = new MyP2P(toEmail, false);
             this.peerConnections[toEmail] = myP2P;
-            myP2P.initVideoBox();
+            // myP2P.initVideoBox();
             mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
         }
     }
@@ -54,7 +54,7 @@ class SocketIOP2P {
             let toEmail = data["fromEmail"];
             let myP2P = new MyP2P(toEmail, true);
             this.peerConnections[toEmail] = myP2P;
-            myP2P.initVideoBox();
+            // myP2P.initVideoBox();
             myP2P.initPeerConnection();
         }
     }
@@ -121,8 +121,9 @@ class MyP2P {
     }
 
     initVideoBox() {
-        var context = this;
-        if (!$(`.remoteMiniVideoStream[email="${context.email}"]`).length) {
+        let context = this;
+        let videoElem = document.getElementById(`v_${this.email}`);
+        if (!videoElem) {
             console.log(`initVideoBox called for ${context.email}`)
             let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
@@ -188,11 +189,9 @@ class MyP2P {
 
     onReceiveVideo(tmpMedia) {
         console.log(`onReceiveVideo track from ${this.email}`, tmpMedia)
+        this.initVideoBox();
+
         let videoElem = document.getElementById(`v_${this.email}`);
-        if (!videoElem) {
-            this.initVideoBox();
-            videoElem = document.getElementById(`v_${this.email}`);
-        }
         console.log(videoElem)
         videoElem.srcObject = tmpMedia;
     }
