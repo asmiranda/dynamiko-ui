@@ -30,8 +30,10 @@ class SocketIOP2P {
     }
 
     isMessageForMe(data) {
+        let fromEmail = data["fromEmail"];
         let toEmail = data["toEmail"];
         let forMe = toEmail == storage.getUname();
+        forMe = forMe && fromEmail != localStorage.uname;
         console.log(`forMe == ${forMe}`);
         return forMe;
     }
