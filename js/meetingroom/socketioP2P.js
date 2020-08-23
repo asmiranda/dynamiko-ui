@@ -49,7 +49,7 @@ class SocketIOP2P {
             let myP2P = new MyP2P(toEmail, true);
             console.log(`initWelcomeJoiner New P2P for ${toEmail} - ${localStorage.uname}`);
             this.peerConnections[toEmail] = myP2P;
-            myP2P.initPeerConnection();
+            myP2P.sendOffer();
         }
     }
 
@@ -57,21 +57,8 @@ class SocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
-            myP2P.initPeerConnection();
-
             this.peerConnections[toEmail] = myP2P;
-
-            let pAnswer = null;
-            myP2P.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
-            myP2P.peerConnection.createAnswer().then(function (answer) {
-                pAnswer = answer;
-                return myP2P.peerConnection.setLocalDescription(answer);
-            })
-                .then(function () {
-                    // console.log(`onOffer to ${toEmail}`)
-                    mySocket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "sdp": pAnswer, "room": storage.getRoomCode() });
-                })
-                .catch(e => console.log(e));
+            myP2P.sendAnswer(data);
         }
     }
 
@@ -79,7 +66,7 @@ class SocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
-            // console.log(`onAnswer with ${toEmail}`)
+            console.log(`onAnswer with ${toEmail}`)
             myP2P.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
         }
     }
@@ -105,6 +92,7 @@ class SocketIOP2P {
 
 class MyP2P {
     constructor(email, isOfferSender) {
+        let context = this;
         this.email = email;
         this.isOfferSender = isOfferSender;
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
@@ -114,34 +102,6 @@ class MyP2P {
         });
         this.videoElem;
         this.initVideoBox();
-    }
-
-    initVideoBox() {
-        let context = this;
-        console.log(`initVideoBox called for ${context.email}`)
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
-        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
-
-        let successFunction = function (data) {
-            let profile = data.getProp("firstName");
-            let str = `
-                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
-                    <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center" style="width: 100px; color:white;">${profile}</div>
-                </div>
-            `;
-            $(".videoBoxList").append(str);
-            context.videoElem = document.getElementById(`v_${this.email}`);
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-    }
-
-    initPeerConnection() {
-        let context = this;
-
-        this.peerConnection.onnegotiationneeded = function () {
-            context.onNegotiationNeeded(context.email);
-        }
 
         this.peerConnection.onicecandidate = function (event) {
             context.sendIce(event);
@@ -150,31 +110,72 @@ class MyP2P {
         this.peerConnection.ontrack = function (ev) {
             context.onTrack(ev);
         };
+    }
 
-        for (const track of socketIOMediaStream.localVideo.getTracks()) {
-            try {
-                this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
-            }
-            catch (e) {
-                console.log(e);
-            }
+    initVideoBox() {
+        let context = this;
+        console.log(`initVideoBox called for ${context.email}`)
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        let stored_profile = storage.get(`profile_${context.email}`);
+        let str = `
+            <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                <div class="text-center profile" style="width: 100px; color:white;" email="${context.email}">${stored_profile}</div>
+            </div>
+        `;
+        $(".videoBoxList").append(str);
+        context.videoElem = document.getElementById(`v_${context.email}`);
+
+        if (!stored_profile) {
+            let successFunction = function (data) {
+                let profile = data.getProp("firstName");
+                storage.set(`vprofile_${context.email}`, profile);
+                $(`.profile[email='${context.email}']`).html(profile);
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
         }
     }
 
-    onNegotiationNeeded(toEmail) {
-        if (this.isOfferSender) {
-            let context = this;
-            this.peerConnection.createOffer(function (sdp) {
-                console.log(`sendOffer to ${toEmail}`)
-                context.peerConnection.setLocalDescription(sdp);
-                socketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
-            }, function (error) {
-                console.log("sendOffer", error)
-            });
+    sendTracks() {
+        for (const track of socketIOMediaStream.localVideo.getTracks()) {
+            console.log(`sendTracks to ${this.email}`)
+            this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
         }
+    }
+
+    sendOffer() {
+        let context = this;
+
+        this.sendTracks();
+        this.peerConnection.createOffer(function (sdp) {
+            console.log(`sendOffer to ${context.email}`)
+            context.peerConnection.setLocalDescription(sdp);
+            socketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
+        }, function (error) {
+            console.log("sendOffer", error)
+        });
+    }
+
+    sendAnswer(data) {
+        let context = this;
+        let pAnswer = null;
+        context.sendTracks();
+        context.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
+        context.peerConnection.createAnswer().then(function (answer) {
+            pAnswer = answer;
+            return context.peerConnection.setLocalDescription(answer);
+        })
+            .then(function () {
+                console.log(`onOffer to ${context.email}`)
+                socketIOMeetingRoom.socket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": pAnswer, "room": storage.getRoomCode() });
+            })
+            .catch(e => console.log(e));
     }
 
     onTrack(ev) {
+        console.log(`onTrack from ${this.email}`)
         let context = this;
         if (ev.streams && ev.streams[0]) {
             context.onReceiveVideo(ev.streams[0]);

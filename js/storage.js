@@ -1,7 +1,7 @@
 class Storage {
     constructor() {
-        this.myStorage = window.localStorage;
-        // this.myStorage = window.sessionStorage;
+        // this.myStorage = window.localStorage;
+        this.myStorage = window.sessionStorage;
     }
 
     clear() {
