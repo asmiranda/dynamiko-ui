@@ -118,25 +118,22 @@ class MyP2P {
 
     initVideoBox() {
         let context = this;
-        this.videoElem = document.getElementById(`v_${this.email}`);
-        if (!this.videoElem) {
-            console.log(`initVideoBox called for ${context.email}`)
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
-            let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        console.log(`initVideoBox called for ${context.email}`)
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-            let successFunction = function (data) {
-                let profile = data.getProp("firstName");
-                let str = `
-                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
-                        <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                        <div class="text-center" style="width: 100px; color:white;">${profile}</div>
-                    </div>
-                `;
-                $(".videoBoxList").append(str);
-                context.videoElem = document.getElementById(`v_${this.email}`);
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-        }
+        let successFunction = function (data) {
+            let profile = data.getProp("firstName");
+            let str = `
+                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                    <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                    <div class="text-center" style="width: 100px; color:white;">${profile}</div>
+                </div>
+            `;
+            $(".videoBoxList").append(str);
+            context.videoElem = document.getElementById(`v_${this.email}`);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     initPeerConnection() {
