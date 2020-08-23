@@ -1,11 +1,5 @@
 class SocketIOP2P {
     constructor() {
-        // this.peerConnectionConfig = {
-        //     'iceServers': [
-        //         { 'urls': 'stun:stun.services.mozilla.com' },
-        //         { 'urls': 'stun:stun.l.google.com:19302' },
-        //     ]
-        // };
         this.peerConnectionConfig = {
             'iceServers': [
                 { 'url': 'stun:stun.services.mozilla.com' },
@@ -43,8 +37,8 @@ class SocketIOP2P {
         if (fromEmail != localStorage.uname) {
             let toEmail = data["fromEmail"];
             let myP2P = new MyP2P(toEmail, false);
+            console.log(`initJoinedRoom New P2P for ${toEmail} - ${localStorage.uname}`);
             this.peerConnections[toEmail] = myP2P;
-            // myP2P.initVideoBox();
             mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
         }
     }
@@ -53,8 +47,8 @@ class SocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = new MyP2P(toEmail, true);
+            console.log(`initWelcomeJoiner New P2P for ${toEmail} - ${localStorage.uname}`);
             this.peerConnections[toEmail] = myP2P;
-            // myP2P.initVideoBox();
             myP2P.initPeerConnection();
         }
     }
@@ -74,7 +68,7 @@ class SocketIOP2P {
                 return myP2P.peerConnection.setLocalDescription(answer);
             })
                 .then(function () {
-                    console.log(`onOffer to ${toEmail}`)
+                    // console.log(`onOffer to ${toEmail}`)
                     mySocket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": toEmail, "sdp": pAnswer, "room": storage.getRoomCode() });
                 })
                 .catch(e => console.log(e));
@@ -85,7 +79,7 @@ class SocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
-            console.log(`onAnswer with ${toEmail}`)
+            // console.log(`onAnswer with ${toEmail}`)
             myP2P.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
         }
     }
@@ -94,7 +88,7 @@ class SocketIOP2P {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
-            console.log(`onIce from ${toEmail}`, data)
+            // console.log(`onIce from ${toEmail}`, data)
 
             myP2P.peerConnection.addIceCandidate(new RTCIceCandidate(data.ice));
         }
@@ -125,21 +119,23 @@ class MyP2P {
     initVideoBox() {
         let context = this;
         this.videoElem = document.getElementById(`v_${this.email}`);
-        console.log(`initVideoBox called for ${context.email}`)
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
-        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        if (!this.videoElem) {
+            console.log(`initVideoBox called for ${context.email}`)
+            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
+            let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        let successFunction = function (data) {
-            let profile = data.getProp("firstName");
-            let str = `
-                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
-                    <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center" style="width: 100px; color:white;">${profile}</div>
-                </div>
-            `;
-            $(".videoBoxList").append(str);
-        };
-        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+            let successFunction = function (data) {
+                let profile = data.getProp("firstName");
+                let str = `
+                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                        <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                        <div class="text-center" style="width: 100px; color:white;">${profile}</div>
+                    </div>
+                `;
+                $(".videoBoxList").append(str);
+            };
+            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+        }
     }
 
     initPeerConnection() {
