@@ -113,12 +113,12 @@ class MyP2P {
     constructor(email, isOfferSender) {
         this.email = email;
         this.isOfferSender = isOfferSender;
-        this.videoElem;
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
             optional: [{
                 RtpDataChannels: true
             }]
         });
+        this.videoElem;
         this.initVideoBox();
     }
 
@@ -189,15 +189,15 @@ class MyP2P {
 
     onReceiveVideo(tmpMedia) {
         console.log(`onReceiveVideo track from ${this.email}`, tmpMedia)
-        console.log(videoElem)
-        videoElem.srcObject = tmpMedia;
+        console.log(this.videoElem)
+        this.videoElem.srcObject = tmpMedia;
     }
 
     onReceiveScreen(tmpMedia) {
         console.log(`onReceiveScreen track from ${this.email}`)
-        var videoElem = document.querySelector(`#activeVideo`)[0];
-        console.log(videoElem);
-        videoElem.srcObject = tmpMedia;
+        var screenVideo = document.querySelector(`#activeVideo`)[0];
+        console.log(screenVideo);
+        screenVideo.srcObject = tmpMedia;
     }
 
     leaveRoom() {
