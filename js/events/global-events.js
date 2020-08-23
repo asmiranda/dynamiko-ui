@@ -262,7 +262,7 @@ class GlobalEvents {
         $(registeredModules).each(function (index, data) {
             var useModule = null;
             if ($(obj).attr("module") == null || $(obj).attr("module") == undefined) {
-                useModule = storage.getLatestModule();
+                useModule = storage.getModule();
             }
             else {
                 useModule = $(obj).attr("module");

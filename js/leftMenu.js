@@ -46,14 +46,14 @@ class LeftMenu {
     }
 
     loadUI(obj) {
-        storage.putLatestModule($(obj).attr("data"));
-        storage.putLatestModuleCode($(obj).attr("code"));
+        storage.setModule($(obj).attr("data"));
+        storage.setModuleCode($(obj).attr("code"));
         leftMenu.loadLatestUI();
     }
 
     loadLatestUI() {
         // registerDatatable.clearRegister();
-        constructMainForm.construct(storage.getLatestModule(), storage.getLatestModuleCode());
+        constructMainForm.construct(storage.getModule(), storage.getModuleCode());
     }
 }
 

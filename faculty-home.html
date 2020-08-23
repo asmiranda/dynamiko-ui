@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<!-- <a>Working for Review Center - Feb 3 2020</a> -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Dynamiko</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+  <link rel="stylesheet" href="plugins/printjs/print.min.css">
+  <link rel="stylesheet" href="plugins/leaflet/leaflet.css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="js/others/html5shiv.min.js"></script>
+  <script src="js/others/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="css/google.fonts.css">
+  <link rel="stylesheet" href="css/jquery.dataTables.css">
+  <!-- home.css -->
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/home.responsive.css">
+  <link rel="stylesheet" href="css/autocomplete.css">
+  <link rel="stylesheet" href="css/slim-scroll.css">
+  <link rel="stylesheet" href="css/responsive.dataTables.css">
+  <link rel="stylesheet" href="css/wordpress-hook.css">
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
+
+    <header class="main-header">
+
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>D</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Dynamiko</b></span>
+      </a>
+
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <a href="#" class="selectedModule" style="float: left; padding: 10px 10px;">
+          <span style="color: aliceblue; font-size: 18px;"></span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown waiting-menu">
+              <div id="waitingContainer" style="margin-top: 5px; display: none;">
+                <i style="color: aliceblue;">Loading</i> <img src="images/ajax-loader.gif" />
+              </div>
+            </li>
+            <li class="dropdown company company-menu" style="display: none;">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="useCompany">
+                <span style="padding-right: 15px;"></span><i class="fa fa-bank"></i>
+              </a>
+              <ul class="dropdown-menu sidebar-menu tree" data-widget="tree" style="max-height:700px; overflow-y:auto;">
+                <li><a href="#" class="leftMenuItem manageEmployee"><i class="fa fa-dashboard"></i> <span>Manage
+                      Employee</span></a></li>
+                <li><a href="#" class="leftMenuItem manageUserRoles"><i class="fa fa-dashboard"></i> <span>Manage User
+                      Roles</span></a></li>
+                <li><a href="#" class="leftMenuItem manageDepartment"><i class="fa fa-dashboard"></i> <span>Manage
+                      Department</span></a></li>
+                <li><a href="#" class="leftMenuItem manageTaxCategory"><i class="fa fa-dashboard"></i> <span>Manage Tax
+                      Category</span></a></li>
+                <li><a href="#" class="leftMenuItem manageAccountChart"><i class="fa fa-dashboard"></i> <span>Manage
+                      Account Chart</span></a></li>
+                <li><a href="#" class="leftMenuItem manageProduct"><i class="fa fa-dashboard"></i> <span>Manage
+                      Product</span></a></li>
+                <li><a href="#" class="leftMenuItem manageBenefit"><i class="fa fa-dashboard"></i> <span>Manage
+                      Benefit</span></a></li>
+                <li><a href="#" class="leftMenuItem manageSupplier"><i class="fa fa-dashboard"></i> <span>Manage
+                      Supplier</span></a></li>
+              </ul>
+            </li>
+            <li class="dropdown messages-menu" style="display: none;">
+              <a href="#" class="pivotTable">
+                <i class="fa fa-bar-chart"></i>
+              </a>
+            </li>
+            <li class="dropdown messages-menu" style="display: none;">
+              <a href="#" class="myReportViewer">
+                <i class="fa fa-file-text"></i>
+              </a>
+            </li>
+            <li class="dropdown messages-menu" style="display: none;">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="uploadDataFile">
+                <i class="fa fa-upload"></i>
+              </a>
+            </li>
+            <li class="dropdown messages-menu quickCall">
+              <div class="input-group margin" style="width: 250px;  margin-top: 5px; margin-right: 15px;">
+                <div class="input-group" style="width: 100%;">
+                  <input rowindex="0" type="text" class="form-control autocomplete" name="quickCallByCode"
+                    placeholder="Type user here" module="QuickCallUI" autoname="quickCallByCode"
+                    helptitle="quickCallByCode" style="border-radius: 10px 0px 0px 10px;">
+                  <span class="input-group-btn">
+                    <button type="button" id="btnQuickCall" class="btn btn-info btn-flat"
+                      style="border-radius: 0px 10px 10px 0px;">
+                      <i class="fa fa-phone"></i><span style="padding-left: 5px;">Call</span>
+                    </button>
+                  </span>
+                  </input>
+                  <input rowindex="0" id="quickCallCode" class="form-control editRecord HiddenAutoComplete"
+                    name="quickCallByCode" type="hidden" module="QuickCallUI" autonamefield="quickCallByCode" value="">
+                  <div class="autocomplete-items" rowindex="0" module="QuickCallUI" autoname="quickCallByCode"></div>
+                </div>
+              </div>
+            </li>
+            <li class="dropdown messages-menu myMeetingButtonGroup">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-users"></i><span style="padding-left: 5px;">Video Con</span>
+              </a>
+              <ul class="dropdown-menu sidebar-menu tree" data-widget="tree" id="myMeetings"
+                style="max-height:700px; overflow-y:auto;">
+              </ul>
+            </li>
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <!-- <img src="dist/img/user2-160x160.jpg" class="user-image profilePicture" alt="User Image"> -->
+                Welcome <span class="hidden-xs profileName" style="font-weight: bold;">User</span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <!-- <li class="user-header">
+                  <img src="dist/img/user2-160x160.jpg" class="img-circle profilePicture" alt="User Image">
+                  <p>
+                    <span class="profileName">User</span> - <span class="profileWork">User</span>
+                  </p>
+                </li> -->
+                <!-- Menu Body -->
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <!-- <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  </div> -->
+                  <div class="text-center">
+                    <a href="#" class="btn btn-default btn-flat btnProfile">Profile</a>
+                    <a href="#" class="btn btn-default btn-flat btnSignOut">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+            <li style="display: none;">
+              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="header">MAIN NAVIGATION</li>
+          <ul class="sidebar-menu mysidemenu" data-widget="tree" style="max-height:700px; overflow-y:auto;">
+          </ul>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" id="content-main">
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Create the tabs -->
+      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane" id="control-sidebar-home-tab">
+        </div>
+        <!-- /.tab-pane -->
+      </div>
+    </aside>
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+    <div style="position: absolute; top: 50px; right: 10px; display: flex;">
+      <div style="flex: 1;">
+        <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;"
+          autoplay playsinline></video>
+      </div>
+      <div style="flex: 1; margin-left: 10px;">
+        <a href="#" class="pull-right btnToggleMiniVideo">
+          <i class="glyphicon glyphicon-facetime-video icon-flipped"></i><span style="padding-left: 15px;"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="allModal" style="display: none;">
+      <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+              <h3 class="modal-title autoModalReportTitle">Report Viewer</h3>
+            </div>
+            <div class="modal-body">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <a href="#" class="pull-right btn-box-tool btnCustomReportFullScreen" report="AutoReport">Full
+                    Screen</a>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <iframe class="customReportViewerFrame" src="" style="width: 100%; height:500px;"
+                      report="AutoReport" webkitAllowFullScreen mozAllowFullScreen allowfullscreen></iframe>
+                  </div>
+                </div>
+                <div class="box-footer text-center">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="calendarQuickUpdater">
+        <div class="input-group date">
+          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+            fieldName="##FIELDNAME##" name="##FIELDNAME##" type="text"
+            class="form-control calendar displayEdit calendarQuickUpdaterInput" style="width: 100px;"
+            callback="##CALLBACK##">
+          <div class="input-group-addon displayEdit">
+            <i class="fa fa-calendar"></i>
+          </div>
+        </div>
+      </div>
+      <div id="textQuickUpdater">
+        <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##" fieldName="##FIELDNAME##"
+          name="##FIELDNAME##" type="text" class="form-control displayEdit textQuickUpdaterInput" style="width: 250px;"
+          callback="##CALLBACK##">
+      </div>
+      <div id="autoCompleteQuickUpdater">
+        <div class="input-group">
+          <input quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+            fieldName="##FIELDNAME##" name="##FIELDNAME##" autoName="##FIELDNAME##" type="text"
+            class="form-control autocomplete displayEdit autoCompleteQuickUpdaterInput" style="width: 250px;"
+            callback="##CALLBACK##">
+          <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+        </div>
+        <div class="input-group">
+          <select quickUpdaterId="##QUICKUPDATERID##" module="##MODULE##" recordId="##RECORDID##"
+            fieldName="##FIELDNAME##" autoName="##FIELDNAME##" size="3"
+            class="form-control autoCompleteQuickUpdaterSelect" style="width: 250px;" callback="##CALLBACK##">
+          </select>
+        </div>
+        <input class="form-control HiddenAutoComplete" name="##FIELDNAME##" type="hidden" module="##MODULE##"
+          mainmodule="##MODULE##" autoNameField="##FIELDNAME##">
+      </div>
+      <div id="quickMainSearcher">
+        <div class="input-group" style="min-width: 350px;">
+          <input module="##MODULE##" type="text" placeholder="Please type for search"
+            class="form-control displayEdit quickMainSearcherInput">
+          <span class="input-group-addon displayEdit"><i class="fa fa-search"></i></span>
+        </div>
+        <div class="box-body">
+          <div module="##MODULE##" class="quickMainSearcherResult" style="max-height: 700px; overflow-y: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ./wrapper -->
+
+
+
+  <!-- jQuery 3 -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+  <!-- Data Table -->
+  <script src="bower_components/datatables.net/js/jquery.dataTables.js"></script>
+  <script src="js/others/dataTables.responsive.js"></script>
+  <script src="js/others/dataTables.fixedColumns.js"></script>
+
+
+  <!-- Bootstrap 3.3.7 -->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <!-- FastClick -->
+  <script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
+  <!-- Sparkline -->
+  <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+  <!-- jvectormap  -->
+  <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+  <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+  <!-- SlimScroll -->
+  <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- iCheck -->
+  <script src="plugins/iCheck/icheck.min.js"></script>
+  <!-- ChartJS -->
+  <!-- <script src="bower_components/chart.js/Chart.js"></script> -->
+  <script src="node_modules/chart.js/dist/Chart.js"></script>
+  <link rel="stylesheet" href="node_modules/chart.js/dist/Chart.css">
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <!--<script src="dist/js/pages/dashboard2.js"></script>-->
+  <!-- AdminLTE for demo purposes -->
+  <!-- <script src="dist/js/demo.js"></script> -->
+
+  <script src="js/others/jquery-migrate-3.0.0.js"></script>
+  <link rel="stylesheet" href="css/jquery-confirm.min.css">
+  <script src="js/others/jquery-confirm.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
+  <!-- datepicker -->
+  <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+  <!-- input mask -->
+  <script src="plugins/input-mask/jquery.inputmask.js"></script>
+  <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+  <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+  <!-- <script src="plugins/jquery-mask/jquery.mask.js"></script> -->
+
+  <link href="plugins/webdatarocks/webdatarocks.css" rel="stylesheet" />
+  <script src="plugins/webdatarocks/webdatarocks.toolbar.js"></script>
+  <script src="plugins/webdatarocks/webdatarocks.googlecharts.js"></script>
+  <script src="plugins/webdatarocks/webdatarocks.js"></script>
+
+  <script src="plugins/printjs/print.min.js"></script>
+  <script src="plugins/leaflet/leaflet.js"></script>
+  <script src="plugins/leaflet/leaflet.js.map"></script>
+
+  <link rel="stylesheet" href="plugins/leaflet/unpkg/Control.Geocoder.css" />
+  <script src="plugins/leaflet/unpkg/Control.Geocoder.js"></script>
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="plugins/leaflet/unpkg/esri-leaflet.js"></script>
+  <!-- Load Esri Leaflet Geocoder from CDN -->
+  <link rel="stylesheet" href="plugins/leaflet/unpkg/esri-leaflet-geocoder.css" />
+  <script src="plugins/leaflet/unpkg/esri-leaflet-geocoder.js"></script>
+
+  <link rel="stylesheet" href="plugins/spinner/jquery-spinner.css" />
+  <script src="plugins/spinner/jquery-spinner.js"></script>
+
+  <script src="js/others/dropzone.js"></script>
+  <script src="js/others/jquery.fullscreen.js"></script>
+  <script src="js/others/localforage.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/dynamiko-fullscreen.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/alertConfirm.js"></script>
+  <script src="js/ajaxCaller.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/constructForm.js"></script>
+  <script src="js/constructReport.js"></script>
+  <script src="js/childTab.js"></script>
+  <script src="js/childTabs.js"></script>
+  <script src="js/fieldConstructor.js"></script>
+  <script src="js/childFieldConstructor.js"></script>
+  <script src="js/leftMenu.js"></script>
+  <script src="js/uiService.js"></script>
+  <script src="js/register.js"></script>
+  <script src="js/mainObj.js"></script>
+  <script src="js/form-linker.js"></script>
+  <script src="js/autocomplete.js"></script>
+  <script src="js/buttonAction.js"></script>
+  <script src="js/custom-report.js"></script>
+
+  <script src="js/chart-utils.js"></script>
+  <script src="js/dashboard.js"></script>
+
+  <script src="js/reports/invoice.js"></script>
+  <script src="js/inbox.js"></script>
+  <script src="js/dynamiko-chart.js"></script>
+  <script src="js/data-visualizer.js"></script>
+  <script src="js/myreport-viewer.js"></script>
+  <script src="js/dynamiko-widget-chart.js"></script>
+  <script src="js/reportLoader.js"></script>
+  <script src="js/upload-data-file.js"></script>
+  <script src="js/quick-updater.js"></script>
+  <script src="js/quick-searcher.js"></script>
+  <script src="js/dynamiko-cache.js"></script>
+  <script src="js/sockjs.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+    integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+
+
+  <script src="js/widgets/tasks-widget.js"></script>
+  <script src="js/widgets/ticket-chart-widget.js"></script>
+  <script src="js/widgets/sales-chart-widget.js"></script>
+  <script src="js/widgets/procurement-chart-widget.js"></script>
+  <script src="js/widgets/hrforms-widget.js"></script>
+  <script src="js/widgets/hrevents-widget.js"></script>
+  <script src="js/widgets/hrnews-widget.js"></script>
+  <script src="js/widgets/hrdocuments-widget.js"></script>
+  <script src="js/widgets/mylinks-widget.js"></script>
+  <script src="js/widgets/chat-widget.js"></script>
+
+
+  <script src="js/mainJS.js"></script>
+  <script src="js/storage.js"></script>
+
+  <script src="js/meetingroom/meetingLoader.js"></script>
+  <!--Using SocketIO-->
+  <script src="js/meetingroom/socketioMeetingRoom.js"></script>
+  <script src="js/meetingroom/socketioMessageHandler.js"></script>
+  <script src="js/meetingroom/socketioP2P.js"></script>
+  <script src="js/meetingroom/socketioMediaStream.js"></script>
+
+  <script src="js/meetingroom/quickCall.js"></script>
+  <script src="js/meetingroom/screenShare.js"></script>
+
+  <script src="js/modules/AbstractUI.js"></script>
+  <script src="js/modules/AbstractSubUI.js"></script>
+
+  <script src="js/modules/submodules/AccountChartUI.js"></script>
+  <script src="js/modules/submodules/AccountingDashboardUI.js"></script>
+  <script src="js/modules/submodules/AccountingReportUI.js"></script>
+  <script src="js/modules/submodules/BankingUI.js"></script>
+  <script src="js/modules/submodules/BusinessPermitUI.js"></script>
+  <script src="js/modules/submodules/CitizenUI.js"></script>
+  <script src="js/modules/submodules/CommunityTaxCertificateUI.js"></script>
+  <script src="js/modules/submodules/EmployeeTeamMemberUI.js"></script>
+  <script src="js/modules/submodules/EmployeeTimeSheetUI.js"></script>
+  <script src="js/modules/submodules/ExpenseUI.js"></script>
+  <script src="js/modules/submodules/GovernmentAccountingUI.js"></script>
+  <script src="js/modules/submodules/GovernmentCashierUI.js"></script>
+  <script src="js/modules/submodules/GovernmentPrintingUI.js"></script>
+  <script src="js/modules/submodules/GovernmentReportsUI.js"></script>
+  <script src="js/modules/submodules/HrRequisitionUI.js"></script>
+  <script src="js/modules/submodules/ManualEntryUI.js"></script>
+  <script src="js/modules/submodules/PayableUI.js"></script>
+  <script src="js/modules/submodules/PayrollScheduleUI.js"></script>
+  <script src="js/modules/submodules/PersonTaskUI.js"></script>
+  <script src="js/modules/submodules/PersonUI.js"></script>
+  <script src="js/modules/submodules/ProductRequestUI.js"></script>
+  <script src="js/modules/submodules/ProductUI.js"></script>
+  <script src="js/modules/submodules/PurchaseOrderUI.js"></script>
+  <script src="js/modules/submodules/RealEstateBuildingPermitUI.js"></script>
+  <script src="js/modules/submodules/RealEstateElectricalPermitUI.js"></script>
+  <script src="js/modules/submodules/RealEstatePlumbingPermitUI.js"></script>
+  <script src="js/modules/submodules/RealEstateTaxUI.js"></script>
+  <script src="js/modules/submodules/RealEstateTransferUI.js"></script>
+  <script src="js/modules/submodules/RealEstateUI.js"></script>
+  <script src="js/modules/submodules/ReceivableUI.js"></script>
+  <script src="js/modules/submodules/ReconcileUI.js"></script>
+  <script src="js/modules/submodules/SalesOrderUI.js"></script>
+  <script src="js/modules/submodules/SupplierUI.js"></script>
+  <script src="js/modules/submodules/TaxPeriodUI.js"></script>
+  <script src="js/modules/submodules/UserUI.js"></script>
+  <script src="js/modules/submodules/ConferenceRoomUI.js"></script>
+  <script src="js/modules/submodules/AdmissionUI.js"></script>
+  <script src="js/modules/submodules/EnrollmentUI.js"></script>
+  <script src="js/modules/submodules/SchoolCashierUI.js"></script>
+  <script src="js/modules/submodules/NotificationUI.js"></script>
+
+  <script src="js/modules/FacultyScheduleUI.js"></script>
+  <script src="js/modules/StudentScheduleUI.js"></script>
+  <script src="js/modules/PersonalDashboardUI.js"></script>
+  <script src="js/modules/RecruitmentUI.js"></script>
+  <script src="js/modules/EmployeeUI.js"></script>
+  <script src="js/modules/PayrollUI.js"></script>
+  <script src="js/modules/InventoryUI.js"></script>
+  <script src="js/modules/HospitalUI.js"></script>
+  <script src="js/modules/GovernmentUI.js"></script>
+  <script src="js/modules/SchoolUI.js"></script>
+  <script src="js/modules/ReviewCenterUI.js"></script>
+  <script src="js/modules/AccountingUI.js"></script>
+  <script src="js/modules/ReferenceUI.js"></script>
+  <script src="js/modules/ReportUI.js"></script>
+  <script src="js/modules/ConferenceUI.js"></script>
+  <script src="js/modules/AllNotificationUI.js"></script>
+  <script src="js/modules/FacultyDashboardUI.js"></script>
+  <script src="js/modules/StudentDashboardUI.js"></script>
+
+  <script src="js/meetingui/GenericMeetingUI.js"></script>
+  <script src="js/meetingui/FacultyMeetingUI.js"></script>
+
+  <script src="js/events/global-events-others.js"></script>
+  <script src="js/events/global-events-hr.js"></script>
+  <script src="js/events/global-events-accounting.js"></script>
+  <script src="js/events/global-events-government.js"></script>
+  <script src="js/events/global-events.js"></script>
+
+  <script src="js/main-initializer.js"></script>
+</body>
+
+</html>

@@ -69,7 +69,7 @@ class UiService {
 
     loadUI(myui) {
         var moduleName = myui;
-        storage.putLatestModule(moduleName);
+        storage.setModule(moduleName);
         registerDatatable.clearRegister();
 
         constructMainForm.construct(moduleName);
@@ -106,7 +106,7 @@ class UiService {
         $("#useCompany").empty();
         $("#useCompany").append(useCompanyStr);
 
-        if (storage.getLatestModule()) {
+        if (storage.getModule()) {
             leftMenu.loadLatestUI();
         }
     }

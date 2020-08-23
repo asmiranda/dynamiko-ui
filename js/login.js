@@ -17,6 +17,20 @@ function LoginJS() {
         return withRole;
     }
 
+    this.redirectHome = function (roles) {
+        let str = JSON.stringify(roles);
+        let redUrl = "home.html";
+        if (str.includes("STUDENT")) {
+            redUrl = "student-home.html"
+        }
+        else if (str.includes("FACULTY")) {
+            redUrl = "faculty-home.html"
+        }
+        setTimeout(function () {
+            window.location.href = redUrl;
+        }, 500);
+    }
+
     this.login = function (uname, pword, redUrl, successFunc) {
         var context = this;
         var vdata = JSON.stringify({ "username": uname, "password": pword });
@@ -32,11 +46,12 @@ function LoginJS() {
                 }
                 console.log(data.token);
                 storage.storeAccountToken(uname, data);
-                setTimeout(function () {
-                    if (redUrl) {
-                        window.location.href = redUrl;
-                    }
-                }, 500);
+                loginJS.redirectHome(data.roles);
+                // setTimeout(function () {
+                //     if (redUrl) {
+                //         window.location.href = redUrl;
+                //     }
+                // }, 500);
                 if (successFunc) {
                     successFunc(data);
                 }

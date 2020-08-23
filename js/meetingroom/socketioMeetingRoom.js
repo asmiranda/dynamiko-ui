@@ -1,5 +1,5 @@
 class SocketIOMeetingRoom {
-    constructor() {
+    init() {
         this.title
         this.socket = io.connect(MAIN_SIGNAL_URL)
 
@@ -38,17 +38,7 @@ class SocketIOMeetingRoom {
         let context = this;
         this.title = `${title} [${roomCode}]`;
         storage.setRoomCode(roomCode)
-
-        let successRoomPopup = function (data) {
-            socketIOMediaStream.initVideo(function () {
-                console.log("Local Media Started");
-                socketIOMessageHandler.joinRoom(context.socket);
-            });
-        }
-        let successCallback = function (data) {
-            showModalAny1200NoButtons.show(context.title, data, successRoomPopup);
-        };
-        utils.getTabHtml("ConferenceUI", "SocketIOMeetingRoom", successCallback);
+        socketIOMessageHandler.joinRoom(context.socket);
     }
 }
 
@@ -57,5 +47,5 @@ $(function () {
     socketIOMessageHandler = new SocketIOMessageHandler();
     socketIOP2P = new SocketIOP2P();
     socketIOMediaStream = new SocketIOMediaStream();
-    window.onbeforeunload = socketIOMeetingRoom.leaveRoom();
+    // window.onbeforeunload = socketIOMeetingRoom.leaveRoom();
 })

@@ -5,7 +5,7 @@ class CustomReport {
         var reportName = $(obj).attr("report");
         var reportRecordId = $(obj).attr("recordId");
         var reportCriteria = {};
-        reportCriteria["recordId"] = storage.getLatestModuleId();
+        reportCriteria["recordId"] = storage.getModuleId();
         reportCriteria["reportRecordId"] = reportRecordId;
         console.log(reportCriteria);
 
@@ -27,7 +27,7 @@ class CustomReport {
         console.log(allSelect);
         console.log("reload ");
         console.log(this);
-        console.log("Main ID == " + storage.getLatestModuleId());
+        console.log("Main ID == " + storage.getModuleId());
 
         var iframeViewer = `iframe.customReportViewerFrame[report='${reportName}']`;
         console.log(iframeViewer);
@@ -41,7 +41,7 @@ class CustomReport {
             myData["action"] = "loadSelect";
             myData["report"] = reportName;
             myData["inputName"] = inputName;
-            myData["recordId"] = storage.getLatestModuleId();
+            myData["recordId"] = storage.getModuleId();
 
             var vdata = JSON.stringify(myData);
             console.log(vdata);
@@ -91,7 +91,7 @@ class CustomReport {
             var value = $(this).val();
             reportCriteria[name] = value;
         });
-        reportCriteria["recordId"] = storage.getLatestModuleId();
+        reportCriteria["recordId"] = storage.getModuleId();
         console.log(reportCriteria);
 
         var vdata = JSON.stringify(reportCriteria);

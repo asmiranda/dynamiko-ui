@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<!-- <a>Working for Review Center - Feb 3 2020</a> -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamiko</title>
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="css/home-center.css">
+
+  <!-- jQuery 3 -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="js/others/jquery-migrate-3.0.0.js"></script>
+  <script src="js/others/jquery-confirm.min.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/alertConfirm.js"></script>
+  <script src="js/ajaxCaller.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/mainObj.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+    integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+  <script src="js/meetingroom/socketioMediaStream.js"></script>
+  <script src="js/meetingroom/socketioMeetingRoom.js"></script>
+  <script src="js/meetingroom/socketioMessageHandler.js"></script>
+  <script src="js/meetingroom/socketioP2P.js"></script>
+  <script src="js/meetingroom/quickCall.js"></script>
+  <script src="js/meetingroom/screenShare.js"></script>
+
+  <script src="js/initializer/student-home.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div style="flex: 1; margin-top: 0px; color: white; background: #3a7cbd; height: 30px; padding-top: 7px;"
+        class="text-center">Virtual School</div>
+      <div class="box-header with-border">
+        <div id="welcome" style="display: none; margin-top: -34px;">
+          <span id="myProfileName" style="color: white;">Please login</span>
+          <div style="color: #cc5a62;" class="btnLogout pull-right">Logout</div>
+        </div>
+      </div>
+    </header>
+    <div class="body">
+      <div id="loginScreen" style="display: none;">
+        <div class="login-box-body" style="margin: 50px; margin-top: 200px;">
+          <p class="login-box-msg">Sign in to start your session</p>
+          <form class="form-signin" method="POST">
+            <div class="form-group has-feedback">
+              <input class="form-control logInput" id="email" name="email" th:placeholder="Email" type="email"
+                value="student1@test.com" />
+              <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+              <input class="form-control logInput" id="password" name="password" th:placeholder="Password"
+                type="password" value="password" />
+              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="checkbox icheck">
+                </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-xs-4">
+                <button class="btn btn-lg btn-primary btn-block" name="btnLogin" id="btnLogin" text="Login"
+                  value="Login" type="button">Login</button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+          <a href="#">I forgot my password</a><br>
+          <a class="text-center" href="registration.html">Register a new membership</a>
+        </div>
+      </div>
+      <div id="meetingScreen">
+        <video id="activeVideo" autoplay playsinline></video>
+        <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"></video>
+      </div>
+      <div id="moduleDetails" style="display: none;">
+        <div class="box-header with-border text-center" style="margin-top: -5px;">
+          <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
+          <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
+        </div>
+        <div class="box-header with-border">
+          <span>Activities</span>
+        </div>
+        <ul class="timeline timeline-inverse" id="ActivityList">
+        </ul>
+        <div class="box-header with-border">
+          <span>List of Students</span>
+        </div>
+        <ul class="users-list clearfix" id="studentImageRoster">
+        </ul>
+      </div>
+    </div>
+    <footer>
+      <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;" id="remoteVideos" class="videoBoxList"></div>
+      <div id="myModules" style="display: none;">
+        <div class="box-header with-border" style="margin: 0; padding: 4px; color: white; background-color: #5a93cc;">
+          <span class="box-title" style="font-size: 15px; padding-top: 8px;">Choose Modules Below ( Scrollable <--->
+              )</span>
+          <div class="pull-right" style="margin-right: 10px;">
+            <a type="button" class="btn btn-danger btnCall"
+              style="padding-left: 15px; padding-right: 15px; border-radius: 40%;">Call</a>
+          </div>
+        </div>
+        <div class="box-body">
+          <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    $(function () {
+      studentHome.init();
+    });
+  </script>
+</body>
+
+</html>

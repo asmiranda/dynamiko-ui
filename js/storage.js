@@ -15,18 +15,30 @@ class Storage {
         return this.myStorage.roomCode;
     }
 
+    setProfileName(profileName) {
+        return this.myStorage.profileName = profileName;
+    }
+    getProfileName() {
+        return this.myStorage.profileName;
+    }
+
+    setUname(uname) {
+        return this.myStorage.uname = uname;
+    }
     getUname() {
         return this.myStorage.uname;
     }
 
-    getToken() {
-        return this.myStorage.getItem("token");
-    }
-
     setToken(token) {
-        this.myStorage.setItem("token", token);
+        this.myStorage.token = token;
+    }
+    getToken() {
+        return this.myStorage.token;
     }
 
+    setCompanyCode(companyCode) {
+        this.myStorage.companyCode = companyCode;
+    }
     getCompanyCode() {
         return this.myStorage.companyCode;
     }
@@ -37,28 +49,28 @@ class Storage {
         this.myStorage.companyCode = data.companyCode;
     }
 
-    putLatestModule(moduleName) {
+    setModule(moduleName) {
         this.myStorage.latestModule = moduleName;
     }
 
-    getLatestModule() {
+    getModule() {
         return this.myStorage.latestModule;
     }
 
-    putLatestModuleId(moduleId) {
-        this.myStorage.latestModuleId = moduleId;
+    setModuleId(moduleId) {
+        this.myStorage.moduleId = moduleId;
     }
 
-    getLatestModuleId() {
-        return this.myStorage.latestModuleId;
+    getModuleId() {
+        return this.myStorage.moduleId;
     }
 
-    putLatestModuleCode(moduleCode) {
-        this.myStorage.latestModuleCode = moduleCode;
+    setModuleCode(moduleCode) {
+        this.myStorage.moduleCode = moduleCode;
     }
 
-    getLatestModuleCode() {
-        return this.myStorage.latestModuleCode;
+    getModuleCode() {
+        return this.myStorage.moduleCode;
     }
 
     set(key, value) {
