@@ -113,33 +113,33 @@ class MyP2P {
     constructor(email, isOfferSender) {
         this.email = email;
         this.isOfferSender = isOfferSender;
+        this.videoElem;
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
             optional: [{
                 RtpDataChannels: true
             }]
         });
+        this.initVideoBox();
     }
 
     initVideoBox() {
         let context = this;
-        let videoElem = document.getElementById(`v_${this.email}`);
-        if (!videoElem) {
-            console.log(`initVideoBox called for ${context.email}`)
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
-            let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        this.videoElem = document.getElementById(`v_${this.email}`);
+        console.log(`initVideoBox called for ${context.email}`)
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-            let successFunction = function (data) {
-                let profile = data.getProp("firstName");
-                let str = `
-                    <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
-                        <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                        <div class="text-center" style="width: 100px; color:white;">${profile}</div>
-                    </div>
-                `;
-                $(".videoBoxList").append(str);
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-        }
+        let successFunction = function (data) {
+            let profile = data.getProp("firstName");
+            let str = `
+                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                    <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
+                    <div class="text-center" style="width: 100px; color:white;">${profile}</div>
+                </div>
+            `;
+            $(".videoBoxList").append(str);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     initPeerConnection() {
@@ -189,9 +189,6 @@ class MyP2P {
 
     onReceiveVideo(tmpMedia) {
         console.log(`onReceiveVideo track from ${this.email}`, tmpMedia)
-        this.initVideoBox();
-
-        let videoElem = document.getElementById(`v_${this.email}`);
         console.log(videoElem)
         videoElem.srcObject = tmpMedia;
     }
