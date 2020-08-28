@@ -5,12 +5,12 @@ class SocketIOP2P {
                 {
                     'urls': [
                         {
-                            'url': 'stun:dynamikosoft.com:5349',
+                            'url': 'stun:dynamikosoft.com:3478?transport=tcp',
                             'username': 'dynamiko',
                             'credential': 'Miran!11',
                         },
                         {
-                            'url': 'turn:dynamikosoft.com:5349',
+                            'url': 'turn:dynamikosoft.com:3478?transport=tcp',
                             'username': 'dynamiko',
                             'credential': 'Miran!11',
                         }
