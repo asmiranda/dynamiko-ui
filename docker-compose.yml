@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  dynamiko-ui:
+    image: niq77avie/dynamiko-ui
+    container_name: "Dynamiko_UI"
+    volumes:
+      - C:/Work/innovation/dynamiko/ui/dynamiko-ui:/usr/share/nginx/html
+    ports:
+      - "7777:7777"
+
+  dynamiko-service:
+    image: niq77avie/dynamiko-python-service
+    container_name: "Dynamiko_Service"
+    volumes:
+      - C:/Work/innovation/dynamiko/server/dynamiko-python-service:/app
+    ports:
+      - "8888:8888"
+    environment:
+      - MYSQL_URL=mysql+pymysql://dynamikodb:dynamikodb@192.168.1.9:3306/dynamikodb
+
+  # dynamiko-coturn:
+  #   image: instrumentisto/coturn
+  #   container_name: "Dynamiko_Coturn"
+  # ports:
+  #   - "3478:3478"
+  #   - "49152-65535:49152-65535/udp"

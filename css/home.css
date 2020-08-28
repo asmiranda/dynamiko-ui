@@ -177,3 +177,7 @@ div.upload {
     width: 100%;
     height: 0;
 }
+
+.miniVideoStream {
+    border-radius: 50%;
+}

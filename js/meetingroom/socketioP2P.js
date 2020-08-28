@@ -2,20 +2,21 @@ class SocketIOP2P {
     constructor() {
         this.peerConnectionConfig = {
             'iceServers': [
-                { 'url': 'stun:stun.services.mozilla.com' },
-                { 'urls': 'stun:stun.l.google.com:19302' },
-                // {
-                //     'url': 'turn:192.158.29.39:3478?transport=udp',
-                //     'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                //     'username': '28224511:1379330808'
-                // },
-                {
-                    'url': 'turn:dynamikosoft.com:3478?transport=tcp',
-                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                    'username': '28224511:1379330808'
-                }
+                { 'urls': ['stun:stun.services.mozilla.com', 'stun:stun.l.google.com:19302'] }
             ]
         }
+        //     this.peerConnectionConfig = {
+        //         'iceServers': [
+        //             { 'url': 'stun:stun.services.mozilla.com' },
+        //             { 'urls': 'stun:stun.l.google.com:19302' },
+        //             {
+        //                 'url': 'turn:dynamikosoft.com:3478?transport=tcp',
+        //                 'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+        //                 'username': '28224511:1379330808'
+        //             }
+        //         ]
+        //     }
+        // }
     }
 
     clearConnections() {
@@ -122,7 +123,7 @@ class MyP2P {
         let tmp = $(`.remoteMiniVideo[email='${context.email}']`);
         if (tmp.length == 0) {
             let str = `
-                <div style="flex: 1; width: 100px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
+                <div style="width: 70px; height: 70px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
                     <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
                     <div class="text-center profile" style="width: 100px; color:blue;" email="${context.email}">${stored_profile}</div>
                 </div>

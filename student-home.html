@@ -51,7 +51,7 @@
       <div class="box-header with-border">
         <div id="welcome" style="display: none; margin-top: -34px;">
           <span id="myProfileName" style="color: white;">Please login</span>
-          <div style="color: #cc5a62;" class="btnLogout pull-right">Logout</div>
+          <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
         </div>
       </div>
     </header>
@@ -109,24 +109,27 @@
       </div>
     </div>
     <footer>
-      <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;" id="remoteVideos" class="videoBoxList"></div>
+      <div id="remoteVideos" class="videoBoxList"></div>
       <div id="myModules" style="display: none;">
-        <div class="box-header with-border" style="margin: 0; padding: 4px; color: white; background-color: #5a93cc;">
-          <span class="box-title" style="font-size: 15px; padding-top: 8px;">Choose Modules Below ( Scrollable <--->
-              )</span>
-          <div class="pull-right" style="margin-right: 10px;">
-            <a type="button" class="btn btn-danger btnCall"
-              style="padding-left: 15px; padding-right: 15px; border-radius: 40%;">Call</a>
+        <div class="box-body" style="padding: 1px;">
+          <div style="flex: 8; display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">
           </div>
         </div>
-        <div class="box-body">
-          <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">
-          </div>
+      </div>
+      <div style="display: flex; flex-direction: column; position: absolute; bottom: 70px; right: -6px;">
+        <div style="flex: 1;">
+          <a class="btnCall" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+              class="fa fa-fw fa-phone-square" style="font-size: 25px;"></i></a>
+        </div>
+        <div style="flex: 1;">
+          <a class="btnChat" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+              class="fa fa-fw fa-wechat" style="font-size: 25px;"></i></a>
         </div>
       </div>
     </footer>
   </div>
-  <script src="https://dynamikosoft.com/ui/js/initializer/school-hook.js"></script>
+  <script src="js/initializer/school-hook.js"></script>
+  <link rel="stylesheet" href="css/school-hook.css">
   <script>
     $(function () {
       studentHome.init();
