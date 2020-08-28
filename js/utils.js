@@ -1,4 +1,8 @@
 class Utils {
+    isLocal() {
+        return window.location.href.includes("localhost") || window.location.href.includes("10.0.2.2");
+    }
+
     isAndroid() {
         let userAgent = navigator.userAgent.toLowerCase();
         var isAndroidOS = userAgent.indexOf("android") > -1;
@@ -431,14 +435,12 @@ class BenchMark {
     }
 
     log() {
-        var endTime = new Date();
-        var totalTime = endTime.getTime() - this.startTime.getTime();
+        let endTime = new Date();
+        let totalTime = endTime.getTime() - this.startTime.getTime();
         console.log(`#################${this.label} took ${totalTime} to complete.################`);
     }
 }
 
-$(function () {
-    utils = new Utils();
-    benchMark = new BenchMark();
-});
+const utils = new Utils();
+const benchMark = new BenchMark();
 

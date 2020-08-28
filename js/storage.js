@@ -1,14 +1,4 @@
 class Storage {
-    constructor() {
-        if (utils.isAndroid()) {
-            console.log("device is android...");
-            this.myStorage = window.localStorage;
-        }
-        else {
-            this.myStorage = window.sessionStorage;
-        }
-    }
-
     clear() {
         this.myStorage.clear();
     }
@@ -91,7 +81,15 @@ class Storage {
     }
 }
 
+const storage = new Storage();
+
 $(function () {
-    storage = new Storage();
+    if (utils.isAndroid()) {
+        console.log("device is android...");
+        storage.myStorage = window.localStorage;
+    }
+    else {
+        storage.myStorage = window.sessionStorage;
+    }
 });
 

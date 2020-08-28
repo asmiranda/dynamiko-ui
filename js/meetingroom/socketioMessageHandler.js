@@ -6,14 +6,17 @@ class SocketIOMessageHandler {
     }
 
     onJoinedRoom(mySocket, data) {
+        console.log(`onJoinedRoom`, data)
         socketIOP2P.initJoinedRoom(mySocket, data);
     }
 
     onWelcomeJoiner(mySocket, data) {
+        console.log(`onWelcomeJoiner`, data)
         socketIOP2P.initWelcomeJoiner(mySocket, data);
     }
 
     onOffer(mySocket, data) {
+        console.log(`onOffer`, data)
         let fromEmail = data["fromEmail"];
         if (storage.getUname() != fromEmail) {
             socketIOP2P.onOffer(mySocket, data);
@@ -21,6 +24,7 @@ class SocketIOMessageHandler {
     }
 
     onAnswer(mySocket, data) {
+        console.log(`onAnswer`, data)
         let fromEmail = data["fromEmail"];
         if (fromEmail != storage.getUname()) {
             socketIOP2P.onAnswer(mySocket, data);
@@ -28,6 +32,7 @@ class SocketIOMessageHandler {
     }
 
     onIce(mySocket, data) {
+        console.log(`onIce`, data)
         socketIOP2P.onIce(mySocket, data);
     }
 

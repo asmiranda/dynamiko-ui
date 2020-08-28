@@ -3,23 +3,16 @@ class SocketIOP2P {
         this.peerConnectionConfig = {
             'iceServers': [
                 {
-                    'urls': ['stun:dynamikosoft.com:3478', 'turn:dynamikosoft.com:3478'],
-                    'username': 'dynamiko',
-                    'credentials': 'Miran!11',
-                }
+                    urls: ['stun:dynamikosoft.com:3478', 'turn:dynamikosoft.com:3478'],
+                    credential: 'Miran!11',
+                    username: 'dynamiko'
+                },
             ]
         }
-        //     this.peerConnectionConfig = {
-        //         'iceServers': [
-        //             { 'url': 'stun:stun.services.mozilla.com' },
-        //             { 'urls': 'stun:stun.l.google.com:19302' },
-        //             {
-        //                 'url': 'turn:dynamikosoft.com:3478?transport=tcp',
-        //                 'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-        //                 'username': '28224511:1379330808'
-        //             }
-        //         ]
-        //     }
+        // this.peerConnectionConfig = {
+        //     'iceServers': [
+        //         { 'urls': ['stun:stun.services.mozilla.com', 'stun:stun.l.google.com:19302'] },
+        //     ]
         // }
     }
 
@@ -38,6 +31,7 @@ class SocketIOP2P {
     }
 
     initJoinedRoom(mySocket, data) {
+        console.log(`initJoinedRoom`, data)
         let fromEmail = data["fromEmail"];
         if (fromEmail != storage.getUname()) {
             let toEmail = data["fromEmail"];
@@ -100,13 +94,13 @@ class MyP2P {
         let context = this;
         this.email = email;
         this.isOfferSender = isOfferSender;
+        this.videoElem;
+        this.initVideoBox();
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
             optional: [{
                 RtpDataChannels: true
             }]
         });
-        this.videoElem;
-        this.initVideoBox();
 
         this.peerConnection.onicecandidate = function (event) {
             context.sendIce(event);
