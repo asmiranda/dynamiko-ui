@@ -3,18 +3,9 @@ class SocketIOP2P {
         this.peerConnectionConfig = {
             'iceServers': [
                 {
-                    'urls': [
-                        {
-                            'url': 'stun:dynamikosoft.com:3478?transport=tcp',
-                            'username': 'dynamiko',
-                            'credential': 'Miran!11',
-                        },
-                        {
-                            'url': 'turn:dynamikosoft.com:3478?transport=tcp',
-                            'username': 'dynamiko',
-                            'credential': 'Miran!11',
-                        }
-                    ]
+                    'urls': ['stun:dynamikosoft.com:3478', 'turn:dynamikosoft.com:3478'],
+                    'username': 'dynamiko',
+                    'credentials': 'Miran!11',
                 }
             ]
         }
