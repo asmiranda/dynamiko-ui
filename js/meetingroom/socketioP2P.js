@@ -2,7 +2,20 @@ class SocketIOP2P {
     constructor() {
         this.peerConnectionConfig = {
             'iceServers': [
-                { 'urls': ['stun:stun.services.mozilla.com', 'stun:stun.l.google.com:19302'] }
+                {
+                    'urls': [
+                        {
+                            'url': 'stun:dynamikosoft.com:5349',
+                            'username': 'dynamiko',
+                            'credential': 'Miran!11',
+                        },
+                        {
+                            'url': 'turn:dynamikosoft.com:5349',
+                            'username': 'dynamiko',
+                            'credential': 'Miran!11',
+                        }
+                    ]
+                }
             ]
         }
         //     this.peerConnectionConfig = {
