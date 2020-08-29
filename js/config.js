@@ -17,14 +17,13 @@ $(function () {
     if (utils.isLocal()) {
         if (utils.isAndroid()) {
             console.log("device is android...");
-            server = "10.0.2.2";
-            MAIN_URL = `http://${server}:8888`;
-            MAIN_SIGNAL_URL = `http://${server}:8888`;
+            server = "localhost";
+            // server = "10.0.2.2";
         }
         else {
             server = "localhost";
-            MAIN_URL = `http://${server}:8888`;
-            MAIN_SIGNAL_URL = `http://${server}:8888`;
         }
+        MAIN_URL = `http://${server}:8888`;
+        MAIN_SIGNAL_URL = `http://${server}:8888`;
     }
 })

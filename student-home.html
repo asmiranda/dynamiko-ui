@@ -46,13 +46,11 @@
 <body>
   <div class="container">
     <header>
-      <div style="flex: 1; margin-top: 0px; color: white; background: #3a7cbd; height: 30px; padding-top: 7px;"
+      <div style="flex: 1; margin-top: 0px; color: white; background: #3a7cbd; height: 34px; padding-top: 7px;"
         class="text-center">Virtual School</div>
-      <div class="box-header with-border">
-        <div id="welcome" style="display: none; margin-top: -34px;">
-          <span id="myProfileName" style="color: white;">Please login</span>
-          <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
-        </div>
+      <div id="welcome" style="display: none; margin-top: -28px; margin-left: 10px; margin-right: 10px;">
+        <span id="myProfileName" style="color: white;">Please login</span>
+        <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
       </div>
     </header>
     <div class="body">
@@ -88,9 +86,66 @@
         </div>
       </div>
 
-      <div id="moduleHeader" class="box-header with-border text-center" style="margin-top: -5px;">
+      <div id="moduleHeader" class="box-header with-border text-center" style="padding:0; padding-top: 12px;">
         <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
         <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
+      </div>
+
+      <div id="chatScreen" style="display: none;">
+        <div class="box box-success">
+          <div class="box-header ui-sortable-handle" style="cursor: move;">
+            <i class="fa fa-comments-o"></i>
+
+            <h3 class="box-title">Chat</h3>
+          </div>
+          <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+            <div class="box-body chat" id="chat-box"
+              style="display: flex; flex-direction: column; overflow: hidden; width: auto; height: 250px;">
+              <div style="flex: 1;">
+                <a href="#" class="name">
+                  Mike Doe
+                </a>
+                <p class="message">
+                  I would like to meet you to discuss the latest news about
+                  the arrival of the new theme. They say it is going to be one the
+                  best themes on the market
+                </p>
+              </div>
+              <div style="flex: 1;">
+                <a href="#" class="name">
+                  Mike Doe
+                </a>
+                <p class="message">
+                  I would like to meet you to discuss the latest news about
+                  the arrival of the new theme. They say it is going to be one the
+                  best themes on the market
+                </p>
+              </div>
+            </div>
+            <div class="slimScrollBar"
+              style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 187.126px;">
+            </div>
+            <div class="slimScrollRail"
+              style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;">
+            </div>
+          </div>
+          <!-- /.chat -->
+          <div class="box-footer">
+            <div class="input-group">
+              <input class="form-control" placeholder="Type message...">
+
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="meetingScreen" style="display: none;">
+        <video id="activeVideo" autoplay playsinline></video>
+        <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"
+          style="right:7px; top:37px;"></video>
       </div>
 
       <div id="activities">
@@ -101,11 +156,8 @@
         </ul>
       </div>
 
-      <div id="dailyReading" style="display: none;">
-        <div class="box-header with-border">
-          <span>Daily Reading</span>
-        </div>
-        <iframe src="images/dailyReading.pdf" title="Daily Reading" style="width: 100%; height: 100vh;">
+      <div id="dailyRead" style="display: none;">
+        <iframe src="images/dailyReading.pdf" title="Daily Reading" style="width: 100%; height: 100vh;"></iframe>
       </div>
 
       <div id="studentList" style="display: none;">
@@ -116,15 +168,11 @@
         </ul>
       </div>
 
-      <div id="meetingScreen" style="display: none;">
-        <video id="activeVideo" autoplay playsinline style="display: none;"></video>
-        <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"></video>
-      </div>
 
     </div>
     <footer>
       <div id="remoteVideos" class="videoBoxList"></div>
-      <div id="myModules" style="display: none;">
+      <div id="myModules">
         <div class="box-body" style="padding: 1px;">
           <div style="flex: 8; display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">
           </div>
@@ -141,12 +189,12 @@
             class="fa fa-fw fa-arrows-alt" style="font-size: 30px;"></i></a>
       </div>
       <div style="flex: 1; margin-top: 20px;">
-        <a class="btnBook" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
-            class="fa fa-fw fa-book" style="font-size: 30px;"></i></a>
-      </div>
-      <div style="flex: 1; margin-top: 20px;">
         <a class="btnActivities" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fa fa-fw fa-pencil" style="font-size: 30px;"></i></a>
+      </div>
+      <div style="flex: 1; margin-top: 20px;">
+        <a class="btnBook" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+            class="fa fa-fw fa-book" style="font-size: 30px;"></i></a>
       </div>
       <div style="flex: 1; margin-top: 20px;">
         <a class="btnFacultyAndStudents" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i

@@ -37,15 +37,48 @@ class StudentHome {
         });
     }
 
+    btnChat() {
+        $(`#moduleHeader`).show();
+        $(`#activities`).hide();
+        $(`#dailyRead`).hide();
+        $(`#studentList`).hide();
+        $(`#chatScreen`).show();
+    }
+
+    btnFacultyAndStudents() {
+        $(`#moduleHeader`).show();
+        $(`#activities`).hide();
+        $(`#dailyRead`).hide();
+        $(`#studentList`).show();
+        $(`#chatScreen`).hide();
+    }
+
+    btnActivities() {
+        $(`#moduleHeader`).show();
+        $(`#activities`).show();
+        $(`#dailyRead`).hide();
+        $(`#chatScreen`).hide();
+        $(`#activeVideo`).hide();
+    }
+
+    btnBook() {
+        $(`#moduleHeader`).show();
+        $(`#activities`).hide();
+        $(`#dailyRead`).show();
+        $(`#chatScreen`).hide();
+        $(`#activeVideo`).hide();
+    }
+
     btnFullScreen() {
         if (this.isFullscreen) {
-            $(`#moduleHeader`).display();
-            $(`#activities`).display();
+            $(`#moduleHeader`).show();
+            $(`#activities`).show();
             $(`#studentList`).hide();
-            $(`#myModules`).hide();
+            $(`#myModules`).show();
 
-            $(`#meetingScreen`).display();
-            $(`#remoteVideos`).display();
+            $(`#meetingScreen`).show();
+            $(`#remoteVideos`).show();
+            $(`#activeVideo`).hide();
 
             this.isFullscreen = false;
         }
@@ -54,9 +87,13 @@ class StudentHome {
             $(`#activities`).hide();
             $(`#studentList`).hide();
             $(`#myModules`).hide();
+            $(`#dailyRead`).hide();
+            $(`#chatScreen`).hide();
+            $(`#dailyRead`).hide();
 
-            $(`#meetingScreen`).hide();
-            $(`#remoteVideos`).hide();
+            $(`#meetingScreen`).show();
+            $(`#remoteVideos`).show();
+            $(`#activeVideo`).show();
 
             this.isFullscreen = true;
         }
@@ -68,6 +105,9 @@ class StudentHome {
     }
 
     btnCall(obj) {
+        $(`#meetingScreen`).show();
+        $(`#activities`).hide();
+
         //        alert("btn call");
         storage.setRoomCode(storage.getModuleCode());
         socketIOP2P.clearConnections();
@@ -254,18 +294,14 @@ class StudentHome {
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
             $("#loginScreen").hide();
-            // $("#welcome").show();
-            // $("#myModules").show();
-            // $("#moduleDetails").show();
+            $("#welcome").show();
 
             this.loadProfile();
             this.loadSchedules();
         }
         else {
             $("#loginScreen").show();
-            // $("#welcome").hide();
-            // $("#myModules").hide();
-            // $("#moduleDetails").hide();
+            $("#welcome").hide();
         }
     }
 }
