@@ -254,18 +254,18 @@ class StudentHome {
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
             $("#loginScreen").hide();
-            $("#welcome").show();
-            $("#myModules").show();
-            $("#moduleDetails").show();
+            // $("#welcome").show();
+            // $("#myModules").show();
+            // $("#moduleDetails").show();
 
             this.loadProfile();
             this.loadSchedules();
         }
         else {
             $("#loginScreen").show();
-            $("#welcome").hide();
-            $("#myModules").hide();
-            $("#moduleDetails").hide();
+            // $("#welcome").hide();
+            // $("#myModules").hide();
+            // $("#moduleDetails").hide();
         }
     }
 }
