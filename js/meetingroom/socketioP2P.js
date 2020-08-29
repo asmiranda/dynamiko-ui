@@ -123,7 +123,7 @@ class MyP2P {
             let str = `
                 <div style="width: 70px; height: 70px; display: flex; flex-direction: column; margin-bottom: 10px;" class="remoteMiniVideo" email="${context.email}">
                     <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center profile" style="width: 100px; color:blue;" email="${context.email}">${stored_profile}</div>
+                    <div class="text-center profile" style="width: 100px; color:#4d5154; margin-top:-25px;" email="${context.email}">${stored_profile}</div>
                 </div>
             `;
             $(".videoBoxList").append(str);

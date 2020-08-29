@@ -1,6 +1,7 @@
 class Utils {
     isLocal() {
-        return window.location.href.includes("localhost") || window.location.href.includes("10.0.2.2");
+        let local = window.location.href.includes("localhost") || window.location.href.includes("10.0.2.2");
+        return local;
     }
 
     isAndroid() {
