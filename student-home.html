@@ -87,26 +87,40 @@
           <a class="text-center" href="registration.html">Register a new membership</a>
         </div>
       </div>
-      <div id="meetingScreen">
-        <video id="activeVideo" autoplay playsinline style="display: none;"></video>
-        <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"></video>
+
+      <div id="moduleHeader" class="box-header with-border text-center" style="margin-top: -5px;">
+        <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
+        <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
       </div>
-      <div id="moduleDetails" style="display: none;">
-        <div class="box-header with-border text-center" style="margin-top: -5px;">
-          <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
-          <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
-        </div>
+
+      <div id="activities">
         <div class="box-header with-border">
           <span>Activities</span>
         </div>
         <ul class="timeline timeline-inverse" id="ActivityList">
         </ul>
+      </div>
+
+      <div id="dailyReading" style="display: none;">
+        <div class="box-header with-border">
+          <span>Daily Reading</span>
+        </div>
+        <iframe src="images/dailyReading.pdf" title="Daily Reading" style="width: 100%; height: 100vh;">
+      </div>
+
+      <div id="studentList" style="display: none;">
         <div class="box-header with-border">
           <span>List of Students</span>
         </div>
         <ul class="users-list clearfix" id="studentImageRoster">
         </ul>
       </div>
+
+      <div id="meetingScreen" style="display: none;">
+        <video id="activeVideo" autoplay playsinline style="display: none;"></video>
+        <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"></video>
+      </div>
+
     </div>
     <footer>
       <div id="remoteVideos" class="videoBoxList"></div>
@@ -117,7 +131,7 @@
         </div>
       </div>
     </footer>
-    <div class="sideBtn" style="display: flex; flex-direction: column; position: absolute; bottom: 87px; right: 7px;">
+    <div class="sideBtn" style="display: flex; flex-direction: column; position: absolute; bottom: 87px; right: -8px;">
       <div style="flex: 1;">
         <a class="btnCall" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fa fa-fw fa-phone-square" style="font-size: 30px;"></i></a>
@@ -125,6 +139,10 @@
       <div style="flex: 1; margin-top: 20px;">
         <a class="btnFullScreen" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fa fa-fw fa-arrows-alt" style="font-size: 30px;"></i></a>
+      </div>
+      <div style="flex: 1; margin-top: 20px;">
+        <a class="btnBook" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+            class="fa fa-fw fa-book" style="font-size: 30px;"></i></a>
       </div>
       <div style="flex: 1; margin-top: 20px;">
         <a class="btnActivities" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i

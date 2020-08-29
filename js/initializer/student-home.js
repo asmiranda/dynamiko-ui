@@ -20,6 +20,46 @@ class StudentHome {
         $(document).on('click', '.btnLogout', function () {
             context.btnLogout(this);
         });
+        $(document).on('click', '.btnFullScreen', function () {
+            context.btnFullScreen(this);
+        });
+        $(document).on('click', '.btnBook', function () {
+            context.btnBook(this);
+        });
+        $(document).on('click', '.btnActivities', function () {
+            context.btnActivities(this);
+        });
+        $(document).on('click', '.btnFacultyAndStudents', function () {
+            context.btnFacultyAndStudents(this);
+        });
+        $(document).on('click', '.btnChat', function () {
+            context.btnChat(this);
+        });
+    }
+
+    btnFullScreen() {
+        if (this.isFullscreen) {
+            $(`#moduleHeader`).display();
+            $(`#activities`).display();
+            $(`#studentList`).hide();
+            $(`#myModules`).hide();
+
+            $(`#meetingScreen`).display();
+            $(`#remoteVideos`).display();
+
+            this.isFullscreen = false;
+        }
+        else {
+            $(`#moduleHeader`).hide();
+            $(`#activities`).hide();
+            $(`#studentList`).hide();
+            $(`#myModules`).hide();
+
+            $(`#meetingScreen`).hide();
+            $(`#remoteVideos`).hide();
+
+            this.isFullscreen = true;
+        }
     }
 
     btnLogout() {
