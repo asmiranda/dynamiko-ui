@@ -317,6 +317,8 @@ class StudentHome {
             let endTime = cache_data.endTime;
 
             $("#moduleProfileDetail").html(`( ${startTime}-${endTime} )`);
+            let dailyReadingUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/SchoolUI/getDailyReading/${scheduleCode}`;
+            $("#dailyReadingPDF").attr("src", dailyReadingUrl);
         }
     }
 
