@@ -21,7 +21,8 @@ class FacultyHome extends StudentHome {
 
     btnRemoveDailyReading() {
         console.log("btnRemoveDailyReading");
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/removeDailyReading`;
+        let scheduleCode = storage.get("scheduleCode");
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/removeDailyReading/${scheduleCode}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             console.log(data);
@@ -33,18 +34,23 @@ class FacultyHome extends StudentHome {
     btnUploadFile() {
         console.log("btnUploadFile");
         let scheduleCode = storage.get("scheduleCode");
-        let successFunction = function (data) {
-            console.log(data);
-            alert("File uploaded!");
-        };
 
         var data = new FormData();
         var file = $('input#pdfFile').prop('files')[0];
-        console.log("Received File");
-        console.log(file);
-        data.append("file", file);
+        if (file.name.endsWith(".pdf")) {
+            console.log("Received File");
+            console.log(file.name);
+            data.append("file", file);
 
-        ajaxCaller.uploadFile(successFunction, "SchoolUI", scheduleCode, "pdf", data);
+            let successFunction = function (data) {
+                alert(data);
+                console.log(data);
+            };
+            ajaxCaller.uploadFile(successFunction, "SchoolUI", scheduleCode, "pdf", data);
+        }
+        else {
+            alert("Please select a PDF file.");
+        }
     }
 
     btnUploadPDF() {
