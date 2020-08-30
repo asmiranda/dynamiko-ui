@@ -35,6 +35,101 @@ class StudentHome {
         $(document).on('click', '.btnChat', function () {
             context.btnChat(this);
         });
+        $(document).on('click', '.btnEndCall', function () {
+            context.btnEndCall(this);
+        });
+        $(document).on('click', '.btnSaveNetworkBandwidth', function () {
+            context.btnSaveNetworkBandwidth(this);
+        });
+        $(document).on('click', '.btnSendChatMessage', function () {
+            context.btnSendChatMessage(this);
+        });
+        $(document).on('click', '.btnAddVideo', function () {
+            context.btnAddVideo(this);
+        });
+        $(document).on('click', '.btnRemoveVideo', function () {
+            context.btnRemoveVideo(this);
+        });
+        $(document).on('click', '.btnMute', function () {
+            context.btnMute(this);
+        });
+        $(document).on('click', '.btnUnmute', function () {
+            context.btnUnmute(this);
+        });
+    }
+
+    btnMute() {
+        socketIOMediaStream.localVideo.getAudioTracks()[0].enabled = false;
+        // $(`.btnAddVideo`).hide();
+        // $(`.btnRemoveVideo`).hide();
+        $(`.btnUnmute`).show();
+        $(`.btnMute`).hide();
+    }
+
+    btnUnmute() {
+        socketIOMediaStream.localVideo.getAudioTracks()[0].enabled = true;
+        // $(`.btnAddVideo`).hide();
+        // $(`.btnRemoveVideo`).hide();
+        $(`.btnUnmute`).hide();
+        $(`.btnMute`).show();
+    }
+
+    btnAddVideo() {
+        socketIOMediaStream.localVideo.getVideoTracks()[0].enabled = true;
+        $(`.btnAddVideo`).hide();
+        $(`.btnRemoveVideo`).show();
+        // $(`.btnUnmute`).hide();
+        // $(`.btnMute`).hide();
+
+        $(`#myVideo`).show();
+        $(`#myVideoActionButtons`).show();
+    }
+
+    btnRemoveVideo() {
+        socketIOMediaStream.localVideo.getVideoTracks()[0].enabled = false;
+        $(`.btnAddVideo`).show();
+        $(`.btnRemoveVideo`).hide();
+        // $(`.btnUnmute`).hide();
+        // $(`.btnMute`).hide();
+
+        $(`#myVideo`).hide();
+        $(`#myVideoActionButtons`).hide();
+    }
+
+    btnSendChatMessage() {
+        console.log("btnSendChatMessage");
+        // send to socket - btnSendChatMessage
+    }
+
+    btnEndCall() {
+        $(`#moduleHeader`).show();
+        $(`#activities`).show();
+        $(`#dailyRead`).hide();
+        $(`#chatScreen`).hide();
+        $(`#activeVideo`).hide();
+        $(`#meetingScreen`).hide();
+        $(`#remoteVideos`).hide();
+        $(`#myModules`).show();
+
+        $(`#myVideo`).hide();
+        $(`#myVideoActionButtons`).hide();
+
+
+        $(`.btnAddVideo`).hide();
+        $(`.btnRemoveVideo`).hide();
+        $(`.btnUnmute`).hide();
+        $(`.btnMute`).hide();
+        $(`.btnFullScreen`).hide();
+        this.onCall = false;
+        socketIOMediaStream.localVideo.getVideoTracks()[0].stop();
+        socketIOMediaStream.localVideo.getAudioTracks()[0].stop();
+    }
+
+    btnSaveNetworkBandwidth() {
+        var r = confirm("Saving network bandwidth, this action will remove ");
+        $(`#remoteVideos`).hide();
+        // just display the host video
+        // send saveNetworkBandwidth to socket io
     }
 
     btnChat() {
@@ -43,6 +138,7 @@ class StudentHome {
         $(`#dailyRead`).hide();
         $(`#studentList`).hide();
         $(`#chatScreen`).show();
+        $(`#studentList`).hide();
     }
 
     btnFacultyAndStudents() {
@@ -59,6 +155,7 @@ class StudentHome {
         $(`#dailyRead`).hide();
         $(`#chatScreen`).hide();
         $(`#activeVideo`).hide();
+        $(`#studentList`).hide();
     }
 
     btnBook() {
@@ -67,9 +164,16 @@ class StudentHome {
         $(`#dailyRead`).show();
         $(`#chatScreen`).hide();
         $(`#activeVideo`).hide();
+        $(`#studentList`).hide();
     }
 
     btnFullScreen() {
+        if (!this.onCall) {
+            $(`#myVideo`).hide();
+            $(`#myVideoActionButtons`).hide();
+            $(`#activeVideo`).hide();
+            return;
+        }
         if (this.isFullscreen) {
             $(`#moduleHeader`).show();
             $(`#activities`).show();
@@ -107,8 +211,15 @@ class StudentHome {
     btnCall(obj) {
         $(`#meetingScreen`).show();
         $(`#activities`).hide();
+        $(`#myVideo`).show();
+        $(`#myVideoActionButtons`).show();
 
-        //        alert("btn call");
+        // $(`.btnAddVideo`).show();
+        $(`.btnRemoveVideo`).show();
+        // $(`.btnUnmute`).show();
+        $(`.btnMute`).show();
+        $(`.btnFullScreen`).show();
+
         storage.setRoomCode(storage.getModuleCode());
         socketIOP2P.clearConnections();
 
@@ -117,6 +228,7 @@ class StudentHome {
             socketIOMeetingRoom.init();
             socketIOMeetingRoom.join("Join Room", storage.getRoomCode());
         });
+        this.onCall = true;
     }
 
     btnSchedule(obj) {
@@ -235,10 +347,8 @@ class StudentHome {
             let fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
             let birthDate = `${obj.getPropDefault("birthDate", "--")}`;
             let str = `
-                <li>
-                    <img src="${profileUrl}" alt="User Image">
-                    <a class="users-list-name" href="#">${fullName}</a>
-                    <span class="users-list-date">${birthDate}</span>
+                <li style="width: 70%;">
+                    <a class="users-list-name text-left" href="#">${fullName}</a>
                 </li>
             `;
 
