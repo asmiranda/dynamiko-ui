@@ -150,6 +150,33 @@
         <div class="box-header with-border">
           <span>Activities</span>
         </div>
+        <div style="margin: 10px;">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Add/Edit Activity</h3>
+              <span class="pull-right">
+                <i class="fas fa-plus btnNewActivity" style="color: green; margin-right: 10px;" code="${code}"></i>
+                <i class="fas fa-save btnSaveActivity" style="color: green;" code="${code}"></i>
+              </span>
+            </div>
+            <div class="box-body">
+              <div style="display: flex; flex-direction: column;">
+                <input id="selectedActivityCode" type="hidden"></input>
+                <label class="selectedActivityCodeDisplay">Selected Activity Code:</label>
+                <label>Type</label>
+                <select class="form-control" id="selectActivityType" style="margin-bottom: 20px;">
+                  <option value="Quiz">Quiz</option>
+                  <option value="Summative">Summative</option>
+                  <option value="Periodic">Periodic</option>
+                  <option value="Lecture">Lecture</option>
+                  <option value="Other">Other</option>
+                </select>
+                <label>Details</label>
+                <textarea class="form-control" id="activityText" rows="3" placeholder="Enter ..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
         <ul class="timeline timeline-inverse" id="ActivityList">
         </ul>
       </div>

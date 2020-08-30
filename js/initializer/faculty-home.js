@@ -17,6 +17,108 @@ class FacultyHome extends StudentHome {
         $(document).on('click', '.btnRemoveDailyReading', function () {
             context.btnRemoveDailyReading(this);
         });
+        $(document).on('click', '.btnAddActivity', function () {
+            context.btnAddActivity(this);
+        });
+        $(document).on('click', '.btnEditActivity', function () {
+            context.btnEditActivity(this);
+        });
+        $(document).on('click', '.btnDeleteActivity', function () {
+            context.btnDeleteActivity(this);
+        });
+        $(document).on('click', '.btnNewActivity', function () {
+            context.btnNewActivity(this);
+        });
+        $(document).on('click', '.btnSaveActivity', function () {
+            context.btnSaveActivity(this);
+        });
+        $(document).on('click', '.btnEditActivity', function () {
+            context.btnEditActivity(this);
+        });
+        $(document).on('click', '.btnDeleteActivity', function () {
+            context.btnDeleteActivity(this);
+        });
+    }
+
+    btnNewActivity() {
+        let scheduleCode = storage.get("scheduleCode");
+        $(".selectedActivityCode").attr("code", scheduleCode);
+        $(".selectedActivityCode").html("");
+    }
+
+    btnSaveActivity() {
+        let context = this;
+        let scheduleCode = storage.get("scheduleCode");
+        let taskCode = $(`#selectedActivityCode`).val();
+        let taskType = $(`#selectActivityType`).val();
+        let taskDetail = $(`#activityText`).val();
+
+        var tmp = {};
+        tmp["type"] = taskType;
+        tmp["detail"] = taskDetail;
+        var vdata = JSON.stringify(tmp);
+
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/saveActivity/${scheduleCode}/${taskCode}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
+        let successFunction = function (data) {
+            console.log(data);
+            context.arrangeActivities(data);
+            alert("Activity Saved!");
+        };
+        ajaxCaller.ajaxPost(ajaxRequestDTO, successFunction);
+    }
+
+    btnEditActivity(obj) {
+        let activityCode = $(obj).attr("code");
+        let taskType = $(`.taskType[code="${activityCode}"]`).html();
+        let taskDetail = $(`.taskDetail[code="${activityCode}"]`).html();
+
+        $("#selectedActivityCode").val(activityCode);
+        $(".selectedActivityCodeDisplay").html(`Editing - ${activityCode}`);
+        $("#selectActivityType").val(taskType);
+        $("#activityText").val(taskDetail.trim());
+    }
+
+    btnDeleteActivity(obj) {
+        let context = this;
+        let scheduleCode = storage.get("scheduleCode");
+        let activityCode = $(obj).attr("code");
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/removeActivity/${scheduleCode}/${activityCode}`;
+        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
+        let successFunction = function (data) {
+            console.log(data);
+            context.arrangeActivities(data);
+            alert("Selected Activity Removed!");
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
+    }
+
+    arrangeActivities(data) {
+        $("#ActivityList").empty();
+        $(data).each(function (index, obj) {
+            let code = obj.getPropDefault("code", "");
+            let SchoolScheduleTaskId = obj.getPropDefault("SchoolScheduleTaskId", "");
+            let startDate = obj.getPropDefault("taskDate", "");
+            let endDate = obj.getPropDefault("endDate", "");
+            let taskType = obj.getPropDefault("taskType", "");
+            let detail = obj.getPropDefault("detail", "");
+            let str = `
+                <li>
+                    <i class="fa fa-fw fa-gear bg-blue"></i>
+                    <div class="timeline-item">
+                        <span class="pull-right" style="margin: 10px; margin-right: 30px;">
+                            <i class="fas fa-edit btnEditActivity" style="color: green;" code="${code}"></i> 
+                            <i class="fas fa-trash btnDeleteActivity" style="margin-left: 10px; color: red;" code="${code}"></i> 
+                        </span>
+                        <h3 class="timeline-header"><a href="#" class="taskType" code="${code}">${taskType}</a></h3>
+                        <div class="timeline-body taskDetail" code="${code}">
+                            ${detail}
+                        </div>
+                    </div>
+                </li>
+            `;
+            $("#ActivityList").append(str);
+        });
     }
 
     btnRemoveDailyReading() {

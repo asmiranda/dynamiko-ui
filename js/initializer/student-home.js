@@ -391,7 +391,6 @@ class StudentHome {
                 <li>
                     <i class="fa fa-fw fa-gear bg-blue"></i>
                     <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> till ${endDate}</span>
                         <h3 class="timeline-header"><a href="#">${taskType}</a></h3>
                         <div class="timeline-body">
                             ${detail}
