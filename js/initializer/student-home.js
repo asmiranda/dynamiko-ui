@@ -309,6 +309,7 @@ class StudentHome {
 
     loadModuleDetail(scheduleCode) {
         let context = this;
+        storage.set("scheduleCode", scheduleCode);
         let cache_data = storage.get(scheduleCode);
         if (cache_data) {
             $("#moduleProfile").html(cache_data.subjectCode);

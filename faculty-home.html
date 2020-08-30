@@ -185,6 +185,33 @@
         </ul>
       </div>
 
+      <div id="uploadScreen" style="display: none; margin: 10px;">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Upload PDF file</h3>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <label>Upload PDF file here. (&lt;file&gt;.pdf)</label>
+              <input type="file" id="pdfFile" accept="application/pdf>" />
+
+              <p class="help-block">File will be visible to users upon upload completion.</p>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="button" class="btn btn-primary btnUploadFile">Upload</button>
+          </div>
+        </div>
+
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Remove Daily Reading file</h3>
+          </div>
+          <div class="box-footer">
+            <button type="button" class="btn btn-danger btnRemoveDailyReading">Remove Daily Reading</button>
+          </div>
+        </div>
+      </div>
     </div>
     <footer>
       <div id="remoteVideos" class="videoBoxList"></div>
@@ -235,6 +262,20 @@
       <div style="flex: 1; margin-top: 20px;">
         <a class="btnChat" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fa fa-fw fa-wechat" style="font-size: 17px;"></i></a>
+      </div>
+    </div>
+    <div class="facultyBtn" style="display: flex; flex-direction: column; position: absolute; bottom: 87px; left: 0px;">
+      <div style="flex: 1;">
+        <a class="btnUploadPDF" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+            class="fas fa-file-pdf" style="font-size: 17px;"></i></a>
+      </div>
+      <div class="btnStartWebinar" style="flex: 1; margin-top: 20px;">
+        <a class="btnStartWebinar" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+            class="fa fa-podcast" style="font-size: 17px;"></i></a>
+      </div>
+      <div class="btnScreenSharing" style="flex: 1; margin-top: 20px;">
+        <a class="btnScreenSharing" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+            class="fa fa-share-square-o" style="font-size: 17px;"></i></a>
       </div>
     </div>
   </div>
