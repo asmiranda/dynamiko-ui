@@ -28,10 +28,7 @@ class SocketIOP2P {
 
     saveBandWidth() {
         let context = this;
-        $(`#remoteVideos`).hide();
-        // just display the host video
-        socketIOMeetingRoom.socket.emit("saveBandwidth", { "fromEmail": storage.getUname(), "room": storage.getRoomCode() });
-        // send saveNetworkBandwidth to socket io
+        // $(`#remoteVideos`).hide();
         let hostEmail = storage.getHostEmail();
         let connArr = Object.keys(this.peerConnections);
         $(connArr).each(function (index, key) {
@@ -40,6 +37,17 @@ class SocketIOP2P {
                 console.log(myP2P);
                 myP2P.saveBandWidth();
             }
+        })
+    }
+
+    unSaveBandWidth() {
+        let context = this;
+        // $(`#remoteVideos`).hide();
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            myP2P.saveBandWidth();
         })
     }
 
@@ -172,6 +180,11 @@ class MyP2P {
             console.log("Disable Sender Track", sender, sender.track);
             sender.track.enabled = false;
         });
+    }
+
+    unSaveBandWidth() {
+        let tmp = { 'dataType': 'UnsaveMode', 'email': this.email, 'message': "Unsaving Mode" };
+        this.sendChannel.send(JSON.stringify(tmp));
     }
 
     saveBandWidth() {

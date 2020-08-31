@@ -175,9 +175,16 @@ class StudentHome {
     }
 
     btnSaveNetworkBandwidth() {
-        var r = confirm("Power and network bandwidth saving mode?");
-        if (r) {
+        if (this.saveMode) {
             socketIOP2P.saveBandWidth();
+            this.saveMode = false;
+        }
+        else {
+            var r = confirm("Power and network bandwidth saving mode?");
+            if (r) {
+                socketIOP2P.saveBandWidth();
+            }
+            this.saveMode = true;
         }
     }
 
@@ -452,6 +459,7 @@ class StudentHome {
     }
 
     init() {
+        this.saveMode = false;
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
             $("#loginScreen").hide();
