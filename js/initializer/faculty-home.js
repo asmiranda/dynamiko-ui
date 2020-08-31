@@ -173,6 +173,17 @@ class FacultyHome extends StudentHome {
 
     btnStartWebinar() {
         console.log("btnStartWebinar");
+        if (this.webinarMode) {
+            socketIOP2P.loadWebinar();
+            this.webinarMode = false;
+        }
+        else {
+            var r = confirm("Start webinar mode?");
+            if (r) {
+                socketIOP2P.unloadWebinar();
+            }
+            this.webinarMode = true;
+        }
     }
 
     btnScreenSharing() {

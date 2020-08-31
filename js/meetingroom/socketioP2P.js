@@ -17,6 +17,48 @@ class SocketIOP2P {
         // }
     }
 
+    handleLoadWebinar(obj) {
+        // remove all tracks
+        let context = this;
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            context.transientP2P.handleLoadWebinar();
+        })
+    }
+
+    handleUnloadWebinar(obj) {
+        // resend all tracks
+        let context = this;
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            context.transientP2P.handleUnloadWebinar();
+        })
+    }
+
+    loadWebinar() {
+        let context = this;
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            myP2P.loadWebinar();
+        })
+    }
+
+    unloadWebinar() {
+        let context = this;
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            myP2P.unloadWebinar();
+        })
+    }
+
     handleRemoteUnsaveMode() {
         this.transientP2P.handleRemoteUnsaveMode();
     }
@@ -165,6 +207,34 @@ class MyP2P {
         this.peerConnection.ontrack = function (ev) {
             context.onTrack(ev);
         };
+    }
+
+    handleLoadWebinar(obj) {
+        let context = this;
+        $(this.senders).each(function (index, sender) {
+            console.log("handleLoadWebinar", sender, sender.track);
+            for (const track of socketIOMediaStream.localVideo.getTracks()) {
+                sender.replaceTrack(track);
+            }
+        });
+    }
+
+    handleUnloadWebinar(obj) {
+        let context = this;
+        $(this.senders).each(function (index, sender) {
+            console.log("handleUnloadWebinar", sender, sender.track);
+            context.peerConnection.removeTrack(sender);
+        });
+    }
+
+    loadWebinar() {
+        let tmp = { 'dataType': 'LoadWebinar', 'email': this.email, 'message': "Webinar Mode" };
+        this.sendChannel.send(JSON.stringify(tmp));
+    }
+
+    unloadWebinar() {
+        let tmp = { 'dataType': 'UnloadWebinar', 'email': this.email, 'message': "Unload Webinar Mode" };
+        this.sendChannel.send(JSON.stringify(tmp));
     }
 
     handleRemoteUnsaveMode() {

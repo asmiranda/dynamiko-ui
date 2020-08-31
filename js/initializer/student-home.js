@@ -81,6 +81,20 @@ class StudentHome {
         else if (obj.dataType == 'UnsaveMode') {
             this.handleRemoteUnsaveMode(obj);
         }
+        else if (obj.dataType == 'LoadWebinar') {
+            this.handleLoadWebinar(obj);
+        }
+        else if (obj.dataType == 'UnloadWebinar') {
+            this.handleUnloadWebinar(obj);
+        }
+    }
+
+    handleLoadWebinar(obj) {
+        socketIOP2P.handleLoadWebinar(obj);
+    }
+
+    handleUnloadWebinar(obj) {
+        socketIOP2P.handleUnloadWebinar(obj);
     }
 
     handleRemoteUnsaveMode(obj) {
@@ -458,6 +472,7 @@ class StudentHome {
 
     init() {
         this.saveMode = false;
+        this.webinarMode = false;
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
             $("#loginScreen").hide();
