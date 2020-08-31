@@ -1,5 +1,3 @@
-const { parseJSON } = require("jquery");
-
 class StudentHome {
     initListeners() {
         console.log(`token = ${storage.getToken()}`);
@@ -76,7 +74,7 @@ class StudentHome {
 
     dataChannelMessageReceived(evt) {
         let message = evt.detail.data;
-        let obj = parseJSON(message);
+        let obj = JSON.parse(message);
         if (obj.dataType = 'Chat') {
             let remoteProfile = obj.profileName;
             let messageStr = obj.message;
