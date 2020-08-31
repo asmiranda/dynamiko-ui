@@ -1,3 +1,5 @@
+const { parseJSON } = require("jquery");
+
 class StudentHome {
     initListeners() {
         console.log(`token = ${storage.getToken()}`);
@@ -73,16 +75,20 @@ class StudentHome {
     }
 
     dataChannelMessageReceived(evt) {
-        let remoteProfile = evt.profile;
         let message = evt.detail.data;
-        let str = `
-            <div style="width: 100%;">
-                <a href="#" class="name">${remoteProfile}</a>
-                <p class="message">${message}</p>
-            </div>
-        `;
-        console.log(str);
-        $("#chatBox").append(str);
+        let obj = parseJSON(message);
+        if (obj.dataType = 'Chat') {
+            let remoteProfile = obj.profileName;
+            let messageStr = obj.message;
+            let str = `
+                <div style="width: 100%;">
+                    <a href="#" class="name">${remoteProfile}</a>
+                    <p class="message">${messageStr}</p>
+                </div>
+            `;
+            console.log(str);
+            $("#chatBox").append(str);
+        }
     }
 
     btnSendChatMessage(obj) {
