@@ -55,7 +55,7 @@
       </div>
     </header>
     <div class="body">
-      <div id="loginScreen" style="display: none;">
+      <div id="loginScreen" style="display: none; background-color: white;">
         <div class="login-box-body" style="margin: 50px; margin-top: 200px;">
           <p class="login-box-msg">Sign in to start your session</p>
           <form class="form-signin" method="POST">
@@ -87,40 +87,23 @@
         </div>
       </div>
 
-      <div id="moduleHeader" class="box-header with-border text-center" style="padding:0; padding-top: 12px;">
+      <div id="moduleHeader" class="box-header with-border text-center"
+        style="padding:0; padding-top: 12px; background-color: white;">
         <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
         <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
       </div>
 
-      <div id="chatScreen" style="display: none;">
+      <div id="chatScreen" style="display: none; margin: 50px; margin-top:70px; background-color: white;">
         <div class="box box-success">
           <div class="box-header ui-sortable-handle" style="cursor: move;">
             <i class="fa fa-comments-o"></i>
 
             <h3 class="box-title">Chat</h3>
+            <div class="pull-right">
+              <i class="fa fa-eye-slash btnHideChatScreen"> Hide</i>
+            </div>
           </div>
-          <div class="box-body chat" id="chatBox"
-            style="display: flex; flex-direction: column; overflow-y: auto; width: auto; height: 350px;">
-            <div style="flex: 1;">
-              <a href="#" class="name">
-                Mike Doe
-              </a>
-              <p class="message">
-                I would like to meet you to discuss the latest news about
-                the arrival of the new theme. They say it is going to be one the
-                best themes on the market
-              </p>
-            </div>
-            <div style="flex: 1;">
-              <a href="#" class="name">
-                Mike Doe
-              </a>
-              <p class="message">
-                I would like to meet you to discuss the latest news about
-                the arrival of the new theme. They say it is going to be one the
-                best themes on the market
-              </p>
-            </div>
+          <div class="box-body chat" id="chatBox" style="overflow-y: auto; width: auto; height: 250px;">
           </div>
           <div class="box-footer">
             <select class="form-control" id="selectChatUser">
@@ -137,7 +120,7 @@
         </div>
       </div>
 
-      <div id="activities">
+      <div id="activities" style="background-color: white;">
         <div class="box-header with-border">
           <span>Activities</span>
         </div>
@@ -173,7 +156,7 @@
       </div>
 
       <div id="meetingScreen" style="display: none; background-color: black;">
-        <video id="activeVideo" autoplay playsinline></video>
+        <video id="activeVideo" autoplay playsinline style="background-color: black;"></video>
         <div>
           <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"
             style="right:7px; top:37px;">
@@ -191,11 +174,11 @@
         </div>
       </div>
 
-      <div id="dailyRead" style="display: none;">
+      <div id="dailyRead" style="display: none; background-color: white;">
         <iframe id="dailyReadingPDF" src="" title="Daily Reading" style="width: 100%; height: 100vh;"></iframe>
       </div>
 
-      <div id="studentList" style="display: none;">
+      <div id="studentList" style="display: none; background-color: white;">
         <div class="box-header with-border">
           <span>List of Students</span>
         </div>
@@ -203,7 +186,7 @@
         </ul>
       </div>
 
-      <div id="uploadScreen" style="display: none; margin: 10px;">
+      <div id="uploadScreen" style="display: none; margin: 10px; background-color: white;">
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Upload PDF file</h3>
@@ -242,7 +225,9 @@
         </div>
       </div>
     </footer>
-    <div class="sideBtn" style="display: flex; flex-direction: column; position: absolute; bottom: 87px; right: 0px;">
+    <div class="sideBtn"
+      style="display: flex; flex-direction: column; position: absolute; bottom: 97px; right: 7px; width:50px; border-radius: 30%;">
+
       <div style="flex: 1;">
         <a class="btnCall" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fa fa-fw fa-phone-square" style="font-size: 17px;"></i></a>
@@ -284,7 +269,8 @@
             class="fa fa-fw fa-wechat" style="font-size: 17px;"></i></a>
       </div>
     </div>
-    <div class="facultyBtn" style="display: flex; flex-direction: column; position: absolute; bottom: 87px; left: 0px;">
+    <div class="facultyBtn"
+      style="display: flex; flex-direction: column; position: absolute; bottom: 97px; left: 7px; width:50px;">
       <div style="flex: 1;">
         <a class="btnUploadPDF" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fas fa-file-pdf" style="font-size: 17px;"></i></a>
