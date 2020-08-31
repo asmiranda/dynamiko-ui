@@ -121,7 +121,7 @@ class MyP2P {
                 RtpDataChannels: true
             }]
         });
-        this.initSendChannel();
+        this.initDataChannel();
 
         this.peerConnection.onicecandidate = function (event) {
             context.sendIce(event);
