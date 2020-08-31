@@ -72,13 +72,13 @@ class StudentHome {
     dataChannelMessageReceived(evt) {
         let message = evt.detail.data;
         let obj = JSON.parse(message);
-        if (obj.dataType = 'Chat') {
+        if (obj.dataType == 'Chat') {
             this.handleChatMessage(obj);
         }
-        else if (obj.dataType = 'SaveMode') {
+        else if (obj.dataType == 'SaveMode') {
             this.handleSaveMode(obj);
         }
-        else if (obj.dataType = 'UnsaveMode') {
+        else if (obj.dataType == 'UnsaveMode') {
             this.handleUnsaveMode(obj);
         }
     }
