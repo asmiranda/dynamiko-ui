@@ -172,7 +172,7 @@ class MyP2P {
         $(this.senders).each(function (index, sender) {
             console.log("Enable Sender Track", sender, sender.track);
             // sender.track.enabled = true;
-            context.peerConnection.replaceTrack(sender.track);
+            sender.replaceTrack(sender.track);
         });
     }
 
