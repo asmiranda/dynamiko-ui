@@ -62,7 +62,14 @@ class StudentHome {
         $(document).on('dataChannelMessageReceived', function () {
             context.dataChannelMessageReceived(event);
         });
+        $(document).on('click', '.btnHideChatScreen', function () {
+            context.btnHideChatScreen(event);
+        });
 
+    }
+
+    btnHideChatScreen() {
+        $("#chatScreen").hide();
     }
 
     dataChannelMessageReceived(evt) {
