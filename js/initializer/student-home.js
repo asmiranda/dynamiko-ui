@@ -84,13 +84,11 @@ class StudentHome {
     }
 
     handleRemoteUnsaveMode(obj) {
-        let remoteEmail = obj.email;
-        socketIOP2P.handleRemoteUnsaveMode(remoteEmail)
+        socketIOP2P.handleRemoteUnsaveMode()
     }
 
     handleRemoteSaveMode(obj) {
-        let remoteEmail = obj.email;
-        socketIOP2P.handleRemoteSaveMode(remoteEmail)
+        socketIOP2P.handleRemoteSaveMode()
     }
 
     handleChatMessage(obj) {

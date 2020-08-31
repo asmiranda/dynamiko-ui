@@ -1,5 +1,6 @@
 class SocketIOP2P {
     constructor() {
+        this.transientP2P;
         this.peerConnectionConfig = {
             'iceServers': [
                 {
@@ -16,14 +17,12 @@ class SocketIOP2P {
         // }
     }
 
-    handleRemoteUnsaveMode(email) {
-        let myP2P = this.peerConnections[email];
-        myP2P.handleRemoteUnsaveMode();
+    handleRemoteUnsaveMode() {
+        this.transientP2P.handleRemoteUnsaveMode();
     }
 
     handleRemoteSaveMode(email) {
-        let myP2P = this.peerConnections[email];
-        myP2P.handleRemoteSaveMode();
+        this.transientP2P.handleRemoteSaveMode();
     }
 
     saveBandWidth() {
@@ -257,6 +256,7 @@ class MyP2P {
             context.receiveChannel.onmessage = function (evt) {
                 console.log("receiveChannel onmessage");
                 const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
+                socketIOP2P.transientP2P = context;
                 document.dispatchEvent(customEvent);
             };
         };
