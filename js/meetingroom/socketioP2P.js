@@ -214,7 +214,12 @@ class MyP2P {
         $(this.senders).each(function (index, sender) {
             console.log("handleLoadWebinar", sender, sender.track);
             for (const track of socketIOMediaStream.localVideo.getTracks()) {
-                sender.replaceTrack(track);
+                try {
+                    sender.replaceTrack(track);
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }
         });
     }
@@ -223,18 +228,33 @@ class MyP2P {
         let context = this;
         $(this.senders).each(function (index, sender) {
             console.log("handleUnloadWebinar", sender, sender.track);
-            context.peerConnection.removeTrack(sender);
+            try {
+                context.peerConnection.removeTrack(sender);
+            }
+            catch (e) {
+                console.log(e);
+            }
         });
     }
 
     loadWebinar() {
-        let tmp = { 'dataType': 'LoadWebinar', 'email': this.email, 'message': "Webinar Mode" };
-        this.sendChannel.send(JSON.stringify(tmp));
+        try {
+            let tmp = { 'dataType': 'LoadWebinar', 'email': this.email, 'message': "Webinar Mode" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     unloadWebinar() {
-        let tmp = { 'dataType': 'UnloadWebinar', 'email': this.email, 'message': "Unload Webinar Mode" };
-        this.sendChannel.send(JSON.stringify(tmp));
+        try {
+            let tmp = { 'dataType': 'UnloadWebinar', 'email': this.email, 'message': "Unload Webinar Mode" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     handleRemoteUnsaveMode() {
@@ -242,7 +262,12 @@ class MyP2P {
         $(this.senders).each(function (index, sender) {
             console.log("Enable Sender Track", sender, sender.track);
             for (const track of socketIOMediaStream.localVideo.getTracks()) {
-                sender.replaceTrack(track);
+                try {
+                    sender.replaceTrack(track);
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }
         });
     }
@@ -251,18 +276,33 @@ class MyP2P {
         let context = this;
         $(this.senders).each(function (index, sender) {
             console.log("Disable Sender Track", sender, sender.track);
-            context.peerConnection.removeTrack(sender);
+            try {
+                context.peerConnection.removeTrack(sender);
+            }
+            catch (e) {
+                console.log(e);
+            }
         });
     }
 
     unsaveBandWidth() {
-        let tmp = { 'dataType': 'UnsaveMode', 'email': this.email, 'message': "Unsaving Mode" };
-        this.sendChannel.send(JSON.stringify(tmp));
+        try {
+            let tmp = { 'dataType': 'UnsaveMode', 'email': this.email, 'message': "Unsaving Mode" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     saveBandWidth() {
-        let tmp = { 'dataType': 'SaveMode', 'email': this.email, 'message': "Saving Mode" };
-        this.sendChannel.send(JSON.stringify(tmp));
+        try {
+            let tmp = { 'dataType': 'SaveMode', 'email': this.email, 'message': "Saving Mode" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     sendChatMessage(chatMessage) {
