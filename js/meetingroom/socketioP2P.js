@@ -171,8 +171,9 @@ class MyP2P {
         let context = this;
         $(this.senders).each(function (index, sender) {
             console.log("Enable Sender Track", sender, sender.track);
-            // sender.track.enabled = true;
-            sender.replaceTrack(sender.track);
+            for (const track of socketIOMediaStream.localVideo.getTracks()) {
+                sender.replaceTrack(track);
+            }
         });
     }
 
@@ -180,7 +181,6 @@ class MyP2P {
         let context = this;
         $(this.senders).each(function (index, sender) {
             console.log("Disable Sender Track", sender, sender.track);
-            // sender.track.enabled = false;
             context.peerConnection.removeTrack(sender);
         });
     }
