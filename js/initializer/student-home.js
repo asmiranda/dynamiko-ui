@@ -69,7 +69,7 @@ class StudentHome {
         let remoteProfile = evt.profile;
         let message = evt.detail.data;
         let str = `
-            <div style="flex: 1;">
+            <div style="width: 100%;">
                 <a href="#" class="name">${remoteProfile}</a>
                 <p class="message">${message}</p>
             </div>
