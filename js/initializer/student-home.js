@@ -60,13 +60,22 @@ class StudentHome {
             context.btnSendChatMessage(this);
         });
         $(document).on('dataChannelMessageReceived', function () {
-            context.dataChannelMessageReceived(this);
+            context.dataChannelMessageReceived(event);
         });
 
     }
 
     dataChannelMessageReceived(evt) {
-        console.log(evt);
+        let remoteProfile = evt.profile;
+        let message = evt.detail.data;
+        let str = `
+            <div style="flex: 1;">
+                <a href="#" class="name">${remoteProfile}</a>
+                <p class="message">${message}</p>
+            </div>
+        `;
+        console.log(str);
+        $("#chatBox").append(str);
     }
 
     btnSendChatMessage(obj) {
