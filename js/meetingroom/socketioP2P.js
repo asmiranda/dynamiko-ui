@@ -193,8 +193,8 @@ class MyP2P {
 
             context.receiveChannel.onmessage = function (evt) {
                 console.log("receiveChannel onmessage");
-                const customEvent = new CustomEvent('dataChannelMessageReceived', { evt: evt });
-                context.receiveChannel.dispatchEvent(customEvent);
+                const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
+                document.dispatchEvent(customEvent);
             };
         };
     }
