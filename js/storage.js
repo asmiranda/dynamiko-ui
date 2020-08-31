@@ -86,7 +86,8 @@ const storage = new Storage();
 $(function () {
     if (utils.isAndroid()) {
         console.log("device is android...");
-        storage.myStorage = window.localStorage;
+        storage.myStorage = window.sessionStorage;
+        // storage.myStorage = window.localStorage;
     }
     else {
         storage.myStorage = window.sessionStorage;
