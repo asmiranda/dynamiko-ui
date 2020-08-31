@@ -168,16 +168,20 @@ class MyP2P {
     }
 
     handleRemoteUnsaveMode() {
+        let context = this;
         $(this.senders).each(function (index, sender) {
             console.log("Enable Sender Track", sender, sender.track);
-            sender.track.enabled = true;
+            // sender.track.enabled = true;
+            context.peerConnection.replaceTrack(sender.track);
         });
     }
 
     handleRemoteSaveMode() {
+        let context = this;
         $(this.senders).each(function (index, sender) {
             console.log("Disable Sender Track", sender, sender.track);
-            sender.track.enabled = false;
+            // sender.track.enabled = false;
+            context.peerConnection.removeTrack(sender);
         });
     }
 
