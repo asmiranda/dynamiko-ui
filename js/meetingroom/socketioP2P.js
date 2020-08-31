@@ -112,12 +112,15 @@ class MyP2P {
         this.email = email;
         this.isOfferSender = isOfferSender;
         this.videoElem;
+        this.dataChannel;
+
         this.initVideoBox();
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
             optional: [{
                 RtpDataChannels: true
             }]
         });
+        this.initDataChannel();
 
         this.peerConnection.onicecandidate = function (event) {
             context.sendIce(event);
@@ -190,7 +193,6 @@ class MyP2P {
         let context = this;
 
         this.sendTracks();
-        this.initDataChannel();
         this.peerConnection.createOffer(function (sdp) {
             console.log(`sendOffer to ${context.email}`)
             context.peerConnection.setLocalDescription(sdp);
