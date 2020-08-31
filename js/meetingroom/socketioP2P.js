@@ -19,13 +19,18 @@ class SocketIOP2P {
     sendChatMessage(chatUser, chatMessage) {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
-        $(connArr).each(function (index, key) {
-            let myP2P = context.peerConnections[key];
-            console.log(myP2P);
-            if (chatUser == key) {
+        if (chatUser == "all") {
+            $(connArr).each(function (index, key) {
+                let myP2P = context.peerConnections[key];
+                console.log(myP2P);
                 myP2P.sendChatMessage(chatMessage);
-            }
-        })
+            })
+        }
+        else {
+            let myP2P = context.peerConnections[chatUser];
+            console.log(myP2P);
+            myP2P.sendChatMessage(chatMessage);
+        }
     }
 
     clearConnections() {
