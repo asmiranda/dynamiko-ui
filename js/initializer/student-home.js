@@ -73,17 +73,37 @@ class StudentHome {
         let message = evt.detail.data;
         let obj = JSON.parse(message);
         if (obj.dataType = 'Chat') {
-            let remoteProfile = obj.profileName;
-            let messageStr = obj.message;
-            let str = `
-                <div style="width: 100%;">
-                    <a href="#" class="name">${remoteProfile}</a>
-                    <p class="message">${messageStr}</p>
-                </div>
-            `;
-            console.log(str);
-            $("#chatBox").append(str);
+            this.handleChatMessage(obj);
         }
+        else if (obj.dataType = 'SaveMode') {
+            this.handleSaveMode(obj);
+        }
+        else if (obj.dataType = 'UnsaveMode') {
+            this.handleUnsaveMode(obj);
+        }
+    }
+
+    handleRemoteUnsaveMode(obj) {
+        let remoteEmail = obj.email;
+        socketIOP2P.handleRemoteUnsaveMode(remoteEmail)
+    }
+
+    handleRemoteSaveMode(obj) {
+        let remoteEmail = obj.email;
+        socketIOP2P.handleRemoteSaveMode(remoteEmail)
+    }
+
+    handleChatMessage(obj) {
+        let remoteProfile = obj.profileName;
+        let messageStr = obj.message;
+        let str = `
+            <div style="width: 100%;">
+                <a href="#" class="name">${remoteProfile}</a>
+                <p class="message">${messageStr}</p>
+            </div>
+        `;
+        console.log(str);
+        $("#chatBox").append(str);
     }
 
     btnSendChatMessage(obj) {
@@ -155,10 +175,10 @@ class StudentHome {
     }
 
     btnSaveNetworkBandwidth() {
-        var r = confirm("Saving network bandwidth, this action will remove ");
-        $(`#remoteVideos`).hide();
-        // just display the host video
-        // send saveNetworkBandwidth to socket io
+        var r = confirm("Power and network bandwidth saving mode?");
+        if (r) {
+            socketIOP2P.saveBandWidth();
+        }
     }
 
     btnChat() {

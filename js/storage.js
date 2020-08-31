@@ -3,6 +3,13 @@ class Storage {
         this.myStorage.clear();
     }
 
+    setHostEmail(hostEmail) {
+        return this.myStorage.hostEmail = hostEmail;
+    }
+    getHostEmail() {
+        return this.myStorage.hostEmail;
+    }
+
     setRoomCode(roomCode) {
         return this.myStorage.roomCode = roomCode;
     }

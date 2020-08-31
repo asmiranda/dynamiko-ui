@@ -16,6 +16,33 @@ class SocketIOP2P {
         // }
     }
 
+    handleRemoteUnsaveMode(email) {
+        let myP2P = this.peerConnections[email];
+        myP2P.handleRemoteUnsaveMode();
+    }
+
+    handleRemoteSaveMode(email) {
+        let myP2P = this.peerConnections[email];
+        myP2P.handleRemoteUnsaveMode();
+    }
+
+    saveBandWidth() {
+        let context = this;
+        $(`#remoteVideos`).hide();
+        // just display the host video
+        socketIOMeetingRoom.socket.emit("saveBandwidth", { "fromEmail": storage.getUname(), "room": storage.getRoomCode() });
+        // send saveNetworkBandwidth to socket io
+        let hostEmail = storage.getHostEmail();
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            if (key != hostEmail) {
+                let myP2P = context.peerConnections[key];
+                console.log(myP2P);
+                myP2P.saveBandWidth();
+            }
+        })
+    }
+
     sendChatMessage(chatUser, chatMessage) {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
@@ -114,6 +141,7 @@ class MyP2P {
         this.videoElem;
         this.sendChannel;
         this.receiveChannel;
+        this.senders;
 
         this.initVideoBox();
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
@@ -130,6 +158,23 @@ class MyP2P {
         this.peerConnection.ontrack = function (ev) {
             context.onTrack(ev);
         };
+    }
+
+    handleRemoteUnsaveMode() {
+        $(this.senders).each(function (index, sender) {
+            sender.track.enabled = true;
+        });
+    }
+
+    handleRemoteSaveMode() {
+        $(this.senders).each(function (index, sender) {
+            sender.track.enabled = false;
+        });
+    }
+
+    saveBandWidth() {
+        let tmp = { 'dataType': 'SaveMode', 'email': this.email, 'message': "Saving Mode" };
+        this.sendChannel.send(JSON.stringify(tmp));
     }
 
     sendChatMessage(chatMessage) {
@@ -171,6 +216,7 @@ class MyP2P {
             console.log(`sendTracks to ${this.email}`)
             this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
         }
+        this.senders = this.peerConnection.getSenders();
     }
 
     initDataChannel() {
