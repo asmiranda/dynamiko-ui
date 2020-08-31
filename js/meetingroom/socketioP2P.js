@@ -133,7 +133,9 @@ class MyP2P {
     }
 
     sendChatMessage(chatMessage) {
-        this.sendChannel.send(chatMessage);
+        let profileName = storage.getProfileName();
+        let tmp = { 'dataType': 'Chat', 'profileName': profileName, 'message': chatMessage };
+        this.sendChannel.send(JSON.stringify(tmp));
     }
 
     initVideoBox() {
