@@ -240,6 +240,11 @@ class MyP2P {
         console.log(`onReceiveVideo track from ${this.email}`, tmpMedia)
         console.log(this.videoElem)
         this.videoElem.srcObject = tmpMedia;
+
+        let activeVideo = document.getElementById(`activeVideo`);
+        if (!activeVideo.srcObject) {
+            activeVideo.srcObject = tmpMedia;
+        }
     }
 
     onReceiveScreen(tmpMedia) {
