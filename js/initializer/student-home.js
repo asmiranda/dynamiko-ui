@@ -76,10 +76,10 @@ class StudentHome {
             this.handleChatMessage(obj);
         }
         else if (obj.dataType == 'SaveMode') {
-            this.handleSaveMode(obj);
+            this.handleRemoteSaveMode(obj);
         }
         else if (obj.dataType == 'UnsaveMode') {
-            this.handleUnsaveMode(obj);
+            this.handleRemoteUnsaveMode(obj);
         }
     }
 
