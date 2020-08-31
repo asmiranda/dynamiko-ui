@@ -41,9 +41,6 @@ class StudentHome {
         $(document).on('click', '.btnSaveNetworkBandwidth', function () {
             context.btnSaveNetworkBandwidth(this);
         });
-        $(document).on('click', '.btnSendChatMessage', function () {
-            context.btnSendChatMessage(this);
-        });
         $(document).on('click', '.btnAddVideo', function () {
             context.btnAddVideo(this);
         });
