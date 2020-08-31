@@ -112,7 +112,8 @@ class MyP2P {
         this.email = email;
         this.isOfferSender = isOfferSender;
         this.videoElem;
-        this.dataChannel;
+        this.sendChannel;
+        this.receiveChannel;
 
         this.initVideoBox();
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
@@ -120,7 +121,7 @@ class MyP2P {
                 RtpDataChannels: true
             }]
         });
-        this.initDataChannel();
+        this.initSendChannel();
 
         this.peerConnection.onicecandidate = function (event) {
             context.sendIce(event);
@@ -132,7 +133,7 @@ class MyP2P {
     }
 
     sendChatMessage(chatMessage) {
-        this.dataChannel.send(chatMessage);
+        this.sendChannel.send(chatMessage);
     }
 
     initVideoBox() {
@@ -172,20 +173,29 @@ class MyP2P {
 
     initDataChannel() {
         let context = this;
-        this.dataChannel = this.peerConnection.createDataChannel("sendChannel");
-        this.dataChannel.onopen = function () {
-            console.log("Data Channel onopen");
+        this.sendChannel = this.peerConnection.createDataChannel("sendChannel");
+        this.sendChannel.onopen = function (event) {
+            console.log("sendChannel onopen", event);
         };
-        this.dataChannel.onclose = function () {
-            console.log("Data Channel onclose");
+        this.sendChannel.onclose = function (event) {
+            console.log("sendChannel onclose", event);
         };
-        this.dataChannel.ondatachannel = function () {
-            console.log("Data Channel ondatachannel");
-        };
-        this.dataChannel.onmessage = function (evt) {
-            console.log("Data Channel onmessage");
-            const event = new CustomEvent('dataChannelMessageReceived', { evt: evt });
-            context.dataChannel.dispatchEvent(event);
+
+        this.peerConnection.ondatachannel = function (event) {
+            console.log("sendChannel ondatachannel");
+            context.receiveChannel = event.channel;
+            context.receiveChannel.onopen = function () {
+                console.log("receiveChannel onopen");
+            };
+            context.receiveChannel.onclose = function (evt) {
+                console.log("receiveChannel onclose", evt);
+            };
+
+            context.receiveChannel.onmessage = function (evt) {
+                console.log("receiveChannel onmessage");
+                const customEvent = new CustomEvent('dataChannelMessageReceived', { evt: evt });
+                context.receiveChannel.dispatchEvent(customEvent);
+            };
         };
     }
 
