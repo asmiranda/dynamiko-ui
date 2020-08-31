@@ -162,12 +162,14 @@ class MyP2P {
 
     handleRemoteUnsaveMode() {
         $(this.senders).each(function (index, sender) {
+            console.log("Enable Sender Track", sender, sender.track);
             sender.track.enabled = true;
         });
     }
 
     handleRemoteSaveMode() {
         $(this.senders).each(function (index, sender) {
+            console.log("Disable Sender Track", sender, sender.track);
             sender.track.enabled = false;
         });
     }
