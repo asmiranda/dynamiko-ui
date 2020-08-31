@@ -16,6 +16,13 @@ class SocketIOP2P {
         // }
     }
 
+    sendChatMessage(chatUser, chatMessage) {
+        $(this.peerConnections).each(function (index, obj) {
+            let myP2PObj = obj;
+            console.log(myP2PObj);
+        });
+    }
+
     clearConnections() {
         $(".videoBoxList").empty();
         this.peerConnections = [];

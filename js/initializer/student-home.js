@@ -56,6 +56,15 @@ class StudentHome {
         $(document).on('click', '.btnUnmute', function () {
             context.btnUnmute(this);
         });
+        $(document).on('click', '.btnSendChatMessage', function () {
+            context.btnSendChatMessage(this);
+        });
+    }
+
+    btnSendChatMessage(obj) {
+        let chatUser = $("#selectChatUser").val();
+        let chatMessage = $("#txtChatMessage").val();
+        socketIOP2P.sendChatMessage(chatUser, chatMessage);
     }
 
     btnMute() {
@@ -94,11 +103,6 @@ class StudentHome {
 
         $(`#myVideo`).hide();
         $(`#myVideoActionButtons`).hide();
-    }
-
-    btnSendChatMessage() {
-        console.log("btnSendChatMessage");
-        // send to socket - btnSendChatMessage
     }
 
     btnEndCall() {

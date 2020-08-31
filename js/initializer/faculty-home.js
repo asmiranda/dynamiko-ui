@@ -42,8 +42,11 @@ class FacultyHome extends StudentHome {
 
     btnNewActivity() {
         let scheduleCode = storage.get("scheduleCode");
-        $(".selectedActivityCode").attr("code", scheduleCode);
-        $(".selectedActivityCode").html("");
+        $(".selectedActivityCodeDisplay").attr("code", scheduleCode);
+        $(".selectedActivityCodeDisplay").html("");
+        $(`#selectedActivityCode`).val("");
+        $(`#selectActivityType`).val("Quiz");
+        $(`#activityText`).val("");
     }
 
     btnSaveActivity() {
@@ -54,11 +57,13 @@ class FacultyHome extends StudentHome {
         let taskDetail = $(`#activityText`).val();
 
         var tmp = {};
+        tmp["scheduleCode"] = scheduleCode;
+        tmp["taskCode"] = taskCode;
         tmp["type"] = taskType;
         tmp["detail"] = taskDetail;
         var vdata = JSON.stringify(tmp);
 
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/saveActivity/${scheduleCode}/${taskCode}`;
+        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/saveActivity/${scheduleCode}`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         let successFunction = function (data) {
             console.log(data);
