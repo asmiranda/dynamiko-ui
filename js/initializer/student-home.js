@@ -59,6 +59,10 @@ class StudentHome {
         $(document).on('click', '.btnSendChatMessage', function () {
             context.btnSendChatMessage(this);
         });
+        $(document).on('dataChannelMessageReceived', function () {
+            context.dataChannelMessageReceived(this);
+        });
+
     }
 
     btnSendChatMessage(obj) {

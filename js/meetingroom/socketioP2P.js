@@ -17,10 +17,13 @@ class SocketIOP2P {
     }
 
     sendChatMessage(chatUser, chatMessage) {
-        $(this.peerConnections).each(function (index, obj) {
-            let myP2PObj = obj;
-            console.log(myP2PObj);
-        });
+        $.each(Object.keys(this.peerConnections), function (key) {
+            let myP2P = this.peerConnections[key];
+            console.log(myP2P);
+            if (chatUser == key) {
+                myP2P.sendChatMessage(chatMessage);
+            }
+        })
     }
 
     clearConnections() {
@@ -118,6 +121,10 @@ class MyP2P {
         };
     }
 
+    sendChatMessage(chatMessage) {
+        this.dataChannel.send(chatMessage);
+    }
+
     initVideoBox() {
         let context = this;
         console.log(`initVideoBox called for ${context.email}`)
@@ -153,10 +160,30 @@ class MyP2P {
         }
     }
 
+    initDataChannel() {
+        let context = this;
+        this.dataChannel = this.peerConnection.createDataChannel("sendChannel");
+        this.dataChannel.onopen = function () {
+            console.log("Data Channel onopen");
+        };
+        this.dataChannel.onclose = function () {
+            console.log("Data Channel onclose");
+        };
+        this.dataChannel.ondatachannel = function () {
+            console.log("Data Channel ondatachannel");
+        };
+        this.dataChannel.onmessage = function (evt) {
+            console.log("Data Channel onmessage");
+            const event = new CustomEvent('dataChannelMessageReceived', { evt: evt });
+            context.dataChannel.dispatchEvent(event);
+        };
+    }
+
     sendOffer() {
         let context = this;
 
         this.sendTracks();
+        this.initDataChannel();
         this.peerConnection.createOffer(function (sdp) {
             console.log(`sendOffer to ${context.email}`)
             context.peerConnection.setLocalDescription(sdp);
