@@ -65,6 +65,10 @@ class StudentHome {
 
     }
 
+    dataChannelMessageReceived(evt) {
+        console.log(evt);
+    }
+
     btnSendChatMessage(obj) {
         let chatUser = $("#selectChatUser").val();
         let chatMessage = $("#txtChatMessage").val();
