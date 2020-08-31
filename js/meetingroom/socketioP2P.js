@@ -39,14 +39,14 @@ class SocketIOP2P {
         })
     }
 
-    unSaveBandWidth() {
+    unsaveBandWidth() {
         let context = this;
         // $(`#remoteVideos`).hide();
         let connArr = Object.keys(this.peerConnections);
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            myP2P.saveBandWidth();
+            myP2P.unsaveBandWidth();
         })
     }
 
@@ -181,7 +181,7 @@ class MyP2P {
         });
     }
 
-    unSaveBandWidth() {
+    unsaveBandWidth() {
         let tmp = { 'dataType': 'UnsaveMode', 'email': this.email, 'message': "Unsaving Mode" };
         this.sendChannel.send(JSON.stringify(tmp));
     }

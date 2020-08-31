@@ -174,7 +174,7 @@ class StudentHome {
 
     btnSaveNetworkBandwidth() {
         if (this.saveMode) {
-            socketIOP2P.saveBandWidth();
+            socketIOP2P.unsaveBandWidth();
             this.saveMode = false;
         }
         else {
