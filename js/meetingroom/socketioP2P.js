@@ -23,7 +23,7 @@ class SocketIOP2P {
 
     handleRemoteSaveMode(email) {
         let myP2P = this.peerConnections[email];
-        myP2P.handleRemoteUnsaveMode();
+        myP2P.handleRemoteSaveMode();
     }
 
     saveBandWidth() {
