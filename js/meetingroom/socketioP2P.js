@@ -17,8 +17,9 @@ class SocketIOP2P {
     }
 
     sendChatMessage(chatUser, chatMessage) {
+        let context = this;
         $.each(Object.keys(this.peerConnections), function (key) {
-            let myP2P = this.peerConnections[key];
+            let myP2P = context.peerConnections[key];
             console.log(myP2P);
             if (chatUser == key) {
                 myP2P.sendChatMessage(chatMessage);
