@@ -54,8 +54,8 @@
         <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
       </div>
     </header>
-    <div class="body" style="background-color: black;">
-      <div id="loginScreen" style="display: none;">
+    <div class="body">
+      <div id="loginScreen" style="display: none; background-color: white;">
         <div class="login-box-body" style="margin: 50px; margin-top: 200px;">
           <p class="login-box-msg">Sign in to start your session</p>
           <form class="form-signin" method="POST">
@@ -126,7 +126,7 @@
       </div>
 
       <div id="meetingScreen" style="display: none; background-color: black;">
-        <video id="activeVideo" autoplay playsinline></video>
+        <video id="activeVideo" autoplay playsinline style="background-color: black;"></video>
         <div>
           <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"
             style="right:7px; top:37px;">
@@ -157,7 +157,7 @@
       </div>
 
     </div>
-    <footer style="background-color: black;">
+    <footer>
       <div id="remoteVideos" class="videoBoxList" style="background-color: black;"></div>
       <div id="myModules">
         <div class="box-body" style="padding: 1px;">
@@ -166,7 +166,8 @@
         </div>
       </div>
     </footer>
-    <div class="sideBtn" style="display: flex; flex-direction: column; position: absolute; bottom: 87px; right: 0px;">
+    <div class="sideBtn"
+      style="display: flex; flex-direction: column; position: absolute; bottom: 97px; right: 7px; width:50px; border-radius: 30%;">
       <div style="flex: 1;">
         <a class="btnCall" style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
             class="fa fa-fw fa-phone-square" style="font-size: 17px;"></i></a>
