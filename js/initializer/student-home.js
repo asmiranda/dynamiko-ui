@@ -62,7 +62,21 @@ class StudentHome {
         $(document).on('click', '.btnHideChatScreen', function () {
             context.btnHideChatScreen(event);
         });
+        $(document).on('click', '.btnScreenSharing', function () {
+            context.btnScreenSharing(event);
+        });
 
+    }
+
+    btnScreenSharing() {
+        console.log("btnScreenSharing")
+        if (this.shareScreen) {
+            socketIOP2P.unshareScreen();
+        }
+        else {
+            socketIOP2P.shareScreen();
+        }
+        this.shareScreen = !this.shareScreen;
     }
 
     btnHideChatScreen() {
@@ -472,6 +486,7 @@ class StudentHome {
     init() {
         this.saveMode = false;
         this.webinarMode = false;
+        this.shareScreen = false;
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
             $("#loginScreen").hide();

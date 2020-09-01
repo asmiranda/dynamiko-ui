@@ -17,14 +17,33 @@ class SocketIOP2P {
         // }
     }
 
-    handleLoadWebinar(obj) {
-        // remove all tracks
+    unshareScreen() {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            context.transientP2P.handleLoadWebinar();
+            myP2P.unshareScreen();
+        })
+    }
+
+    shareScreen() {
+        let context = this;
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            myP2P.shareScreen();
+        })
+    }
+
+    handleLoadWebinar(obj) {
+        let context = this;
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            myP2P.handleLoadWebinar();
         })
     }
 
@@ -35,7 +54,7 @@ class SocketIOP2P {
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            context.transientP2P.handleUnloadWebinar();
+            myP2P.handleUnloadWebinar();
         })
     }
 
@@ -207,6 +226,44 @@ class MyP2P {
         this.peerConnection.ontrack = function (ev) {
             context.onTrack(ev);
         };
+    }
+
+    unshareScreen() {
+        let context = this;
+        try {
+            $(this.senders).each(function (index, sender) {
+                console.log("unshareScreen", sender, sender.track);
+                try {
+                    context.peerConnection.removeTrack(sender);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            });
+
+            let tmp = { 'dataType': 'UnshareScreen', 'email': this.email, 'message': "UnshareScreen Mode" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    shareScreen() {
+        try {
+            screenShare.initScreen(function () {
+                for (const track of shareScreen.localScreen.getTracks()) {
+                    console.log(`shareScreen to ${this.email}`)
+                    this.peerConnection.addTrack(track, shareScreen.localScreen);
+                }
+            });
+
+            let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     handleLoadWebinar(obj) {

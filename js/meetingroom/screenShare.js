@@ -1,15 +1,20 @@
 class ScreenShare {
     constructor() {
-        this.localStream;
+        this.localScreen;
         this.mediaConstraints = window.constraints = {
             audio: false,
             video: true
         };
     }
 
-    initialize(e) {
-        const video = document.getElementById("screenVideo");
-        video.srcObject = screenShare.localStream;
+    initScreen(shareScreenSuccessCallback) {
+        if (navigator.mediaDevices.getDisplayMedia) {
+            navigator.mediaDevices.getDisplayMedia(screenShare.mediaConstraints)
+                .then(function (stream) {
+                    screenShare.localScreen = stream;
+                    shareScreenSuccessCallback();
+                })
+        }
     }
 
     handleError(error) {
