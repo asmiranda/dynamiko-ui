@@ -39,10 +39,10 @@ class SocketIOP2P {
         let context = this;
 
         screenShare.initScreen(function () {
-            let connArr = Object.keys(this.peerConnections);
+            let connArr = Object.keys(context.peerConnections);
             for (const track of shareScreen.localScreen.getTracks()) {
                 $(connArr).each(function (index, key) {
-                    console.log(`shareScreen to ${this.email}`)
+                    console.log(`shareScreen to ${key}`)
                     let myP2P = context.peerConnections[key];
                     console.log(myP2P);
                     myP2P.shareScreen(track, shareScreen.localScreen);
