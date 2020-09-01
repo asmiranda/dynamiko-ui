@@ -268,7 +268,7 @@ class MyP2P {
         if (screenShare.localScreen) {
             screenShare.localScreen.getTracks()[0].enable = true;
             for (const track of screenShare.localScreen.getTracks()) {
-                console.log(`shareScreen to ${this.email}`, track.label)
+                console.log(`shareScreen to ${this.email}`, "Screen Share ID", track.label, track.id);
                 this.peerConnection.addTrack(track, screenShare.localScreen);
             }
         }
@@ -496,7 +496,7 @@ class MyP2P {
     onTrack(ev) {
         console.log(`onTrack from ${this.email}`)
         let context = this;
-        console.log(ev.track, ev.track.label);
+        console.log(ev.track.label, ev.track.id);
         if (ev.streams && ev.streams[0]) {
             context.onReceiveVideo(ev.streams[0]);
         }
