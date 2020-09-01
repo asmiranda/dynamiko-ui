@@ -267,11 +267,10 @@ class MyP2P {
                 this.peerConnection.addTrack(track, screenShare.localScreen);
             }
         }
-        // this.sendTracks();
 
         let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
         this.sendChannel.send(JSON.stringify(tmp));
-        // this.sendOffer();
+        this.sendOffer();
     }
 
     handleLoadWebinar(obj) {
