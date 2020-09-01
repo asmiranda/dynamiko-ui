@@ -48,5 +48,5 @@ $(function () {
     socketIOP2P = new SocketIOP2P();
     socketIOMediaStream = new SocketIOMediaStream();
     screenShare = new ScreenShare();
-    // window.onbeforeunload = socketIOMeetingRoom.leaveRoom();
+    console.log("screenShare", screenShare);
 })
