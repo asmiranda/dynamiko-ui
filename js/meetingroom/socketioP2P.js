@@ -17,11 +17,11 @@ class SocketIOP2P {
         // }
     }
 
-    handleShareScreen(obj) {
+    handleShareScreen() {
         this.transientP2P.handleShareScreen();
     }
 
-    handleUnshareScreen(obj) {
+    handleUnshareScreen() {
         this.transientP2P.handleUnshareScreen();
     }
 
@@ -223,8 +223,13 @@ class MyP2P {
         this.senders;
         this.receivers;
         this.screenSharing;
+        this.peerConnection;
 
         this.initVideoBox();
+        this.initP2P();
+    }
+
+    initP2P() {
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
             optional: [{
                 RtpDataChannels: true
@@ -241,15 +246,11 @@ class MyP2P {
         };
     }
 
-    handleShareScreen(obj) {
+    handleShareScreen() {
         this.screenSharing = true;
-        this.receivers = this.peerConnection.getReceivers();
-        $(this.receivers).each(function (receiver) {
-            console.log(receiver);
-        })
     }
 
-    handleUnshareScreen(obj) {
+    handleUnshareScreen() {
         this.screenSharing = false;
     }
 
@@ -261,15 +262,14 @@ class MyP2P {
     }
 
     shareScreen() {
+        this.initP2P();
         if (screenShare.localScreen) {
             screenShare.localScreen.getTracks()[0].enable = true;
             for (const track of screenShare.localScreen.getTracks()) {
                 this.peerConnection.addTrack(track, screenShare.localScreen);
             }
         }
-
-        let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
-        this.sendChannel.send(JSON.stringify(tmp));
+        this.sendTracks();
         this.sendOffer();
     }
 
