@@ -515,14 +515,14 @@ class MyP2P {
         this.videoElem.srcObject = tmpMedia;
 
         let activeVideo = document.getElementById(`activeVideo`);
-        if (!activeVideo.srcObject) {
-            activeVideo.srcObject = tmpMedia;
-        }
+        // if (!activeVideo.srcObject) {
+        // activeVideo.srcObject = tmpMedia;
+        // }
     }
 
     onReceiveScreen(tmpMedia) {
         console.log(`onReceiveScreen track from ${this.email}`)
-        var screenVideo = document.querySelector(`#activeVideo`)[0];
+        var screenVideo = document.getElementById(`activeVideo`);
         console.log(screenVideo);
         screenVideo.srcObject = tmpMedia;
     }
