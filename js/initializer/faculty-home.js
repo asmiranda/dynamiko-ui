@@ -1,13 +1,6 @@
 class FacultyHome extends StudentHome {
-    constructor() {
-        this.loadedListener = false;
-    }
-
     initListeners() {
         super.initListeners();
-        if (this.loadedListener) {
-            return;
-        }
         let context = this;
         $(document).on('click', '.btnUploadPDF', function () {
             context.btnUploadPDF();
