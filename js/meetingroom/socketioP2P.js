@@ -17,6 +17,14 @@ class SocketIOP2P {
         // }
     }
 
+    handleShareScreen(obj) {
+        this.transientP2P.handleShareScreen();
+    }
+
+    handleUnshareScreen(obj) {
+        this.transientP2P.handleUnshareScreen();
+    }
+
     unshareScreen() {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
@@ -210,6 +218,8 @@ class MyP2P {
         this.sendChannel;
         this.receiveChannel;
         this.senders;
+        this.receivers;
+        this.screenSharing;
 
         this.initVideoBox();
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
@@ -226,6 +236,18 @@ class MyP2P {
         this.peerConnection.ontrack = function (ev) {
             context.onTrack(ev);
         };
+    }
+
+    handleShareScreen(obj) {
+        this.screenSharing = true;
+        this.receivers = this.peerConnection.getReceivers();
+        $(this.receivers).each(function (receiver) {
+            console.log(receiver);
+        })
+    }
+
+    handleUnshareScreen(obj) {
+        this.screenSharing = false;
     }
 
     unshareScreen() {

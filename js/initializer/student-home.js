@@ -101,6 +101,20 @@ class StudentHome {
         else if (obj.dataType == 'UnloadWebinar') {
             this.handleUnloadWebinar(obj);
         }
+        else if (obj.dataType == 'ShareScreen') {
+            this.handleShareScreen(obj);
+        }
+        else if (obj.dataType == 'UnshareScreen') {
+            this.handleUnshareScreen(obj);
+        }
+    }
+
+    handleShareScreen(obj) {
+        socketIOP2P.handleShareScreen(obj);
+    }
+
+    handleUnshareScreen(obj) {
+        socketIOP2P.handleUnshareScreen(obj);
     }
 
     handleLoadWebinar(obj) {
