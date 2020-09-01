@@ -516,7 +516,7 @@ class MyP2P {
 
         let activeVideo = document.getElementById(`activeVideo`);
         // if (!activeVideo.srcObject) {
-        // activeVideo.srcObject = tmpMedia;
+        activeVideo.srcObject = tmpMedia;
         // }
     }
 
