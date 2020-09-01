@@ -371,6 +371,16 @@ class MyP2P {
         }
     }
 
+    sendClearP2PSignal() {
+        try {
+            let tmp = { 'dataType': 'ClearP2P', 'email': this.email, 'message': "Clear P2P" };
+            this.sendChannel.send(JSON.stringify(tmp));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     sendChatMessage(chatMessage) {
         let profileName = storage.getProfileName();
         let tmp = { 'dataType': 'Chat', 'profileName': profileName, 'message': chatMessage };
@@ -440,9 +450,15 @@ class MyP2P {
 
             context.receiveChannel.onmessage = function (evt) {
                 console.log("receiveChannel onmessage");
-                const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
-                socketIOP2P.transientP2P = context;
-                document.dispatchEvent(customEvent);
+                let dataType = JSON.parse(evt.dataType);
+                if (dataType == "ClearP2P") {
+                    context.initP2P();
+                }
+                else {
+                    const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
+                    socketIOP2P.transientP2P = context;
+                    document.dispatchEvent(customEvent);
+                }
             };
         };
     }
