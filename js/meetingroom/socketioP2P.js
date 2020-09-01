@@ -496,7 +496,7 @@ class MyP2P {
     onTrack(ev) {
         console.log(`onTrack from ${this.email}`)
         let context = this;
-        console.log(ev.track);
+        console.log(ev.track, ev.track.label);
         if (ev.streams && ev.streams[0]) {
             context.onReceiveVideo(ev.streams[0]);
         }
