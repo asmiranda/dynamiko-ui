@@ -230,6 +230,7 @@ class MyP2P {
     }
 
     initP2P() {
+        let context = this;
         this.peerConnection = new RTCPeerConnection(socketIOP2P.peerConnectionConfig, {
             optional: [{
                 RtpDataChannels: true
