@@ -265,6 +265,7 @@ class MyP2P {
     }
 
     shareScreen(track, localScreen) {
+        shareScreen.localScreen.getTracks()[0].enable = true;
         this.peerConnection.addTrack(track, localScreen);
 
         let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
