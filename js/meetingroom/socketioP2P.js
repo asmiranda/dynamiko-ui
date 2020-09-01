@@ -40,13 +40,10 @@ class SocketIOP2P {
 
         screenShare.initScreen(function () {
             let connArr = Object.keys(context.peerConnections);
-            for (const track of screenShare.localScreen.getTracks()) {
-                $(connArr).each(function (index, key) {
-                    console.log(`shareScreen to ${key}`)
-                    let myP2P = context.peerConnections[key];
-                    console.log(myP2P);
-                    myP2P.shareScreen(track, screenShare.localScreen);
-                })
+            $(connArr).each(function (index, key) {
+                let myP2P = context.peerConnections[key];
+                console.log(myP2P);
+                myP2P.shareScreen();
             }
         });
 
@@ -264,9 +261,14 @@ class MyP2P {
         this.sendChannel.send(JSON.stringify(tmp));
     }
 
-    shareScreen(track, localScreen) {
-        screenShare.localScreen.getTracks()[0].enable = true;
-        this.peerConnection.addTrack(track, localScreen);
+    shareScreen() {
+        if (screenShare.localScreen) {
+            screenShare.localScreen.getTracks()[0].enable = true;
+            for (const track of screenShare.localScreen.getTracks()) {
+                this.peerConnection.addTrack(track, screenShare.localScreen);
+            }
+        }
+        // this.sendTracks();
 
         let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
         this.sendChannel.send(JSON.stringify(tmp));
@@ -404,10 +406,9 @@ class MyP2P {
     }
 
     sendTracks() {
-        let context = this;
         for (const track of socketIOMediaStream.localVideo.getTracks()) {
-            console.log(`sendTracks to ${context.email}`)
-            context.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
+            console.log(`sendTracks to ${this.email}`)
+            this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
         }
         this.senders = this.peerConnection.getSenders();
     }
