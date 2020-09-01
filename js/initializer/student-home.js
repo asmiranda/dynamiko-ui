@@ -70,13 +70,13 @@ class StudentHome {
 
     btnScreenSharing() {
         console.log("btnScreenSharing")
-        if (this.shareScreen) {
-            socketIOP2P.unshareScreen();
-        }
-        else {
-            socketIOP2P.shareScreen();
-        }
-        this.shareScreen = !this.shareScreen;
+        // if (this.shareScreen) {
+        //     socketIOP2P.unshareScreen();
+        // }
+        // else {
+        socketIOP2P.shareScreen();
+        // }
+        // this.shareScreen = !this.shareScreen;
     }
 
     btnHideChatScreen() {
