@@ -404,9 +404,14 @@ class MyP2P {
     }
 
     sendTracks() {
-        for (const track of socketIOMediaStream.localVideo.getTracks()) {
-            console.log(`sendTracks to ${this.email}`)
-            this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
+        try {
+            for (const track of socketIOMediaStream.localVideo.getTracks()) {
+                console.log(`sendTracks to ${this.email}`)
+                this.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
+            }
+        }
+        catch (e) {
+            console.log(e);
         }
         this.senders = this.peerConnection.getSenders();
     }
