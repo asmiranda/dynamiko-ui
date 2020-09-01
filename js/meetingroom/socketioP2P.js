@@ -44,9 +44,8 @@ class SocketIOP2P {
                 let myP2P = context.peerConnections[key];
                 console.log(myP2P);
                 myP2P.shareScreen();
-            }
+            })
         });
-
     }
 
     handleLoadWebinar(obj) {
