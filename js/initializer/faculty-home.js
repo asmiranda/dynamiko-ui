@@ -109,7 +109,6 @@ class FacultyHome extends StudentHome {
             let detail = obj.getPropDefault("detail", "");
             let str = `
                 <li>
-                    <i class="fa fa-fw fa-gear bg-blue"></i>
                     <div class="timeline-item">
                         <span class="pull-right" style="margin: 10px; margin-right: 30px;">
                             <i class="fas fa-edit btnEditActivity" style="color: green;" code="${code}"></i> 

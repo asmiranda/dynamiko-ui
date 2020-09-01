@@ -457,7 +457,6 @@ class StudentHome {
             let detail = obj.getPropDefault("detail", "");
             let str = `
                 <li>
-                    <i class="fa fa-fw fa-gear bg-blue"></i>
                     <div class="timeline-item">
                         <h3 class="timeline-header"><a href="#">${taskType}</a></h3>
                         <div class="timeline-body">
