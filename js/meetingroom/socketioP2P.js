@@ -404,7 +404,7 @@ class MyP2P {
     }
 
     sendTracks() {
-        let context = thisl
+        let context = this;
         for (const track of socketIOMediaStream.localVideo.getTracks()) {
             console.log(`sendTracks to ${context.email}`)
             context.peerConnection.addTrack(track, socketIOMediaStream.localVideo);
