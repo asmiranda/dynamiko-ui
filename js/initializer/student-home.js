@@ -1,6 +1,13 @@
 class StudentHome {
+    constructor() {
+        this.loadedListener = false;
+    }
+
     initListeners() {
         console.log(`token = ${storage.getToken()}`);
+        if (this.loadedListener) {
+            return;
+        }
         let context = this;
         $(document).on('click', '#btnShowLogin', function () {
             $("#loginScreen").show();
@@ -514,6 +521,7 @@ class StudentHome {
             $("#loginScreen").show();
             $("#welcome").hide();
         }
+        this.loadedListener = true;
     }
 }
 
