@@ -224,6 +224,7 @@ class MyP2P {
         this.receivers;
         this.screenSharing;
         this.peerConnection;
+        this.remoteIsSharingScreen;
 
         this.initVideoBox();
         this.initP2P();
@@ -265,6 +266,7 @@ class MyP2P {
     shareScreen() {
         this.sendClearP2PSignal();
         this.initP2P();
+        this.sendTracks();
         if (screenShare.localScreen) {
             screenShare.localScreen.getTracks()[0].enable = true;
             for (const track of screenShare.localScreen.getTracks()) {
@@ -272,7 +274,6 @@ class MyP2P {
                 this.peerConnection.addTrack(track, screenShare.localScreen);
             }
         }
-        this.sendTracks();
         this.sendOffer();
     }
 
@@ -497,14 +498,17 @@ class MyP2P {
         console.log(`onTrack from ${this.email}`)
         let context = this;
         console.log("Track Label and ID", ev.track.label, ev.track.id);
-        if (ev.streams && ev.streams[0]) {
-            let stream = ev.streams[0];
-            console.log("Received Stream", stream);
-            if (stream.getTracks().length == 2) {
-                context.onReceiveVideo(stream);
-            }
-            else {
-                context.onReceiveScreen(stream);
+        // do not map Audio, its included in the video cam stream
+        if (!ev.track.label.includes("audio")) {
+            if (ev.streams && ev.streams[0]) {
+                let stream = ev.streams[0];
+                console.log("Received Stream", stream);
+                if (stream.getTracks().length == 2) {
+                    context.onReceiveVideo(stream);
+                }
+                else {
+                    context.onReceiveScreen(stream);
+                }
             }
         }
     };
@@ -515,9 +519,7 @@ class MyP2P {
         this.videoElem.srcObject = tmpMedia;
 
         let activeVideo = document.getElementById(`activeVideo`);
-        // if (!activeVideo.srcObject) {
         activeVideo.srcObject = tmpMedia;
-        // }
     }
 
     onReceiveScreen(tmpMedia) {
