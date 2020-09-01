@@ -37,12 +37,19 @@ class SocketIOP2P {
 
     shareScreen() {
         let context = this;
-        let connArr = Object.keys(this.peerConnections);
-        $(connArr).each(function (index, key) {
-            let myP2P = context.peerConnections[key];
-            console.log(myP2P);
-            myP2P.shareScreen();
-        })
+
+        screenShare.initScreen(function () {
+            let connArr = Object.keys(this.peerConnections);
+            for (const track of shareScreen.localScreen.getTracks()) {
+                $(connArr).each(function (index, key) {
+                    console.log(`shareScreen to ${this.email}`)
+                    let myP2P = context.peerConnections[key];
+                    console.log(myP2P);
+                    myP2P.shareScreen(track, shareScreen.localScreen);
+                })
+            }
+        });
+
     }
 
     handleLoadWebinar(obj) {
@@ -251,41 +258,17 @@ class MyP2P {
     }
 
     unshareScreen() {
-        let context = this;
-        try {
-            $(this.senders).each(function (index, sender) {
-                console.log("unshareScreen", sender, sender.track);
-                try {
-                    context.peerConnection.removeTrack(sender);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            });
+        shareScreen.localScreen.getTracks()[0].enable = false;
 
-            let tmp = { 'dataType': 'UnshareScreen', 'email': this.email, 'message': "UnshareScreen Mode" };
-            this.sendChannel.send(JSON.stringify(tmp));
-        }
-        catch (e) {
-            console.log(e);
-        }
+        let tmp = { 'dataType': 'UnshareScreen', 'email': this.email, 'message': "UnshareScreen Mode" };
+        this.sendChannel.send(JSON.stringify(tmp));
     }
 
-    shareScreen() {
-        try {
-            screenShare.initScreen(function () {
-                for (const track of shareScreen.localScreen.getTracks()) {
-                    console.log(`shareScreen to ${this.email}`)
-                    this.peerConnection.addTrack(track, shareScreen.localScreen);
-                }
-            });
+    shareScreen(track, localScreen) {
+        this.peerConnection.addTrack(track, localScreen);
 
-            let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
-            this.sendChannel.send(JSON.stringify(tmp));
-        }
-        catch (e) {
-            console.log(e);
-        }
+        let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
+        this.sendChannel.send(JSON.stringify(tmp));
     }
 
     handleLoadWebinar(obj) {
