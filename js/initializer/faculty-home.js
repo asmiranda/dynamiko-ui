@@ -8,9 +8,6 @@ class FacultyHome extends StudentHome {
         $(document).on('click', '.btnStartWebinar', function () {
             context.btnStartWebinar();
         });
-        $(document).on('click', '.btnScreenSharing', function () {
-            context.btnScreenSharing();
-        });
         $(document).on('click', '.btnUploadFile', function () {
             context.btnUploadFile(this);
         });
