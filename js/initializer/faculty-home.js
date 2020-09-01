@@ -1,6 +1,6 @@
 class FacultyHome extends StudentHome {
     initListeners() {
-        // super.initListeners();
+        super.initListeners();
         let context = this;
         $(document).on('click', '.btnUploadPDF', function () {
             context.btnUploadPDF();
