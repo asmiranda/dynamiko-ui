@@ -500,7 +500,12 @@ class MyP2P {
         if (ev.streams && ev.streams[0]) {
             let stream = ev.streams[0];
             console.log("Received Stream", stream);
-            context.onReceiveVideo(stream);
+            if (stream.getTracks().length == 2) {
+                context.onReceiveVideo(stream);
+            }
+            else {
+                context.onReceiveScreen(stream);
+            }
         }
     };
 
