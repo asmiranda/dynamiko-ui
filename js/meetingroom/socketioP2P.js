@@ -263,6 +263,7 @@ class MyP2P {
     }
 
     shareScreen() {
+        this.sendClearP2PSignal();
         this.initP2P();
         if (screenShare.localScreen) {
             screenShare.localScreen.getTracks()[0].enable = true;
