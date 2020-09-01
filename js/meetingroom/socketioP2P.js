@@ -451,8 +451,8 @@ class MyP2P {
 
             context.receiveChannel.onmessage = function (evt) {
                 console.log("receiveChannel onmessage");
-                let dataType = JSON.parse(evt.dataType);
-                if (dataType == "ClearP2P") {
+                let data = JSON.parse(evt.data);
+                if (data.dataType == "ClearP2P") {
                     context.initP2P();
                 }
                 else {
