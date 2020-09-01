@@ -258,14 +258,14 @@ class MyP2P {
     }
 
     unshareScreen() {
-        shareScreen.localScreen.getTracks()[0].enable = false;
+        screenShare.localScreen.getTracks()[0].enable = false;
 
         let tmp = { 'dataType': 'UnshareScreen', 'email': this.email, 'message': "UnshareScreen Mode" };
         this.sendChannel.send(JSON.stringify(tmp));
     }
 
     shareScreen(track, localScreen) {
-        shareScreen.localScreen.getTracks()[0].enable = true;
+        screenShare.localScreen.getTracks()[0].enable = true;
         this.peerConnection.addTrack(track, localScreen);
 
         let tmp = { 'dataType': 'ShareScreen', 'email': this.email, 'message': "ShareScreen Mode" };
