@@ -63,6 +63,7 @@ class StudentHome {
             context.btnHideChatScreen(event);
         });
         $(document).on('click', '.btnScreenSharing', function () {
+            console.log("on click btnScreenSharing")
             context.btnScreenSharing(event);
         });
 
