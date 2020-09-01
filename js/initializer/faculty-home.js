@@ -184,10 +184,6 @@ class FacultyHome extends StudentHome {
             this.webinarMode = true;
         }
     }
-
-    btnScreenSharing() {
-        console.log("btnScreenSharing");
-    }
 }
 
 
