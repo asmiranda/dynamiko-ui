@@ -12,7 +12,8 @@ class SocketIOMediaStream {
 
         var mediaConstraints = {
             audio: context.audioSharing,
-            video: context.videoSharing
+            video: context.videoSharing,
+            name: "Camera"
         };
         return mediaConstraints;
     }

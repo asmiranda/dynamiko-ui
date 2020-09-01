@@ -3,7 +3,8 @@ class ScreenShare {
         this.localScreen;
         this.mediaConstraints = window.constraints = {
             audio: false,
-            video: true
+            video: true,
+            name: "ScreenSharing"
         };
     }
 
