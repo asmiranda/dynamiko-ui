@@ -1,6 +1,6 @@
 // var server = "dynamikosoft.com";
 var server = window.location.hostname;
-var MAIN_URL = `http://${server}:8888`;
+var MAIN_URL = `https://${server}:8888`;
 
 var dynaRegister;
 
