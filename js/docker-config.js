@@ -1,9 +1,5 @@
-var server = "service.dynamikosoft.com";
-var dynamikoPort = "8443";
-var roomSignalPort = "4343";
-var MAIN_URL = `https://${server}:${dynamikoPort}`;
-var MAIN_SIGNAL_URL = `wss://${server}:${roomSignalPort}`;
-var MAIN_SIGNAL_HTTP_URL = `https://${server}:${roomSignalPort}`;
+var server = window.location.hostname;
+var MAIN_URL = `https://${server}:8888`;
 
 var dynaRegister;
 

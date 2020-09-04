@@ -1,7 +1,6 @@
-var server = "dynamikosoft.com";
-var MAIN_URL = `https://${server}:8888`;
-var MAIN_SIGNAL_URL = `https://${server}:8888`;
-var ANNOUNCEMENT_URL = "http://mobilewebui.dynamikosoft.com/"
+// var server = "dynamikosoft.com";
+var server = window.location.hostname;
+var MAIN_URL = `http://${server}:8888`;
 
 var dynaRegister;
 
@@ -12,18 +11,3 @@ class Config {
 }
 
 const config = new Config();
-
-$(function () {
-    if (utils.isLocal()) {
-        if (utils.isAndroid()) {
-            console.log("device is android...");
-            server = "localhost";
-            // server = "10.0.2.2";
-        }
-        else {
-            server = "localhost";
-        }
-        MAIN_URL = `http://${server}:8888`;
-        MAIN_SIGNAL_URL = `http://${server}:8888`;
-    }
-})

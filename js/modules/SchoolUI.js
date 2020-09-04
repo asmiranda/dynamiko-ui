@@ -4,7 +4,7 @@ class SchoolUI extends AbstractUI {
     }
 
     loadAnnouncements() {
-        $("#announcementContent").attr("src", ANNOUNCEMENT_URL);
+        // $("#announcementContent").attr("src", ANNOUNCEMENT_URL);
     }
 
     loadStudents(scheduleCode) {

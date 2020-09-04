@@ -4,12 +4,21 @@ class SocketIOP2P {
         this.peerConnectionConfig = {
             'iceServers': [
                 {
-                    urls: ['stun:dynamikosoft.com:3478', 'turn:dynamikosoft.com:3478'],
+                    urls: [`stun:${server}:3478`, `turn:${server}:3478`],
                     credential: 'Miran!11',
                     username: 'dynamiko'
                 },
             ]
         }
+        // this.peerConnectionConfig = {
+        //     'iceServers': [
+        //         {
+        //             urls: ['stun:dynamikosoft.com:3478', 'turn:dynamikosoft.com:3478'],
+        //             credential: 'Miran!11',
+        //             username: 'dynamiko'
+        //         },
+        //     ]
+        // }
         // this.peerConnectionConfig = {
         //     'iceServers': [
         //         { 'urls': ['stun:stun.services.mozilla.com', 'stun:stun.l.google.com:19302'] },
