@@ -1,8 +1,6 @@
 class SchoolMobile {
     constructor() {
         console.log(`token = ${mobileUtil.getToken()}`);
-        server = "service.dynamikosoft.com";
-        MAIN_URL = `https://${server}:8888`;
 
         let context = this;
         $(document).on('click', '#btnShowLogin', function () {
