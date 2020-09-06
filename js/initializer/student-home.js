@@ -302,7 +302,7 @@ class StudentHome {
 
     btnLogout() {
         storage.clear();
-        this.init();
+        window.location.href = "loginNoRedirect.html";
     }
 
     btnCall(obj) {
