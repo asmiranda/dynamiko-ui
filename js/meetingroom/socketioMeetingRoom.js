@@ -2,26 +2,7 @@ class SocketIOMeetingRoom {
     init() {
         let context = this;
         this.title
-        // this.socket = io.connect(MAIN_URL)
-
-        var protocol = 'http://';
-        var secure = false;
-        var transports = [];
-        transports.push('websocket');
-        transports.push('flashsocket');
-        transports.push('xhr-polling');
-        transports.push('jsonp-polling');
-        this.socket = io.connect(protocol + "localhost:8080", {
-            'secure': secure,
-            'transports': transports,
-            'reconnection delay': 2000,
-            'force new connection': true,
-        });
-
-        // Add connect listener
-        this.socket.on('connect', function () {
-            console.log(`Connected with ${context.socket.socket.transport.name}`);
-        });
+        this.socket = io.connect(`https://dynamikosoft.com:7887`, { secure: true })
 
         this.socket.on('onjoinedroom', function (data) {
             // console.log("onjoinedroom", data);
