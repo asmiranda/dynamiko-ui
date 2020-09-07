@@ -71,13 +71,13 @@ class StudentHome {
 
     btnScreenSharing() {
         console.log("btnScreenSharing")
-        // if (this.shareScreen) {
-        //     socketIOP2P.unshareScreen();
-        // }
-        // else {
-        socketIOP2P.shareScreen();
-        // }
-        // this.shareScreen = !this.shareScreen;
+        if (this.shareScreen) {
+            socketIOP2P.unshareScreen();
+        }
+        else {
+            socketIOP2P.shareScreen();
+        }
+        this.shareScreen = !this.shareScreen;
     }
 
     btnHideChatScreen() {
@@ -191,6 +191,33 @@ class StudentHome {
         $(`#myVideoActionButtons`).hide();
     }
 
+    btnCall(obj) {
+        $(`#meetingScreen`).show();
+        $(`#activities`).hide();
+        $(`#myVideo`).show();
+        $(`#myVideoActionButtons`).show();
+
+        // $(`.btnAddVideo`).show();
+        $(`.btnRemoveVideo`).show();
+        // $(`.btnUnmute`).show();
+        $(`.btnMute`).show();
+        $(`.btnFullScreen`).show();
+
+        $(`#activeVideo`).show();
+        $(`#meetingScreen`).show();
+        $(`#remoteVideos`).show();
+
+        storage.setRoomCode(storage.getModuleCode());
+        socketIOP2P.clearConnections();
+
+        socketIOMediaStream.initVideo(function () {
+            console.log("Local Media Started");
+            socketIOMeetingRoom.init();
+            socketIOMeetingRoom.join("Join Room", storage.getRoomCode());
+        });
+        this.onCall = true;
+    }
+
     btnEndCall() {
         $(`#moduleHeader`).show();
         $(`#activities`).show();
@@ -203,7 +230,6 @@ class StudentHome {
 
         $(`#myVideo`).hide();
         $(`#myVideoActionButtons`).hide();
-
 
         $(`.btnAddVideo`).hide();
         $(`.btnRemoveVideo`).hide();
@@ -303,29 +329,6 @@ class StudentHome {
     btnLogout() {
         storage.clear();
         window.location.href = "loginNoRedirect.html";
-    }
-
-    btnCall(obj) {
-        $(`#meetingScreen`).show();
-        $(`#activities`).hide();
-        $(`#myVideo`).show();
-        $(`#myVideoActionButtons`).show();
-
-        // $(`.btnAddVideo`).show();
-        $(`.btnRemoveVideo`).show();
-        // $(`.btnUnmute`).show();
-        $(`.btnMute`).show();
-        $(`.btnFullScreen`).show();
-
-        storage.setRoomCode(storage.getModuleCode());
-        socketIOP2P.clearConnections();
-
-        socketIOMediaStream.initVideo(function () {
-            console.log("Local Media Started");
-            socketIOMeetingRoom.init();
-            socketIOMeetingRoom.join("Join Room", storage.getRoomCode());
-        });
-        this.onCall = true;
     }
 
     btnSchedule(obj) {

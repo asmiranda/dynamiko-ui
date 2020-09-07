@@ -146,7 +146,7 @@ class FacultyHome extends StudentHome {
             data.append("file", file);
 
             let successFunction = function (data) {
-                alert(data);
+                alert("Daily Reading Uploaded!");
                 console.log(data);
             };
             ajaxCaller.uploadFile(successFunction, "SchoolUI", scheduleCode, "pdf", data);

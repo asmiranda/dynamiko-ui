@@ -1,10 +1,11 @@
 class SocketIOP2P {
     constructor() {
         this.transientP2P;
+        this.stunServer = "dynamikosoft.com";
         this.peerConnectionConfig = {
             'iceServers': [
                 {
-                    urls: [`stun:${server}:3478`, `turn:${server}:3478`],
+                    urls: [`stun:${this.stunServer}:3478`, `turn:${this.stunServer}:3478`],
                     credential: 'Miran!11',
                     username: 'dynamiko'
                 },
