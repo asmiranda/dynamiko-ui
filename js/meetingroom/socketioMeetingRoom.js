@@ -1,8 +1,14 @@
 class SocketIOMeetingRoom {
     init() {
+        let signalServer = window.location.hostname;
         let context = this;
         this.title
-        this.socket = io.connect(`https://dynamikosoft.com:7887`, { secure: true })
+        if (signalServer == "localhost") {
+            this.socket = io.connect(`http://${signalServer}:7887`, { secure: true })
+        }
+        else {
+            this.socket = io.connect(`https://${signalServer}:7887`, { secure: true })
+        }
 
         this.socket.on('onjoinedroom', function (data) {
             // console.log("onjoinedroom", data);

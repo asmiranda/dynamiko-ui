@@ -330,6 +330,7 @@ class StudentHome {
 
     btnSchedule(obj) {
         let code = $(obj).attr("code");
+        storage.setModuleCode(code);
         this.loadModuleDetail(code);
         this.loadActivities(code);
         this.loadStudents(code);
