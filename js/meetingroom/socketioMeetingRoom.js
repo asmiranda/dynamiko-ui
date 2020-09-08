@@ -39,6 +39,14 @@ class SocketIOMeetingRoom {
             // console.log("onleaveroom", data);
             socketIOMessageHandler.onLeaveRoom(context.socket, data);
         });
+        $(document).on('click', '.miniVideoStream', function () {
+            let activeVideo = document.getElementById("activeVideo")
+            activeVideo.srcObject = this.srcObject
+        });
+        $(document).on('click', '.remoteMiniVideoStream', function () {
+            let activeVideo = document.getElementById("activeVideo")
+            activeVideo.srcObject = this.srcObject
+        });
     }
 
     leaveRoom() {

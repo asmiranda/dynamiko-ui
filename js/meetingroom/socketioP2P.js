@@ -571,8 +571,10 @@ class MyP2P {
     onReceiveScreen(tmpMedia) {
         console.log(`onReceiveScreen track from ${this.email}`)
         var screenVideo = document.getElementById(`activeVideo`);
+        var miniScreenVideo = document.getElementById(`activeScreenShare`);
         console.log(screenVideo);
         screenVideo.srcObject = tmpMedia;
+        miniScreenVideo.srcObject = tmpMedia;
         let context = this;
         tmpMedia.getVideoTracks()[0].onended = function () {
             context.remoteNoScreen();
@@ -603,10 +605,14 @@ class MyP2P {
 
     remoteNoScreen() {
         console.log("Remote No Screen")
+        $("#activeVideo").hide();
+        $("#activeScreenShare").hide();
     }
 
     remoteWithScreen() {
         console.log("Remote With Screen")
+        $("#activeVideo").show();
+        $("#activeScreenShare").show();
     }
 
     leaveRoom() {

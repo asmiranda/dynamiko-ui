@@ -56,35 +56,6 @@
     </header>
     <div class="body">
       <div id="loginScreen" style="display: none; background-color: white;">
-        <div class="login-box-body" style="margin: 50px; margin-top: 200px;">
-          <p class="login-box-msg">Sign in to start your session</p>
-          <form class="form-signin" method="POST">
-            <div class="form-group has-feedback">
-              <input class="form-control logInput" id="email" name="email" th:placeholder="Email" type="email"
-                value="student1@test.com" />
-              <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-              <input class="form-control logInput" id="password" name="password" th:placeholder="Password"
-                type="password" value="password" />
-              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-              <div class="col-xs-8">
-                <div class="checkbox icheck">
-                </div>
-              </div>
-              <!-- /.col -->
-              <div class="col-xs-4">
-                <button class="btn btn-lg btn-primary btn-block" name="btnLogin" id="btnLogin" text="Login"
-                  value="Login" type="button">Login</button>
-              </div>
-              <!-- /.col -->
-            </div>
-          </form>
-          <a href="#">I forgot my password</a><br>
-          <a class="text-center" href="registration.html">Register a new membership</a>
-        </div>
       </div>
 
       <div id="moduleHeader" class="box-header with-border text-center"
@@ -158,6 +129,9 @@
       <div id="meetingScreen" style="display: none; background-color: black;">
         <video id="activeVideo" autoplay playsinline style="background-color: black;"></video>
         <div>
+          <video id="activeScreenShare" class="miniVideoStream" autoplay playsinline muted="muted"
+            style="position: absolute; left: 7px; top: 100px; width: 70px; height: 70px;">
+          </video>
           <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"
             style="right:7px; top:37px;">
           </video>
