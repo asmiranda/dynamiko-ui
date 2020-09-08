@@ -23,6 +23,14 @@ class SocketIOMessageHandler {
         }
     }
 
+    onNewOffer(mySocket, data) {
+        console.log(`onNewOffer`, data)
+        let fromEmail = data["fromEmail"];
+        if (storage.getUname() != fromEmail) {
+            socketIOP2P.onNewOffer(mySocket, data);
+        }
+    }
+
     onAnswer(mySocket, data) {
         console.log(`onAnswer`, data)
         let fromEmail = data["fromEmail"];

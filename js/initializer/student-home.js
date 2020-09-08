@@ -71,13 +71,7 @@ class StudentHome {
 
     btnScreenSharing() {
         console.log("btnScreenSharing")
-        if (this.shareScreen) {
-            socketIOP2P.unshareScreen();
-        }
-        else {
-            socketIOP2P.shareScreen();
-        }
-        this.shareScreen = !this.shareScreen;
+        socketIOP2P.shareScreen();
     }
 
     btnHideChatScreen() {
@@ -505,7 +499,6 @@ class StudentHome {
     init() {
         this.saveMode = false;
         this.webinarMode = false;
-        this.shareScreen = false;
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
             $("#loginScreen").hide();

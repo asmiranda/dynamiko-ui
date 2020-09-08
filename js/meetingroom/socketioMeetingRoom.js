@@ -1,7 +1,7 @@
 class SocketIOMeetingRoom {
     init() {
-        let signalServer = "dynamikosoft.com";
-        // let signalServer = window.location.hostname;
+        // let signalServer = "dynamikosoft.com";
+        let signalServer = window.location.hostname;
         let context = this;
         this.title
         if (signalServer == "localhost") {
@@ -22,6 +22,10 @@ class SocketIOMeetingRoom {
         this.socket.on('offer', function (data) {
             // console.log("offer", data);
             socketIOMessageHandler.onOffer(context.socket, data);
+        });
+        this.socket.on('new_offer', function (data) {
+            // console.log("offer", data);
+            socketIOMessageHandler.onNewOffer(context.socket, data);
         });
         this.socket.on('answer', function (data) {
             // console.log("answer", data);

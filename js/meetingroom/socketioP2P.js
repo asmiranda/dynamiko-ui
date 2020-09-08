@@ -13,15 +13,6 @@ class SocketIOP2P {
         }
         // this.peerConnectionConfig = {
         //     'iceServers': [
-        //         {
-        //             urls: ['stun:dynamikosoft.com:3478', 'turn:dynamikosoft.com:3478'],
-        //             credential: 'Miran!11',
-        //             username: 'dynamiko'
-        //         },
-        //     ]
-        // }
-        // this.peerConnectionConfig = {
-        //     'iceServers': [
         //         { 'urls': ['stun:stun.services.mozilla.com', 'stun:stun.l.google.com:19302'] },
         //     ]
         // }
@@ -194,6 +185,15 @@ class SocketIOP2P {
         }
     }
 
+    onNewOffer(mySocket, data) {
+        if (this.isMessageForMe(data)) {
+            let toEmail = data["fromEmail"];
+            let myP2P = new MyP2P(toEmail, true);
+            this.peerConnections[toEmail] = myP2P;
+            myP2P.sendAnswer(data);
+        }
+    }
+
     onAnswer(mySocket, data) {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
@@ -274,17 +274,9 @@ class MyP2P {
     }
 
     shareScreen() {
-        this.sendClearP2PSignal();
+        // this.sendClearP2PSignal();
         this.initP2P();
-        this.sendTracks();
-        if (screenShare.localScreen) {
-            screenShare.localScreen.getTracks()[0].enable = true;
-            for (const track of screenShare.localScreen.getTracks()) {
-                console.log(`shareScreen to ${this.email}`, screenShare.localScreen, "Screen Share ID", track.label, track.id);
-                this.peerConnection.addTrack(track, screenShare.localScreen);
-            }
-        }
-        this.sendOffer();
+        this.sendNewOffer();
     }
 
     handleLoadWebinar(obj) {
@@ -440,6 +432,17 @@ class MyP2P {
         this.senders = this.peerConnection.getSenders();
     }
 
+    sendScreen() {
+        if (screenShare.localScreen) {
+            screenShare.localScreen.getTracks()[0].enable = true;
+            for (const track of screenShare.localScreen.getTracks()) {
+                console.log(`shareScreen to ${this.email}`, screenShare.localScreen, "Screen Share ID", track.label, track.id);
+                this.peerConnection.addTrack(track, screenShare.localScreen);
+            }
+        }
+        this.senders = this.peerConnection.getSenders();
+    }
+
     initDataChannel() {
         let context = this;
         this.sendChannel = this.peerConnection.createDataChannel("sendChannel");
@@ -464,7 +467,7 @@ class MyP2P {
                 console.log("receiveChannel onmessage");
                 let data = JSON.parse(evt.data);
                 if (data.dataType == "ClearP2P") {
-                    context.initP2P();
+                    // context.initP2P();
                 }
                 else {
                     const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
@@ -485,6 +488,20 @@ class MyP2P {
             socketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
         }, function (error) {
             console.log("sendOffer", error)
+        });
+    }
+
+    sendNewOffer() {
+        let context = this;
+
+        this.sendTracks();
+        this.sendScreen();
+        this.peerConnection.createOffer(function (sdp) {
+            console.log(`sendNewOffer to ${context.email}`)
+            context.peerConnection.setLocalDescription(sdp);
+            socketIOMeetingRoom.socket.emit("new_offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
+        }, function (error) {
+            console.log("sendNewOffer", error)
         });
     }
 
