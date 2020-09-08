@@ -18,6 +18,18 @@ class SocketIOP2P {
         // }
     }
 
+    updateChatUsers() {
+        let context = this;
+        $("#selectChatUser").empty();
+        $("#selectChatUser").append(`<option value="all">Everyone</option>`);
+        let connArr = Object.keys(this.peerConnections);
+        $(connArr).each(function (index, key) {
+            let myP2P = context.peerConnections[key];
+            console.log(myP2P);
+            $("#selectChatUser").append(`<option value="${myP2P.email}">${myP2P.profile}</option>`);
+        })
+    }
+
     handleShareScreen() {
         this.transientP2P.handleShareScreen();
     }
@@ -162,7 +174,7 @@ class SocketIOP2P {
             let myP2P = new MyP2P(toEmail, false);
             console.log(`initJoinedRoom New P2P for ${toEmail} - ${storage.getUname()}`);
             this.peerConnections[toEmail] = myP2P;
-            mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode() });
+            mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode(), "profile": storage.getProfileName() });
         }
     }
 
@@ -172,6 +184,7 @@ class SocketIOP2P {
             let myP2P = new MyP2P(toEmail, true);
             console.log(`initWelcomeJoiner New P2P for ${toEmail} - ${storage.getUname()}`);
             this.peerConnections[toEmail] = myP2P;
+            myP2P.profile = data["profile"];
             myP2P.sendOffer();
         }
     }
@@ -181,7 +194,9 @@ class SocketIOP2P {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
             this.peerConnections[toEmail] = myP2P;
+            myP2P.profile = data["profile"];
             myP2P.sendAnswer(data);
+            socketIOP2P.updateChatUsers();
         }
     }
 
@@ -200,6 +215,7 @@ class SocketIOP2P {
             let myP2P = this.peerConnections[toEmail]
             console.log(`onAnswer with ${toEmail}`)
             myP2P.peerConnection.setRemoteDescription(new RTCSessionDescription(data["sdp"]));
+            socketIOP2P.updateChatUsers();
         }
     }
 
@@ -235,6 +251,7 @@ class MyP2P {
         this.screenSharing;
         this.peerConnection;
         this.remoteIsSharingScreen;
+        this.profile;
 
         this.initVideoBox();
         this.initP2P();
@@ -453,29 +470,37 @@ class MyP2P {
             console.log("sendChannel onclose", event);
         };
 
-        this.peerConnection.ondatachannel = function (event) {
-            console.log("sendChannel ondatachannel");
-            context.receiveChannel = event.channel;
-            context.receiveChannel.onopen = function () {
-                console.log("receiveChannel onopen");
-            };
-            context.receiveChannel.onclose = function (evt) {
-                console.log("receiveChannel onclose", evt);
-            };
-
-            context.receiveChannel.onmessage = function (evt) {
-                console.log("receiveChannel onmessage");
-                let data = JSON.parse(evt.data);
-                if (data.dataType == "ClearP2P") {
-                    // context.initP2P();
-                }
-                else {
-                    const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
-                    socketIOP2P.transientP2P = context;
-                    document.dispatchEvent(customEvent);
-                }
-            };
+        context.sendChannel.onmessage = function (evt) {
+            console.log("receiveChannel onmessage");
+            let data = JSON.parse(evt.data);
+            const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
+            socketIOP2P.transientP2P = context;
+            document.dispatchEvent(customEvent);
         };
+
+        // this.peerConnection.ondatachannel = function (event) {
+        //     console.log("###################receiveChannel ondatachannel");
+        //     context.receiveChannel = event.channel;
+        //     context.receiveChannel.onopen = function () {
+        //         console.log("receiveChannel onopen");
+        //     };
+        //     context.receiveChannel.onclose = function (evt) {
+        //         console.log("receiveChannel onclose", evt);
+        //     };
+
+        //     context.receiveChannel.onmessage = function (evt) {
+        //         console.log("receiveChannel onmessage");
+        //         let data = JSON.parse(evt.data);
+        //         if (data.dataType == "ClearP2P") {
+        //             // context.initP2P();
+        //         }
+        //         else {
+        //             const customEvent = new CustomEvent('dataChannelMessageReceived', { bubbles: true, detail: evt });
+        //             socketIOP2P.transientP2P = context;
+        //             document.dispatchEvent(customEvent);
+        //         }
+        //     };
+        // };
     }
 
     sendOffer() {
@@ -485,7 +510,7 @@ class MyP2P {
         this.peerConnection.createOffer(function (sdp) {
             console.log(`sendOffer to ${context.email}`)
             context.peerConnection.setLocalDescription(sdp);
-            socketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
+            socketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode(), "profile": storage.getProfileName() });
         }, function (error) {
             console.log("sendOffer", error)
         });

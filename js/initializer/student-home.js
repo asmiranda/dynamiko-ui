@@ -144,6 +144,14 @@ class StudentHome {
     btnSendChatMessage(obj) {
         let chatUser = $("#selectChatUser").val();
         let chatMessage = $("#txtChatMessage").val();
+
+        let str = `
+            <div style="width: 100%;">
+                <p class="message" style="color:#767dcd">${chatMessage}</p>
+            </div>
+        `;
+        $("#chatBox").append(str);
+
         socketIOP2P.sendChatMessage(chatUser, chatMessage);
     }
 
@@ -200,6 +208,7 @@ class StudentHome {
         $(`#activeVideo`).show();
         $(`#meetingScreen`).show();
         $(`#remoteVideos`).show();
+        $(`.btnChat`).show();
 
         storage.setRoomCode(storage.getModuleCode());
         socketIOP2P.clearConnections();
@@ -230,6 +239,8 @@ class StudentHome {
         $(`.btnUnmute`).hide();
         $(`.btnMute`).hide();
         $(`.btnFullScreen`).hide();
+        $(`.btnChat`).hide();
+        $(`#chatScreen`).hide();
         this.onCall = false;
         socketIOMediaStream.localVideo.getVideoTracks()[0].stop();
         socketIOMediaStream.localVideo.getAudioTracks()[0].stop();
