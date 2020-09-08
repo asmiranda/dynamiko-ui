@@ -66,7 +66,34 @@ class StudentHome {
             console.log("on click btnScreenSharing")
             context.btnScreenSharing(event);
         });
+        $(document).on('click', '.miniVideoStream', function () {
+            context.displaySelectedVideo(this);
+        });
+        $(document).on('click', '.remoteMiniVideoStream', function () {
+            context.displaySelectedVideo(this);
+        });
+    }
 
+    displaySelectedVideo(obj) {
+        $(`#meetingScreen`).show();
+        $(`#activities`).hide();
+        $(`#myVideo`).show();
+        $(`#myVideoActionButtons`).show();
+
+        // $(`.btnAddVideo`).show();
+        $(`.btnRemoveVideo`).show();
+        // $(`.btnUnmute`).show();
+        $(`.btnMute`).show();
+        $(`.btnFullScreen`).show();
+
+        $(`#activeVideo`).show();
+        $(`#meetingScreen`).show();
+        $(`#remoteVideos`).show();
+        $(`.btnChat`).show();
+        $(`#chatScreen`).hide();
+
+        let activeVideo = document.getElementById("activeVideo")
+        activeVideo.srcObject = obj.srcObject
     }
 
     btnScreenSharing() {
