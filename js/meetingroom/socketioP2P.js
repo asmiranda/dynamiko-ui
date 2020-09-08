@@ -547,6 +547,25 @@ class MyP2P {
 
         let activeVideo = document.getElementById(`activeVideo`);
         activeVideo.srcObject = tmpMedia;
+        let context = this;
+        tmpMedia.getAudioTracks()[0].onended = function () {
+            context.remoteNoAudio();
+        };
+        tmpMedia.getAudioTracks()[0].onmute = function () {
+            context.remoteNoAudio();
+        };
+        tmpMedia.getAudioTracks()[0].onunmute = function () {
+            context.remoteWithAudio();
+        };
+        tmpMedia.getVideoTracks()[0].onended = function () {
+            context.remoteNoVideo();
+        };
+        tmpMedia.getVideoTracks()[0].onmute = function () {
+            context.remoteNoVideo();
+        };
+        tmpMedia.getVideoTracks()[0].onunmute = function () {
+            context.remoteWithVideo();
+        };
     }
 
     onReceiveScreen(tmpMedia) {
@@ -554,6 +573,40 @@ class MyP2P {
         var screenVideo = document.getElementById(`activeVideo`);
         console.log(screenVideo);
         screenVideo.srcObject = tmpMedia;
+        let context = this;
+        tmpMedia.getVideoTracks()[0].onended = function () {
+            context.remoteNoScreen();
+        };
+        tmpMedia.getVideoTracks()[0].onmute = function () {
+            context.remoteNoScreen();
+        };
+        tmpMedia.getVideoTracks()[0].onunmute = function () {
+            context.remoteWithScreen();
+        };
+    }
+
+    remoteNoAudio() {
+        console.log("Remote No Audio")
+    }
+
+    remoteWithAudio() {
+        console.log("Remote With Audio")
+    }
+
+    remoteNoVideo() {
+        console.log("Remote No Video")
+    }
+
+    remoteWithVideo() {
+        console.log("Remote With Video")
+    }
+
+    remoteNoScreen() {
+        console.log("Remote No Screen")
+    }
+
+    remoteWithScreen() {
+        console.log("Remote With Screen")
     }
 
     leaveRoom() {
