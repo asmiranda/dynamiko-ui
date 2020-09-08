@@ -8,7 +8,7 @@ class AjaxCaller {
 
     errFunction(jqXHR, textStatus, errorThrown) {
         if ("Access Denied" == jqXHR.responseJSON.message) {
-            window.location.href = "login.html";
+            // window.location.href = "login.html";
         }
         else {
             if (jqXHR.responseJSON) {

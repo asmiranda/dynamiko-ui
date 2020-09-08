@@ -54,8 +54,8 @@ class ShowModalAny500 {
 class ShowModuleHelp {
     show(title, helpHtml) {
         var context = this;
-        if(helpHtml.indexOf('Expired') != -1) {
-            window.location.href = "login.html";
+        if (helpHtml.indexOf('Expired') != -1) {
+            // window.location.href = "login.html";
         }
         else {
             $.alert({
@@ -73,15 +73,15 @@ class ShowAutoCompleteFieldHelp {
         var html = $(this.obj).html();
         var fieldValue = $(this.field).val();
         if (fieldValue) {
-            var completeText = "<h4>"+defaultHtml+"</h4><b>["+fieldValue+"]</b><br><br>"+html;
-//            var completeText = "<h4>" + fieldValue + "</h4>" + html;
+            var completeText = "<h4>" + defaultHtml + "</h4><b>[" + fieldValue + "]</b><br><br>" + html;
+            //            var completeText = "<h4>" + fieldValue + "</h4>" + html;
             $.alert({
                 title: title,
                 content: completeText,
             });
         }
         else {
-            var completeText = "<h4>"+defaultHtml+"</h4>Please choose a value for more help";
+            var completeText = "<h4>" + defaultHtml + "</h4>Please choose a value for more help";
             $.alert({
                 title: title,
                 content: completeText,
@@ -125,15 +125,15 @@ class DeleteRecordConfirm {
     confirm(confirmFunc) {
         var context = this;
         $.confirm({
-           title: 'Delete Record',
-           content: 'Continue delete selected record?',
-           buttons: {
-               confirm: confirmFunc,
-               cancel: function () {
-//                   $.alert('Canceled!');
-               }
-           }
-       });
+            title: 'Delete Record',
+            content: 'Continue delete selected record?',
+            buttons: {
+                confirm: confirmFunc,
+                cancel: function () {
+                    //                   $.alert('Canceled!');
+                }
+            }
+        });
     }
 }
 
@@ -141,17 +141,17 @@ class ShowConfirmAny {
     confirm(title, content, confirmFunc) {
         var context = this;
         $.confirm({
-           title: title,
-           content: content,
-           boxWidth: '500px',
-           useBootstrap: false,
-           buttons: {
-               confirm: confirmFunc,
-               cancel: function () {
-//                   $.alert('Canceled!');
-               }
-           }
-       });
+            title: title,
+            content: content,
+            boxWidth: '500px',
+            useBootstrap: false,
+            buttons: {
+                confirm: confirmFunc,
+                cancel: function () {
+                    //                   $.alert('Canceled!');
+                }
+            }
+        });
     }
 }
 
@@ -160,7 +160,7 @@ class ShowUploadAttachment {
         var context = this;
         var content = `<input type="file" name="popupUploader"/>`;
 
-        var successUpload = function() {
+        var successUpload = function () {
             console.log("testing confirm only");
 
             var data = new FormData();
@@ -168,21 +168,21 @@ class ShowUploadAttachment {
             console.log("Received File");
             console.log(file);
             data.append("file", file);
-            ajaxCaller.uploadFile(successCallback, moduleName, recordId, uploadType, data); 
+            ajaxCaller.uploadFile(successCallback, moduleName, recordId, uploadType, data);
         }
 
         $.confirm({
-           title: title,
-           content: content,
-           boxWidth: '500px',
-           useBootstrap: false,
-           buttons: {
-               confirm: successUpload,
-               cancel: function () {
-//                   $.alert('Canceled!');
-               }
-           }
-       });
+            title: title,
+            content: content,
+            boxWidth: '500px',
+            useBootstrap: false,
+            buttons: {
+                confirm: successUpload,
+                cancel: function () {
+                    //                   $.alert('Canceled!');
+                }
+            }
+        });
     }
 }
 
