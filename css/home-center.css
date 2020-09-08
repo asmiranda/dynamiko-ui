@@ -19,3 +19,9 @@ header {
 footer {
     flex-shrink: 0;
 }
+#welcome {
+    margin-top: -34px; 
+    margin-left: 10px; 
+    margin-right: 10px;
+    padding: 10px;
+}
