@@ -498,7 +498,7 @@ class StudentHome {
     loadActivities(scheduleCode) {
         let key = `activities-${scheduleCode}`;
         let context = this;
-        let cache_data = storage.get(key);
+        let cache_data = storage.getSessionOnly(key);
         if (cache_data) {
             context.arrangeActivities(cache_data);
         }
@@ -507,7 +507,7 @@ class StudentHome {
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             let successFunction = function (data) {
-                storage.set(key, data);
+                storage.setSessionOnly(key, data);
                 context.arrangeActivities(data);
             };
             ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
