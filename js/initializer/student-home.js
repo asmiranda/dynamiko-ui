@@ -269,6 +269,7 @@ class StudentHome {
         $(`.btnChat`).hide();
         $(`#chatScreen`).hide();
         this.onCall = false;
+        socketIOP2P.clearConnections();
         socketIOMediaStream.localVideo.getVideoTracks()[0].stop();
         socketIOMediaStream.localVideo.getAudioTracks()[0].stop();
     }

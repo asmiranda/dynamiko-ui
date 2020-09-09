@@ -154,6 +154,8 @@ class SocketIOP2P {
 
     clearConnections() {
         $(".videoBoxList").empty();
+        let activeVideo = document.getElementById("activeVideo")
+        activeVideo.srcObject = null;
         this.peerConnections = [];
     }
 
