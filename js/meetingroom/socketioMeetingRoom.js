@@ -1,7 +1,7 @@
 class SocketIOMeetingRoom {
     init() {
-        // let signalServer = "dynamikosoft.com";
-        let signalServer = window.location.hostname;
+        let signalServer = "dynamikosoft.com";
+        // let signalServer = window.location.hostname;
         let context = this;
         this.title
         if (signalServer == "localhost") {

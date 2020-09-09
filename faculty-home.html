@@ -36,6 +36,7 @@
   <script src="js/meetingroom/socketioMediaStream.js"></script>
   <script src="js/meetingroom/socketioMeetingRoom.js"></script>
   <script src="js/meetingroom/socketioMessageHandler.js"></script>
+  <script src="js/meetingroom/myP2P.js"></script>
   <script src="js/meetingroom/socketioP2P.js"></script>
   <script src="js/meetingroom/quickCall.js"></script>
   <script src="js/meetingroom/screenShare.js"></script>
@@ -49,7 +50,7 @@
     <header>
       <div style="flex: 1; margin-top: 0px; color: white; background: #3a7cbd; height: 34px; padding-top: 7px;"
         class="text-center">Virtual School</div>
-      <div id="welcome" style="display: none;">
+      <div id="welcome">
         <span id="myProfileName" style="color: white;">Please login</span>
         <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
       </div>
@@ -127,7 +128,7 @@
       </div>
 
       <div id="meetingScreen" style="display: none; background-color: black;">
-        <video id="activeVideo" autoplay playsinline style="background-color: black;"></video>
+        <video id="activeVideo" autoplay playsinline style="background-color: black;" muted="muted"></video>
         <div>
           <video id="activeScreenShare" class="miniVideoStream" autoplay playsinline muted="muted"
             style="position: absolute; left: 7px; top: 100px; width: 70px; height: 70px;">

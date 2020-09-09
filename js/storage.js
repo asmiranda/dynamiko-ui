@@ -103,6 +103,7 @@ class Storage {
 const storage = new Storage();
 
 $(function () {
-    storage.myStorage = window.localStorage;
+    // storage.myStorage = window.localStorage;
+    storage.myStorage = window.sessionStorage;
 });
 
