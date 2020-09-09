@@ -451,7 +451,8 @@ class StudentHome {
 
             $("#moduleProfileDetail").html(`( ${startTime}-${endTime} )`);
             let dailyReadingUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/SchoolUI/getDailyReading/${scheduleCode}`;
-            $("#dailyReadingPDF").attr("src", dailyReadingUrl);
+            let trueUrl = `https://docs.google.com/gview?url=${dailyReadingUrl}`;
+            $("#dailyReadingPDF").attr("src", trueUrl);
         }
     }
 
