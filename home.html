@@ -106,7 +106,19 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" id="content-main">
+    <div style="display: flex; flex-direction: row; flex-wrap: nowrap;">
+      <div style="flex: 2;" class="content-wrapper" id="content-main">
+      </div>
+      <div style="flex: 1;" id="monitoring-main">
+        <div style="display: flex;  flex-direction: column;">
+          <div style="flex: 1">
+            <h1>Header</h1>
+          </div>
+          <div style="flex: 1">
+            <iframe src=""></iframe>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -136,7 +148,7 @@
         <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;"
           autoplay playsinline></video>
       </div>
-      <div style="flex: 1; margin-left: 10px;">
+      <div style="flex: 1; margin-left: 10px; display: none;">
         <a href="#" class="pull-right btnToggleMiniVideo">
           <i class="glyphicon glyphicon-facetime-video icon-flipped"></i><span style="padding-left: 15px;"></span>
         </a>
