@@ -72,7 +72,7 @@ class AbstractSubUI {
 
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/saveAcctTransactionGL`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/saveAcctTransactionGL`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveRecord", url, data);
@@ -183,7 +183,7 @@ class AbstractSubUI {
 
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/saveRecord`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/saveRecord/${tmp["code"]}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveRecord", url, data);
@@ -205,7 +205,7 @@ class AbstractSubUI {
         tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/deleteSubRecord`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/deleteSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("deleteSubRecord", tmpParent, url, data);
@@ -232,7 +232,7 @@ class AbstractSubUI {
         tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/post/saveSubRecord`;
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/saveSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveSubRecord", tmpParent, url, data);
