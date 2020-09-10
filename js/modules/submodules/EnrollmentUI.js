@@ -1,6 +1,11 @@
 class EnrollmentUI extends AbstractSubUI {
     constructor() {
         super("EnrollmentUI");
+        this.EnrollmentScheduleUI = "EnrollmentScheduleUI";
+    }
+
+    arrangeRecordProfileAllSubRecords(data, clsName) {
+        this.formatSubRecordsFromMain(this.EnrollmentScheduleUI, data, clsName);
     }
 
     changeModule(evt) {
@@ -15,20 +20,11 @@ class EnrollmentUI extends AbstractSubUI {
 
     formatSearchList(index, obj, tabName) {
         var accountName = obj.getProp("lastName") + ", " + obj.getProp("firstName");
-        var level = obj.getPropDefault("gradeLevel", "--");
-        var accountNumber = obj.getPropDefault("invoiceNumber", "--");
-        var email = obj.getPropDefault("email");
-        var EnrollmentId = obj.getPropDefault("EnrollmentId");
+        var EnrollmentId = obj.getPropDefault("id");
         var str = `
             <div style="display: flex; flex-wrap: wrap;">
                 <div style="flex: 100%;">
                     <span><a href="#" class="${this.selectSearchRecord}" recordId="${EnrollmentId}" module="${this.moduleName}" tabName="${tabName}">${accountName}</a></span>
-                    <span class="pull-right">Level: ${level}</span><br/>
-                </div>
-                <div style="flex: 100%;">
-                    <span><a href="#" class="${this.selectSearchRecord}" recordId="${EnrollmentId}" module="${this.moduleName}" tabName="${tabName}">
-                        Invoice #: ${accountNumber}</a></span>
-                    <span class="pull-right" style="font-size: 14px;">${email}</span><br/>
                 </div>
             </div>
             <hr style="margin-top: 5px; width: 98%">
