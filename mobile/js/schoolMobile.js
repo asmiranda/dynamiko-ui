@@ -3,9 +3,6 @@ class SchoolMobile {
         console.log(`token = ${mobileUtil.getToken()}`);
 
         let context = this;
-        $(document).on('click', '#btnShowLogin', function () {
-            $("#loginScreen").show();
-        });
         $(document).on('click', '#btnLogin', function () {
             context.handleLogin();
         });
@@ -24,9 +21,6 @@ class SchoolMobile {
 
         window.addEventListener("message", message => {
             mobileStorage.token = message.data;
-            $("#loginScreen").hide();
-            $("#pleaseLogin").hide();
-
             mobileLogin.loadProfile(mobileStorage.token, function () {
                 $("#welcome").show();
             });
@@ -35,7 +29,6 @@ class SchoolMobile {
     }
 
     btnLogout() {
-        $("#loginScreen").show();
     }
 
     btnShowProfile() {
@@ -192,12 +185,10 @@ class SchoolMobile {
             if (token.length > 20) {
                 mobileStorage.token = token;
                 $("#welcome").show();
-                $("#loginScreen").hide();
                 this.loadProfile();
             }
             else {
                 $("#welcome").hide();
-                $("#loginScreen").show();
             }
         }
         else if (locationRef.includes("schoolSchedules.html")) {

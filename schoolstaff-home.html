@@ -43,6 +43,7 @@
 
   <script src="js/initializer/student-home.js"></script>
   <script src="js/initializer/faculty-home.js"></script>
+  <script src="js/initializer/schoolstaff-home.js"></script>
 </head>
 
 <body>
@@ -58,8 +59,11 @@
     <div class="body">
       <div id="moduleHeader" class="box-header with-border text-center"
         style="padding:0; padding-top: 12px; background-color: white;">
-        <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
-        <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
+        <div style="margin: 10px 50px;">
+          <select class="form-control" id="selectAllFacultyModule">
+          </select>
+        </div>
+        <div style="font-size: 12px;">Faculty Module</div>
       </div>
 
       <div id="chatScreen" style="display: none; margin: 50px; margin-top:70px; background-color: white;">

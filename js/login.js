@@ -37,6 +37,9 @@ function LoginJS() {
         else if (str.includes("FACULTY")) {
             redUrl = "faculty-home.html"
         }
+        else if (str.includes("SCHOOL STAFF")) {
+            redUrl = "schoolstaff-home.html"
+        }
         setTimeout(function () {
             window.location.href = redUrl;
         }, 500);

@@ -2,9 +2,6 @@ class StudentHome {
     initListeners() {
         console.log(`token = ${storage.getToken()}`);
         let context = this;
-        $(document).on('click', '#btnShowLogin', function () {
-            $("#loginScreen").show();
-        });
         $(document).on('click', '#btnLogin', function () {
             context.handleLogin();
         });
@@ -542,14 +539,12 @@ class StudentHome {
         this.webinarMode = false;
         this.initListeners();
         if (storage.getToken() && storage.getToken().length > 20) {
-            $("#loginScreen").hide();
             $("#welcome").show();
 
             this.loadProfile();
             this.loadSchedules();
         }
         else {
-            $("#loginScreen").show();
             $("#welcome").hide();
         }
     }

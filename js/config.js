@@ -1,5 +1,5 @@
-var server = "dynamikosoft.com";
-// var server = window.location.hostname;
+// var server = "dynamikosoft.com";
+var server = window.location.hostname;
 var port = window.location.port;
 var servicePort = parseInt(port) + 1000;
 var MAIN_URL = `https://${server}:${servicePort}`;
