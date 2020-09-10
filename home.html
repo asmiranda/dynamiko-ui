@@ -82,7 +82,12 @@
               </a>
             </li>
             <li class="dropdown user user-menu">
-              <div style="color: #cc5a62; margin-top: 15px; margin-right: 20px; margin-left: 20px;"
+              <div style="color: #ffffff; margin-top: 10px; margin-right: 10px; margin-left: 10px;"
+                class="btnShowMainMonitoring pull-right"><i class="fa fa-eye"></i></div>
+              </span>
+            </li>
+            <li class="dropdown user user-menu">
+              <div style="color: #cc5a62; margin-top: 10px; margin-right: 20px; margin-left: 20px;"
                 class="btnSignOut pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
             </li>
           </ul>
@@ -109,13 +114,16 @@
     <div style="display: flex; flex-direction: row; flex-wrap: nowrap;">
       <div style="flex: 2;" class="content-wrapper" id="content-main">
       </div>
-      <div style="flex: 1;" id="monitoring-main">
+      <div style="flex: 1;" id="main-monitoring">
         <div style="display: flex;  flex-direction: column;">
           <div style="flex: 1">
-            <h1>Header</h1>
+            <div style="flex: 1; margin-top: 0px; color: white; background: #3a7cbd; height: 34px; padding-top: 7px;"
+              class="text-center">School Monitoring<span class="pull-right btnHideMainMonitoring"
+                style="margin-right: 20px;"><i class="fa fa-eye-slash" aria-hidden="true"></i>
+              </span></div>
           </div>
           <div style="flex: 1">
-            <iframe src=""></iframe>
+            <iframe src="schoolstaff-home.html"></iframe>
           </div>
         </div>
       </div>
@@ -143,17 +151,6 @@
     <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-    <div style="position: absolute; top: 50px; right: 10px; display: flex;">
-      <div style="flex: 1;">
-        <video id="myVideoMinimize" style="min-height: 125px; max-height: 125px; margin-top: 0px; margin-bottom: -10px;"
-          autoplay playsinline></video>
-      </div>
-      <div style="flex: 1; margin-left: 10px; display: none;">
-        <a href="#" class="pull-right btnToggleMiniVideo">
-          <i class="glyphicon glyphicon-facetime-video icon-flipped"></i><span style="padding-left: 15px;"></span>
-        </a>
-      </div>
-    </div>
 
     <div class="allModal" style="display: none;">
       <div class="modal" tabindex="-1" id="AutoReport" role="dialog" aria-labelledby="AutoReportLabel"
@@ -347,11 +344,6 @@
   <script src="js/quick-updater.js"></script>
   <script src="js/quick-searcher.js"></script>
   <script src="js/dynamiko-cache.js"></script>
-  <script src="js/sockjs.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
-    integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-
-
 
   <script src="js/widgets/tasks-widget.js"></script>
   <script src="js/widgets/ticket-chart-widget.js"></script>
@@ -364,20 +356,8 @@
   <script src="js/widgets/mylinks-widget.js"></script>
   <script src="js/widgets/chat-widget.js"></script>
 
-
   <script src="js/mainJS.js"></script>
   <script src="js/storage.js"></script>
-
-  <script src="js/meetingroom/meetingLoader.js"></script>
-  <!--Using SocketIO-->
-  <script src="js/meetingroom/socketioMeetingRoom.js"></script>
-  <script src="js/meetingroom/socketioMessageHandler.js"></script>
-  <script src="js/meetingroom/myP2P.js"></script>
-  <script src="js/meetingroom/socketioP2P.js"></script>
-  <script src="js/meetingroom/socketioMediaStream.js"></script>
-
-  <script src="js/meetingroom/quickCall.js"></script>
-  <script src="js/meetingroom/screenShare.js"></script>
 
   <script src="js/modules/AbstractUI.js"></script>
   <script src="js/modules/AbstractSubUI.js"></script>
@@ -441,7 +421,6 @@
   <script src="js/modules/AllNotificationUI.js"></script>
   <script src="js/modules/FacultyDashboardUI.js"></script>
   <script src="js/modules/StudentDashboardUI.js"></script>
-  <script src="js/modules/SchoolMonitoringUI.js"></script>
 
   <script src="js/meetingui/GenericMeetingUI.js"></script>
   <script src="js/meetingui/FacultyMeetingUI.js"></script>

@@ -50,6 +50,12 @@ class GlobalEvents {
             storage.clear();
             window.location.href = "login.html";
         });
+        $(document).on('click', '.btnShowMainMonitoring', function () {
+            $("#main-monitoring").show();
+        });
+        $(document).on('click', '.btnHideMainMonitoring', function () {
+            $("#main-monitoring").hide();
+        });
 
 
 
