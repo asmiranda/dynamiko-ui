@@ -6,10 +6,10 @@ class EnrollmentUI extends AbstractSubUI {
     changeModule(evt) {
         console.log("changeModule");
         enrollmentUI.loadTopRecords("Enrollment");
-        reportUI.loadReportList("EnrollmentUI");
+        // reportUI.loadReportList("EnrollmentUI");
     }
 
-    newRecord() {   
+    newRecord() {
         this.clearModuleInputs(this.moduleName);
     }
 

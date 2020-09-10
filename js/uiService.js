@@ -123,7 +123,7 @@ class UiService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/ui/' + storage.getCompanyCode() + '/profile';
+        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("profile ==");
@@ -131,8 +131,6 @@ class UiService {
             storage.uname = data.getProp("email");
             storage.profileName = data.getProp("firstName");
             $(".profileName").html(storage.profileName);
-
-            meetingLoader.loadMeetings();
         };
         ajaxCaller.ajaxGet(ajaxRequestDTO, successCallback);
     }

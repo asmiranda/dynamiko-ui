@@ -6,7 +6,7 @@ class AdmissionUI extends AbstractSubUI {
     changeModule(evt) {
         console.log("changeModule");
         admissionUI.loadTopRecords("Admission");
-        reportUI.loadReportList("AdmissionUI");
+        // reportUI.loadReportList("AdmissionUI");
     }
 
     newRecord() {

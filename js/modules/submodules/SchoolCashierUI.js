@@ -6,7 +6,7 @@ class SchoolCashierUI extends AbstractSubUI {
     changeModule(evt) {
         console.log("changeModule");
         schoolCashierUI.loadTopRecords("SchoolCashier");
-        reportUI.loadReportList("SchoolCashierUI");
+        // reportUI.loadReportList("SchoolCashierUI");
     }
 
     newRecord() {
