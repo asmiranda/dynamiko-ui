@@ -48,7 +48,14 @@ class LeftMenu {
     loadUI(obj) {
         storage.setModule($(obj).attr("data"));
         storage.setModuleCode($(obj).attr("code"));
-        leftMenu.loadLatestUI();
+
+        $(registeredModules).each(function (index, data) {
+            var areEqual = data.toUpperCase() == storage.getModule().toUpperCase();
+            if (areEqual) {
+                var objEval = `${data}.loadUI()`;
+                eval(objEval);
+            }
+        });
     }
 
     loadLatestUI() {

@@ -26,6 +26,10 @@ class AbstractSubUI {
         });
     }
 
+    loadUI() {
+        leftMenu.loadLatestUI();
+    }
+
     initGlEntryListener(context) {
         $(document).on('click', `.editAcctTransaction[parentModule="${context.moduleName}"]`, function () {
             context.editAcctTransaction(this);

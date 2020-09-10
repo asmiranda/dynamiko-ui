@@ -9,10 +9,14 @@ class AbstractUI {
         console.log("testing");
     }
 
+    loadUI() {
+        leftMenu.loadLatestUI();
+    }
+
     init() {
         $("#dynamikoMainSearch").hide();
     }
-    
+
     loadedCallback(data) {
         console.log("loadedCallback not implemented.")
     }
