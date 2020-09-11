@@ -62,28 +62,15 @@ class SocketIOP2P {
     }
 
     handleStartWebinarRequest(obj) {
-        let context = this;
-        let connArr = Object.keys(this.peerConnections);
-        // get the origin of the message
-        let messageOrigin = "";
-        $(connArr).each(function (index, key) {
-            let myP2P = context.peerConnections[key];
-            console.log(myP2P);
-            if (messageOrigin != key) {
-                myP2P.handleStartWebinarRequest();
-            }
-        })
+        for (const track of socketIOMediaStream.localVideo.getTracks()) {
+            track.enabled = false;
+        }
     }
 
     handleEndWebinarRequest(obj) {
-        // resend all tracks
-        let context = this;
-        let connArr = Object.keys(this.peerConnections);
-        $(connArr).each(function (index, key) {
-            let myP2P = context.peerConnections[key];
-            console.log(myP2P);
-            myP2P.handleEndWebinarRequest();
-        })
+        for (const track of socketIOMediaStream.localVideo.getTracks()) {
+            track.enabled = true;
+        }
     }
 
     startWebinar() {
@@ -92,7 +79,7 @@ class SocketIOP2P {
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            myP2P.loadWebinar();
+            myP2P.startWebinar();
         })
     }
 
@@ -102,7 +89,7 @@ class SocketIOP2P {
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            myP2P.unloadWebinar();
+            myP2P.endWebinar();
         })
     }
 
