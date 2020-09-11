@@ -7,6 +7,30 @@ class EnrollmentUI extends AbstractSubUI {
         $(document).on(`changeAutoComplete[studentEmail][EnrollmentUI]`, function () {
             context.loadStudentEnrollment(this);
         });
+        $(document).on("click", `.btnRemoveSchedule`, function () {
+            context.btnRemoveSchedule(this);
+        });
+
+    }
+
+    btnRemoveSchedule(obj) {
+        let studentEmail = $(`input.HiddenAutoComplete[name="studentEmail"]`).val();
+        let rowOffset = $(obj).attr("rowIndex")
+        let schoolScheduleCode = $(`input.HiddenAutoComplete[rowIndex="${rowOffset}"][name="schoolScheduleCode"]`).val();
+
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/removeSchedule/${studentEmail}/${schoolScheduleCode}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        let context = this;
+        var successFunction = function (data) {
+            console.log("loadRecordProfile", url, data);
+            context.arrangeRecordProfile(data, `editRecord`);
+            context.arrangeRecordProfileAllSubRecords(data, `editRecord`);
+            autoSaveSubRecord = true;
+            context.initFieldListener();
+            context.onProfileLoaded(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     loadStudentEnrollment() {

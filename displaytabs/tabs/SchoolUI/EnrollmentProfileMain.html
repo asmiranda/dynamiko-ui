@@ -30,13 +30,16 @@
                     <input rowIndex="----" type="text" class="form-control autocomplete editRecordAutoComplete"
                         name="schoolScheduleCode" placeholder="Schedule" module="EnrollmentScheduleUI" value=""
                         parentModule="EnrollmentUI" autoname="schoolScheduleCode" helptitle="schoolScheduleCode">
+                    <span rowIndex="----" class="input-group-addon btnRemoveSchedule" name="schoolScheduleCode"
+                        parentModule="EnrollmentUI" placeholder="Schedule" module="EnrollmentScheduleUI""><i class=" fa
+                        fa-trash"></i></span>
                     <div rowIndex="----" class="autocomplete-items" module="EnrollmentScheduleUI"
                         parentModule="EnrollmentUI" autoname="schoolScheduleCode">
                     </div>
+                    <input rowIndex="----" class="editRecord autoSaveSubRecord HiddenAutoComplete"
+                        name="schoolScheduleCode" type="hidden" module="EnrollmentScheduleUI"
+                        parentModule="EnrollmentUI" autoNameField="schoolScheduleCode" value="" style="display: none;">
                 </div>
-                <input rowIndex="----" class="editRecord autoSaveSubRecord HiddenAutoComplete" name="schoolScheduleCode"
-                    type="hidden" module="EnrollmentScheduleUI" parentModule="EnrollmentUI"
-                    autoNameField="schoolScheduleCode" value="" style="display: none;">
             </div>
             <div class="displayRecordTemplate" style="height: 500px;" module="EnrollmentScheduleUI">
             </div>
