@@ -118,11 +118,11 @@ class StudentHome {
         else if (obj.dataType == 'UnsaveMode') {
             this.handleRemoteUnsaveMode(obj);
         }
-        else if (obj.dataType == 'LoadWebinar') {
-            this.handleLoadWebinar(obj);
+        else if (obj.dataType == 'StartWebinar') {
+            this.handleStartWebinarRequest(obj);
         }
-        else if (obj.dataType == 'UnloadWebinar') {
-            this.handleUnloadWebinar(obj);
+        else if (obj.dataType == 'EndWebinar') {
+            this.handleEndWebinarRequest(obj);
         }
         else if (obj.dataType == 'ShareScreen') {
             this.handleShareScreen(obj);
@@ -140,12 +140,12 @@ class StudentHome {
         socketIOP2P.handleUnshareScreen(obj);
     }
 
-    handleLoadWebinar(obj) {
-        socketIOP2P.handleLoadWebinar(obj);
+    handleStartWebinarRequest(obj) {
+        socketIOP2P.handleStartWebinarRequest(obj);
     }
 
-    handleUnloadWebinar(obj) {
-        socketIOP2P.handleUnloadWebinar(obj);
+    handleEndWebinarRequest(obj) {
+        socketIOP2P.handleEndWebinarRequest(obj);
     }
 
     handleRemoteUnsaveMode(obj) {

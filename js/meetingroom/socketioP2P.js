@@ -61,28 +61,32 @@ class SocketIOP2P {
         });
     }
 
-    handleLoadWebinar(obj) {
+    handleStartWebinarRequest(obj) {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
+        // get the origin of the message
+        let messageOrigin = "";
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            myP2P.handleLoadWebinar();
+            if (messageOrigin != key) {
+                myP2P.handleStartWebinarRequest();
+            }
         })
     }
 
-    handleUnloadWebinar(obj) {
+    handleEndWebinarRequest(obj) {
         // resend all tracks
         let context = this;
         let connArr = Object.keys(this.peerConnections);
         $(connArr).each(function (index, key) {
             let myP2P = context.peerConnections[key];
             console.log(myP2P);
-            myP2P.handleUnloadWebinar();
+            myP2P.handleEndWebinarRequest();
         })
     }
 
-    loadWebinar() {
+    startWebinar() {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
         $(connArr).each(function (index, key) {
@@ -92,7 +96,7 @@ class SocketIOP2P {
         })
     }
 
-    unloadWebinar() {
+    endWebinar() {
         let context = this;
         let connArr = Object.keys(this.peerConnections);
         $(connArr).each(function (index, key) {
@@ -183,12 +187,18 @@ class SocketIOP2P {
     initWelcomeJoiner(mySocket, data) {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
-            let myP2P = new MyP2P(toEmail, true);
-            console.log(`initWelcomeJoiner New P2P for ${toEmail} - ${storage.getUname()}`);
-            this.peerConnections[toEmail] = myP2P;
-            myP2P.profile = data["profile"];
-            myP2P.sendOffer();
+            let profile = data["profile"];
+            this.sendOffer(toEmail, profile)
         }
+    }
+
+    sendOffer(toEmail, profile) {
+        let myP2P = new MyP2P(toEmail, true);
+        console.log(`sendOffer New P2P for ${toEmail} - ${storage.getUname()}`);
+        this.peerConnections[toEmail] = myP2P;
+        myP2P.email = toEmail;
+        myP2P.profile = profile;
+        myP2P.sendOffer();
     }
 
     onOffer(mySocket, data) {

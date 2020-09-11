@@ -56,37 +56,9 @@ class MyP2P {
         this.sendNewOffer();
     }
 
-    handleLoadWebinar(obj) {
-        let context = this;
-        $(this.senders).each(function (index, sender) {
-            console.log("handleLoadWebinar", sender, sender.track);
-            for (const track of socketIOMediaStream.localVideo.getTracks()) {
-                try {
-                    sender.replaceTrack(track);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            }
-        });
-    }
-
-    handleUnloadWebinar(obj) {
-        let context = this;
-        $(this.senders).each(function (index, sender) {
-            console.log("handleUnloadWebinar", sender, sender.track);
-            try {
-                context.peerConnection.removeTrack(sender);
-            }
-            catch (e) {
-                console.log(e);
-            }
-        });
-    }
-
-    loadWebinar() {
+    startWebinar() {
         try {
-            let tmp = { 'dataType': 'LoadWebinar', 'email': this.email, 'message': "Webinar Mode" };
+            let tmp = { 'dataType': 'StartWebinar', 'email': this.email, 'message': "Webinar Mode" };
             this.sendChannel.send(JSON.stringify(tmp));
         }
         catch (e) {
@@ -94,9 +66,9 @@ class MyP2P {
         }
     }
 
-    unloadWebinar() {
+    endWebinar() {
         try {
-            let tmp = { 'dataType': 'UnloadWebinar', 'email': this.email, 'message': "Unload Webinar Mode" };
+            let tmp = { 'dataType': 'EndWebinar', 'email': this.email, 'message': "Unload Webinar Mode" };
             this.sendChannel.send(JSON.stringify(tmp));
         }
         catch (e) {
@@ -246,6 +218,7 @@ class MyP2P {
         this.peerConnection.createOffer(function (sdp) {
             console.log(`sendOffer to ${context.email}`)
             context.peerConnection.setLocalDescription(sdp);
+            //this manipulates the sdp automatically based on number of users
             sdp.sdp = context.setVideoAndScreenBitRate(sdp.sdp);
             socketIOMeetingRoom.socket.emit("offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode(), "profile": storage.getProfileName() });
         }, function (error) {
