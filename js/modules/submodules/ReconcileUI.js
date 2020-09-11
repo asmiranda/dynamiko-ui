@@ -30,18 +30,18 @@ class ReconcileUI {
     }
 
     arrangeReconcileProfile(data, clsName) {
-        utils.loadDataAndAutoComplete(clsName, data, 0, "ReconcileUI");
+        dynaAutoComplete.loadDataAndAutoComplete(clsName, data, 0, "ReconcileUI");
 
         $(`.editReconcile[module="GeneralLedgerCreditUI"]`).val("");
         var items = data.getProp("Credits");
         $(items).each(function (index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index + 1, "GeneralLedgerCreditUI");
+            dynaAutoComplete.loadDataAndAutoComplete(clsName, obj, index + 1, "GeneralLedgerCreditUI");
         })
 
         $(`.editReconcile[module="GeneralLedgerDebitUI"]`).val("");
         var items = data.getProp("Debits");
         $(items).each(function (index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index + 1, "GeneralLedgerDebitUI");
+            dynaAutoComplete.loadDataAndAutoComplete(clsName, obj, index + 1, "GeneralLedgerDebitUI");
         })
     }
 

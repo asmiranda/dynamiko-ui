@@ -2,7 +2,7 @@ class ExpenseUI extends AbstractSubUI {
     constructor(moduleName) {
         super(moduleName);
     }
-    
+
     beforeSave(data) {
         tmp["ExpenseItems"] = utils.collectSubRecordDataForSaving("editRecord", "ExpenseItemUI");
         tmp["ExpenseCategoryItems"] = utils.collectSubRecordDataForSaving("editRecord", "ExpenseCategoryItemUI");
@@ -13,15 +13,15 @@ class ExpenseUI extends AbstractSubUI {
         $(`.autocomplete[module="ExpenseItemUI"]`).val("");
         $(`.editRecord[module="ExpenseItemUI"]`).val("");
         var items = data.getProp("ExpenseItems");
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ExpenseItemUI");
+        $(items).each(function (index, obj) {
+            dynaAutoComplete.loadDataAndAutoComplete(clsName, obj, index + 1, "ExpenseItemUI");
         })
 
         $(`.autocomplete[module="ExpenseCategoryItemUI"]`).val("");
         $(`.editRecord[module="ExpenseCategoryItemUI"]`).val("");
         var items = data.getProp("ExpenseCategoryItems");
-        $(items).each(function(index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index+1, "ExpenseCategoryItemUI");
+        $(items).each(function (index, obj) {
+            dynaAutoComplete.loadDataAndAutoComplete(clsName, obj, index + 1, "ExpenseCategoryItemUI");
         })
     }
 

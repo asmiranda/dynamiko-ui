@@ -96,7 +96,7 @@ class RealEstateBuildingPermitUI {
     }
 
     arrangeRealEstateBuildingPermitProfile(data, clsName) {
-        utils.loadDataAndAutoComplete(clsName, data, 0, "RealEstateBuildingPermitUI");
+        dynaAutoComplete.loadDataAndAutoComplete(clsName, data, 0, "RealEstateBuildingPermitUI");
     }
 
     selectRealEstateBuildingPermit(obj) {

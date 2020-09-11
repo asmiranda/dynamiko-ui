@@ -159,7 +159,7 @@ class RealEstateTaxUI {
 
     arrangeRealEstateTaxProfile(data) {
         var clsName = "editRealEstateTax";
-        utils.loadDataAndAutoComplete(clsName, data, 0, "RealEstateTaxUI");
+        dynaAutoComplete.loadDataAndAutoComplete(clsName, data, 0, "RealEstateTaxUI");
 
         $(`.editRealEstateTax[module="RealEstateTaxItemUI"]`).val("");
         var items = data.getProp("taxItems");
@@ -169,7 +169,7 @@ class RealEstateTaxUI {
     }
 
     arrangeRealEstateTaxItem(clsName, data, rowIndex, moduleName) {
-        utils.loadDataAndAutoComplete(clsName, data, rowIndex, moduleName);
+        dynaAutoComplete.loadDataAndAutoComplete(clsName, data, rowIndex, moduleName);
     }
 
     selectRealEstateTax(obj) {

@@ -27,21 +27,17 @@
         <div class="box-body">
             <div class="hiddenRecordTemplate" module="EnrollmentScheduleUI" parentModule="EnrollmentUI"
                 style="display: none;">
-                <div style="display: flex; margin-top: 10px;" class="subRecord" module="EnrollmentScheduleUI"
-                    rowIndex="----">
-                    <div style="flex: 2; margin-left: 10px;">
-                        <input rowIndex="----" type="text" class="form-control autocomplete" name="schoolScheduleCode"
-                            placeholder="Schedule" module="EnrollmentScheduleUI" parentModule="EnrollmentUI"
-                            autoname="schoolScheduleCode" helptitle="schoolScheduleCode">
-                        <input rowIndex="----" class="form-control editRecord HiddenAutoComplete"
-                            name="schoolScheduleCode" type="hidden" module="EnrollmentScheduleUI"
-                            parentModule="EnrollmentUI" autoNameField="schoolScheduleCode" value="">
-                        <div rowIndex="----" class="autocomplete-items" module="EnrollmentScheduleUI"
-                            parentModule="EnrollmentUI" autoname="schoolScheduleCode">
-                        </div>
-
+                <div class="input-group" style="width: 90%; margin: 10px;">
+                    <input rowIndex="----" type="text" class="form-control autocomplete editRecordAutoComplete"
+                        name="schoolScheduleCode" placeholder="Schedule" module="EnrollmentScheduleUI" value=""
+                        parentModule="EnrollmentUI" autoname="schoolScheduleCode" helptitle="schoolScheduleCode">
+                    <div rowIndex="----" class="autocomplete-items" module="EnrollmentScheduleUI"
+                        parentModule="EnrollmentUI" autoname="schoolScheduleCode">
                     </div>
                 </div>
+                <input rowIndex="----" class="editRecord autoSaveSubRecord HiddenAutoComplete" name="schoolScheduleCode"
+                    type="hidden" module="EnrollmentScheduleUI" parentModule="EnrollmentUI"
+                    autoNameField="schoolScheduleCode" value="" style="display: none;">
             </div>
             <div class="displayRecordTemplate" style="height: 500px;" module="EnrollmentScheduleUI">
             </div>

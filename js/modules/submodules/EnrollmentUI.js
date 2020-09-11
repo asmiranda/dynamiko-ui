@@ -16,6 +16,7 @@ class EnrollmentUI extends AbstractSubUI {
 
     newRecord() {
         this.clearModuleInputs(this.moduleName);
+        this.clearModuleInputs(this.EnrollmentScheduleUI);
     }
 
     formatSearchList(index, obj, tabName) {

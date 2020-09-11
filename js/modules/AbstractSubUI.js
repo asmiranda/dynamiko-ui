@@ -91,7 +91,7 @@ class AbstractSubUI {
 
         var successLoadGLData = function (data) {
             console.log("editAcctTransaction", url, data);
-            utils.loadDataAndAutoComplete("editRecord", data, 0, context.AcctTransactionGLEditorUI);
+            dynaAutoComplete.loadDataAndAutoComplete("editRecord", data, 0, context.AcctTransactionGLEditorUI);
             context.formatSubRecordsFromMain(context.GeneralLedgerEditorUI, data, "editRecord");
 
             context.initFieldListener();
@@ -267,7 +267,7 @@ class AbstractSubUI {
     }
 
     arrangeRecordProfile(data, clsName) {
-        utils.loadDataAndAutoComplete(clsName, data, 0, this.moduleName);
+        dynaAutoComplete.loadDataAndAutoComplete(clsName, data, 0, this.moduleName);
     }
 
     searchRecordFilter(obj) {
@@ -349,7 +349,7 @@ class AbstractSubUI {
         this.createSubRecordsHolder(subModule, subRecordData);
         this.clearModuleInputs(subModule);
         $(subRecordData).each(function (index, obj) {
-            utils.loadDataAndAutoComplete(clsName, obj, index + 1, subModule);
+            dynaAutoComplete.loadDataAndAutoComplete(clsName, obj, index + 1, subModule);
         })
     }
 
