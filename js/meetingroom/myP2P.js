@@ -1,7 +1,8 @@
 class MyP2P {
-    constructor(email, isOfferSender) {
+    constructor(email, profile, isOfferSender) {
         let context = this;
         this.email = email;
+        this.profile = profile;
         this.isOfferSender = isOfferSender;
         this.videoElem;
         this.sendChannel;
@@ -11,7 +12,6 @@ class MyP2P {
         this.screenSharing;
         this.peerConnection;
         this.remoteIsSharingScreen;
-        this.profile;
 
         this.initVideoBox();
         this.initP2P();
@@ -143,29 +143,18 @@ class MyP2P {
     initVideoBox() {
         let context = this;
         console.log(`initVideoBox called for ${context.email}`)
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfileFromEmail/${context.email}`;
-        let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
-        let stored_profile = storage.get(`profile_${context.email}`);
         let tmp = $(`.remoteMiniVideo[email='${context.email}']`);
         if (tmp.length == 0) {
             let str = `
                 <div style="display: flex; flex-direction: column; margin: 0 2px;" class="remoteMiniVideo" email="${context.email}">
                     <video class="remoteMiniVideoStream" id="v_${context.email}" email="${context.email}" style="width: 100px; max-height: 100px; background-color: cornflowerblue;" autoplay playsinline></video>
-                    <div class="text-center profile" style="width: 100px; color:#4d5154;" email="${context.email}">${stored_profile}</div>
+                    <div class="text-center profile" style="width: 100px; color: white; font-size: x-small;" email="${context.email}">${context.profile}</div>
                 </div>
             `;
             $(".videoBoxList").append(str);
         }
         context.videoElem = document.getElementById(`v_${context.email}`);
-        if (!stored_profile) {
-            let successFunction = function (data) {
-                let profile = data.getProp("firstName");
-                storage.set(`vprofile_${context.email}`, profile);
-                $(`.profile[email='${context.email}']`).html(profile);
-            };
-            ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
-        }
     }
 
     sendTracks() {
@@ -235,7 +224,7 @@ class MyP2P {
             console.log(`sendNewOffer to ${context.email}`)
             context.peerConnection.setLocalDescription(sdp);
             sdp.sdp = context.setVideoAndScreenBitRate(sdp.sdp);
-            socketIOMeetingRoom.socket.emit("new_offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode() });
+            socketIOMeetingRoom.socket.emit("new_offer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": sdp, "room": storage.getRoomCode(), "profile": storage.getProfileName() });
         }, function (error) {
             console.log("sendNewOffer", error)
         });
@@ -253,7 +242,7 @@ class MyP2P {
             .then(function () {
                 console.log(`onOffer to ${context.email}`)
                 pAnswer.sdp = context.setVideoAndScreenBitRate(pAnswer.sdp);
-                socketIOMeetingRoom.socket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": pAnswer, "room": storage.getRoomCode() });
+                socketIOMeetingRoom.socket.emit("answer", { "fromEmail": storage.getUname(), "toEmail": context.email, "sdp": pAnswer, "room": storage.getRoomCode(), "profile": storage.getProfileName() });
             })
             .catch(e => console.log(e));
     }

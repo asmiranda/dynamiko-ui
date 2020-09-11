@@ -164,7 +164,8 @@ class SocketIOP2P {
         let fromEmail = data["fromEmail"];
         if (fromEmail != storage.getUname()) {
             let toEmail = data["fromEmail"];
-            let myP2P = new MyP2P(toEmail, false);
+            let profile = data["profile"];
+            let myP2P = new MyP2P(toEmail, profile, false);
             console.log(`initJoinedRoom New P2P for ${toEmail} - ${storage.getUname()}`);
             this.peerConnections[toEmail] = myP2P;
             mySocket.emit("welcomejoiner", { "fromEmail": storage.getUname(), "toEmail": toEmail, "room": storage.getRoomCode(), "profile": storage.getProfileName() });
@@ -180,11 +181,9 @@ class SocketIOP2P {
     }
 
     sendOffer(toEmail, profile) {
-        let myP2P = new MyP2P(toEmail, true);
+        let myP2P = new MyP2P(toEmail, profile, true);
         console.log(`sendOffer New P2P for ${toEmail} - ${storage.getUname()}`);
         this.peerConnections[toEmail] = myP2P;
-        myP2P.email = toEmail;
-        myP2P.profile = profile;
         myP2P.sendOffer();
     }
 
@@ -193,7 +192,6 @@ class SocketIOP2P {
             let toEmail = data["fromEmail"];
             let myP2P = this.peerConnections[toEmail]
             this.peerConnections[toEmail] = myP2P;
-            myP2P.profile = data["profile"];
             myP2P.sendAnswer(data);
             socketIOP2P.updateChatUsers();
         }
@@ -202,7 +200,8 @@ class SocketIOP2P {
     onNewOffer(mySocket, data) {
         if (this.isMessageForMe(data)) {
             let toEmail = data["fromEmail"];
-            let myP2P = new MyP2P(toEmail, true);
+            let profile = data["profile"];
+            let myP2P = new MyP2P(toEmail, profile, true);
             this.peerConnections[toEmail] = myP2P;
             myP2P.sendAnswer(data);
         }
