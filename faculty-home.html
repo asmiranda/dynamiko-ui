@@ -55,14 +55,14 @@
         <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
       </div>
     </header>
-    <div class="body">
-      <div id="moduleHeader" class="box-header with-border text-center"
+    <div class="body" style="display: flex; flex-direction: column;">
+      <div id="moduleHeader" style="flex: 0;" class="box-header with-border text-center"
         style="padding:0; padding-top: 12px; background-color: white;">
         <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
         <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
       </div>
 
-      <div id="chatScreen" style="display: none; margin: 50px; margin-top:70px; background-color: white;">
+      <div id="chatScreen" style="display: none; flex: 1; margin: 50px; margin-top:70px; background-color: white;">
         <div class="box box-success">
           <div class="box-header ui-sortable-handle" style="cursor: move;">
             <i class="fa fa-comments-o"></i>
@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <div id="activities" style="background-color: white;">
+      <div id="activities" style="background-color: white; flex: 1;">
         <div class="box-header with-border">
           <span>Activities</span>
         </div>
@@ -124,33 +124,12 @@
         </ul>
       </div>
 
-      <div id="meetingScreen" style="display: none; background-color: black;">
-        <video id="activeVideo" autoplay playsinline style="background-color: black;" muted="muted"></video>
-        <div>
-          <video id="activeScreenShare" class="miniVideoStream" autoplay playsinline muted="muted"
-            style="position: absolute; left: 7px; top: 100px; width: 70px; height: 70px;">
-          </video>
-          <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"
-            style="right:7px; top:37px;">
-          </video>
-          <div id="myVideoActionButtons">
-            <div style="position: absolute;top: 43px; right: 79px; color: #716767;">Me</div>
-            <div style="position: absolute; top:107px; right:57px;"><a class="btnEndCall"
-                style="position: absolute; padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
-                  class="fas fa-phone-slash" style="font-size: 17px; color: #675f5f;"></i></a></div>
-            <div style="position: absolute; top:45px; right: 7px;"><a class="btnSaveNetworkBandwidth"
-                style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"> <i class="fa fa-fw fa-recycle"
-                  style="font-size: 17px; color: #675f5f;"></i>
-              </a></div>
-          </div>
-        </div>
-      </div>
-
-      <div id="dailyRead" style="display: none; background-color: white;">
+      <div id="dailyRead" style="display: none; flex: 1; background-color: white;">
         <iframe id="dailyReadingPDF" src="" title="Daily Reading" style="width: 100%; height: 100vh;"></iframe>
       </div>
 
-      <div id="studentList" style="display: none; background-color: white; margin-left: 17px; margin-right: 25px;">
+      <div id="studentList"
+        style="display: none; flex: 1; background-color: white; margin-left: 17px; margin-right: 25px;">
         <div class="box-header with-border">
           <span>List of Students</span>
         </div>
@@ -158,7 +137,7 @@
         </ul>
       </div>
 
-      <div id="uploadScreen" style="display: none; margin: 10px; background-color: white;">
+      <div id="uploadScreen" style="display: none; flex: 1; margin: 10px; background-color: white;">
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Upload PDF file</h3>
@@ -187,13 +166,33 @@
           </div>
         </div>
       </div>
+
+      <div id="meetingScreen" style="display: none; flex: 1; background-color: black;">
+        <div id="remoteVideos" class="videoBoxList" style="background-color: black;"></div>
+        <video id="activeVideo" autoplay playsinline style="background-color: black;" muted="muted"></video>
+        <div>
+          <video id="activeScreenShare" class="miniVideoStream" autoplay playsinline muted="muted"
+            style="position: absolute; left: 7px; top: 100px; width: 70px; height: 70px;">
+          </video>
+          <video id="myVideo" class="miniVideoStream pull-right" autoplay playsinline muted="muted"
+            style="right:7px; top:37px;">
+          </video>
+          <div id="myVideoActionButtons">
+            <div style="position: absolute;top: 43px; right: 79px; color: #716767;">Me</div>
+            <div style="position: absolute; top:107px; right:57px;"><a class="btnEndCall"
+                style="position: absolute; padding-left: 15px; padding-right: 15px; border-radius: 40%;"><i
+                  class="fas fa-phone-slash" style="font-size: 17px; color: #675f5f;"></i></a></div>
+            <div style="position: absolute; top:45px; right: 7px;"><a class="btnSaveNetworkBandwidth"
+                style="padding-left: 15px; padding-right: 15px; border-radius: 40%;"> <i class="fa fa-fw fa-recycle"
+                  style="font-size: 17px; color: #675f5f;"></i>
+              </a></div>
+          </div>
+        </div>
+      </div>
     </div>
     <footer>
-      <div id="remoteVideos" class="videoBoxList" style="background-color: black;"></div>
       <div id="myModules">
-        <div class="box-body" style="padding: 1px;">
-          <div style="flex: 8; display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">
-          </div>
+        <div style="flex: 8; display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">
         </div>
       </div>
     </footer>

@@ -72,6 +72,9 @@ class StudentHome {
     }
 
     displaySelectedVideo(obj) {
+        let activeVideo = document.getElementById("activeVideo")
+        activeVideo.srcObject = obj.srcObject
+
         $(`#meetingScreen`).show();
         $(`#activities`).hide();
         $(`#myVideo`).show();
@@ -81,16 +84,17 @@ class StudentHome {
         $(`.btnRemoveVideo`).show();
         // $(`.btnUnmute`).show();
         $(`.btnMute`).show();
-        $(`.btnFullScreen`).show();
 
         $(`#activeVideo`).show();
         $(`#meetingScreen`).show();
         $(`#remoteVideos`).show();
         $(`.btnChat`).show();
-        $(`#chatScreen`).hide();
 
-        let activeVideo = document.getElementById("activeVideo")
-        activeVideo.srcObject = obj.srcObject
+        $(`#chatScreen`).hide();
+        $(`#activities`).hide();
+        $(`#dailyRead`).hide();
+        $(`#studentList`).hide();
+        $(`#uploadScreen`).hide();
     }
 
     btnScreenSharing() {
@@ -233,6 +237,7 @@ class StudentHome {
         $(`#meetingScreen`).show();
         $(`#remoteVideos`).show();
         $(`.btnChat`).show();
+        $(`#uploadScreen`).hide();
 
         storage.setRoomCode(storage.getModuleCode());
         socketIOP2P.clearConnections();
@@ -292,6 +297,8 @@ class StudentHome {
         $(`#studentList`).hide();
         $(`#chatScreen`).show();
         $(`#studentList`).hide();
+        $(`#activeVideo`).hide();
+        $(`#remoteVideos`).hide();
     }
 
     btnFacultyAndStudents() {
@@ -300,6 +307,9 @@ class StudentHome {
         $(`#dailyRead`).hide();
         $(`#studentList`).show();
         $(`#chatScreen`).hide();
+        $(`#activeVideo`).hide();
+        $(`#remoteVideos`).hide();
+        $(`#uploadScreen`).hide();
     }
 
     btnActivities() {
@@ -307,8 +317,10 @@ class StudentHome {
         $(`#activities`).show();
         $(`#dailyRead`).hide();
         $(`#chatScreen`).hide();
-        $(`#activeVideo`).hide();
         $(`#studentList`).hide();
+        $(`#activeVideo`).hide();
+        $(`#remoteVideos`).hide();
+        $(`#uploadScreen`).hide();
     }
 
     btnBook() {
@@ -318,6 +330,8 @@ class StudentHome {
         $(`#chatScreen`).hide();
         $(`#activeVideo`).hide();
         $(`#studentList`).hide();
+        $(`#remoteVideos`).hide();
+        $(`#uploadScreen`).hide();
     }
 
     btnFullScreen() {
@@ -449,7 +463,7 @@ class StudentHome {
 
             $("#moduleProfileDetail").html(`( ${startTime}-${endTime} )`);
             let dailyReadingUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/SchoolUI/getDailyReading/${scheduleCode}`;
-            // let trueUrl = `https://docs.google.com/gview?url=${dailyReadingUrl}&hl=bn&embedded=true`;
+            // let trueUrl = `https://docs.google.com/viewerng/viewer?url=${dailyReadingUrl}&embedded=true`;
             let trueUrl = `${dailyReadingUrl}`;
             $("#dailyReadingPDF").attr("src", trueUrl);
         }

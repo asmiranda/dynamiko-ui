@@ -55,14 +55,14 @@
         <div style="color: #cc5a62;" class="btnLogout pull-right"><i class="fa fa-fw fa-sign-out"></i></div>
       </div>
     </header>
-    <div class="body">
-      <div id="moduleHeader" class="box-header with-border text-center"
+    <div class="body" style="display: flex; flex-direction: column;">
+      <div id="moduleHeader" style="flex: 0;" class="box-header with-border text-center"
         style="padding:0; padding-top: 12px; background-color: white;">
         <div><a href="#" id="moduleProfile" style="font-weight: bold; font-size: 15px;">Module</a></div>
         <div id="moduleProfileDetail" style="font-size: 12px;">Module</div>
       </div>
 
-      <div id="chatScreen" style="display: none; margin: 50px; margin-top:70px; background-color: white;">
+      <div id="chatScreen" style="display: none; flex: 1; margin: 50px; margin-top:70px; background-color: white;">
         <div class="box box-success">
           <div class="box-header ui-sortable-handle" style="cursor: move;">
             <i class="fa fa-comments-o"></i>
@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <div id="activities" style="background-color: white;">
+      <div id="activities" style="background-color: white; flex: 1;">
         <div class="box-header with-border">
           <span>Activities</span>
         </div>
@@ -97,7 +97,21 @@
         </ul>
       </div>
 
-      <div id="meetingScreen" style="display: none; background-color: black;">
+      <div id="dailyRead" style="display: none; flex: 1; background-color: white; margin-top:47px;">
+        <iframe id="dailyReadingPDF" src="" title="Daily Reading" style="width: 100%; height: 100vh;"></iframe>
+      </div>
+
+      <div id="studentList"
+        style="display: none; flex: 1; background-color: white; margin-left: 37px; margin-right: 25px;">
+        <div class="box-header with-border">
+          <span>List of Students</span>
+        </div>
+        <ul class="users-list clearfix" id="studentImageRoster">
+        </ul>
+      </div>
+
+      <div id="meetingScreen" style="display: none; flex: 1;">
+        <div id="remoteVideos" class="videoBoxList" style="background-color: black;"></div>
         <video id="activeVideo" autoplay playsinline style="background-color: black;" muted="muted"></video>
         <div>
           <video id="activeScreenShare" class="miniVideoStream" autoplay playsinline muted="muted"
@@ -118,22 +132,8 @@
           </div>
         </div>
       </div>
-
-      <div id="dailyRead" style="display: none; background-color: white; margin-top:47px;">
-        <iframe id="dailyReadingPDF" src="" title="Daily Reading" style="width: 100%; height: 100vh;"></iframe>
-      </div>
-
-      <div id="studentList" style="display: none; background-color: white; margin-left: 37px; margin-right: 25px;">
-        <div class="box-header with-border">
-          <span>List of Students</span>
-        </div>
-        <ul class="users-list clearfix" id="studentImageRoster">
-        </ul>
-      </div>
-
     </div>
     <footer>
-      <div id="remoteVideos" class="videoBoxList" style="background-color: black;"></div>
       <div id="myModules">
         <div class="box-body" style="padding: 1px;">
           <div style="flex: 8; display: flex; flex-wrap: nowrap; overflow-x: auto;" id="moduleList">

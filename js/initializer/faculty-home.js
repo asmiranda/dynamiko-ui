@@ -163,6 +163,8 @@ class FacultyHome extends StudentHome {
         $(`#myModules`).hide();
         $(`#dailyRead`).hide();
         $(`#chatScreen`).hide();
+        $(`#removeVideo`).hide();
+        $(`#activeVideo`).hide();
 
         $(`#uploadScreen`).show();
     }
