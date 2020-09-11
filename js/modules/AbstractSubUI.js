@@ -367,7 +367,7 @@ class AbstractSubUI {
         var template = $(`.hiddenRecordTemplate[module="${subModule}"]`).html();
         var lastRowIndex = $(`.displayRecordTemplate[module="${subModule}"]`).children().length;
         var startOffset = lastRowIndex + 1;
-        var endOffset = lastRowIndex + 5;
+        var endOffset = lastRowIndex + 10;
         for (var offset = startOffset; offset <= endOffset; offset++) {
             var recHtml = utils.replaceAll(template, "----", offset)
             $(`.displayRecordTemplate[module="${subModule}"]`).append(recHtml);

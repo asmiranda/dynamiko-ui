@@ -2,6 +2,29 @@ class EnrollmentUI extends AbstractSubUI {
     constructor() {
         super("EnrollmentUI");
         this.EnrollmentScheduleUI = "EnrollmentScheduleUI";
+
+        let context = this;
+        $(document).on(`changeAutoComplete[studentEmail][EnrollmentUI]`, function () {
+            context.loadStudentEnrollment(this);
+        });
+    }
+
+    loadStudentEnrollment() {
+        let studentEmail = $(`input.HiddenAutoComplete[name="studentEmail"]`).val();
+
+        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/loadStudentEnrollment/${studentEmail}`;
+        var ajaxRequestDTO = new AjaxRequestDTO(url, "");
+
+        let context = this;
+        var successFunction = function (data) {
+            console.log("loadRecordProfile", url, data);
+            context.arrangeRecordProfile(data, `editRecord`);
+            context.arrangeRecordProfileAllSubRecords(data, `editRecord`);
+            autoSaveSubRecord = true;
+            context.initFieldListener();
+            context.onProfileLoaded(data);
+        };
+        ajaxCaller.ajaxGet(ajaxRequestDTO, successFunction);
     }
 
     arrangeRecordProfileAllSubRecords(data, clsName) {
@@ -11,12 +34,14 @@ class EnrollmentUI extends AbstractSubUI {
     changeModule(evt) {
         console.log("changeModule");
         enrollmentUI.loadTopRecords("Enrollment");
-        // reportUI.loadReportList("EnrollmentUI");
+        this.clearSubRecordsHolder(this.EnrollmentScheduleUI);
+        this.appendSubRecordsHolder(this.EnrollmentScheduleUI)
     }
 
     newRecord() {
         this.clearModuleInputs(this.moduleName);
-        this.clearModuleInputs(this.EnrollmentScheduleUI);
+        this.clearSubRecordsHolder(this.EnrollmentScheduleUI);
+        this.appendSubRecordsHolder(this.EnrollmentScheduleUI)
     }
 
     formatSearchList(index, obj, tabName) {
