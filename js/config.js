@@ -2,7 +2,7 @@
 var server = window.location.hostname;
 var port = window.location.port;
 var servicePort = parseInt(port) + 1000;
-var MAIN_URL = `http://${server}:${servicePort}`;
+var MAIN_URL = `https://${server}:${servicePort}`;
 
 var dynaRegister;
 
