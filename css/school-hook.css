@@ -4,7 +4,7 @@
 }
 
 #activeVideo {
-    width: 100%; 
+    width: 80vh; 
     height: 80vh; 
     background-color: gray;
 }
@@ -21,7 +21,7 @@
 .videoBoxList {
     display: flex; 
     flex-wrap: nowrap; 
-    overflow-x: auto;
+    /* overflow-x: auto; */
     justify-content: space-evenly;
 }
 
