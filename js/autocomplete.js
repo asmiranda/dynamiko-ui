@@ -53,7 +53,7 @@ class DynaAutoComplete {
         var isAutoCompleteQuickUpdaterInput = $(obj).hasClass("autoCompleteQuickUpdaterInput");
 
         console.log("Autocomplete typed " + value);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/autocomplete/${moduleName}/${fieldName}/${value}`;
+        var url = `${MAIN_URL}/api/generic/autocomplete/${moduleName}/${fieldName}/${value}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log(data);
@@ -109,9 +109,9 @@ class DynaAutoComplete {
         var value = $(field).val();
 
         if (value != null && value != "") {
-            var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/autocompletelabel/' + moduleName + '/' + name + '/' + value;
+            var url = MAIN_URL + '/api/generic/autocompletelabel/' + moduleName + '/' + name + '/' + value;
             if (subModuleName) {
-                url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
+                url = MAIN_URL + '/api/generic/autocompletelabel/' + subModuleName + '/' + name + '/' + value;
             }
             var ajaxRequestDTO = new AjaxRequestDTO(url, "");
             var innerForm = form;
@@ -173,7 +173,7 @@ class DynaAutoComplete {
         var value = $(hiddenAutoComplete).val();
 
         if (value != null && value != "") {
-            var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/autocompletelabel/${moduleName}/${field}/${value}`;
+            var url = `${MAIN_URL}/api/generic/autocompletelabel/${moduleName}/${field}/${value}`;
             var data = storage.get(url);
             if (data == null || data == "") {
                 var ajaxRequestDTO = new AjaxRequestDTO(url, "");

@@ -18,7 +18,7 @@ class EnrollmentUI extends AbstractSubUI {
         let rowOffset = $(obj).attr("rowIndex")
         let schoolScheduleCode = $(`input.HiddenAutoComplete[rowIndex="${rowOffset}"][name="schoolScheduleCode"]`).val();
 
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/removeSchedule/${studentEmail}/${schoolScheduleCode}`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/removeSchedule/${studentEmail}/${schoolScheduleCode}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let context = this;
@@ -36,7 +36,7 @@ class EnrollmentUI extends AbstractSubUI {
     loadStudentEnrollment() {
         let studentEmail = $(`input.HiddenAutoComplete[name="studentEmail"]`).val();
 
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/loadStudentEnrollment/${studentEmail}`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/loadStudentEnrollment/${studentEmail}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         let context = this;

@@ -232,7 +232,7 @@ class AbstractSubUI {
         tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/saveSubRecord`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/saveSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveSubRecord", tmpParent, url, data);
