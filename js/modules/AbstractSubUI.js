@@ -183,11 +183,11 @@ class AbstractSubUI {
 
         console.log(tmp);
         var vdata = JSON.stringify(tmp);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/saveRecord/${tmp["code"]}`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/saveRecord/${tmp["code"]}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("saveRecord", url, data);
-            showModalAny.show("Save Record Message", data.value);
+            showModalAny.show("Message", "Record Saved Successfully.");
             utils.hideSpin();
         };
         ajaxCaller.ajaxPost(ajaxRequestDTO, successCallback);
@@ -205,7 +205,7 @@ class AbstractSubUI {
         tmpParent["SubModule"] = subModule;
 
         var vdata = JSON.stringify(tmpParent);
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/deleteSubRecord`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/deleteSubRecord`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, vdata);
         var successCallback = function (data) {
             console.log("deleteSubRecord", tmpParent, url, data);
@@ -277,7 +277,7 @@ class AbstractSubUI {
         var tmp = utils.collectDataForSaving(`searchFilter`, `${this.moduleName}`, "0");
         var param = utils.convertToQueryString(tmp);
 
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/filterRecord${param}`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/filterRecord${param}`;
         console.log("searchRecordFilter", url);
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
