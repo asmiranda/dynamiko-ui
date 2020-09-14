@@ -11,7 +11,7 @@ class LeftMenu {
             leftMenu.loadUI(this);
         });
 
-        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/getLeftMenu';
+        var url = MAIN_URL + '/api/generic/getLeftMenu';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("Left Menu Extracted");

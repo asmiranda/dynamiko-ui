@@ -123,7 +123,7 @@ class UiService {
     }
 
     initProfile() {
-        var url = MAIN_URL + '/api/generic/' + storage.getCompanyCode() + '/profile';
+        var url = MAIN_URL + '/api/generic/profile';
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
         var successCallback = function (data) {
             console.log("profile ==");

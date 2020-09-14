@@ -108,8 +108,8 @@ class AjaxCaller {
         };
         xhr.send(vdata);
     }
-    uploadFile(callback, moduleName, recordId, uploadType, formUploadData) {
-        var vurl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/attachment/upload/${uploadType}/${moduleName}/${recordId}`;
+    uploadFile(callback, moduleName, moduleCode, uploadType, formUploadData) {
+        var vurl = `${MAIN_URL}/api/generic/attachment/upload/${uploadType}/${moduleName}/${moduleCode}`;
         console.log(vurl);
         $.ajax({
             url: vurl,

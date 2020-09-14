@@ -395,7 +395,7 @@ class StudentHome {
     }
 
     loadProfile() {
-        let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/PersonUI/getProfile`;
+        let url = `${MAIN_URL}/api/generic/widget/PersonUI/getProfile`;
         let ajaxRequestDTO = new AjaxRequestDTO(url, "");
         let successFunction = function (data) {
             console.log(data);
@@ -413,7 +413,7 @@ class StudentHome {
             context.arrangeSchedules(cache_data);
         }
         else {
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/getSchedule`;
+            let url = `${MAIN_URL}/api/generic/widget/SchoolUI/getSchedule`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
             let successFunction = function (data) {
                 storage.set(key, data);
@@ -462,7 +462,7 @@ class StudentHome {
             let endTime = cache_data.endTime;
 
             $("#moduleProfileDetail").html(`( ${startTime}-${endTime} )`);
-            let dailyReadingUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/pwidget/SchoolUI/getDailyReading/${scheduleCode}`;
+            let dailyReadingUrl = `${MAIN_URL}/api/pgeneric?widget=SchoolUI&action=getDailyReading&term1=${scheduleCode}`;
             // let trueUrl = `https://docs.google.com/viewerng/viewer?url=${dailyReadingUrl}&embedded=true`;
             let trueUrl = `${dailyReadingUrl}`;
             $("#dailyReadingPDF").attr("src", trueUrl);
@@ -477,7 +477,7 @@ class StudentHome {
             context.arrangeStudents(cache_data);
         }
         else {
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/getStudents/${scheduleCode}`;
+            let url = `${MAIN_URL}/api/generic/widget/SchoolUI/getStudents/${scheduleCode}`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             let successFunction = function (data) {
@@ -489,13 +489,9 @@ class StudentHome {
     }
 
     arrangeStudents(data) {
-        //        console.log("loadStudents", url, data);
         $("#studentImageRoster").empty();
         $(data).each(function (index, obj) {
-            let code = obj.getPropDefault("code", "--");
-            let profileUrl = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/profilePic/PersonUI/${code}`;
             let fullName = `${obj.getPropDefault("firstName", "--")} ${obj.getPropDefault("lastName", "--")}`;
-            let birthDate = `${obj.getPropDefault("birthDate", "--")}`;
             let str = `
                 <li style="width: 70%;">
                     <a class="users-list-name text-left" href="#">${fullName}</a>
@@ -515,7 +511,7 @@ class StudentHome {
             context.arrangeActivities(cache_data);
         }
         else {
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/getActivities/${scheduleCode}`;
+            let url = `${MAIN_URL}/api/generic/widget/SchoolUI/getActivities/${scheduleCode}`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
             let successFunction = function (data) {

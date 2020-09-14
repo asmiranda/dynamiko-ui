@@ -247,7 +247,7 @@ class AbstractSubUI {
         utils.showSpin();
         var context = this;
         var recordId = $(obj).attr("recordId");
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/getRecordProfile/${recordId}`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/getRecordProfile/${recordId}`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var successFunction = function (data) {
@@ -318,7 +318,7 @@ class AbstractSubUI {
     loadTopRecords(tabName) {
         utils.showSpin();
         var recordId = $(mainId).val();
-        var url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/${this.moduleName}/getTopRecords`;
+        var url = `${MAIN_URL}/api/generic/widget/${this.moduleName}/getTopRecords`;
         var ajaxRequestDTO = new AjaxRequestDTO(url, "");
 
         var context = this;

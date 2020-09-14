@@ -23,7 +23,7 @@ class SchoolStaffHome extends FacultyHome {
             context.arrangeFacultyModules(cache_data);
         }
         else {
-            let url = `${MAIN_URL}/api/generic/${storage.getCompanyCode()}/widget/SchoolUI/getAllFacultyModules`;
+            let url = `${MAIN_URL}/api/generic/widget/SchoolUI/getAllFacultyModules`;
             let ajaxRequestDTO = new AjaxRequestDTO(url, "");
             let successFunction = function (data) {
                 storage.set(key, data);
